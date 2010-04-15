@@ -28,7 +28,7 @@ namespace SpellWork
 
             // 'loader' must complete it's work to this time
             // but user can manually close the window
-            // or something ban can happen
+            // or something bad can happen
             if (loader != null)
             {
                 loader.Close();

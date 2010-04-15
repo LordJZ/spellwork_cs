@@ -7,7 +7,7 @@ namespace SpellWork
         /// <summary>
         ///  A function to calculate time diff
         /// </summary>
-        /// <returns>Milliseconds between to timestamps</returns>
+        /// <returns>Milliseconds between two timestamps</returns>
         public static Int32 MsDiff(DateTime time1, DateTime time2)
         {
             return (Int32)(time2 - time1).TotalMilliseconds;
