@@ -29,8 +29,8 @@ namespace SpellWork
 
             int sz = Marshal.SizeOf(typeof(T));
 
-            if(fieldsCount*4 != sz)
-                throw new Exception(String.Format("\n\nSize of row in DBC file ({0}) != size of DBC struct ({1})\nDBC: {2}\n\n", fieldsCount*4, sz, fileName));
+            if (recordSize != sz+4)
+                throw new Exception(String.Format("\n\nSize of row in DBC file ({0}) != size of DBC struct ({1})\nDBC: {2}\n\n", recordSize, sz+4, fileName));
 
             GenericReader dataReader = new GenericReader(new MemoryStream(reader.ReadBytes(recordsCount * recordSize)), Encoding.UTF8);
             GenericReader stringsReader = new GenericReader(new MemoryStream(reader.ReadBytes(stringTableSize)), Encoding.UTF8);
@@ -40,7 +40,7 @@ namespace SpellWork
             for (int r = 0; r < recordsCount; ++r)
             {
                 uint key = dataReader.ReadUInt32();
-                dataReader.BaseStream.Position -= 4;
+                //dataReader.BaseStream.Position -= 4;
 
                 byte[] rawData = dataReader.ReadBytes(sz);
 

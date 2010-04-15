@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{49A3559B-529A-4406-824B-F7E2831DE1B2}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -38,6 +38,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -70,6 +71,7 @@
     <Compile Include="DBC\DBCReader.cs" />
     <Compile Include="DBC\ReaderThread.cs" />
     <Compile Include="DBC\Structure.cs" />
+    <Compile Include="Util\SpellEnums.cs" />
     <Compile Include="Extensions\Controls.cs" />
     <Compile Include="Loading\Loader.cs" />
     <Compile Include="Loading\LoadingForm.cs">
