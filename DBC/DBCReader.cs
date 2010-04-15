@@ -27,10 +27,10 @@ namespace SpellWork
             int recordSize = reader.ReadInt32();
             int stringTableSize = reader.ReadInt32();
 
-            int sz = Marshal.SizeOf(typeof(T));
+            int size = Marshal.SizeOf(typeof(T));
 
-            if (recordSize != sz+4)
-                throw new Exception(String.Format("\n\nSize of row in DBC file ({0}) != size of DBC struct ({1})\nDBC: {2}\n\n", recordSize, sz+4, fileName));
+            if (recordSize != size)
+                throw new Exception(String.Format("\n\nSize of row in DBC file ({0}) != size of DBC struct ({1})\nDBC: {2}\n\n", recordSize, size, fileName));
 
             GenericReader dataReader = new GenericReader(new MemoryStream(reader.ReadBytes(recordsCount * recordSize)), Encoding.UTF8);
             GenericReader stringsReader = new GenericReader(new MemoryStream(reader.ReadBytes(stringTableSize)), Encoding.UTF8);
@@ -40,9 +40,9 @@ namespace SpellWork
             for (int r = 0; r < recordsCount; ++r)
             {
                 uint key = dataReader.ReadUInt32();
-                //dataReader.BaseStream.Position -= 4;
+                dataReader.BaseStream.Position -= 4;
 
-                byte[] rawData = dataReader.ReadBytes(sz);
+                byte[] rawData = dataReader.ReadBytes(size);
 
                 GCHandle handle = GCHandle.Alloc(rawData, GCHandleType.Pinned);
                 T T_entry = (T)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(T));
