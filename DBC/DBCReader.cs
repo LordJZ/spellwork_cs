@@ -16,7 +16,10 @@ namespace SpellWork
 
             Dictionary<uint, T> dict = new Dictionary<uint, T>();
 
-            GenericReader reader = new GenericReader(fileName, Encoding.UTF8);
+            if (!File.Exists(fileName))
+                throw new Exception("File " + fileName + " not found");
+
+            BinaryReader reader = new BinaryReader(new FileStream(fileName, FileMode.Open, FileAccess.Read), Encoding.UTF8);
 
             // Sanity check
             if (reader.BaseStream.Length < 20 || reader.ReadUInt32() != 0x43424457)
@@ -32,8 +35,8 @@ namespace SpellWork
             if (recordSize != size)
                 throw new Exception(String.Format("\n\nSize of row in DBC file ({0}) != size of DBC struct ({1})\nDBC: {2}\n\n", recordSize, size, fileName));
 
-            GenericReader dataReader = new GenericReader(new MemoryStream(reader.ReadBytes(recordsCount * recordSize)), Encoding.UTF8);
-            GenericReader stringsReader = new GenericReader(new MemoryStream(reader.ReadBytes(stringTableSize)), Encoding.UTF8);
+            BinaryReader dataReader = new BinaryReader(new MemoryStream(reader.ReadBytes(recordsCount * recordSize)), Encoding.UTF8);
+            BinaryReader stringsReader = new BinaryReader(new MemoryStream(reader.ReadBytes(stringTableSize)), Encoding.UTF8);
 
             reader.Close();
 
@@ -68,7 +71,7 @@ namespace SpellWork
                         {
                             strDict.Add(idx, str);
                             str = "";
-                            idx = i + 1;
+                            idx = i++;
                         }
                     }
                     else
@@ -83,86 +86,6 @@ namespace SpellWork
             Program.loadingForm.ProgressBarStep();
 
             return dict;
-        }
-    }
-
-    class GenericReader : BinaryReader
-    {
-        public GenericReader(Stream input, Encoding encoding) : base(input, encoding) { }
-
-        public GenericReader(String fname, Encoding encoding) : base(new FileStream(fname, FileMode.Open, FileAccess.Read), encoding) { }
-
-        public String ReadStringDbc(Int32 offset)
-        {
-            this.BaseStream.Position = offset;
-
-            return this.ReadCString();
-        }
-    }
-
-    public static class BinaryReaderExtensions
-    {
-        /// <summary>  Reads the packed guid from the current stream and 
-        /// advances the current position of the stream by packed guid size.
-        /// </summary>
-        public static ulong ReadPackedGuid(this BinaryReader reader)
-        {
-            byte mask = reader.ReadByte();
-
-            if (mask == 0)
-            {
-                return 0;
-            }
-
-            ulong res = 0;
-
-            int i = 0;
-            while (i < 8)
-            {
-                if ((mask & 1 << i) != 0)
-                {
-                    res += (ulong)reader.ReadByte() << (i * 8);
-                }
-                i++;
-            }
-
-            return res;
-        }
-
-        /// <summary> Reads the NULL terminated string from 
-        /// the current stream and advances the current position of the stream by string length + 1.
-        /// <seealso cref="BinaryReader.ReadString"/>
-        /// </summary>
-        public static string ReadCString(this BinaryReader reader)
-        {
-            return reader.ReadCString(Encoding.UTF8);
-        }
-
-        /// <summary> Reads the NULL terminated string from 
-        /// the current stream and advances the current position of the stream by string length + 1.
-        /// <seealso cref="BinaryReader.ReadString"/>
-        /// </summary>
-        public static string ReadCString(this BinaryReader reader, Encoding encoding)
-        {
-            var bytes = new List<byte>();
-            byte b;
-            while ((b = reader.ReadByte()) != 0)
-            {
-                bytes.Add(b);
-            }
-            return encoding.GetString(bytes.ToArray());
-        }
-
-        /// <summary> Reads struct from the current stream and advances the 
-        /// current position if the stream by SizeOf(T) bytes.
-        /// </summary>
-        public static T ReadStruct<T>(this BinaryReader reader) where T : struct
-        {
-            byte[] rawData = reader.ReadBytes(Marshal.SizeOf(typeof(T)));
-            GCHandle handle = GCHandle.Alloc(rawData, GCHandleType.Pinned);
-            var returnObject = (T)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(T));
-            handle.Free();
-            return returnObject;
         }
     }
 }
