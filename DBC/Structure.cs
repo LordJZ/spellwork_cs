@@ -5,8 +5,6 @@ using System.Runtime.InteropServices;
 
 namespace SpellWork
 {
-    #region SpellEntry
-
     [StructLayout(LayoutKind.Sequential)]
     public struct SpellEntry
     {
@@ -115,17 +113,17 @@ namespace SpellWork
         public uint activeIconID;                                 // 134      m_activeIconID
         public uint spellPriority;                                // 135      m_spellPriority not used
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-        public uint[] SpellName;                                  // 136-151  m_name_lang
-        public uint SpellNameFlag;                                // 152 not used
+        private uint[] _SpellName;                                // 136-151  m_name_lang
+        public uint SpellNameFlag;                                // 152      not used
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-        public uint[] Rank;                                       // 153-168  m_nameSubtext_lang
-        public uint RankFlags;                                    // 169 not used
+        private uint[] _Rank;                                     // 153-168  m_nameSubtext_lang
+        public uint RankFlags;                                    // 169      not used
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-        public uint[] Description;                                // 170-185  m_description_lang not used
-        public uint DescriptionFlags;                             // 186 not used
+        private uint[] _Description;                              // 170-185  m_description_lang not used
+        public uint DescriptionFlags;                             // 186      not used
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-        public uint[] ToolTip;                                    // 187-202  m_auraDescription_lang not used
-        public uint ToolTipFlags;                                 // 203 not used
+        private uint[] _ToolTip;                                  // 187-202  m_auraDescription_lang not used
+        public uint ToolTipFlags;                                 // 203      not used
         public uint ManaCostPercentage;                           // 204      m_manaCostPct
         public uint StartRecoveryCategory;                        // 205      m_startRecoveryCategory
         public uint StartRecoveryTime;                            // 206      m_startRecoveryTime
@@ -149,71 +147,101 @@ namespace SpellWork
         public uint SchoolMask;                                   // 225      m_schoolMask
         public uint runeCostID;                                   // 226      m_runeCostID
         public uint spellMissileID;                               // 227      m_spellMissileID not used
-        public uint PowerDisplayId;                               // 228 PowerDisplay.dbc, new in 3.1
+        public uint PowerDisplayId;                               // 228      PowerDisplay.dbc, new in 3.1
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
         public float[] unk_320_4;                                 // 229-231  3.2.0
         public uint spellDescriptionVariableID;                   // 232      3.2.0
         public uint SpellDifficultyId;                            // 233      3.3.0                           // 239      3.3.0
-
-        public string GetName 
+        /// <summary>
+        /// Return curent Spell Name
+        /// </summary>
+        public string SpellName 
         { 
             get 
             {
                 string ss;
-                uint offset = SpellName[DBC.Locale];
+                uint offset = _SpellName[DBC.Locale];
                 DBC._SpellStrings.TryGetValue(offset, out ss); 
                 return ss;
             } 
         }
-        public string GetRank 
+        /// <summary>
+        /// Return curent Spell Rank
+        /// </summary>
+        public string Rank 
         { 
             get 
             {
-                return DBC._SpellStrings[Rank[DBC.Locale]]; 
+                return DBC._SpellStrings[_Rank[DBC.Locale]]; 
             } 
         }
-        public string GetDesc 
+        /// <summary>
+        /// Return curent Spell Description
+        /// </summary>
+        public string Descriprion 
         { 
             get 
             {
-                return DBC._SpellStrings[Description[DBC.Locale]]; 
+                return DBC._SpellStrings[_Description[DBC.Locale]]; 
             } 
         }
-        public string GetTooltip 
+        /// <summary>
+        /// Return curent Spell ToolTip
+        /// </summary>
+        public string ToolTip 
         { 
             get 
             { 
-                return DBC._SpellStrings[ToolTip[DBC.Locale]]; 
+                return DBC._SpellStrings[_ToolTip[DBC.Locale]]; 
             } 
         }
 
-        public string getName(byte loc) 
+        public string GetName(byte loc) 
         { 
-            return DBC._SpellStrings[SpellName[loc]]; 
+            return DBC._SpellStrings[_SpellName[loc]]; 
         }
     };
-    #endregion
 
     struct SkillLineEntry
     {
-        public uint   ID;                                            // 0        m_ID
-        public int    CategoryId;                                    // 1        m_categoryID
-        public uint   SkillCostID;                                   // 2        m_skillCostsID
+        public uint    ID;                                            // 0        m_ID
+        public int     CategoryId;                                    // 1        m_categoryID
+        public uint    SkillCostID;                                   // 2        m_skillCostsID
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-        public uint[] Name;                                          // 3-18     m_displayName_lang
-        public uint   NameFlags;                                     // 19
+        private uint[] _Name;                                         // 3-18     m_displayName_lang
+        public uint    NameFlags;                                     // 19
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-        public uint[] Description;                                   // 20-35    m_description_lang
-        public uint   DescriptionFlags;                              // 36
-        public uint   SpellIcon;                                     // 37       m_spellIconID
+        private uint[] _Description;                                  // 20-35    m_description_lang
+        public uint    DescriptionFlags;                              // 36
+        public uint    SpellIcon;                                     // 37       m_spellIconID
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-        public uint[] AlternateVerb;                                 // 38-53    m_alternateVerb_lang
-        public uint   AlternateVerbFlags;                            // 54
-        public uint   CanLink;                                       // 55       m_canLink (prof. with recipes
+        private uint[] _AlternateVerb;                                // 38-53    m_alternateVerb_lang
+        public uint    AlternateVerbFlags;                            // 54
+        public uint    CanLink;                                       // 55       m_canLink (prof. with recipes
 
-        public string GetName { get { return DBC._SkillLineStrings[Name[DBC.Locale]]; } }
-        public string GetDesc { get { return DBC._SkillLineStrings[Description[DBC.Locale]]; } }
-        public string GetAlternateVerb { get { return DBC._SkillLineStrings[AlternateVerb[DBC.Locale]]; } }
+        public string Name 
+        { 
+            get 
+            { 
+                return DBC._SkillLineStrings[_Name[DBC.Locale]]; 
+            } 
+        }
+
+        public string Description 
+        { 
+            get 
+            { 
+                return DBC._SkillLineStrings[_Description[DBC.Locale]]; 
+            } 
+        }
+
+        public string AlternateVerb 
+        {
+            get 
+            { 
+                return DBC._SkillLineStrings[_AlternateVerb[DBC.Locale]]; 
+            } 
+        }
     };
 
     struct SkillLineAbilityEntry
@@ -238,27 +266,40 @@ namespace SpellWork
     {
         public uint  ID;
         public float Radius;
-        private int  Zero;
+        public int   Zero;
         public float Radius2;
     };
 
     struct SpellRangeEntry
     {
-        public uint   ID;
-        public float  MinRange;
-        public float  MinRangeFriendly;
-        public float  MaxRange;
-        public float  MaxRangeFriendly;
-        public uint   Field5;
+        public uint    ID;
+        public float   MinRange;
+        public float   MinRangeFriendly;
+        public float   MaxRange;
+        public float   MaxRangeFriendly;
+        public uint    Field5;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-        public uint[] Desc1;
-        public uint   Desc1Flags;
+        private uint[] _Desc1;
+        public uint    Desc1Flags;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-        public uint[] Desc2;
-        public uint   Desc2Flags;
+        private uint[] _Desc2;
+        public uint    Desc2Flags;
 
-        public string GetDesc1 { get { return DBC._SpellRangeStrings[Desc1[DBC.Locale]]; } }
-        public string GetDesc2 { get { return DBC._SpellRangeStrings[Desc2[DBC.Locale]]; } }
+        public string Description1 
+        { 
+            get 
+            { 
+                return DBC._SpellRangeStrings[_Desc1[DBC.Locale]]; 
+            } 
+        }
+
+        public string Description2 
+        { 
+            get 
+            { 
+                return DBC._SpellRangeStrings[_Desc2[DBC.Locale]]; 
+            } 
+        }
     };
 
     struct SpellDurationEntry

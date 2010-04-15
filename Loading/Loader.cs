@@ -50,7 +50,7 @@ namespace SpellWork
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception(ex.ToString());
             }
 
             Program.loadingForm._Close();

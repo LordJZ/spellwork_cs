@@ -9,8 +9,6 @@ namespace SpellWork
         public static Dictionary<uint, SpellEntry> Spell = new Dictionary<uint, SpellEntry>();
         public static Dictionary<uint, string> _SpellStrings = new Dictionary<uint, string>();
 
-        //public static Dictionary<uint, SpellCastTimeEntry> = new Dictionary<uint, SpellCastTimeEntry>();
-
         public static Dictionary<uint, SpellRadiusEntry> SpellRadius = new Dictionary<uint, SpellRadiusEntry>();
         
         public static Dictionary<uint, SpellRangeEntry> SpellRange = new Dictionary<uint, SpellRangeEntry>();
@@ -22,7 +20,7 @@ namespace SpellWork
         public static Dictionary<uint, SkillLineEntry> SkillLine = new Dictionary<uint, SkillLineEntry>();
         public static Dictionary<uint, string> _SkillLineStrings = new Dictionary<uint, string>();
 
-        public static byte Locale = 8;
+        public static byte Locale = 0;
     }
 
     static class DictionaryExtensions

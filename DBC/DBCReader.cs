@@ -25,9 +25,9 @@ namespace SpellWork
             if (reader.BaseStream.Length < 20 || reader.ReadUInt32() != 0x43424457)
                 throw new Exception(String.Format("Bad DBC file {0}", fileName));
 
-            int recordsCount = reader.ReadInt32();
-            int fieldsCount = reader.ReadInt32();
-            int recordSize = reader.ReadInt32();
+            int recordsCount    = reader.ReadInt32();
+            int fieldsCount     = reader.ReadInt32();
+            int recordSize      = reader.ReadInt32();
             int stringTableSize = reader.ReadInt32();
 
             int size = Marshal.SizeOf(typeof(T));
@@ -65,9 +65,9 @@ namespace SpellWork
                 uint idx = 1;
                 for (uint i = 0; i < data.Length; ++i)
                 {
-                    if(data[i] == nullChar)
+                    if (data[i] == nullChar)
                     {
-                        if(i > 0)
+                        if (i > 0)
                         {
                             strDict.Add(idx, str);
                             str = "";

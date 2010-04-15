@@ -191,7 +191,7 @@ namespace SpellWork
             foreach (var element in query)
             {
                 var id = element.Key.ToString();
-                var name = element.Value.GetName;
+                var name = element.Value.SpellName;
                 var rank = "";// element.Value.GetRank;
 
                 _lvSpellList.Items.Add(new ListViewItem(new String[] { id, name + " " + rank }));
