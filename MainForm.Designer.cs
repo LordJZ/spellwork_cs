@@ -247,10 +247,17 @@
             this._chName = new System.Windows.Forms.ColumnHeader();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this._bProc = new System.Windows.Forms.Button();
             this._bSpellInfo = new System.Windows.Forms.Button();
+            this.splitContainer6 = new System.Windows.Forms.SplitContainer();
+            this._lvDataList = new System.Windows.Forms.ListView();
+            this._tbSqlLog = new System.Windows.Forms.TextBox();
+            this._tsmFile = new System.Windows.Forms.ToolStripMenuItem();
+            this._tsmExit = new System.Windows.Forms.ToolStripMenuItem();
+            this._tsmHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this._tsmAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -273,6 +280,9 @@
             this.splitContainer5.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.splitContainer6.Panel1.SuspendLayout();
+            this.splitContainer6.Panel2.SuspendLayout();
+            this.splitContainer6.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -292,6 +302,9 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._tsmFile,
+            this._tsmHelp});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(856, 24);
@@ -940,27 +953,19 @@
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Size = new System.Drawing.Size(848, 384);
             this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Update Log";
+            this.tabPage4.Text = "Sql Data";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.richTextBox2);
+            this.groupBox2.Controls.Add(this.splitContainer6);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(848, 384);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "groupBox2";
-            // 
-            // richTextBox2
-            // 
-            this.richTextBox2.Location = new System.Drawing.Point(3, 43);
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(844, 345);
-            this.richTextBox2.TabIndex = 0;
-            this.richTextBox2.Text = "";
+            this.groupBox2.Text = "SQL Data";
             // 
             // _bProc
             // 
@@ -986,6 +991,75 @@
             this._bSpellInfo.Visible = false;
             this._bSpellInfo.Click += new System.EventHandler(this._bSpellInfo_Click);
             // 
+            // splitContainer6
+            // 
+            this.splitContainer6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer6.Location = new System.Drawing.Point(3, 16);
+            this.splitContainer6.Name = "splitContainer6";
+            this.splitContainer6.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer6.Panel1
+            // 
+            this.splitContainer6.Panel1.Controls.Add(this._lvDataList);
+            // 
+            // splitContainer6.Panel2
+            // 
+            this.splitContainer6.Panel2.Controls.Add(this._tbSqlLog);
+            this.splitContainer6.Size = new System.Drawing.Size(842, 365);
+            this.splitContainer6.SplitterDistance = 144;
+            this.splitContainer6.TabIndex = 0;
+            // 
+            // _lvDataList
+            // 
+            this._lvDataList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._lvDataList.Location = new System.Drawing.Point(0, 0);
+            this._lvDataList.Name = "_lvDataList";
+            this._lvDataList.Size = new System.Drawing.Size(842, 144);
+            this._lvDataList.TabIndex = 0;
+            this._lvDataList.UseCompatibleStateImageBehavior = false;
+            this._lvDataList.View = System.Windows.Forms.View.Details;
+            // 
+            // _tbSqlLog
+            // 
+            this._tbSqlLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this._tbSqlLog.Location = new System.Drawing.Point(3, 53);
+            this._tbSqlLog.Multiline = true;
+            this._tbSqlLog.Name = "_tbSqlLog";
+            this._tbSqlLog.Size = new System.Drawing.Size(836, 161);
+            this._tbSqlLog.TabIndex = 0;
+            // 
+            // _tsmFile
+            // 
+            this._tsmFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._tsmExit});
+            this._tsmFile.Name = "_tsmFile";
+            this._tsmFile.Size = new System.Drawing.Size(35, 20);
+            this._tsmFile.Text = "File";
+            // 
+            // _tsmExit
+            // 
+            this._tsmExit.Name = "_tsmExit";
+            this._tsmExit.Size = new System.Drawing.Size(152, 22);
+            this._tsmExit.Text = "Exit";
+            this._tsmExit.Click += new System.EventHandler(this._tsmExit_Click);
+            // 
+            // _tsmHelp
+            // 
+            this._tsmHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._tsmAbout});
+            this._tsmHelp.Name = "_tsmHelp";
+            this._tsmHelp.Size = new System.Drawing.Size(40, 20);
+            this._tsmHelp.Text = "Help";
+            // 
+            // _tsmAbout
+            // 
+            this._tsmAbout.Name = "_tsmAbout";
+            this._tsmAbout.Size = new System.Drawing.Size(152, 22);
+            this._tsmAbout.Text = "About..";
+            this._tsmAbout.Click += new System.EventHandler(this._tsmAbout_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1003,6 +1077,8 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -1028,6 +1104,10 @@
             this.splitContainer5.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
+            this.splitContainer6.Panel1.ResumeLayout(false);
+            this.splitContainer6.Panel2.ResumeLayout(false);
+            this.splitContainer6.Panel2.PerformLayout();
+            this.splitContainer6.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1054,7 +1134,6 @@
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.RichTextBox richTextBox2;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.SplitContainer splitContainer4;
@@ -1096,5 +1175,12 @@
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.CheckBox _cbProcFlag;
         private System.Windows.Forms.CheckedListBox _clbProcFlags;
+        private System.Windows.Forms.SplitContainer splitContainer6;
+        private System.Windows.Forms.ListView _lvDataList;
+        private System.Windows.Forms.TextBox _tbSqlLog;
+        private System.Windows.Forms.ToolStripMenuItem _tsmFile;
+        private System.Windows.Forms.ToolStripMenuItem _tsmExit;
+        private System.Windows.Forms.ToolStripMenuItem _tsmHelp;
+        private System.Windows.Forms.ToolStripMenuItem _tsmAbout;
     }
 }
