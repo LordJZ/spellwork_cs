@@ -13,69 +13,7 @@ namespace SpellWork
         {
             rtb.Clear();
             var spell = (from s in DBC.Spell where s.Key == spellId select s.Value).First();
-
-            rtb.AppendText(
-                String.Format("Spell Name: {0} ({1})\r\nDescription: {2}\r\nTool Tip: {3}", spell.SpellName, spell.Rank, spell.Descriprion, spell.ToolTip));
-            rtb.AppendText("\r\n========================================================================\r\n");
-            rtb.AppendText(
-                String.Format("Attributes 0x{0:X8},  Ex 0x{1:X8}, Ex2 0x{2:X8}, Ex3 0x{3:X8}, Ex4 0x{4:X8}, Ex5 0x{5:X8}, Ex6 0x{6:X8}, ExG 0x{7:X8}",
-                     spell.Attributes, spell.AttributesEx, spell.AttributesEx2, spell.AttributesEx3, spell.AttributesEx4,
-                     spell.AttributesEx5, spell.AttributesEx6, spell.AttributesExG));
-            rtb.AppendText(String.Format("\r\nProcFlags: 0x{0:X8}, ProcChance: {1:X8}, ProcCharges: {2:X8}", spell.procFlags, spell.procChance, spell.procCharges));
-            rtb.AppendText(String.Format("\r\nSpellFamilyFlags: 0x{0:X8} {1:X8} {2:X8}", spell.SpellFamilyFlags3, spell.SpellFamilyFlags2, spell.SpellFamilyFlags1));
-            rtb.AppendText(ViewFlags(spell));
-            rtb.AppendText(String.Format("{0} {1} {2} {3}\r\n",spell.PreventionType, spell.excludeCasterAuraSpell, spell.EquippedItemClass, spell.procChance));
-
-            rtb.AppendText(SelectDuration(spell.DurationIndex));
-            rtb.AppendText(SelectRange(spell.rangeIndex));
-
-            rtb.AppendText(SelectSkillLineAbility(spell.ID));
-        }
-
-        static String ViewFlags(SpellEntry spell)
-        {
-            int COUNT = 3;
-
-            var info = "\r\nSpellFamilyNames: " + (SpellFamilyNames)spell.SpellFamilyName;
-            info += "\r\nSpellSchoolMask: " + (SpellSchoolMask)spell.SchoolMask;
-
-            var mechnics = (Mechanics)spell.Mechanic;
-            info += (mechnics == Mechanics.MECHANIC_NONE) ? "" 
-                : String.Format("\r\nMechanics: {0}", mechnics);
-
-            var DmgClass = (SpellDmgClass)spell.DmgClass;
-            info += (DmgClass == SpellDmgClass.SPELL_DAMAGE_CLASS_NONE) ? "" 
-                : String.Format("\r\nDamage Class: {0}", DmgClass);
-
-            var PreventionType = (SpellPreventionType)spell.PreventionType;
-            info += (PreventionType == SpellPreventionType.SPELL_PREVENTION_TYPE_NONE) ? "" 
-                : String.Format("\r\nPrevention Type: {0}", PreventionType);
-
-            for (int i = 0; i < COUNT; i++)
-            {
-                var spellAura = (AuraType)spell.EffectApplyAuraName[i];
-                info += (spellAura == AuraType.SPELL_AURA_NONE) ? "" : String.Format("\r\nEffectApplyAuraName_{0}: {1}", i, spellAura);
-            }
-
-            for (int i = 0; i < COUNT; i++)
-            {
-                var effekt = (SpellEffects)spell.Effect[i];
-                info += (effekt == SpellEffects.NO_SPELL_EFFECT) ? "" : String.Format("\r\nEffect_{0}: {1}", i, effekt);
-            }
-
-            for (int i = 0; i < COUNT; i++)
-            {
-                var targetA = (SpellEffects)spell.EffectImplicitTargetA[i];
-                info += (targetA == SpellEffects.NO_SPELL_EFFECT) ? "" : String.Format("\r\nEffectImplicitTargetA_{0}: {1}", i, targetA);
-            }
-
-            for (int i = 0; i < COUNT; i++)
-            {
-                var targetB = (SpellEffects)spell.EffectImplicitTargetB[i];
-                info += (targetB == SpellEffects.NO_SPELL_EFFECT) ? "" : String.Format("\r\nEffectImplicitTargetB_{0}: {1}", i, targetB);
-            }
-
-            return (info == "") ? "" : info + "\r\n========================================================================\r\n";
+            rtb.AppendText(GenerateSpellDesc(spell));
         }
 
         static String SelectDuration(uint DurationIndex)
@@ -119,6 +57,183 @@ namespace SpellWork
                 str += String.Format("\r\n\t- ID: {0}, Name: {1}", q.skillLine.Value.ID, q.skillLine.Value.Name);
             }
 
+            return str;
+        }
+
+        static String GenerateSpellDesc(SpellEntry spell)
+        {
+            var str = "";
+           
+            str+=String.Format("ID - {0} {1} ({2})\r\n", spell.ID, spell.SpellName, spell.Rank);
+            
+            if (spell.Descriprion != null)
+                str+=String.Format("--------------------------\r\n{0}\r\n",spell.Descriprion);
+            if (spell.ToolTip!=null)
+                str+=String.Format("ToolTip: {0}\r\n", spell.ToolTip);
+            if (spell.modalNextSpell != 0)
+                str+=String.Format("Modal Next Spell: %d\r\n", spell.modalNextSpell);
+            str+=String.Format("--------------------------\r\n");
+
+            str+=String.Format("Category = {0}, SpellIconID = {1}, activeIconID = {2}, SpellVisual_0 = {3}, SpellVisual_1 = {4}\r\n", 
+                spell.Category, spell.SpellIconID, spell.activeIconID, spell.SpellVisual[0], spell.SpellVisual[1]);
+
+            str+=String.Format("Family {0}, flag 0x{1:X8} {2:X8} {3:X8}\r\n",
+                (SpellFamilyNames)spell.SpellFamilyName, spell.SpellFamilyFlags3, spell.SpellFamilyFlags2, spell.SpellFamilyFlags1);
+
+            str += String.Format("SpellSchoolMask = {0}, DamageClass = {1}, PreventionType = {2}\r\n", (SpellSchoolMask)spell.SchoolMask,
+                (SpellDmgClass)spell.DmgClass, (SpellPreventionType)spell.PreventionType);
+
+            if (spell.Targets!=0 || spell.TargetCreatureType!=0)
+                str+=String.Format("Targets 0x%08X, Creature Type 0x%08X\r\n", spell.Targets, spell.TargetCreatureType);
+
+            //if (spell.Stances!=0) str+=addFormInfo(str,spell.Stances);
+
+            //if (spell.StancesNot) str=addFormInfo(str,spell.StancesNot);
+
+            //if (SkillLine)
+            //{
+            // const SkillLineEntry *line = sSkillLineStore.LookupEntry(SkillLine->skillId);
+            // str+=String.Format("Skill (%d)",SkillLine->skillId);
+            // if (line) str+=String.Format(" %s",line->name);
+            // if (SkillLine->req_skill_value>1) str+=String.Format(", Req skill value %d",SkillLine->req_skill_value);
+            // if (SkillLine->forward_spellid) str+=String.Format(", Forward spell %d",SkillLine->forward_spellid);
+            // if (SkillLine->min_value) str+=String.Format(", Min Value %d",SkillLine->min_value);
+            // if (SkillLine->max_value) str+=String.Format(", Max Value %d",SkillLine->max_value);
+            // if (SkillLine->characterPoints[0]) str+=String.Format(", Req characterPoints_0 %d",SkillLine->characterPoints[0]);
+            // if (SkillLine->characterPoints[1]) str+=String.Format(", Req characterPoints_1 %d",SkillLine->characterPoints[1]);
+            // str+=String.Format("\r\n");
+            //}
+
+            if (spell.spellLevel!=0)
+                str+=String.Format("Spell level = {0}",spell.spellLevel);
+            if (spell.baseLevel != 0)
+                str+=String.Format(", base {0}",spell.baseLevel);
+            if (spell.maxLevel != 0)
+                str+=String.Format(", max {0}", spell.maxLevel);
+            if (spell.MaxTargetLevel != 0)
+                str+=String.Format(", maxTargetLevel {0}", spell.MaxTargetLevel);
+
+            str += "\r\n";
+
+            if (spell.EquippedItemClass != -1)
+                str += String.Format("EquippedItemClass {0}", spell.EquippedItemClass);
+            if (spell.EquippedItemSubClassMask!=0)
+                str += String.Format(" Sub class mask 0x{0:X8}", spell.EquippedItemSubClassMask);
+            if (spell.EquippedItemInventoryTypeMask!=0)
+                str+=String.Format(" Inventory mask 0x{0:X8}",   spell.EquippedItemInventoryTypeMask);
+
+            if (spell.Category!=0) 
+                str+=String.Format("Category - {0}\r\n",spell.Category);
+            if (spell.Dispel!=0)   
+                str+=String.Format("Dispel - {0}\r\n", spell.Dispel);
+            if (spell.Mechanic!=0) 
+                str+=String.Format("Mechanic - {0} - {1}\r\n", spell.Mechanic, (Mechanics)spell.Mechanic);
+            
+            //if (range && (range.minRange || range.maxRange))
+            //    str += String.Format("Range {0:F} - {1:F} yards\r\n", range.minRange, range.maxRange);
+            
+            if (spell.speed!=0)    
+                str+=String.Format("Speed {0:F}\r\n", spell.speed);
+
+            str += String.Format("Attributes 0x{0:X8},  Ex 0x{1:X8}, Ex2 0x{2:X8}, Ex3 0x{3:X8}, Ex4 0x{4:X8}, Ex5 0x{5:X8}, Ex6 0x{6:X8}, ExG 0x{7:X8}\r\n",
+                     spell.Attributes, spell.AttributesEx, spell.AttributesEx2, spell.AttributesEx3, spell.AttributesEx4,
+                     spell.AttributesEx5, spell.AttributesEx6, spell.AttributesExG);
+            
+            if (spell.StackAmount!=0) 
+                str+=String.Format("Stackable up to {0}\r\n", spell.StackAmount);
+
+            //if (castTime)
+            //{
+            //    if (castTime->CastTime)
+            //        str+=String.Format("CastingTime = %02.2f\r\n", float(castTime->CastTime/1000.0f));
+            //}
+            //else          str+=String.Format("CastingTime({0}) = ????\r\n",spell.CastingTimeIndex);
+
+            if (spell.RecoveryTime!=0 || spell.CategoryRecoveryTime!=0 || spell.StartRecoveryCategory!=0)
+            {
+                str+=String.Format("Recovery time {0}, Category Recovery time {1}, ",spell.RecoveryTime/1000, spell.CategoryRecoveryTime/1000);
+                str+=String.Format("Start Recovery Category = {0}, Start Recovery Time = {1:F}\r\n", spell.StartRecoveryCategory, spell.StartRecoveryTime/1000.0f);
+            }
+
+            if (spell.DurationIndex!=0)
+            {
+                var duration = (from ss in DBC.SpellDuration where ss.Key == spell.DurationIndex select ss).First().Value;
+                str+=String.Format("Duration = {0}, {1}, {2}\r\n", duration.Duration[0],duration.Duration[1], duration.Duration[2]);
+            }
+            if (spell.manaCost!=0 || spell.ManaCostPercentage!=0)
+            {
+                str+=String.Format("Power {0}, Cost {1}", (Powers)spell.powerType, spell.manaCost);
+
+                if (spell.manaCostPerlevel!=0)
+                    str+=String.Format(" + lvl*{0}",spell.manaCostPerlevel);
+                if (spell.manaPerSecond!=0)
+                    str+=String.Format(" + Per Second {0}",spell.manaPerSecond);
+                if (spell.manaPerSecondPerLevel!=0)
+                    str+=String.Format(" + lvl*{0}", spell.manaPerSecondPerLevel);
+                if (spell.ManaCostPercentage!=0)
+                    str+=String.Format(" + PCT {0}",spell.ManaCostPercentage);
+                
+                str+=String.Format(" \r\n");
+            }
+            str += String.Format("Interrupt Flags: 0x{0:X8}, AuraIF 0x{1:X8}, ChannelIF 0x{2:X8}\r\n",
+                spell.InterruptFlags, spell.AuraInterruptFlags, spell.ChannelInterruptFlags);
+
+            if (spell.CasterAuraState !=0 || spell.TargetAuraState!=0)
+                str+=String.Format("CasterAuraState 0x{0:X8}, TargetAuraState 0x{1:X8}\r\n",spell.CasterAuraState,spell.TargetAuraState);
+            if (spell.CasterAuraStateNot!=0 || spell.TargetAuraStateNot!=0)
+                str+=String.Format("CasterAuraStateNot 0x{0:X8}, TargetAuraStateNot 0x{1:X8}\r\n",spell.CasterAuraStateNot,spell.TargetAuraStateNot);
+
+            if (spell.casterAuraSpell!=0)
+            {
+                 var s = (from ss in DBC.Spell where ss.Key== spell.casterAuraSpell select ss).First().Value;
+                 if (s.ID!=0)
+                   str+=String.Format("  Caster Aura Spell ({0}) {1}\r\n", spell.casterAuraSpell, s.SpellName);
+                 else
+                   str+=String.Format("  Caster Aura Spell ({0}) ?????\r\n", spell.casterAuraSpell);
+            }
+            if (spell.targetAuraSpell!=0)
+            {
+                 var s = (from ss in DBC.Spell where ss.Key== spell.targetAuraSpell select ss).First().Value;
+                 str+=String.Format("  Target Aura Spell ({0}) {1}\r\n", spell.targetAuraSpell, s.SpellName);
+            }
+            if (spell.excludeCasterAuraSpell!=0)
+            {
+                 var s = (from ss in DBC.Spell where ss.Key == spell.excludeCasterAuraSpell select ss).First().Value;
+                 if (s.ID!=0)
+                     str+=String.Format("  Ex Caster Aura Spell ({0}) {1}\r\n", spell.excludeCasterAuraSpell, s.SpellName);
+                 else
+                     str+=String.Format("  Ex Caster Aura Spell ({0})\r\n", spell.excludeCasterAuraSpell);
+            }
+            if (spell.excludeTargetAuraSpell!=0)
+            {
+                var query = from asp in DBC.Spell where asp.Key == spell.excludeTargetAuraSpell select asp;
+                if (query.Count() != 0)
+                    str += String.Format("  Ex Target Aura Spell ({0}) {1}\r\n", spell.excludeTargetAuraSpell, 
+                        query.First().Value.SpellName);
+                 else
+                     str+=String.Format("  Ex Target Aura Spell ({0})\r\n", spell.excludeTargetAuraSpell);
+            }
+
+            if (spell.RequiresSpellFocus!=0)
+                str+=String.Format("Requires Spell Focus {0}\r\n", spell.RequiresSpellFocus);
+
+            if (spell.procFlags!=0)
+            {
+                str+=String.Format("Proc flag 0x{0:X8}, chance = {1}, charges - {2}\r\n", 
+                spell.procFlags, spell.procChance, spell.procCharges);
+             //str+=String.Format("=================================================\r\n");
+             //str = addProcInfo(str, spell.procFlags);
+             //str+=String.Format("=================================================\r\n");
+            }
+            else // if(spell.procCharges)
+            {
+                str+=String.Format("Chance = {0}, charges - {1}\r\n", spell.procChance, spell.procCharges);
+            }
+            //str = addEffectInfo(str,spell,0);
+            //str = addEffectInfo(str,spell,1);
+            //str = addEffectInfo(str,spell,2);
+
+            //str = addItemsInfo(str, spell);
             return str;
         }
     }
