@@ -192,6 +192,10 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this._status = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this._tsmFile = new System.Windows.Forms.ToolStripMenuItem();
+            this._tsmExit = new System.Windows.Forms.ToolStripMenuItem();
+            this._tsmHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this._tsmAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -247,15 +251,11 @@
             this._chName = new System.Windows.Forms.ColumnHeader();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this._bProc = new System.Windows.Forms.Button();
-            this._bSpellInfo = new System.Windows.Forms.Button();
             this.splitContainer6 = new System.Windows.Forms.SplitContainer();
             this._lvDataList = new System.Windows.Forms.ListView();
             this._tbSqlLog = new System.Windows.Forms.TextBox();
-            this._tsmFile = new System.Windows.Forms.ToolStripMenuItem();
-            this._tsmExit = new System.Windows.Forms.ToolStripMenuItem();
-            this._tsmHelp = new System.Windows.Forms.ToolStripMenuItem();
-            this._tsmAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this._bProc = new System.Windows.Forms.Button();
+            this._bSpellInfo = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -310,6 +310,36 @@
             this.menuStrip1.Size = new System.Drawing.Size(856, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
+            // 
+            // _tsmFile
+            // 
+            this._tsmFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._tsmExit});
+            this._tsmFile.Name = "_tsmFile";
+            this._tsmFile.Size = new System.Drawing.Size(35, 20);
+            this._tsmFile.Text = "File";
+            // 
+            // _tsmExit
+            // 
+            this._tsmExit.Name = "_tsmExit";
+            this._tsmExit.Size = new System.Drawing.Size(103, 22);
+            this._tsmExit.Text = "Exit";
+            this._tsmExit.Click += new System.EventHandler(this._tsmExit_Click);
+            // 
+            // _tsmHelp
+            // 
+            this._tsmHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._tsmAbout});
+            this._tsmHelp.Name = "_tsmHelp";
+            this._tsmHelp.Size = new System.Drawing.Size(40, 20);
+            this._tsmHelp.Text = "Help";
+            // 
+            // _tsmAbout
+            // 
+            this._tsmAbout.Name = "_tsmAbout";
+            this._tsmAbout.Size = new System.Drawing.Size(122, 22);
+            this._tsmAbout.Text = "About..";
+            this._tsmAbout.Click += new System.EventHandler(this._tsmAbout_Click);
             // 
             // tabControl1
             // 
@@ -395,10 +425,10 @@
             this.chSpellName});
             this._lvSpellList.FullRowSelect = true;
             this._lvSpellList.GridLines = true;
-            this._lvSpellList.Location = new System.Drawing.Point(0, 151);
+            this._lvSpellList.Location = new System.Drawing.Point(0, 129);
             this._lvSpellList.MultiSelect = false;
             this._lvSpellList.Name = "_lvSpellList";
-            this._lvSpellList.Size = new System.Drawing.Size(277, 227);
+            this._lvSpellList.Size = new System.Drawing.Size(277, 249);
             this._lvSpellList.TabIndex = 7;
             this._lvSpellList.UseCompatibleStateImageBehavior = false;
             this._lvSpellList.View = System.Windows.Forms.View.Details;
@@ -418,9 +448,9 @@
             this._cbTarget2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this._cbTarget2.FormattingEnabled = true;
-            this._cbTarget2.Location = new System.Drawing.Point(1, 125);
+            this._cbTarget2.Location = new System.Drawing.Point(139, 102);
             this._cbTarget2.Name = "_cbTarget2";
-            this._cbTarget2.Size = new System.Drawing.Size(273, 21);
+            this._cbTarget2.Size = new System.Drawing.Size(135, 21);
             this._cbTarget2.TabIndex = 5;
             this._cbTarget2.SelectedIndexChanged += new System.EventHandler(this._cbSpellFamilyNames_SelectedIndexChanged);
             // 
@@ -431,7 +461,7 @@
             this._cbTarget1.FormattingEnabled = true;
             this._cbTarget1.Location = new System.Drawing.Point(1, 102);
             this._cbTarget1.Name = "_cbTarget1";
-            this._cbTarget1.Size = new System.Drawing.Size(273, 21);
+            this._cbTarget1.Size = new System.Drawing.Size(135, 21);
             this._cbTarget1.TabIndex = 5;
             this._cbTarget1.SelectedIndexChanged += new System.EventHandler(this._cbSpellFamilyNames_SelectedIndexChanged);
             // 
@@ -967,30 +997,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "SQL Data";
             // 
-            // _bProc
-            // 
-            this._bProc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this._bProc.Location = new System.Drawing.Point(820, 0);
-            this._bProc.Name = "_bProc";
-            this._bProc.Size = new System.Drawing.Size(19, 23);
-            this._bProc.TabIndex = 3;
-            this._bProc.Text = "_";
-            this._bProc.UseVisualStyleBackColor = true;
-            this._bProc.Visible = false;
-            this._bProc.Click += new System.EventHandler(this._bProc_Click);
-            // 
-            // _bSpellInfo
-            // 
-            this._bSpellInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this._bSpellInfo.Location = new System.Drawing.Point(820, 433);
-            this._bSpellInfo.Name = "_bSpellInfo";
-            this._bSpellInfo.Size = new System.Drawing.Size(19, 23);
-            this._bSpellInfo.TabIndex = 4;
-            this._bSpellInfo.Text = "_";
-            this._bSpellInfo.UseVisualStyleBackColor = true;
-            this._bSpellInfo.Visible = false;
-            this._bSpellInfo.Click += new System.EventHandler(this._bSpellInfo_Click);
-            // 
             // splitContainer6
             // 
             this.splitContainer6.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1030,35 +1036,29 @@
             this._tbSqlLog.Size = new System.Drawing.Size(836, 161);
             this._tbSqlLog.TabIndex = 0;
             // 
-            // _tsmFile
+            // _bProc
             // 
-            this._tsmFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this._tsmExit});
-            this._tsmFile.Name = "_tsmFile";
-            this._tsmFile.Size = new System.Drawing.Size(35, 20);
-            this._tsmFile.Text = "File";
+            this._bProc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this._bProc.Location = new System.Drawing.Point(820, 0);
+            this._bProc.Name = "_bProc";
+            this._bProc.Size = new System.Drawing.Size(19, 23);
+            this._bProc.TabIndex = 3;
+            this._bProc.Text = "_";
+            this._bProc.UseVisualStyleBackColor = true;
+            this._bProc.Visible = false;
+            this._bProc.Click += new System.EventHandler(this._bProc_Click);
             // 
-            // _tsmExit
+            // _bSpellInfo
             // 
-            this._tsmExit.Name = "_tsmExit";
-            this._tsmExit.Size = new System.Drawing.Size(152, 22);
-            this._tsmExit.Text = "Exit";
-            this._tsmExit.Click += new System.EventHandler(this._tsmExit_Click);
-            // 
-            // _tsmHelp
-            // 
-            this._tsmHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this._tsmAbout});
-            this._tsmHelp.Name = "_tsmHelp";
-            this._tsmHelp.Size = new System.Drawing.Size(40, 20);
-            this._tsmHelp.Text = "Help";
-            // 
-            // _tsmAbout
-            // 
-            this._tsmAbout.Name = "_tsmAbout";
-            this._tsmAbout.Size = new System.Drawing.Size(152, 22);
-            this._tsmAbout.Text = "About..";
-            this._tsmAbout.Click += new System.EventHandler(this._tsmAbout_Click);
+            this._bSpellInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this._bSpellInfo.Location = new System.Drawing.Point(820, 433);
+            this._bSpellInfo.Name = "_bSpellInfo";
+            this._bSpellInfo.Size = new System.Drawing.Size(19, 23);
+            this._bSpellInfo.TabIndex = 4;
+            this._bSpellInfo.Text = "_";
+            this._bSpellInfo.UseVisualStyleBackColor = true;
+            this._bSpellInfo.Visible = false;
+            this._bSpellInfo.Click += new System.EventHandler(this._bSpellInfo_Click);
             // 
             // MainForm
             // 
