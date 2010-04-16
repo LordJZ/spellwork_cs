@@ -2,7 +2,7 @@ using System;
 
 namespace SpellWork
 {
-    static class Time
+    static class Utility
     {
         /// <summary>
         ///  A function to calculate time diff

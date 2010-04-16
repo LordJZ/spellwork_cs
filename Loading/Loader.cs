@@ -45,7 +45,7 @@ namespace SpellWork
                     ++DetectedLocale;
                 
                 Program.loadingForm.SetLabelText("Finished, took " +
-                    ((float)(Time.MsDiff(starttime, DateTime.Now)) / 1000.0f).ToString() +
+                    ((float)(Utility.MsDiff(starttime, DateTime.Now)) / 1000.0f).ToString() +
                     " seconds. DBC Locale: " + DetectedLocale.ToString());
             }
             catch (Exception ex)
