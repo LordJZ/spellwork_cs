@@ -41,8 +41,8 @@ namespace SpellWork
                 Program.loadingForm.SetLabelText("Detecting DBC locale...");
                 // Currently we use entry 1 from Spell.dbc to detect DBC locale
                 byte DetectedLocale = 0;
-                while(DBC.Spell.LookupEntry<SpellEntry>(1).getName(DetectedLocale) == "")
-                    ++DetectedLocale;
+                //while (DBC.Spell.LookupEntry<SpellEntry>(1).getName(DetectedLocale) == "")
+                //    ++DetectedLocale;
                 
                 Program.loadingForm.SetLabelText("Finished, took " +
                     ((float)(Time.MsDiff(starttime, DateTime.Now)) / 1000.0f).ToString() +
@@ -50,7 +50,7 @@ namespace SpellWork
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception(ex.ToString());
             }
 
             Program.loadingForm._Close();

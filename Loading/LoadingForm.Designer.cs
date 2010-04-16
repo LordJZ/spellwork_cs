@@ -38,19 +38,19 @@
             // lb_t0
             // 
             this.lb_t0.AutoSize = true;
-            this.lb_t0.Location = new System.Drawing.Point(83, 47);
+            this.lb_t0.Location = new System.Drawing.Point(92, 47);
             this.lb_t0.Name = "lb_t0";
-            this.lb_t0.Size = new System.Drawing.Size(101, 15);
+            this.lb_t0.Size = new System.Drawing.Size(124, 16);
             this.lb_t0.TabIndex = 5;
             this.lb_t0.Text = "Loading ELEMENT";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label4.Location = new System.Drawing.Point(19, 47);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(58, 15);
+            this.label4.Size = new System.Drawing.Size(75, 16);
             this.label4.TabIndex = 4;
             this.label4.Text = "Progress:";
             // 
@@ -65,25 +65,34 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 9);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.ForeColor = System.Drawing.Color.Black;
+            this.label2.Location = new System.Drawing.Point(77, 9);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(194, 15);
+            this.label2.Size = new System.Drawing.Size(243, 16);
             this.label2.TabIndex = 6;
             this.label2.Text = "SpellWork is loading, please wait.";
             // 
             // LoadingForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Teal;
             this.ClientSize = new System.Drawing.Size(394, 101);
+            this.ControlBox = false;
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lb_t0);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.pb_t0);
-            this.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "LoadingForm";
+            this.Opacity = 0.9;
+            this.ShowIcon = false;
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "SpellWork";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LoadingForm_FormClosing);

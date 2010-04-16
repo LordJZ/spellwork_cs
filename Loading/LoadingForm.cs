@@ -16,7 +16,6 @@ namespace SpellWork
         public LoadingForm()
         {
             SelfStop = false;
-
             InitializeComponent();
         }
 
@@ -31,6 +30,7 @@ namespace SpellWork
             else
                 f(lb_t0, text);
         }
+
         private delegate void del_ProgressBar_Int(ProgressBar ctrl, int value);
         public void SetProgressBarSize(int size)
         {
@@ -46,6 +46,7 @@ namespace SpellWork
             else
                 f(pb_t0, size);
         }
+
         private delegate void del_ProgressBar(ProgressBar ctrl);
         public void ProgressBarStep()
         {

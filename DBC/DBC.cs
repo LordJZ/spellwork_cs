@@ -9,8 +9,6 @@ namespace SpellWork
         public static Dictionary<uint, SpellEntry> Spell = new Dictionary<uint, SpellEntry>();
         public static Dictionary<uint, string> _SpellStrings = new Dictionary<uint, string>();
 
-        //public static Dictionary<uint, SpellCastTimeEntry> = new Dictionary<uint, SpellCastTimeEntry>();
-
         public static Dictionary<uint, SpellRadiusEntry> SpellRadius = new Dictionary<uint, SpellRadiusEntry>();
         
         public static Dictionary<uint, SpellRangeEntry> SpellRange = new Dictionary<uint, SpellRangeEntry>();
