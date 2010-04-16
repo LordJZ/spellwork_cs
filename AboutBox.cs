@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace SpellWork
 {
-    partial class AboutBox1 : Form
+    partial class AboutBox : Form
     {
-        public AboutBox1()
+        public AboutBox()
         {
             InitializeComponent();
             this.Text = String.Format("О {0} {0}", AssemblyTitle);

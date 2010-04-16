@@ -276,7 +276,7 @@ namespace SpellWork
 
         private void _tsmAbout_Click(object sender, EventArgs e)
         {
-            AboutBox1 ab = new AboutBox1();
+            AboutBox ab = new AboutBox();
             ab.ShowDialog();
         }
     }
