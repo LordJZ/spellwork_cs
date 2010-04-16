@@ -322,7 +322,7 @@
             // _tsmExit
             // 
             this._tsmExit.Name = "_tsmExit";
-            this._tsmExit.Size = new System.Drawing.Size(103, 22);
+            this._tsmExit.Size = new System.Drawing.Size(152, 22);
             this._tsmExit.Text = "Exit";
             this._tsmExit.Click += new System.EventHandler(this._tsmExit_Click);
             // 
@@ -337,7 +337,7 @@
             // _tsmAbout
             // 
             this._tsmAbout.Name = "_tsmAbout";
-            this._tsmAbout.Size = new System.Drawing.Size(122, 22);
+            this._tsmAbout.Size = new System.Drawing.Size(152, 22);
             this._tsmAbout.Text = "About..";
             this._tsmAbout.Click += new System.EventHandler(this._tsmAbout_Click);
             // 
@@ -394,6 +394,7 @@
             this._rtSpellInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this._rtSpellInfo.Location = new System.Drawing.Point(0, 0);
             this._rtSpellInfo.Name = "_rtSpellInfo";
+            this._rtSpellInfo.ReadOnly = true;
             this._rtSpellInfo.Size = new System.Drawing.Size(564, 378);
             this._rtSpellInfo.TabIndex = 0;
             this._rtSpellInfo.Text = "";
