@@ -113,9 +113,13 @@ namespace SpellWork
 
             if (query.Count() == 0)
                 return "";
-            var q = query.First();
-            
-            return String.Format("ID: {0}, Name: {1}",q.skillLine.Value.ID, q.skillLine.Value.Name);
+            var str = "Skill Line Ability: ";
+            foreach (var q in query)
+            {
+                str += String.Format("\r\n\t- ID: {0}, Name: {1}", q.skillLine.Value.ID, q.skillLine.Value.Name);
+            }
+
+            return str;
         }
     }
 }

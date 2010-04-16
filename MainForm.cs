@@ -22,11 +22,17 @@ namespace SpellWork
 
         private void Loads()
         {
-            SetEnumValues(_cbSpellFamilyNames, typeof(SpellFamilyNames));
+            SetEnumValues(_cbSpellFamilyName, typeof(SpellFamilyNames));
             SetEnumValues(_cbSpellAura, typeof(AuraType));
             SetEnumValues(_cbSpellEffect, typeof(SpellEffects));
             SetEnumValues(_cbTarget1, typeof(Targets));
             SetEnumValues(_cbTarget2, typeof(Targets));
+
+            SetEnumValues(_cbProcSpellFamilyName, typeof(SpellFamilyNames));
+            SetEnumValues(_cbProcSpellAura, typeof(AuraType));
+            SetEnumValues(_cbProcSpellEffect, typeof(SpellEffects));
+            SetEnumValues(_cbProcTarget1, typeof(Targets));
+            SetEnumValues(_cbProcTarget2, typeof(Targets));
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -59,41 +65,28 @@ namespace SpellWork
 
         private void _bSearch_Click(object sender, EventArgs e)
         {
-            _lvSpellList.Items.Clear();
-
-            var query =
-                from spell in DBC.Spell
-                where (spell.Key.ToString() == _tbSearch.Text)
-                  || ContainText(spell.Value.SpellName, _tbSearch.Text)
-                select spell;
-
-            if (query.Count() == 0) return;
-
-            foreach (var element in query)
-            {
-                var id = element.Key.ToString();
-                var name = element.Value.SpellName;
-                var rank = element.Value.Rank;
-
-                _lvSpellList.Items.Add(new ListViewItem(new String[] { id, name + " (" + rank + ")" }));
-            }
+            var b = (Button)sender;
+            if (b.Name == "_bSearch")
+                Search(_lvSpellList, _tbSearch);
+            else if (b.Name == "_bProcSearch")
+                Search(_lvProcSpellList, _tbProcSeach);
         }
 
         private void _cbSpellFamilyNames_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (((ComboBox)sender).SelectedIndex != 0)
             {
-                // todo: more ex
-                DataView("");
+                ListView lv = tabPage1.Focused ? _lvSpellList : _lvProcSpellList;
+                DataView(lv);
             }
         }
 
-        private void DataView(string index)
+        private void DataView(ListView lv)
         {
-            _lvSpellList.Items.Clear();
+            lv.Items.Clear();
 
-            var bFamilyNames = _cbSpellFamilyNames.SelectedIndex != 0;
-            var fFamilyNames = int.Parse(_cbSpellFamilyNames.SelectedValue.ToString());
+            var bFamilyNames = _cbSpellFamilyName.SelectedIndex != 0;
+            var fFamilyNames = int.Parse(_cbSpellFamilyName.SelectedValue.ToString());
 
             var bSpellAura = _cbSpellAura.SelectedIndex != 0;
             var fSpellAura = int.Parse(_cbSpellAura.SelectedValue.ToString());
@@ -133,15 +126,17 @@ namespace SpellWork
                 var name = element.Value.SpellName;
                 var rank = element.Value.Rank;
 
-                _lvSpellList.Items.Add(new ListViewItem(new String[] { id, name + " (" + rank + ")" }));
+                lv.Items.Add(new ListViewItem(new String[] { id, name + " (" + rank + ")" }));
             }
         }
 
         private void _lvSpellList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (_lvSpellList.SelectedItems.Count > 0)
+            var lv = (ListView)sender;
+            if (lv.SelectedItems.Count > 0)
             {
-                SpellInfo.View(_rtSpellInfo, uint.Parse(((ListView)sender).SelectedItems[0].SubItems[0].Text));
+                var rtb = lv.Name == "_lvSpellList" ? _rtSpellInfo : _rtbProcSpellInfo;
+                SpellInfo.View(rtb, uint.Parse(lv.SelectedItems[0].SubItems[0].Text));
             }
         }
 
@@ -194,11 +189,6 @@ namespace SpellWork
             splitContainer3.SplitterDistance = ((CheckBox)sender).Checked ? 160 : 52;
         }
 
-        private void groupBox3_Enter(object sender, EventArgs e)
-        {
-
-        }
-
         private void _tsmExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -208,6 +198,40 @@ namespace SpellWork
         {
             AboutBox ab = new AboutBox();
             ab.ShowDialog();
+        }
+
+        private void _tbSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            var tb = (TextBox)sender;
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (tb.Name == "_tbSearch")
+                    Search(_lvSpellList, tb);
+                else if (tb.Name == "_tbProcSeach")
+                    Search(_lvProcSpellList, tb);
+            }
+        }
+
+        private void Search(ListView lv, TextBox tb)
+        {
+            lv.Items.Clear();
+
+            var query =
+                from spell in DBC.Spell
+                where (spell.Key.ToString() == tb.Text)
+                  || ContainText(spell.Value.SpellName, tb.Text)
+                select spell;
+
+            if (query.Count() == 0) return;
+
+            foreach (var element in query)
+            {
+                var id = element.Key.ToString();
+                var name = element.Value.SpellName;
+                var rank = element.Value.Rank;
+
+                lv.Items.Add(new ListViewItem(new String[] { id, name + " (" + rank + ")" }));
+            }
         }
     }
 }
