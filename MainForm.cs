@@ -76,7 +76,7 @@ namespace SpellWork
         {
             if (((ComboBox)sender).SelectedIndex != 0)
             {
-                ListView lv = tabPage1.Focused ? _lvSpellList : _lvProcSpellList;
+                ListView lv = tabControl1.SelectedIndex == 0 ? _lvSpellList : _lvProcSpellList;
                 DataView(lv);
             }
         }
