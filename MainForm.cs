@@ -158,7 +158,7 @@ namespace SpellWork
 
         private void tabControl1_TabIndexChanged(object sender, EventArgs e)
         {
-            _bProc.Visible = _bSpellInfo.Visible = tabControl1.SelectedIndex == 1;
+            //_bProc.Visible = _bSpellInfo.Visible = tabControl1.SelectedIndex == 1;
         }
 
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)

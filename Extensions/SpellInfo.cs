@@ -24,6 +24,12 @@ namespace SpellWork
             rtb.AppendText(String.Format("\r\nProcFlags: 0x{0:X8}, ProcChance: {1:X8}, ProcCharges: {2:X8}", spell.procFlags, spell.procChance, spell.procCharges));
             rtb.AppendText(String.Format("\r\nSpellFamilyFlags: 0x{0:X8} {1:X8} {2:X8}", spell.SpellFamilyFlags3, spell.SpellFamilyFlags2, spell.SpellFamilyFlags1));
             rtb.AppendText(ViewFlags(spell));
+            rtb.AppendText(String.Format("{0} {1} {2} {3}\r\n",spell.PreventionType, spell.excludeCasterAuraSpell, spell.EquippedItemClass, spell.procChance));
+
+            rtb.AppendText(SelectDuration(spell.DurationIndex));
+            rtb.AppendText(SelectRange(spell.rangeIndex));
+
+            rtb.AppendText(SelectSkillLineAbility(spell.ID));
         }
 
         static String ViewFlags(SpellEntry spell)
@@ -44,12 +50,6 @@ namespace SpellWork
             var PreventionType = (SpellPreventionType)spell.PreventionType;
             info += (PreventionType == SpellPreventionType.SPELL_PREVENTION_TYPE_NONE) ? "" 
                 : String.Format("\r\nPrevention Type: {0}", PreventionType);
-
-            //for (int i = 1; i < 3; i++)
-            //{
-            //    var Stances = /*(ShapeshiftForm)byte.Parse(*/(string)spellInfo["Stances_" + i]/*)*/;
-            //    info += (Stances == "0"/*ShapeshiftForm.FORM_NONE*/) ? "" : String.Format("\r\nStances_{0}: {1}", i, Stances);
-            //}
 
             for (int i = 0; i < COUNT; i++)
             {
@@ -76,6 +76,46 @@ namespace SpellWork
             }
 
             return (info == "") ? "" : info + "\r\n========================================================================\r\n";
+        }
+
+        static String SelectDuration(uint DurationIndex)
+        {
+            var query = from duration in DBC.SpellDuration where duration.Key == DurationIndex select duration;
+            
+            if (query.Count() == 0)
+                return "";
+
+            var q = query.First();
+            return String.Format("Duration: ID {0}  {1}, {2}, {3}\r\n", q.Key, q.Value.Duration[0], q.Value.Duration[1], q.Value.Duration[2]);
+        }
+
+        static String SelectRange(uint RangeIndex)
+        {
+            var query = from rande in DBC.SpellRange where rande.Key == RangeIndex select rande;
+
+            if (query.Count() == 0)
+                return "";
+            
+            var q = query.First();
+            return String.Format("SpellRange: ID - {0} {1} (unk = {2}) MinRange = {3}, MinRangeFriendly = {4}, MaxRange = {5}, MaxRangeFriendly = {6}\r\n",
+                q.Key, q.Value.Description1, q.Value.Description2, q.Value.Field5, q.Value.MinRange,
+                q.Value.MinRangeFriendly, q.Value.MaxRange, q.Value.MaxRangeFriendly);
+        }
+
+        static String SelectSkillLineAbility(uint entry)
+        {
+            var query =
+               from skillLineAbility in DBC.SkillLineAbility
+               join skillLine in DBC.SkillLine
+               on skillLineAbility.Value.SkillId equals skillLine.Key
+               where skillLineAbility.Value.SpellId == entry
+               select new { skillLineAbility, skillLine };
+
+            if (query.Count() == 0)
+                return "";
+            var q = query.First();
+            
+            return String.Format("ID: {0}, Name: {1}",q.skillLine.Value.ID, q.skillLine.Value.Name);
         }
     }
 }

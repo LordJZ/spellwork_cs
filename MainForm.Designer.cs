@@ -254,8 +254,6 @@
             this.splitContainer6 = new System.Windows.Forms.SplitContainer();
             this._lvDataList = new System.Windows.Forms.ListView();
             this._tbSqlLog = new System.Windows.Forms.TextBox();
-            this._bProc = new System.Windows.Forms.Button();
-            this._bSpellInfo = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -322,7 +320,7 @@
             // _tsmExit
             // 
             this._tsmExit.Name = "_tsmExit";
-            this._tsmExit.Size = new System.Drawing.Size(152, 22);
+            this._tsmExit.Size = new System.Drawing.Size(103, 22);
             this._tsmExit.Text = "Exit";
             this._tsmExit.Click += new System.EventHandler(this._tsmExit_Click);
             // 
@@ -337,7 +335,7 @@
             // _tsmAbout
             // 
             this._tsmAbout.Name = "_tsmAbout";
-            this._tsmAbout.Size = new System.Drawing.Size(152, 22);
+            this._tsmAbout.Size = new System.Drawing.Size(122, 22);
             this._tsmAbout.Text = "About..";
             this._tsmAbout.Click += new System.EventHandler(this._tsmAbout_Click);
             // 
@@ -1037,37 +1035,11 @@
             this._tbSqlLog.Size = new System.Drawing.Size(836, 161);
             this._tbSqlLog.TabIndex = 0;
             // 
-            // _bProc
-            // 
-            this._bProc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this._bProc.Location = new System.Drawing.Point(820, 0);
-            this._bProc.Name = "_bProc";
-            this._bProc.Size = new System.Drawing.Size(19, 23);
-            this._bProc.TabIndex = 3;
-            this._bProc.Text = "_";
-            this._bProc.UseVisualStyleBackColor = true;
-            this._bProc.Visible = false;
-            this._bProc.Click += new System.EventHandler(this._bProc_Click);
-            // 
-            // _bSpellInfo
-            // 
-            this._bSpellInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this._bSpellInfo.Location = new System.Drawing.Point(820, 433);
-            this._bSpellInfo.Name = "_bSpellInfo";
-            this._bSpellInfo.Size = new System.Drawing.Size(19, 23);
-            this._bSpellInfo.TabIndex = 4;
-            this._bSpellInfo.Text = "_";
-            this._bSpellInfo.UseVisualStyleBackColor = true;
-            this._bSpellInfo.Visible = false;
-            this._bSpellInfo.Click += new System.EventHandler(this._bSpellInfo_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(856, 456);
-            this.Controls.Add(this._bSpellInfo);
-            this.Controls.Add(this._bProc);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
@@ -1139,8 +1111,6 @@
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.SplitContainer splitContainer4;
         private System.Windows.Forms.SplitContainer splitContainer5;
-        private System.Windows.Forms.Button _bProc;
-        private System.Windows.Forms.Button _bSpellInfo;
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.ComboBox comboBox1;

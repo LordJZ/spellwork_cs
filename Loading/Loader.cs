@@ -24,35 +24,30 @@ namespace SpellWork
             // First we load DBC files
             string path = @"./dbc/";
 
-            try
-            {
-                DateTime starttime = DateTime.Now;
-                Dictionary<uint, string> nullStringDict = null;
+            DateTime starttime = DateTime.Now;
+            Dictionary<uint, string> nullStringDict = null;
 
-                Program.loadingForm.SetProgressBarSize(6);
+            Program.loadingForm.SetProgressBarSize(6);
 
-                DBC.Spell = DBCReader.ReadDBC<SpellEntry>(path + "Spell.dbc", ref DBC._SpellStrings);
-                DBC.SpellRadius = DBCReader.ReadDBC<SpellRadiusEntry>(path + "SpellRadius.dbc", ref nullStringDict);
-                DBC.SpellRange = DBCReader.ReadDBC<SpellRangeEntry>(path + "SpellRange.dbc", ref DBC._SpellRangeStrings);
-                DBC.SpellDuration = DBCReader.ReadDBC<SpellDurationEntry>(path + "SpellDuration.dbc", ref nullStringDict);
-                DBC.SkillLineAbility = DBCReader.ReadDBC<SkillLineAbilityEntry>(path + "SkillLineAbility.dbc", ref nullStringDict);
-                DBC.SkillLine = DBCReader.ReadDBC<SkillLineEntry>(path + "SkillLine.dbc", ref DBC._SkillLineStrings);
+            DBC.Spell            = DBCReader.ReadDBC<SpellEntry>(path + "Spell.dbc",                       ref DBC._SpellStrings);
+            DBC.SpellRadius      = DBCReader.ReadDBC<SpellRadiusEntry>(path + "SpellRadius.dbc",           ref nullStringDict);
+            DBC.SpellRange       = DBCReader.ReadDBC<SpellRangeEntry>(path + "SpellRange.dbc",             ref DBC._SpellRangeStrings);
+            DBC.SpellDuration    = DBCReader.ReadDBC<SpellDurationEntry>(path + "SpellDuration.dbc",       ref nullStringDict);
+            DBC.SkillLineAbility = DBCReader.ReadDBC<SkillLineAbilityEntry>(path + "SkillLineAbility.dbc", ref nullStringDict);
+            DBC.SkillLine        = DBCReader.ReadDBC<SkillLineEntry>(path + "SkillLine.dbc",               ref DBC._SkillLineStrings);
 
-                Program.loadingForm.SetLabelText("Detecting DBC locale...");
-                // Currently we use entry 1 from Spell.dbc to detect DBC locale
-                byte DetectedLocale = 0;
-                while (DBC.Spell.LookupEntry<SpellEntry>(1).GetName(DetectedLocale) == null)
-                    ++DetectedLocale;
-                
-                Program.loadingForm.SetLabelText("Finished, took " +
-                    ((float)(Utility.MsDiff(starttime, DateTime.Now)) / 1000.0f).ToString() +
-                    " seconds. DBC Locale: " + DetectedLocale.ToString());
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.ToString());
-            }
-
+            Program.loadingForm.SetLabelText("Detecting DBC locale...");
+            // Currently we use entry 1 from Spell.dbc to detect DBC locale
+            byte DetectedLocale = 0;
+            while (DBC.Spell.LookupEntry<SpellEntry>(1).GetName(DetectedLocale) == null)
+                ++DetectedLocale;
+            if (DetectedLocale > 8)
+                throw new Exception("Detected uncnown locale index " + DetectedLocale);
+            
+            Program.loadingForm.SetLabelText("Finished, took " +
+                ((float)(Utility.MsDiff(starttime, DateTime.Now)) / 1000.0f).ToString() +
+                " seconds. DBC Locale: " + DetectedLocale.ToString());
+ 
             Program.loadingForm._Close();
         }
 
@@ -63,12 +58,6 @@ namespace SpellWork
                 m_thread.Abort();
                 m_thread = null;
             }
-
-            /*for(int i = 0; i < m_readers.Count; ++i)
-            {
-                if(m_readers[i] != null)
-                    m_readers[i].Close();
-            }*/
         }
     }
 }
