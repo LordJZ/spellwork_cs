@@ -81,6 +81,7 @@
     <Compile Include="DBC\DBCReader.cs" />
     <Compile Include="DBC\ReaderThread.cs" />
     <Compile Include="DBC\Structure.cs" />
+    <Compile Include="Extensions\SpellInfo.cs" />
     <Compile Include="Util\SpellEnums.cs" />
     <Compile Include="Extensions\Controls.cs" />
     <Compile Include="Loading\Loader.cs" />

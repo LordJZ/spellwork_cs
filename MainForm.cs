@@ -124,35 +124,24 @@ namespace SpellWork
 
                         select spell;
 
-            if (query.Count() == 0) return;
+            if (query.Count() == 0) 
+                return;
 
             foreach (var element in query)
             {
                 var id = element.Key.ToString();
                 var name = element.Value.SpellName;
-                var rank = "";// element.Value.GetRank;
+                var rank = element.Value.Rank;
 
-                _lvSpellList.Items.Add(new ListViewItem(new String[] { id, name + " " + rank }));
+                _lvSpellList.Items.Add(new ListViewItem(new String[] { id, name + " (" + rank + ")" }));
             }
         }
 
         private void _lvSpellList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _rtSpellInfo.Clear();
             if (_lvSpellList.SelectedItems.Count > 0)
             {
-                var entry = _lvSpellList.SelectedItems[0].SubItems[0].Text;
-                // 
-                //var query = from spell in DBC.Spell
-                //            where spell.Key == uint.Parse(entry)
-                //            select spell;
-
-                SpellEntry s;
-                DBC.Spell.TryGetValue(uint.Parse(entry), out s);
-                var str = String.Format("Spell Name: {0} ({1})\r\nDescription: {2}\r\nTool Tip: {3}",
-                    s.SpellName, s.Rank, s.Descriprion, s.ToolTip);
-
-                _rtSpellInfo.AppendText(str);
+                SpellInfo.View(_rtSpellInfo, uint.Parse(((ListView)sender).SelectedItems[0].SubItems[0].Text));
             }
         }
 
@@ -174,8 +163,6 @@ namespace SpellWork
 
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //SpellPorcFlag.BuildFamilyTree(_tvFamilyMask, 0, "");
-            //return;
             _tvFamilyMask.Nodes.Clear();
 
             for (int i = 0; i < 96; i++)

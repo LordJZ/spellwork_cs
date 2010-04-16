@@ -19,7 +19,7 @@ namespace SpellWork
         public uint AttributesEx4;                                // 8        m_attributesExD
         public uint AttributesEx5;                                // 9        m_attributesExE
         public uint AttributesEx6;                                // 10       m_attributesExF
-        public uint unk_320_1;                                    // 11       3.2.0 (0x20 - totems, 0x4 - paladin auras, etc...)
+        public uint AttributesExG;                                // 11       3.2.0 (0x20 - totems, 0x4 - paladin auras, etc...)
         public uint Stances;                                      // 12       m_shapeshiftMask
         public uint unk_320_2;                                    // 13       3.2.0
         public uint StancesNot;                                   // 14       m_shapeshiftExclude
