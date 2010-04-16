@@ -59,24 +59,18 @@ namespace SpellWork
             // Now we read strings
             if (strDict != null)
             {
-                char nullChar = char.MinValue;
-                char[] data = stringsReader.ReadChars((int)stringsReader.BaseStream.Length);
-                string str = "";
-                uint idx = 1;
-                for (uint i = 0; i < data.Length; ++i)
+                byte[] data = stringsReader.ReadBytes((int)stringsReader.BaseStream.Length);
+                List<byte> str = new List<byte>();
+                for (uint i = 1; i < data.Length; i++)
                 {
-                    if (data[i] == nullChar)
+                    if (data[i] == char.MinValue && i > 0)
                     {
-                        if (i > 0)
-                        {
-                            strDict.Add(idx, str);
-                            str = "";
-                            idx = i++;
-                        }
+                        strDict.Add(i-(uint)str.Count, Encoding.UTF8.GetString(str.ToArray()));
+                        str.Clear();
                     }
                     else
                     {
-                        str += data[i];
+                        str.Add(data[i]);
                     }
                 }
             }

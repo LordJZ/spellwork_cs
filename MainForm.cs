@@ -18,68 +18,8 @@ namespace SpellWork
 
             InitializeComponent();
             Loads();
-            //listview_SearchResults.ClearItems();
         }
 
-        //private void button_Search_Click(object sender, EventArgs e)
-        //{
-        //    string spellNameOrId = tb_SpellName.Text;
-
-        //    if (spellNameOrId == "")
-        //        return;
-
-        //    listview_SearchResults.ClearItems();
-
-        //    spellNameOrId = spellNameOrId.ToLower();
-
-        //    uint parsedId = 0;
-        //    try
-        //    {
-        //        parsedId = UInt32.Parse(spellNameOrId);
-
-        //        if (parsedId > 0)
-        //        {
-        //            SpellEntry spell = DBC.Spell.LookupEntry<SpellEntry>(parsedId);
-        //            if (spell.Id == parsedId)
-        //                listview_SearchResults.AddSpellItem(spell);
-        //        }
-        //        return;
-        //    }
-        //    catch(Exception)
-        //    {
-        //    }
-
-        //    var query = from entry in DBC.Spell
-        //                where entry.Value.getName().ToLower() == spellNameOrId
-        //                select entry.Value;
-
-        //    /*Dictionary<uint, SpellEntry>.KeyCollection keys = DBC.Spell.Keys;
-        //    uint added = 0;
-        //    for (int i = 0; i < keys.Count; ++i)
-        //    {
-        //        if (added >= 500)
-        //            break;
-
-        //        uint spellId = keys.ElementAt<uint>(i);
-
-        //        SpellEntry spell = DBC.Spell.LookupEntry<SpellEntry>(spellId);
-
-        //        if(spell.getName().ToLower() == spellNameOrId)
-        //        {
-        //            listview_SearchResults.AddSpellItem(spell);
-        //            ++added;
-        //        }
-        //    }*/
-        //    uint added = 0;
-        //    foreach(var spell in query)
-        //    {
-        //        if (added >= 500)
-        //            break;
-
-        //        listview_SearchResults.AddSpellItem(spell);
-        //        ++added;
-        //    }
-        //}
         private void Loads()
         {
             SetEnumValues(_cbSpellFamilyNames, typeof(SpellFamilyNames));
@@ -119,26 +59,24 @@ namespace SpellWork
 
         private void _bSearch_Click(object sender, EventArgs e)
         {
-            //_lvSpellList.Items.Clear();
+            _lvSpellList.Items.Clear();
 
-            //var query =
-            //    from spell in spellData.AsEnumerable()
-            //    where (spell.Field<String>("ID") == _tbSearch.Text)
-            //      || ContainText(spell.Field<String>("SpellName_" + Spell.Locales), _tbSearch.Text)
-            //    select spell;
+            var query =
+                from spell in DBC.Spell
+                where (spell.Key.ToString() == _tbSearch.Text)
+                  || ContainText(spell.Value.SpellName, _tbSearch.Text)
+                select spell;
 
-            //if (query.Count() == 0) return;
+            if (query.Count() == 0) return;
 
-            //tempTable = query.CopyToDataTable<DataRow>();
+            foreach (var element in query)
+            {
+                var id = element.Key.ToString();
+                var name = element.Value.SpellName;
+                var rank = element.Value.Rank;
 
-            //foreach (var element in tempTable.Select())
-            //{
-            //    var id = element["ID"].ToString();
-            //    var name = element["SpellName_" + Spell.Locales].ToString();
-            //    var rank = element["Rank_" + Spell.Locales].ToString() == "" ? "" : " (" + element["Rank_" + Spell.Locales] + ")";
-
-            //    _lvSpellList.Items.Add(new ListViewItem(new String[] { id, name + rank }));
-            //}
+                _lvSpellList.Items.Add(new ListViewItem(new String[] { id, name + " (" + rank + ")" }));
+            }
         }
 
         private void _cbSpellFamilyNames_SelectedIndexChanged(object sender, EventArgs e)
@@ -204,12 +142,17 @@ namespace SpellWork
             if (_lvSpellList.SelectedItems.Count > 0)
             {
                 var entry = _lvSpellList.SelectedItems[0].SubItems[0].Text;
+                // 
                 //var query = from spell in DBC.Spell
                 //            where spell.Key == uint.Parse(entry)
                 //            select spell;
+
                 SpellEntry s;
                 DBC.Spell.TryGetValue(uint.Parse(entry), out s);
-                _rtSpellInfo.Text = s.maxLevel.ToString(); 
+                var str = String.Format("Spell Name: {0} ({1})\r\nDescription: {2}\r\nTool Tip: {3}",
+                    s.SpellName, s.Rank, s.Descriprion, s.ToolTip);
+
+                _rtSpellInfo.AppendText(str);
             }
         }
 

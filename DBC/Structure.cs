@@ -155,92 +155,120 @@ namespace SpellWork
         /// <summary>
         /// Return curent Spell Name
         /// </summary>
-        public string SpellName 
-        { 
-            get 
+        public string SpellName
+        {
+            get
             {
-                string ss;
+                string s;
                 uint offset = _SpellName[DBC.Locale];
-                DBC._SpellStrings.TryGetValue(offset, out ss); 
-                return ss;
-            } 
+                DBC._SpellStrings.TryGetValue(offset, out s);
+                return s;
+            }
         }
         /// <summary>
         /// Return curent Spell Rank
         /// </summary>
-        public string Rank 
-        { 
-            get 
+        public string Rank
+        {
+            get
             {
-                return DBC._SpellStrings[_Rank[DBC.Locale]]; 
-            } 
+                string s;
+                uint offset = _Rank[DBC.Locale];
+                DBC._SpellStrings.TryGetValue(offset, out s);
+                return s;
+                //return DBC._SpellStrings[_Rank[DBC.Locale]]; 
+            }
         }
         /// <summary>
         /// Return curent Spell Description
         /// </summary>
-        public string Descriprion 
-        { 
-            get 
+        public string Descriprion
+        {
+            get
             {
-                return DBC._SpellStrings[_Description[DBC.Locale]]; 
-            } 
+                string s;
+                uint offset = _Description[DBC.Locale];
+                DBC._SpellStrings.TryGetValue(offset, out s);
+                return s;
+                //return DBC._SpellStrings[_Description[DBC.Locale]]; 
+            }
         }
         /// <summary>
         /// Return curent Spell ToolTip
         /// </summary>
-        public string ToolTip 
-        { 
-            get 
-            { 
-                return DBC._SpellStrings[_ToolTip[DBC.Locale]]; 
-            } 
+        public string ToolTip
+        {
+            get
+            {
+                string s;
+                uint offset = _ToolTip[DBC.Locale];
+                DBC._SpellStrings.TryGetValue(offset, out s);
+                return s;
+                //return DBC._SpellStrings[_ToolTip[DBC.Locale]]; 
+            }
         }
 
-        public string GetName(byte loc) 
-        { 
-            return DBC._SpellStrings[_SpellName[loc]]; 
+        public string GetName(byte loc)
+        {
+            string s;
+            uint offset = _SpellName[loc];
+            DBC._SpellStrings.TryGetValue(offset, out s);
+            return s;
+            //return DBC._SpellStrings[_SpellName[loc]]; 
         }
     };
 
     struct SkillLineEntry
     {
-        public uint    ID;                                            // 0        m_ID
-        public int     CategoryId;                                    // 1        m_categoryID
-        public uint    SkillCostID;                                   // 2        m_skillCostsID
+        public uint ID;                                            // 0        m_ID
+        public int CategoryId;                                     // 1        m_categoryID
+        public uint SkillCostID;                                   // 2        m_skillCostsID
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-        private uint[] _Name;                                         // 3-18     m_displayName_lang
-        public uint    NameFlags;                                     // 19
+        private uint[] _Name;                                      // 3-18     m_displayName_lang
+        public uint NameFlags;                                     // 19
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-        private uint[] _Description;                                  // 20-35    m_description_lang
-        public uint    DescriptionFlags;                              // 36
-        public uint    SpellIcon;                                     // 37       m_spellIconID
+        private uint[] _Description;                               // 20-35    m_description_lang
+        public uint DescriptionFlags;                              // 36
+        public uint SpellIcon;                                     // 37       m_spellIconID
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-        private uint[] _AlternateVerb;                                // 38-53    m_alternateVerb_lang
-        public uint    AlternateVerbFlags;                            // 54
-        public uint    CanLink;                                       // 55       m_canLink (prof. with recipes
+        private uint[] _AlternateVerb;                             // 38-53    m_alternateVerb_lang
+        public uint AlternateVerbFlags;                            // 54
+        public uint CanLink;                                       // 55       m_canLink (prof. with recipes
 
-        public string Name 
-        { 
-            get 
-            { 
-                return DBC._SkillLineStrings[_Name[DBC.Locale]]; 
-            } 
-        }
-
-        public string Description 
-        { 
-            get 
-            { 
-                return DBC._SkillLineStrings[_Description[DBC.Locale]]; 
-            } 
-        }
-
-        public string AlternateVerb 
+        public string Name
         {
-            get 
-            { 
-                return DBC._SkillLineStrings[_AlternateVerb[DBC.Locale]]; 
-            } 
+            get
+            {
+                string s;
+                uint offset = _Name[DBC.Locale];
+                DBC._SpellStrings.TryGetValue(offset, out s);
+                return s;
+                //return DBC._SkillLineStrings[_Name[DBC.Locale]]; 
+            }
+        }
+
+        public string Description
+        {
+            get
+            {
+                string s;
+                uint offset = _Description[DBC.Locale];
+                DBC._SpellStrings.TryGetValue(offset, out s);
+                return s;
+                //return DBC._SkillLineStrings[_Description[DBC.Locale]]; 
+            }
+        }
+
+        public string AlternateVerb
+        {
+            get
+            {
+                string s;
+                uint offset = _AlternateVerb[DBC.Locale];
+                DBC._SpellStrings.TryGetValue(offset, out s);
+                return s;
+                //return DBC._SkillLineStrings[_AlternateVerb[DBC.Locale]]; 
+            }
         }
     };
 
@@ -264,47 +292,55 @@ namespace SpellWork
 
     struct SpellRadiusEntry
     {
-        public uint  ID;
+        public uint ID;
         public float Radius;
-        public int   Zero;
+        public int Zero;
         public float Radius2;
     };
 
     struct SpellRangeEntry
     {
-        public uint    ID;
-        public float   MinRange;
-        public float   MinRangeFriendly;
-        public float   MaxRange;
-        public float   MaxRangeFriendly;
-        public uint    Field5;
+        public uint  ID;
+        public float MinRange;
+        public float MinRangeFriendly;
+        public float MaxRange;
+        public float MaxRangeFriendly;
+        public uint  Field5;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
         private uint[] _Desc1;
-        public uint    Desc1Flags;
+        public uint Desc1Flags;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
         private uint[] _Desc2;
-        public uint    Desc2Flags;
+        public uint Desc2Flags;
 
-        public string Description1 
-        { 
-            get 
-            { 
-                return DBC._SpellRangeStrings[_Desc1[DBC.Locale]]; 
-            } 
+        public string Description1
+        {
+            get
+            {
+                string s;
+                uint offset = _Desc1[DBC.Locale];
+                DBC._SpellStrings.TryGetValue(offset, out s);
+                return s;
+                //return DBC._SpellRangeStrings[_Desc1[DBC.Locale]]; 
+            }
         }
 
-        public string Description2 
-        { 
-            get 
-            { 
-                return DBC._SpellRangeStrings[_Desc2[DBC.Locale]]; 
-            } 
+        public string Description2
+        {
+            get
+            {
+                string s;
+                uint offset = _Desc1[DBC.Locale];
+                DBC._SpellStrings.TryGetValue(offset, out s);
+                return s;
+                //return DBC._SpellRangeStrings[_Desc2[DBC.Locale]]; 
+            }
         }
     };
 
     struct SpellDurationEntry
     {
-        public uint  ID;
+        public uint ID;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
         public int[] Duration;
     };
