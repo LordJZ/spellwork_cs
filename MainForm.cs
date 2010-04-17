@@ -217,5 +217,12 @@ namespace SpellWork
                 lv.Items.Add(new ListViewItem(new String[] { id, name + rank }));
             }
         }
+
+        private void _tvFamilyTree_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            TreeNode node = ((TreeView)sender).SelectedNode;
+            if (node.Level > 0)
+                SpellInfo.View(_rtbProcSpellInfo, uint.Parse(node.Name));
+        }
     }
 }

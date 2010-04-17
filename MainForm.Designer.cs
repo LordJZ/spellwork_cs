@@ -703,6 +703,7 @@
             this._tvFamilyTree.Name = "_tvFamilyTree";
             this._tvFamilyTree.Size = new System.Drawing.Size(299, 149);
             this._tvFamilyTree.TabIndex = 0;
+            this._tvFamilyTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this._tvFamilyTree_AfterSelect);
             // 
             // splitContainer5
             // 
