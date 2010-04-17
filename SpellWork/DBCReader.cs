@@ -11,13 +11,15 @@ namespace SpellWork
 {
     static class DBCReader
     {
+        public static readonly int MAX_DBC_LOCALE = 16;
+        
         public static void Run()
         {
             // First we load DBC files
             string path = @"./dbc/";
 
             Dictionary<uint, string> nullStringDict = null;
- 
+
             DBC.Spell            = DBCReader.ReadDBC<SpellEntry>(path + "Spell.dbc", ref DBC._SpellStrings);
             DBC.SpellRadius      = DBCReader.ReadDBC<SpellRadiusEntry>(path + "SpellRadius.dbc", ref nullStringDict);
             DBC.SpellRange       = DBCReader.ReadDBC<SpellRangeEntry>(path + "SpellRange.dbc", ref DBC._SpellRangeStrings);
@@ -28,9 +30,10 @@ namespace SpellWork
 
             // Currently we use entry 1 from Spell.dbc to detect DBC locale
             byte DetectedLocale = 0;
-            while (DBC.Spell.LookupEntry<SpellEntry>(1).GetName(DetectedLocale) == null)
+            while (DBC.Spell.LookupEntry<SpellEntry>(1).GetName(DetectedLocale) == null && DetectedLocale < MAX_DBC_LOCALE)
                 ++DetectedLocale;
-            if (DetectedLocale > 16)
+            DBC.Locale = DetectedLocale;
+            if (DetectedLocale > MAX_DBC_LOCALE)
                 throw new Exception("Detected uncnown locale index " + DetectedLocale);
         }
 
