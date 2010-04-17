@@ -10,12 +10,12 @@
         zhTW,
         esES,
         esMX,
-        ruRU  
+        ruRU
     };
     /// <summary>
-    /// 
+    ///
     /// </summary>
-    public enum SpellFamilyNames 
+    public enum SpellFamilyNames
     {
         SPELLFAMILY_GENERIC     = 0,
         SPELLFAMILY_UNK1        = 1, // events, holidays
@@ -37,7 +37,7 @@
         SPELLFAMILY_PET         = 17
     };
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum SpellSpecific
     {
@@ -66,7 +66,7 @@
         SPELL_FOOD_AND_DRINK    = 22,
     };
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum SpellEffects
     {
@@ -236,7 +236,7 @@
         TOTAL_SPELL_EFFECTS                     = 163
     };
     /// <summary>
-    /// 
+    ///
     /// </summary>
     public enum AuraType
     {
@@ -684,7 +684,7 @@
     public enum ProcFlagsEx
     {
         PROC_EX_NONE                    = 0x0000000,                 // If none can tigger on Hit/Crit only (passive spells MUST defined by SpellFamily flag)
-        
+
         PROC_EX_NORMAL_HIT              = 0x0000001,                 // If set only from normal hit (only damage spells)
         PROC_EX_CRITICAL_HIT            = 0x0000002,
 
@@ -738,17 +738,17 @@
         // unions
 
         // 124, not include normal and holy damage
-        SPELL_SCHOOL_MASK_SPELL     = (SPELL_SCHOOL_MASK_FIRE 
+        SPELL_SCHOOL_MASK_SPELL     = (SPELL_SCHOOL_MASK_FIRE
                                      | SPELL_SCHOOL_MASK_NATURE
-                                     | SPELL_SCHOOL_MASK_FROST 
+                                     | SPELL_SCHOOL_MASK_FROST
                                      | SPELL_SCHOOL_MASK_SHADOW
                                      | SPELL_SCHOOL_MASK_ARCANE),
         // 126
-        SPELL_SCHOOL_MASK_MAGIC     = (SPELL_SCHOOL_MASK_HOLY 
+        SPELL_SCHOOL_MASK_MAGIC     = (SPELL_SCHOOL_MASK_HOLY
                                      | SPELL_SCHOOL_MASK_SPELL),
 
         // 127
-        SPELL_SCHOOL_MASK_ALL       = (SPELL_SCHOOL_MASK_NORMAL 
+        SPELL_SCHOOL_MASK_ALL       = (SPELL_SCHOOL_MASK_NORMAL
                                      | SPELL_SCHOOL_MASK_MAGIC)
     };
 

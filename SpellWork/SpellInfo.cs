@@ -23,9 +23,9 @@ namespace SpellWork
                          where Spell.Value.SpellFamilyName == (uint)spellfamily
                          join sk in DBC.SkillLineAbility on Spell.Key equals sk.Value.SpellId into temp
                          from Skill in temp.DefaultIfEmpty()
-                         select new 
-                         { 
-                             Spell, 
+                         select new
+                         {
+                             Spell,
                              SkillId = (Skill.Value.SkillId)
                          };
 
@@ -41,7 +41,7 @@ namespace SpellWork
                     mask_2 = 1U << (i - 64);
 
                 TreeNode node = new TreeNode();
-                node.Text = String.Format("0x{0:X8} {1:X8} {2:X8}", mask_2, mask_1, mask_0);   
+                node.Text = String.Format("0x{0:X8} {1:X8} {2:X8}", mask_2, mask_1, mask_0);
                 familyTree.Nodes.Add(node);
             }
 
@@ -53,7 +53,7 @@ namespace SpellWork
                 : String.Format("-({0}) {1} ({2})_({3})",      spell.ID, spell.SpellName, spell.Rank, GetSchool(spell));
 
                 int i = 0;
-                foreach(TreeNode node in familyTree.Nodes) 
+                foreach(TreeNode node in familyTree.Nodes)
                 {
                     uint mask_1 = 0, mask_2 = 0, mask_3 = 0;
 
@@ -76,11 +76,11 @@ namespace SpellWork
                 }
             }
         }
-        
+
         static String GetDuration(uint DurationIndex)
         {
             var query = from duration in DBC.SpellDuration where duration.Key == DurationIndex select duration;
-            
+
             if (query.Count() == 0)
                 return "";
 
@@ -94,7 +94,7 @@ namespace SpellWork
 
             if (query.Count() == 0)
                 return "";
-            
+
             var q = query.First();
             return String.Format("SpellRange: ID - {0} {1} (unk = {2}) MinRange = {3}, MinRangeFriendly = {4}, MaxRange = {5}, MaxRangeFriendly = {6}\r\n",
                 q.Key, q.Value.Description1, q.Value.Description2, q.Value.Field5, q.Value.MinRange,
@@ -104,9 +104,9 @@ namespace SpellWork
         static String GetCastTime(SpellEntry spell)
         {
             if(spell.CastingTimeIndex ==0) return "";
-            
+
             var query = from t in DBC.SpellCastTimes where t.Key == spell.CastingTimeIndex select t.Value;
-            
+
             if(query.Count() == 0)
             {
                 return String.Format("CastingTime({0}) = ????\r\n", spell.CastingTimeIndex);
@@ -153,7 +153,7 @@ namespace SpellWork
 
             if (skill.characterPoints[1] != 0)
                 str += String.Format(", Req characterPoints_1 {0}", skill.characterPoints[1]);
-                        
+
             str += "\r\n";
 
             return str;
@@ -179,7 +179,7 @@ namespace SpellWork
             var proc = spell.procFlags;
             while (proc != 0)
             {
-                if ((proc & 1) != 0) 
+                if ((proc & 1) != 0)
                     str += String.Format("  {0}\r\n", ProcFlagDesc[i]);
                 i++;
                 proc >>= 1;
@@ -203,11 +203,11 @@ namespace SpellWork
         static String GetItemInfo(SpellEntry spell)
         {
             // Получить из базы данных ()
-            // SELECT `entry`, `name` FROM `item_template` WHERE `spellid_1` = {0} OR `spellid_2` = {1} OR `spellid_3` = {2} 
+            // SELECT `entry`, `name` FROM `item_template` WHERE `spellid_1` = {0} OR `spellid_2` = {1} OR `spellid_3` = {2}
             //      OR `spellid_4` = {3} OR `spellid_5` = {4}
             return "";
         }
-        
+
         static String GetAuraModTypeName(uint id, int mod)
         {
             if (id == 107 || id == 108 || mod < 29)
@@ -260,8 +260,6 @@ namespace SpellWork
                     str += String.Format("Trigger spell ({0}) Not found, Chance = {0}\r\n",
                         spell.EffectTriggerSpell[index], spell.procChance);
                 }
-                
-   
             }
 
             return str;
@@ -285,7 +283,7 @@ namespace SpellWork
                 if (/*spell.EffectBaseDice[i]*/1 < spell.EffectDieSides[i])
                 {
                 if (spell.EffectRealPointsPerLevel[i] != 0)
-                    str += String.Format(" to {0} + lvl * {1:F})", 
+                    str += String.Format(" to {0} + lvl * {1:F})",
                         spell.EffectBasePoints[i] + /*spell.EffectBaseDice[i]*/ 1 + spell.EffectDieSides[i], spell.EffectRealPointsPerLevel[i]);
                 else
                     str += String.Format(" to {0}", spell.EffectBasePoints[i] +/*+ spell.EffectBaseDice[i]*/ 1 + spell.EffectDieSides[i]);
@@ -298,14 +296,14 @@ namespace SpellWork
 
                 if (spell.EffectMultipleValue[i]!=0)
                     str +=String.Format("  Multiple = {0:F}", spell.EffectMultipleValue[i]);
-                
+
                 str +=String.Format("\r\nTarget A ({0}),", (Targets)spell.EffectImplicitTargetA[i]);
                 str +=String.Format(" Target B ({0})\r\n", (Targets)spell.EffectImplicitTargetB[i]);
-                
+
                 if (spell.EffectApplyAuraName[i]!=0)
                     str +=String.Format("Aura {0}, value = {1}, misc = {2}, miscB = {3}, periodic = {4}\r\n",
                         (AuraType)spell.EffectApplyAuraName[i],
-                        spell.EffectBasePoints[i] + 1, GetAuraModTypeName(spell.EffectApplyAuraName[i], spell.EffectMiscValue[i]), 
+                        spell.EffectBasePoints[i] + 1, GetAuraModTypeName(spell.EffectApplyAuraName[i], spell.EffectMiscValue[i]),
                         spell.EffectMiscValueB[i], spell.EffectAmplitude[i]);
                 else
                 {
@@ -328,17 +326,17 @@ namespace SpellWork
                 if (ClassMask[0]!=0 || ClassMask[1]!=0 || ClassMask[2]!=0)
                 {
                     str += String.Format("SpellClassMask = {0:X8} {1:X8} {2:X8}\r\n", ClassMask[2], ClassMask[1], ClassMask[0]);
-                    
+
                     uint family = spell.SpellFamilyName;
                     uint mask_0 = ClassMask[0];
                     uint mask_1 = ClassMask[1];
                     uint mask_2 = ClassMask[2];
-                    
+
                     foreach (var s in DBC.Spell)
                     {
                         if (s.Value.SpellFamilyName != family)
                             continue;
-                        if ((s.Value.SpellFamilyFlags1 & mask_0) != 0 || 
+                        if ((s.Value.SpellFamilyFlags1 & mask_0) != 0 ||
                             (s.Value.SpellFamilyFlags2 & mask_1) != 0 ||
                             (s.Value.SpellFamilyFlags3 & mask_2) != 0)
                         {
@@ -347,7 +345,7 @@ namespace SpellWork
                         }
                     }
                 }
-                
+
                 str += GetRadius(spell, i);
                 str += GetTriggerSpell(spell, i);
 
@@ -510,7 +508,7 @@ namespace SpellWork
                     str += String.Format(" + lvl*{0}", spell.manaPerSecondPerLevel);
                 if (spell.ManaCostPercentage != 0)
                     str += String.Format(" + PCT {0}", spell.ManaCostPercentage);
-                
+
                 str += "\r\n";
             }
             str += String.Format("Interrupt Flags: 0x{0:X8}, AuraIF 0x{1:X8}, ChannelIF 0x{2:X8}\r\n",
@@ -541,7 +539,7 @@ namespace SpellWork
             str += GetSpellEffectInfo(spell);
 
             str += GetItemInfo(spell);
-            
+
             return str;
         }
 

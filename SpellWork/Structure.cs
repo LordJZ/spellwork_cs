@@ -340,7 +340,7 @@ namespace SpellWork
     {
         public uint  ID;
         public int   CastTime;   
-        public float CastTimePerLevel;    
-        public int   MinCastTime;     
+        public float CastTimePerLevel;
+        public int   MinCastTime;
     };
 }

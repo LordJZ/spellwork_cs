@@ -125,7 +125,7 @@ namespace SpellWork
 
                         select spell;
 
-            if (query.Count() == 0) 
+            if (query.Count() == 0)
                 return;
 
             foreach (var element in query)
