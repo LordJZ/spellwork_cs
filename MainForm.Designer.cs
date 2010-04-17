@@ -77,7 +77,7 @@
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this._cbProcSpellFamilyTree = new System.Windows.Forms.ComboBox();
-            this._tvFamilyMask = new System.Windows.Forms.TreeView();
+            this._tvFamilyTree = new System.Windows.Forms.TreeView();
             this.splitContainer5 = new System.Windows.Forms.SplitContainer();
             this._rtbProcSpellInfo = new System.Windows.Forms.RichTextBox();
             this._bProcSearch = new System.Windows.Forms.Button();
@@ -670,7 +670,7 @@
             // 
             this.splitContainer4.Panel1.BackColor = System.Drawing.Color.Gainsboro;
             this.splitContainer4.Panel1.Controls.Add(this._cbProcSpellFamilyTree);
-            this.splitContainer4.Panel1.Controls.Add(this._tvFamilyMask);
+            this.splitContainer4.Panel1.Controls.Add(this._tvFamilyTree);
             // 
             // splitContainer4.Panel2
             // 
@@ -694,15 +694,15 @@
             this._cbProcSpellFamilyTree.TabIndex = 1;
             this._cbProcSpellFamilyTree.SelectedIndexChanged += new System.EventHandler(this.comboBox4_SelectedIndexChanged);
             // 
-            // _tvFamilyMask
+            // _tvFamilyTree
             // 
-            this._tvFamilyMask.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this._tvFamilyTree.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this._tvFamilyMask.Location = new System.Drawing.Point(1, 23);
-            this._tvFamilyMask.Name = "_tvFamilyMask";
-            this._tvFamilyMask.Size = new System.Drawing.Size(217, 149);
-            this._tvFamilyMask.TabIndex = 0;
+            this._tvFamilyTree.Location = new System.Drawing.Point(1, 23);
+            this._tvFamilyTree.Name = "_tvFamilyTree";
+            this._tvFamilyTree.Size = new System.Drawing.Size(217, 149);
+            this._tvFamilyTree.TabIndex = 0;
             // 
             // splitContainer5
             // 
@@ -1009,7 +1009,7 @@
         private System.Windows.Forms.TextBox _tbProcSeach;
         private System.Windows.Forms.Button _bProcSearch;
         private System.Windows.Forms.ListView _lvProcAdditionalInfo;
-        private System.Windows.Forms.TreeView _tvFamilyMask;
+        private System.Windows.Forms.TreeView _tvFamilyTree;
         private System.Windows.Forms.ComboBox _cbProcSpellFamilyTree;
         private System.Windows.Forms.RichTextBox _rtbProcSpellInfo;
         private System.Windows.Forms.ColumnHeader _chID;

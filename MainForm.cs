@@ -160,30 +160,12 @@ namespace SpellWork
 
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _tvFamilyMask.Nodes.Clear();
-
-            for (int i = 0; i < 96; i++)
-            {
-                uint mask_0 = 0, mask_1 = 0, mask_2 = 0;
-
-                if (i < 32)
-                    mask_0 = 1U << i;
-                else if (i < 64)
-                    mask_1 = 1U << (i - 32);
-                else
-                    mask_2 = 1U << (i - 64);
-
-                TreeNode node = new TreeNode();
-                node.Text = String.Format("0x{0:X8} {1:X8} {2:X8}", mask_2, mask_1, mask_0);
-                // test
-                if (i < 64)
-                {
-                    node.Nodes.Add("2222222222222");
-                    node.Nodes.Add("3333333333333");
-                }
-
-                _tvFamilyMask.Nodes.Add(node);
-            }
+            var sen = ((ComboBox)sender);
+            if ((int)sen.SelectedIndex == 0)
+                return;
+            _tvFamilyTree.Nodes.Clear();
+            var spellfamily = (SpellFamilyNames)int.Parse(sen.SelectedValue.ToString());
+            SpellInfo.BuildFamilyTree(_tvFamilyTree, spellfamily);
         }
 
         private void _cbProcFlag_CheckedChanged(object sender, EventArgs e)
