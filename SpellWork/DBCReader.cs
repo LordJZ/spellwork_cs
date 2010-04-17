@@ -5,6 +5,7 @@ using System.IO;
 using System.Data;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace SpellWork
 {
@@ -16,7 +17,7 @@ namespace SpellWork
             string path = @"./dbc/";
 
             Dictionary<uint, string> nullStringDict = null;
-
+ 
             DBC.Spell            = DBCReader.ReadDBC<SpellEntry>(path + "Spell.dbc", ref DBC._SpellStrings);
             DBC.SpellRadius      = DBCReader.ReadDBC<SpellRadiusEntry>(path + "SpellRadius.dbc", ref nullStringDict);
             DBC.SpellRange       = DBCReader.ReadDBC<SpellRangeEntry>(path + "SpellRange.dbc", ref DBC._SpellRangeStrings);
