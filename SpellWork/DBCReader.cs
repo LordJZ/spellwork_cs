@@ -30,11 +30,14 @@ namespace SpellWork
 
             // Currently we use entry 1 from Spell.dbc to detect DBC locale
             byte DetectedLocale = 0;
-            while (DBC.Spell.LookupEntry<SpellEntry>(1).GetName(DetectedLocale) == null && DetectedLocale < MAX_DBC_LOCALE)
+            while (DBC.Spell.LookupEntry<SpellEntry>(1).GetName(DetectedLocale) == null)
+            {
+                if (DetectedLocale >= MAX_DBC_LOCALE)
+                    throw new Exception("Detected uncnown locale index " + DetectedLocale);
                 ++DetectedLocale;
+            }
             DBC.Locale = DetectedLocale;
-            if (DetectedLocale > MAX_DBC_LOCALE)
-                throw new Exception("Detected uncnown locale index " + DetectedLocale);
+
         }
 
         public static unsafe Dictionary<uint,T> ReadDBC<T>(string fileName, ref Dictionary<uint, string> strDict) where T : struct

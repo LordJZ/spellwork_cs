@@ -268,7 +268,7 @@ namespace SpellWork
         static String GetSpellEffectInfo(SpellEntry spell)
         {
             var str = "";
-            for (int i = 1; i < 3; ++i)
+            for (int i = 0; i < 3; i++)
             {
                 if (spell.Effect[i] == 0 && spell.EffectBasePoints[i] == 0)
                 {
@@ -332,16 +332,26 @@ namespace SpellWork
                     uint mask_1 = ClassMask[1];
                     uint mask_2 = ClassMask[2];
 
-                    foreach (var s in DBC.Spell)
+                    var query = from Spell in DBC.Spell
+                                join sk in DBC.SkillLineAbility on Spell.Key equals sk.Value.SpellId into temp
+                                from Skill in temp.DefaultIfEmpty()
+                                select new
+                                {
+                                    Spell,
+                                    SkillId = (Skill.Value.SkillId)
+                                };
+
+                    foreach (var row in query)
                     {
-                        if (s.Value.SpellFamilyName != family)
+                        var s = row.Spell.Value;
+                        if (s.SpellFamilyName != family)
                             continue;
-                        if ((s.Value.SpellFamilyFlags1 & mask_0) != 0 ||
-                            (s.Value.SpellFamilyFlags2 & mask_1) != 0 ||
-                            (s.Value.SpellFamilyFlags3 & mask_2) != 0)
+                        if ((s.SpellFamilyFlags1 & mask_0) != 0 ||
+                            (s.SpellFamilyFlags2 & mask_1) != 0 ||
+                            (s.SpellFamilyFlags3 & mask_2) != 0)
                         {
-                            var exist = ((from sk in DBC.SkillLineAbility where sk.Value.SpellId == spell.ID select sk).Count() > 0) ? "+" : "-";
-                            str += String.Format("    {0} {1} - {2} ({3})\r\n", exist, s.Key, s.Value.SpellName, s.Value.Rank);
+                            var exist = (row.SkillId > 0) ? "+" : "-";
+                            str += String.Format("    {0} {1} - {2} ({3})\r\n", exist, s.ID, s.SpellName, s.Rank);
                         }
                     }
                 }
