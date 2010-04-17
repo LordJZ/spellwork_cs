@@ -132,7 +132,7 @@ namespace SpellWork
             {
                 var id = element.Key.ToString();
                 var name = element.Value.SpellName;
-                var rank = element.Value.Rank != null ? " ("+element.Value.Rank +")" : "";
+                var rank = element.Value.Rank != "" ? " ("+element.Value.Rank +")" : "";
 
                 lv.Items.Add(new ListViewItem(new String[] { id, name + rank}));
             }
@@ -218,7 +218,7 @@ namespace SpellWork
             {
                 var id = element.Key.ToString();
                 var name = element.Value.SpellName;
-                var rank = element.Value.Rank != null ? " (" + element.Value.Rank + ")" : "";
+                var rank = element.Value.Rank != "" ? " (" + element.Value.Rank + ")" : "";
 
                 lv.Items.Add(new ListViewItem(new String[] { id, name + rank }));
             }

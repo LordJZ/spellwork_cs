@@ -96,9 +96,12 @@ namespace SpellWork
                 return "";
 
             var q = query.First();
-            return String.Format("SpellRange: ID - {0} {1} (unk = {2}) MinRange = {3}, MinRangeFriendly = {4}, MaxRange = {5}, MaxRangeFriendly = {6}\r\n",
-                q.Key, q.Value.Description1, q.Value.Description2, q.Value.Field5, q.Value.MinRange,
-                q.Value.MinRangeFriendly, q.Value.MaxRange, q.Value.MaxRangeFriendly);
+            StringBuilder sb = new StringBuilder();
+            sb.AppendFormat("SpellRange: ({0}) {1}: ",                    q.Key, q.Value.Description1);
+            sb.AppendFormat("MinRange = {0}, MinRangeFriendly = {1}, ",   q.Value.MinRange, q.Value.MinRangeFriendly);
+            sb.AppendFormat("MaxRange = {0}, MaxRangeFriendly = {1}\r\n", q.Value.MaxRange, q.Value.MaxRangeFriendly);
+            
+            return sb.ToString();
         }
 
         static String GetCastTime(SpellEntry spell)
@@ -530,7 +533,7 @@ namespace SpellWork
 
             str += GetSpellAura(spell);
 
-            if (spell.RequiresSpellFocus!=0)
+            if (spell.RequiresSpellFocus != 0)
                 str+=String.Format("Requires Spell Focus {0}\r\n", spell.RequiresSpellFocus);
 
             if (spell.procFlags!=0)
