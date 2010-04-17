@@ -41,8 +41,7 @@ namespace SpellWork
                     mask_2 = 1U << (i - 64);
 
                 TreeNode node = new TreeNode();
-                node.Text = String.Format("0x{0:X8} {1:X8} {2:X8}", mask_2, mask_1, mask_0);
- 
+                node.Text = String.Format("0x{0:X8} {1:X8} {2:X8}", mask_2, mask_1, mask_0);   
                 familyTree.Nodes.Add(node);
             }
 
@@ -50,9 +49,8 @@ namespace SpellWork
             {
                 var spell = elem.Spell.Value;
                 string name = elem.SkillId != 0
-                ? String.Format("+({0}) {1} ({2})_({3}, {4})", 
-                    spell.ID, spell.SpellName, spell.Rank, elem.SkillId, (SpellSchools)spell.SchoolMask)
-                : String.Format("-({0}) {1} ({2})_({3})", spell.ID, spell.SpellName, spell.Rank, (SpellSchools)spell.SchoolMask);
+                ? String.Format("+({0}) {1} ({2})_({3}, {4})", spell.ID, spell.SpellName, spell.Rank, elem.SkillId, GetSchool(spell))
+                : String.Format("-({0}) {1} ({2})_({3})",      spell.ID, spell.SpellName, spell.Rank, GetSchool(spell));
 
                 int i = 0;
                 foreach(TreeNode node in familyTree.Nodes) 
@@ -66,9 +64,9 @@ namespace SpellWork
                     else
                         mask_3 = 1U << (i - 64);
 
-                    if ((spell.SpellFamilyFlags1 & mask_1) != 0
-                        || (spell.SpellFamilyFlags2 & mask_1) != 0
-                        || (spell.SpellFamilyFlags3 & mask_3) != 0)
+                    if ((spell.SpellFamilyFlags1 & mask_1) != 0 ||
+                        (spell.SpellFamilyFlags2 & mask_1) != 0 ||
+                        (spell.SpellFamilyFlags3 & mask_3) != 0)
                     {
                         TreeNode child = new TreeNode();
                         child = node.Nodes.Add(name);
@@ -121,6 +119,19 @@ namespace SpellWork
             }
 
             return str;
+        }
+
+        static SpellSchools GetSchool(SpellEntry spell)
+        {
+            if ((spell.SchoolMask & 1)   != 0) return (SpellSchools)0;
+            if ((spell.SchoolMask & 2)   != 0) return (SpellSchools)1;
+            if ((spell.SchoolMask & 4)   != 0) return (SpellSchools)2;
+            if ((spell.SchoolMask & 8)   != 0) return (SpellSchools)3;
+            if ((spell.SchoolMask & 16)  != 0) return (SpellSchools)4;
+            if ((spell.SchoolMask & 32)  != 0) return (SpellSchools)5;
+            if ((spell.SchoolMask & 64)  != 0) return (SpellSchools)6;
+            if ((spell.SchoolMask & 128) != 0) return (SpellSchools)7;
+            return (SpellSchools)0;
         }
 
         static String GetSpellAura(SpellEntry spell)
@@ -197,7 +208,7 @@ namespace SpellWork
             str += String.Format("Family {0}, flag 0x{1:X8} {2:X8} {3:X8}\r\n",
                 (SpellFamilyNames)spell.SpellFamilyName, spell.SpellFamilyFlags3, spell.SpellFamilyFlags2, spell.SpellFamilyFlags1);
 
-            str += String.Format("SpellSchoolMask = {0}, DamageClass = {1}, PreventionType = {2}\r\n", (SpellSchoolMask)spell.SchoolMask,
+            str += String.Format("SpellSchoolMask = {0}, DamageClass = {1}, PreventionType = {2}\r\n", GetSchool(spell),
                 (SpellDmgClass)spell.DmgClass, (SpellPreventionType)spell.PreventionType);
 
             if (spell.Targets != 0 || spell.TargetCreatureType != 0)
@@ -320,8 +331,6 @@ namespace SpellWork
 
             //str = addItemsInfo(str, spell);
             return str;
-        }
-    
-        
+        } 
     }
 }
