@@ -218,7 +218,7 @@ namespace SpellWork
         }
     };
 
-    struct SkillLineEntry
+    public struct SkillLineEntry
     {
         public uint ID;                                            // 0        m_ID
         public int CategoryId;                                     // 1        m_categoryID
@@ -272,7 +272,7 @@ namespace SpellWork
         }
     };
 
-    struct SkillLineAbilityEntry
+    public struct SkillLineAbilityEntry
     {
         public uint ID;                                             // 0        m_ID
         public uint SkillId;                                        // 1        m_skillLine
@@ -290,7 +290,7 @@ namespace SpellWork
         public uint[] characterPoints;                              // 12-13    m_characterPoints[2]
     };
 
-    struct SpellRadiusEntry
+    public struct SpellRadiusEntry
     {
         public uint ID;
         public float Radius;
@@ -298,7 +298,7 @@ namespace SpellWork
         public float Radius2;
     };
 
-    struct SpellRangeEntry
+    public struct SpellRangeEntry
     {
         public uint  ID;
         public float MinRange;
@@ -338,10 +338,18 @@ namespace SpellWork
         }
     };
 
-    struct SpellDurationEntry
+    public struct SpellDurationEntry
     {
         public uint ID;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
         public int[] Duration;
+    };
+
+    public struct SpellCastTimesEntry
+    {
+        public uint  ID;
+        public int   CastTime;   
+        public float CastTimePerLevel;    
+        public int   MinCastTime;     
     };
 }

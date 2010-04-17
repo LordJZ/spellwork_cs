@@ -35,6 +35,7 @@ namespace SpellWork
             DBC.SpellDuration    = DBCReader.ReadDBC<SpellDurationEntry>(path + "SpellDuration.dbc",       ref nullStringDict);
             DBC.SkillLineAbility = DBCReader.ReadDBC<SkillLineAbilityEntry>(path + "SkillLineAbility.dbc", ref nullStringDict);
             DBC.SkillLine        = DBCReader.ReadDBC<SkillLineEntry>(path + "SkillLine.dbc",               ref DBC._SkillLineStrings);
+            DBC.SpellCastTimes   = DBCReader.ReadDBC<SpellCastTimesEntry>(path + "SpellCastTimes.dbc",     ref nullStringDict);
 
             Program.loadingForm.SetLabelText("Detecting DBC locale...");
             // Currently we use entry 1 from Spell.dbc to detect DBC locale

@@ -88,9 +88,9 @@ namespace SpellWork
             return String.Format("Duration: ID {0}  {1}, {2}, {3}\r\n", q.ID, q.Duration[0], q.Duration[1], q.Duration[2]);
         }
 
-        static String GetRange(uint RangeIndex)
+        static String GetRange(uint index)
         {
-            var query = from rande in DBC.SpellRange where rande.Key == RangeIndex select rande;
+            var query = from rande in DBC.SpellRange where rande.Key == index select rande;
 
             if (query.Count() == 0)
                 return "";
@@ -101,7 +101,23 @@ namespace SpellWork
                 q.Value.MinRangeFriendly, q.Value.MaxRange, q.Value.MaxRangeFriendly);
         }
 
-        static String GetSkillLineAbility(uint entry)
+        static String GetCastTime(SpellEntry spell)
+        {
+            if(spell.CastingTimeIndex ==0) return "";
+            
+            var query = from t in DBC.SpellCastTimes where t.Key == spell.CastingTimeIndex select t.Value;
+            
+            if(query.Count() == 0)
+            {
+                return String.Format("CastingTime({0}) = ????\r\n", spell.CastingTimeIndex);
+            }
+            else
+            {
+                return String.Format("CastingTime = {0:F}\r\n", query.First().CastTime / 1000.0f);
+            }
+        }
+
+        static String GetSkillLine(uint entry)
         {
             var query =
                from skillLineAbility in DBC.SkillLineAbility
@@ -112,11 +128,33 @@ namespace SpellWork
 
             if (query.Count() == 0)
                 return "";
-            var str = "Skill Line Ability: ";
-            foreach (var q in query)
-            {
-                str += String.Format("\r\n\t- ID: {0}, Name: {1}", q.skillLine.Value.ID, q.skillLine.Value.Name);
-            }
+            var skill = query.First().skillLineAbility.Value;
+            var line = query.First().skillLine.Value;
+
+            var str = String.Format("Skill ({0})", skill.SkillId);
+
+            if (line.Name != null)
+                str += String.Format(" {0}", line.Name);
+
+            if (skill.Req_skill_value > 1)
+                str += String.Format(", Req skill value {0}", skill.Req_skill_value);
+
+            if (skill.Forward_spellid != 0)
+                str += String.Format(", Forward spell {0}", skill.Forward_spellid);
+
+            if (skill.Min_value != 0)
+                str += String.Format(", Min Value {0}", skill.Min_value);
+
+            if (skill.Max_value != 0)
+                str += String.Format(", Max Value {0}", skill.Max_value);
+
+            if (skill.characterPoints[0] != 0)
+                str += String.Format(", Req characterPoints_0 {0}", skill.characterPoints[0]);
+
+            if (skill.characterPoints[1] != 0)
+                str += String.Format(", Req characterPoints_1 {0}", skill.characterPoints[1]);
+                        
+            str += "\r\n";
 
             return str;
         }
@@ -132,6 +170,52 @@ namespace SpellWork
             if ((spell.SchoolMask & 64)  != 0) return (SpellSchools)6;
             if ((spell.SchoolMask & 128) != 0) return (SpellSchools)7;
             return (SpellSchools)0;
+        }
+
+        static String GetProcInfo(SpellEntry spell)
+        {
+            int i=0;
+            string str = "";
+            var proc = spell.procFlags;
+            while (proc != 0)
+            {
+                if ((proc & 1) != 0) 
+                    str += String.Format("  {0}\r\n", ProcFlagDesc[i]);
+                i++;
+                proc >>= 1;
+            }
+            return str;
+        }
+
+        static String GetFormInfo(uint val, string name)
+        {
+            int i = 0;
+            while (val != 0)
+            {
+                if ((val & 1) != 0)
+                    name += String.Format("{0}, ", (ShapeshiftForm)i);
+                i++;
+                val >>= 1;
+            }
+            return name + "\r\n";
+        }
+
+        static String GetItemInfo(SpellEntry spell)
+        {
+            // Получить из базы данных ()
+            // SELECT `entry`, `name` FROM `item_template` WHERE `spellid_1` = {0} OR `spellid_2` = {1} OR `spellid_3` = {2} 
+            //      OR `spellid_4` = {3} OR `spellid_5` = {4}
+            return "";
+        }
+
+        static String GetSpellEffectInfo(SpellEntry spell)
+        {
+            var str = "";
+            for (int i = 1; i < 4; i++)
+            { 
+                // TODO: 
+            }
+            return str;
         }
 
         static String GetSpellAura(SpellEntry spell)
@@ -213,24 +297,16 @@ namespace SpellWork
 
             if (spell.Targets != 0 || spell.TargetCreatureType != 0)
                 str += String.Format("Targets 0x%08X, Creature Type 0x%08X\r\n", spell.Targets, spell.TargetCreatureType);
+            // Начало
+            // Необходимо поправить, я незнаю как должно формароватся значение, смотри функцию
+            if (spell.Stances != 0)
+                str += GetFormInfo(spell.Stances, "Stances: ");
 
-            //if (spell.Stances!=0) str+=addFormInfo(str,spell.Stances);
+            if (spell.StancesNot !=0 )
+                str = GetFormInfo(spell.StancesNot, "Not Stances: ");
+            // Конец
 
-            //if (spell.StancesNot) str=addFormInfo(str,spell.StancesNot);
-
-            //if (SkillLine)
-            //{
-            // const SkillLineEntry *line = sSkillLineStore.LookupEntry(SkillLine->skillId);
-            // str+=String.Format("Skill (%d)",SkillLine->skillId);
-            // if (line) str+=String.Format(" %s",line->name);
-            // if (SkillLine->req_skill_value>1) str+=String.Format(", Req skill value %d",SkillLine->req_skill_value);
-            // if (SkillLine->forward_spellid) str+=String.Format(", Forward spell %d",SkillLine->forward_spellid);
-            // if (SkillLine->min_value) str+=String.Format(", Min Value %d",SkillLine->min_value);
-            // if (SkillLine->max_value) str+=String.Format(", Max Value %d",SkillLine->max_value);
-            // if (SkillLine->characterPoints[0]) str+=String.Format(", Req characterPoints_0 %d",SkillLine->characterPoints[0]);
-            // if (SkillLine->characterPoints[1]) str+=String.Format(", Req characterPoints_1 %d",SkillLine->characterPoints[1]);
-            // str+=String.Format("\r\n");
-            //}
+            str += GetSkillLine(spell.ID);
 
             if (spell.spellLevel != 0)
                 str += String.Format("Spell level = {0}", spell.spellLevel);
@@ -256,9 +332,8 @@ namespace SpellWork
                 str += String.Format("Dispel - {0}\r\n", spell.Dispel);
             if (spell.Mechanic != 0)
                 str += String.Format("Mechanic - {0} - {1}\r\n", spell.Mechanic, (Mechanics)spell.Mechanic);
-            
-            //if (range && (range.minRange || range.maxRange))
-            //    str += String.Format("Range {0:F} - {1:F} yards\r\n", range.minRange, range.maxRange);
+            if(spell.rangeIndex != 0)
+                str += GetRange(spell.rangeIndex);
 
             if (spell.speed != 0)
                 str += String.Format("Speed {0:F}\r\n", spell.speed);
@@ -270,12 +345,7 @@ namespace SpellWork
             if (spell.StackAmount != 0)
                 str += String.Format("Stackable up to {0}\r\n", spell.StackAmount);
 
-            //if (castTime)
-            //{
-            //    if (castTime->CastTime)
-            //        str+=String.Format("CastingTime = %02.2f\r\n", float(castTime->CastTime/1000.0f));
-            //}
-            //else          str+=String.Format("CastingTime({0}) = ????\r\n",spell.CastingTimeIndex);
+            str += GetCastTime(spell);
 
             if (spell.RecoveryTime!=0 || spell.CategoryRecoveryTime!=0 || spell.StartRecoveryCategory!=0)
             {
@@ -317,20 +387,91 @@ namespace SpellWork
             {
                 str+=String.Format("Proc flag 0x{0:X8}, chance = {1}, charges - {2}\r\n", 
                 spell.procFlags, spell.procChance, spell.procCharges);
-             //str+=String.Format("=================================================\r\n");
-             //str = addProcInfo(str, spell.procFlags);
-             //str+=String.Format("=================================================\r\n");
+                str += String.Format("=================================================\r\n");
+                str += GetProcInfo(spell);
+                str += String.Format("=================================================\r\n");
             }
             else // if(spell.procCharges)
             {
                 str+=String.Format("Chance = {0}, charges - {1}\r\n", spell.procChance, spell.procCharges);
             }
-            //str = addEffectInfo(str,spell,0);
-            //str = addEffectInfo(str,spell,1);
-            //str = addEffectInfo(str,spell,2);
+            str += GetSpellEffectInfo(spell);
 
-            //str = addItemsInfo(str, spell);
+            str += GetItemInfo(spell);
+            
             return str;
-        } 
+        }
+
+        #region Desc
+        static string[] ProcFlagDesc = {
+            //00 0x00000001 000000000000000000000001 -
+            "00 Killed by agressor that resive experience or honor",
+            //01 0x00000002 000000000000000000000010 -
+            "01 Kill that yields experience or honor",
+
+            //02 0x00000004 000000000000000000000100 -
+            "02 Successful melee attack",
+            //03 0x00000008 000000000000000000001000 -
+            "03 Taken damage from melee strike hit",
+
+            //04 0x00000010 000000000000000000010000 -
+            "04 Successful attack by Spell that use melee weapon",
+            //05 0x00000020 000000000000000000100000 -
+            "05 Taken damage by Spell that use melee weapon",
+
+            //06 0x00000040 000000000000000001000000 -
+            "06 Successful Ranged attack(and wand spell cast)",
+            //07 0x00000080 000000000000000010000000 -
+            "07 Taken damage from ranged attack",
+
+            //08 0x00000100 000000000000000100000000 -
+            "08 Successful Ranged attack by Spell that use ranged weapon",
+            //09 0x00000200 000000000000001000000000 -
+            "09 Taken damage by Spell that use ranged weapon",
+
+            //10 0x00000400 000000000000010000000000 -
+            "10 Successful ??? spell hit",
+            //11 0x00000800 000000000000100000000000 -
+            "11 Taken ??? spell hit",
+
+            //12 0x00001000 000000000001000000000000 -
+            "12 Successful ??? spell cast",
+            //13 0x00002000 000000000010000000000000 -
+            "13 Taken ??? spell hit",
+
+            //14 0x00004000 000000000100000000000000 -
+            "14 Successful cast positive spell",
+            //15 0x00008000 000000001000000000000000 -
+            "15 Taken positive spell hit",
+
+            //16 0x00010000 000000010000000000000000 -
+            "16 Successful damage from harmful spell cast (каст дамажащего спелла)",
+            //17 0x00020000 000000100000000000000000 -
+            "17 Taken spell damage",
+
+            //18 0x00040000 000001000000000000000000 -
+            "18 Deal periodic damage",
+            //19 0x00080000 000010000000000000000000 -
+            "19 Taken periodic damage",
+
+            //20 0x00100000 000100000000000000000000 -
+            "20 Taken any damage",
+            //21 0x00200000 001000000000000000000000 -
+            "21 On trap activation (При срабатывании ловушки)",
+
+            //22 0x00800000 010000000000000000000000 -
+            "22 Taken off-hand melee attacks",
+            //23 0x00800000 100000000000000000000000 -
+            "23 Successful off-hand melee attacks",
+
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "30",
+            "31"};
+        #endregion
     }
 }

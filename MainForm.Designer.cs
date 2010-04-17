@@ -289,6 +289,7 @@
             // 
             this._cbTarget2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this._cbTarget2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._cbTarget2.FormattingEnabled = true;
             this._cbTarget2.Location = new System.Drawing.Point(139, 102);
             this._cbTarget2.Name = "_cbTarget2";
@@ -300,6 +301,7 @@
             // 
             this._cbTarget1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this._cbTarget1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._cbTarget1.FormattingEnabled = true;
             this._cbTarget1.Location = new System.Drawing.Point(1, 102);
             this._cbTarget1.Name = "_cbTarget1";
@@ -311,6 +313,7 @@
             // 
             this._cbSpellEffect.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this._cbSpellEffect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._cbSpellEffect.FormattingEnabled = true;
             this._cbSpellEffect.Location = new System.Drawing.Point(1, 79);
             this._cbSpellEffect.Name = "_cbSpellEffect";
@@ -322,6 +325,7 @@
             // 
             this._cbSpellAura.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this._cbSpellAura.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._cbSpellAura.FormattingEnabled = true;
             this._cbSpellAura.Location = new System.Drawing.Point(1, 56);
             this._cbSpellAura.Name = "_cbSpellAura";
@@ -333,6 +337,7 @@
             // 
             this._cbSpellFamilyName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this._cbSpellFamilyName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._cbSpellFamilyName.FormattingEnabled = true;
             this._cbSpellFamilyName.Location = new System.Drawing.Point(1, 32);
             this._cbSpellFamilyName.Name = "_cbSpellFamilyName";
@@ -683,6 +688,7 @@
             // 
             this._cbProcSpellFamilyTree.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this._cbProcSpellFamilyTree.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._cbProcSpellFamilyTree.FormattingEnabled = true;
             this._cbProcSpellFamilyTree.Items.AddRange(new object[] {
             "1",
@@ -765,6 +771,7 @@
             // _cbProcTarget2
             // 
             this._cbProcTarget2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this._cbProcTarget2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._cbProcTarget2.FormattingEnabled = true;
             this._cbProcTarget2.Location = new System.Drawing.Point(143, 90);
             this._cbProcTarget2.Name = "_cbProcTarget2";
@@ -776,6 +783,7 @@
             // 
             this._cbProcTarget1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this._cbProcTarget1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._cbProcTarget1.FormattingEnabled = true;
             this._cbProcTarget1.Location = new System.Drawing.Point(3, 90);
             this._cbProcTarget1.Name = "_cbProcTarget1";
@@ -787,6 +795,7 @@
             // 
             this._cbProcSpellEffect.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this._cbProcSpellEffect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._cbProcSpellEffect.FormattingEnabled = true;
             this._cbProcSpellEffect.Location = new System.Drawing.Point(3, 68);
             this._cbProcSpellEffect.Name = "_cbProcSpellEffect";
@@ -798,6 +807,7 @@
             // 
             this._cbProcSpellAura.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this._cbProcSpellAura.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._cbProcSpellAura.FormattingEnabled = true;
             this._cbProcSpellAura.Location = new System.Drawing.Point(3, 46);
             this._cbProcSpellAura.Name = "_cbProcSpellAura";
@@ -809,6 +819,7 @@
             // 
             this._cbProcSpellFamilyName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this._cbProcSpellFamilyName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._cbProcSpellFamilyName.FormattingEnabled = true;
             this._cbProcSpellFamilyName.Location = new System.Drawing.Point(3, 24);
             this._cbProcSpellFamilyName.Name = "_cbProcSpellFamilyName";
