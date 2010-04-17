@@ -243,8 +243,8 @@ namespace SpellWork
                     str += String.Format("Trigger spell ({0}) {1}. Chance = {2}\r\n", spell.EffectTriggerSpell[index],
                         trigger.SpellName, spell.procChance);
 
-                    if (trigger.Descriprion != null)
-                        str += String.Format("{0}\r\n", trigger.Descriprion);
+                    if (trigger.Description != null)
+                        str += String.Format("{0}\r\n", trigger.Description);
                     if (trigger.ToolTip != null)
                         str += String.Format("{0}\r\n", trigger.ToolTip);
 
@@ -421,8 +421,8 @@ namespace SpellWork
 
             str += String.Format("ID - {0} {1} ({2})\r\n", spell.ID, spell.SpellName, spell.Rank);
 
-            if (spell.Descriprion != null)
-                str += String.Format("=================================================\r\n{0}\r\n", spell.Descriprion);
+            if (spell.Description != null)
+                str += String.Format("=================================================\r\n{0}\r\n", spell.Description);
             if (spell.ToolTip != null)
                 str += String.Format("ToolTip: {0}\r\n", spell.ToolTip);
             if (spell.modalNextSpell != 0)

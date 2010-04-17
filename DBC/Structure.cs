@@ -182,7 +182,7 @@ namespace SpellWork
         /// <summary>
         /// Return curent Spell Description
         /// </summary>
-        public string Descriprion
+        public string Description
         {
             get
             {
