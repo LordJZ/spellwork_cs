@@ -144,7 +144,13 @@ namespace SpellWork
             if (lv.SelectedItems.Count > 0)
             {
                 var rtb = lv.Name == "_lvSpellList" ? _rtSpellInfo : _rtbProcSpellInfo;
-                SpellInfo.View(rtb, uint.Parse(lv.SelectedItems[0].SubItems[0].Text));
+                var id = uint.Parse(lv.SelectedItems[0].SubItems[0].Text);
+                SpellInfo.View(rtb, id);
+                if (lv.Name == "_lvProcSpellList")
+                {
+                    var result = (from s in DBC.Spell where s.Key == id select s.Value.SpellFamilyName).First();
+                    _cbProcSpellFamilyTree.SelectedValue = result;
+                }
             }
         }
 
