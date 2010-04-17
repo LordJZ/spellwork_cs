@@ -153,7 +153,7 @@ namespace SpellWork
         public uint spellDescriptionVariableID;                   // 232      3.2.0
         public uint SpellDifficultyId;                            // 233      3.3.0                           // 239      3.3.0
         /// <summary>
-        /// Return curent Spell Name
+        /// Return current Spell Name
         /// </summary>
         public string SpellName
         {
@@ -166,7 +166,7 @@ namespace SpellWork
             }
         }
         /// <summary>
-        /// Return curent Spell Rank
+        /// Return current Spell Rank
         /// </summary>
         public string Rank
         {
@@ -179,7 +179,7 @@ namespace SpellWork
             }
         }
         /// <summary>
-        /// Return curent Spell Description
+        /// Return current Spell Description
         /// </summary>
         public string Description
         {
@@ -192,7 +192,7 @@ namespace SpellWork
             }
         }
         /// <summary>
-        /// Return curent Spell ToolTip
+        /// Return current Spell ToolTip
         /// </summary>
         public string ToolTip
         {

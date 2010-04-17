@@ -123,7 +123,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Utility.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="New Icon.ico" />

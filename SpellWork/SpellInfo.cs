@@ -12,7 +12,7 @@ namespace SpellWork
         public static void View(RichTextBox rtb, uint spellId)
         {
             rtb.Clear();
-            var spell = (from s in DBC.Spell where s.Key == spellId select s.Value).First();
+            var spell = DBC.Spell[spellId];
             rtb.AppendText(GenerateSpellDesc(spell));
         }
 
@@ -456,15 +456,10 @@ namespace SpellWork
                 sb.Append(GetFormInfo(spell.StancesNot, "Not Stances: "));
 
             sb.Append(GetSkillLine(spell.ID));
-
-            if (spell.spellLevel != 0)
-                sb.AppendFormat("Spell level = {0}", spell.spellLevel);
-            if (spell.baseLevel != 0)
-                sb.AppendFormat(", base {0}", spell.baseLevel);
-            if (spell.maxLevel != 0)
-                sb.AppendFormat(", max {0}", spell.maxLevel);
-            if (spell.MaxTargetLevel != 0)
-                sb.AppendFormat(", maxTargetLevel {0}", spell.MaxTargetLevel);
+            sb.Append(spell.spellLevel.IsEmpty("Spell level = "));
+            sb.Append(spell.baseLevel.IsEmpty(", base = "));
+            sb.Append(spell.maxLevel.IsEmpty(", max = "));
+            sb.Append(spell.MaxTargetLevel.IsEmpty(", maxTargetLevel = "));
 
             sb.Append(Environment.NewLine);
 

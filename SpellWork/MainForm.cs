@@ -52,7 +52,7 @@ namespace SpellWork
 
             foreach (var str in Enum.GetValues(enums))
             {
-                dt.Rows.Add(new Object[] { (int)str, "(" + ((int)str).ToString("000") + ")" + str });
+                dt.Rows.Add(new Object[] { (int)str, "(" + ((int)str).ToString("000") + ") " + str });
             }
 
             cb.DataSource = dt;
@@ -90,23 +90,23 @@ namespace SpellWork
 
             var SpellFamilyName = firstPage ? _cbSpellFamilyName : _cbProcSpellFamilyName;
             var bFamilyNames = SpellFamilyName.SelectedIndex != 0;
-            var fFamilyNames = int.Parse(SpellFamilyName.SelectedValue.ToString());
+            var fFamilyNames = SpellFamilyName.SelectedValue.ToInt32();
 
             var SpellAura = firstPage ? _cbSpellAura : _cbProcSpellAura;
             var bSpellAura = SpellAura.SelectedIndex != 0;
-            var fSpellAura = int.Parse(SpellAura.SelectedValue.ToString());
+            var fSpellAura = SpellAura.SelectedValue.ToInt32();
 
             var SpellEffect = firstPage ? _cbSpellEffect : _cbProcSpellEffect;
             var bSpellEffect = SpellEffect.SelectedIndex != 0;
-            var fSpellEffect = int.Parse(SpellEffect.SelectedValue.ToString());
+            var fSpellEffect = SpellEffect.SelectedValue.ToInt32();
 
             var Target1 = firstPage ? _cbTarget1 : _cbProcTarget1;
             var bTarget1 = Target1.SelectedIndex != 0;
-            var fTarget1 = int.Parse(Target1.SelectedValue.ToString());
+            var fTarget1 = Target1.SelectedValue.ToInt32();
 
             var Target2 = firstPage ? _cbTarget2 : _cbProcTarget2;
             var bTarget2 = Target2.SelectedIndex != 0;
-            var fTarget2 = int.Parse(Target2.SelectedValue.ToString());
+            var fTarget2 = Target2.SelectedValue.ToInt32();
 
             var query = from spell in DBC.Spell
                         where (!bFamilyNames || spell.Value.SpellFamilyName == fFamilyNames)
@@ -144,7 +144,7 @@ namespace SpellWork
             if (lv.SelectedItems.Count > 0)
             {
                 var rtb = lv.Name == "_lvSpellList" ? _rtSpellInfo : _rtbProcSpellInfo;
-                var id = uint.Parse(lv.SelectedItems[0].SubItems[0].Text);
+                var id = lv.SelectedItems[0].SubItems[0].Text.ToUInt32();
                 SpellInfo.View(rtb, id);
                 if (lv.Name == "_lvProcSpellList")
                 {
@@ -228,7 +228,7 @@ namespace SpellWork
         {
             TreeNode node = ((TreeView)sender).SelectedNode;
             if (node.Level > 0)
-                SpellInfo.View(_rtbProcSpellInfo, uint.Parse(node.Name));
+                SpellInfo.View(_rtbProcSpellInfo, node.Name.ToUInt32());
         }
     }
 }
