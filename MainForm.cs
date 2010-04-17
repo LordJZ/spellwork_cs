@@ -33,6 +33,8 @@ namespace SpellWork
             SetEnumValues(_cbProcSpellEffect, typeof(SpellEffects));
             SetEnumValues(_cbProcTarget1, typeof(Targets));
             SetEnumValues(_cbProcTarget2, typeof(Targets));
+
+            SetEnumValues(_cbProcSpellFamilyTree, typeof(SpellFamilyNames));
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -77,28 +79,34 @@ namespace SpellWork
             if (((ComboBox)sender).SelectedIndex != 0)
             {
                 ListView lv = tabControl1.SelectedIndex == 0 ? _lvSpellList : _lvProcSpellList;
-                DataView(lv);
+                GetList(lv);
             }
         }
 
-        private void DataView(ListView lv)
+        private void GetList(ListView lv)
         {
             lv.Items.Clear();
+            var firstPage = tabControl1.SelectedIndex == 0;
 
-            var bFamilyNames = _cbSpellFamilyName.SelectedIndex != 0;
-            var fFamilyNames = int.Parse(_cbSpellFamilyName.SelectedValue.ToString());
+            var SpellFamilyName = firstPage ? _cbSpellFamilyName : _cbProcSpellFamilyName;
+            var bFamilyNames = SpellFamilyName.SelectedIndex != 0;
+            var fFamilyNames = int.Parse(SpellFamilyName.SelectedValue.ToString());
 
-            var bSpellAura = _cbSpellAura.SelectedIndex != 0;
-            var fSpellAura = int.Parse(_cbSpellAura.SelectedValue.ToString());
+            var SpellAura = firstPage ? _cbSpellAura : _cbProcSpellAura;
+            var bSpellAura = SpellAura.SelectedIndex != 0;
+            var fSpellAura = int.Parse(SpellAura.SelectedValue.ToString());
 
-            var bSpellEffect = _cbSpellEffect.SelectedIndex != 0;
-            var fSpellEffect = int.Parse(_cbSpellEffect.SelectedValue.ToString());
+            var SpellEffect = firstPage ? _cbSpellEffect : _cbProcSpellEffect;
+            var bSpellEffect = SpellEffect.SelectedIndex != 0;
+            var fSpellEffect = int.Parse(SpellEffect.SelectedValue.ToString());
 
-            var bTarget1 = _cbTarget1.SelectedIndex != 0;
-            var fTarget1 = int.Parse(_cbTarget1.SelectedValue.ToString());
+            var Target1 = firstPage ? _cbTarget1 : _cbProcTarget1;
+            var bTarget1 = Target1.SelectedIndex != 0;
+            var fTarget1 = int.Parse(Target1.SelectedValue.ToString());
 
-            var bTarget2 = _cbTarget2.SelectedIndex != 0;
-            var fTarget2 = int.Parse(_cbTarget2.SelectedValue.ToString());
+            var Target2 = firstPage ? _cbTarget2 : _cbProcTarget2;
+            var bTarget2 = Target2.SelectedIndex != 0;
+            var fTarget2 = int.Parse(Target2.SelectedValue.ToString());
 
             var query = from spell in DBC.Spell
                         where (!bFamilyNames || spell.Value.SpellFamilyName == fFamilyNames)
@@ -124,9 +132,9 @@ namespace SpellWork
             {
                 var id = element.Key.ToString();
                 var name = element.Value.SpellName;
-                var rank = element.Value.Rank;
+                var rank = element.Value.Rank != null ? " ("+element.Value.Rank +")" : "";
 
-                lv.Items.Add(new ListViewItem(new String[] { id, name + " (" + rank + ")" }));
+                lv.Items.Add(new ListViewItem(new String[] { id, name + rank}));
             }
         }
 
@@ -143,17 +151,11 @@ namespace SpellWork
         private void _bProc_Click(object sender, EventArgs e)
         {
             splitContainer3.SplitterDistance = 70;
-            //splitContainer3.Panel1Collapsed = !splitContainer3.Panel1Collapsed;
         }
 
         private void _bSpellInfo_Click(object sender, EventArgs e)
         {
             splitContainer2.Panel2Collapsed = !splitContainer2.Panel2Collapsed;
-        }
-
-        private void tabControl1_TabIndexChanged(object sender, EventArgs e)
-        {
-            //_bProc.Visible = _bSpellInfo.Visible = tabControl1.SelectedIndex == 1;
         }
 
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
@@ -228,9 +230,9 @@ namespace SpellWork
             {
                 var id = element.Key.ToString();
                 var name = element.Value.SpellName;
-                var rank = element.Value.Rank;
+                var rank = element.Value.Rank != null ? " (" + element.Value.Rank + ")" : "";
 
-                lv.Items.Add(new ListViewItem(new String[] { id, name + " (" + rank + ")" }));
+                lv.Items.Add(new ListViewItem(new String[] { id, name + rank }));
             }
         }
     }

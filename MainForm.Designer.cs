@@ -88,6 +88,8 @@
             this._cbProcSpellAura = new System.Windows.Forms.ComboBox();
             this._cbProcSpellFamilyName = new System.Windows.Forms.ComboBox();
             this._lvProcSpellList = new System.Windows.Forms.ListView();
+            this._chProcID = new System.Windows.Forms.ColumnHeader();
+            this._chProcName = new System.Windows.Forms.ColumnHeader();
             this._lvProcAdditionalInfo = new System.Windows.Forms.ListView();
             this._chID = new System.Windows.Forms.ColumnHeader();
             this._chName = new System.Windows.Forms.ColumnHeader();
@@ -96,8 +98,6 @@
             this.splitContainer6 = new System.Windows.Forms.SplitContainer();
             this._lvDataList = new System.Windows.Forms.ListView();
             this._tbSqlLog = new System.Windows.Forms.TextBox();
-            this._chProcID = new System.Windows.Forms.ColumnHeader();
-            this._chProcName = new System.Windows.Forms.ColumnHeader();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -194,8 +194,6 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(856, 410);
             this.tabControl1.TabIndex = 2;
-            this.tabControl1.TabIndexChanged += new System.EventHandler(this.tabControl1_TabIndexChanged);
-            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_TabIndexChanged);
             // 
             // tabPage1
             // 
@@ -280,11 +278,12 @@
             // chSpellID
             // 
             this.chSpellID.Text = "ID";
+            this.chSpellID.Width = 48;
             // 
             // chSpellName
             // 
             this.chSpellName.Text = "Name";
-            this.chSpellName.Width = 200;
+            this.chSpellName.Width = 224;
             // 
             // _cbTarget2
             // 
@@ -677,7 +676,7 @@
             // 
             this.splitContainer4.Panel2.Controls.Add(this.splitContainer5);
             this.splitContainer4.Size = new System.Drawing.Size(848, 174);
-            this.splitContainer4.SplitterDistance = 194;
+            this.splitContainer4.SplitterDistance = 219;
             this.splitContainer4.TabIndex = 0;
             // 
             // _cbProcSpellFamilyTree
@@ -691,7 +690,7 @@
             "3"});
             this._cbProcSpellFamilyTree.Location = new System.Drawing.Point(0, 2);
             this._cbProcSpellFamilyTree.Name = "_cbProcSpellFamilyTree";
-            this._cbProcSpellFamilyTree.Size = new System.Drawing.Size(193, 21);
+            this._cbProcSpellFamilyTree.Size = new System.Drawing.Size(218, 21);
             this._cbProcSpellFamilyTree.TabIndex = 1;
             this._cbProcSpellFamilyTree.SelectedIndexChanged += new System.EventHandler(this.comboBox4_SelectedIndexChanged);
             // 
@@ -702,7 +701,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this._tvFamilyMask.Location = new System.Drawing.Point(1, 23);
             this._tvFamilyMask.Name = "_tvFamilyMask";
-            this._tvFamilyMask.Size = new System.Drawing.Size(192, 149);
+            this._tvFamilyMask.Size = new System.Drawing.Size(217, 149);
             this._tvFamilyMask.TabIndex = 0;
             // 
             // splitContainer5
@@ -727,8 +726,8 @@
             this.splitContainer5.Panel2.Controls.Add(this._cbProcSpellAura);
             this.splitContainer5.Panel2.Controls.Add(this._cbProcSpellFamilyName);
             this.splitContainer5.Panel2.Controls.Add(this._lvProcSpellList);
-            this.splitContainer5.Size = new System.Drawing.Size(650, 174);
-            this.splitContainer5.SplitterDistance = 420;
+            this.splitContainer5.Size = new System.Drawing.Size(625, 174);
+            this.splitContainer5.SplitterDistance = 343;
             this.splitContainer5.TabIndex = 0;
             // 
             // _rtbProcSpellInfo
@@ -737,14 +736,14 @@
             this._rtbProcSpellInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this._rtbProcSpellInfo.Location = new System.Drawing.Point(0, 0);
             this._rtbProcSpellInfo.Name = "_rtbProcSpellInfo";
-            this._rtbProcSpellInfo.Size = new System.Drawing.Size(420, 174);
+            this._rtbProcSpellInfo.Size = new System.Drawing.Size(343, 174);
             this._rtbProcSpellInfo.TabIndex = 0;
             this._rtbProcSpellInfo.Text = "";
             // 
             // _bProcSearch
             // 
             this._bProcSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this._bProcSearch.Location = new System.Drawing.Point(177, 3);
+            this._bProcSearch.Location = new System.Drawing.Point(229, 3);
             this._bProcSearch.Name = "_bProcSearch";
             this._bProcSearch.Size = new System.Drawing.Size(46, 20);
             this._bProcSearch.TabIndex = 5;
@@ -758,7 +757,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this._tbProcSeach.Location = new System.Drawing.Point(3, 3);
             this._tbProcSeach.Name = "_tbProcSeach";
-            this._tbProcSeach.Size = new System.Drawing.Size(171, 20);
+            this._tbProcSeach.Size = new System.Drawing.Size(223, 20);
             this._tbProcSeach.TabIndex = 4;
             this._tbProcSeach.KeyDown += new System.Windows.Forms.KeyEventHandler(this._tbSearch_KeyDown);
             // 
@@ -766,9 +765,9 @@
             // 
             this._cbProcTarget2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this._cbProcTarget2.FormattingEnabled = true;
-            this._cbProcTarget2.Location = new System.Drawing.Point(113, 90);
+            this._cbProcTarget2.Location = new System.Drawing.Point(143, 90);
             this._cbProcTarget2.Name = "_cbProcTarget2";
-            this._cbProcTarget2.Size = new System.Drawing.Size(110, 21);
+            this._cbProcTarget2.Size = new System.Drawing.Size(132, 21);
             this._cbProcTarget2.TabIndex = 3;
             this._cbProcTarget2.SelectedIndexChanged += new System.EventHandler(this._cbSpellFamilyNames_SelectedIndexChanged);
             // 
@@ -779,7 +778,7 @@
             this._cbProcTarget1.FormattingEnabled = true;
             this._cbProcTarget1.Location = new System.Drawing.Point(3, 90);
             this._cbProcTarget1.Name = "_cbProcTarget1";
-            this._cbProcTarget1.Size = new System.Drawing.Size(104, 21);
+            this._cbProcTarget1.Size = new System.Drawing.Size(134, 21);
             this._cbProcTarget1.TabIndex = 3;
             this._cbProcTarget1.SelectedIndexChanged += new System.EventHandler(this._cbSpellFamilyNames_SelectedIndexChanged);
             // 
@@ -790,7 +789,7 @@
             this._cbProcSpellEffect.FormattingEnabled = true;
             this._cbProcSpellEffect.Location = new System.Drawing.Point(3, 68);
             this._cbProcSpellEffect.Name = "_cbProcSpellEffect";
-            this._cbProcSpellEffect.Size = new System.Drawing.Size(220, 21);
+            this._cbProcSpellEffect.Size = new System.Drawing.Size(272, 21);
             this._cbProcSpellEffect.TabIndex = 3;
             this._cbProcSpellEffect.SelectedIndexChanged += new System.EventHandler(this._cbSpellFamilyNames_SelectedIndexChanged);
             // 
@@ -801,7 +800,7 @@
             this._cbProcSpellAura.FormattingEnabled = true;
             this._cbProcSpellAura.Location = new System.Drawing.Point(3, 46);
             this._cbProcSpellAura.Name = "_cbProcSpellAura";
-            this._cbProcSpellAura.Size = new System.Drawing.Size(220, 21);
+            this._cbProcSpellAura.Size = new System.Drawing.Size(272, 21);
             this._cbProcSpellAura.TabIndex = 2;
             this._cbProcSpellAura.SelectedIndexChanged += new System.EventHandler(this._cbSpellFamilyNames_SelectedIndexChanged);
             // 
@@ -812,7 +811,7 @@
             this._cbProcSpellFamilyName.FormattingEnabled = true;
             this._cbProcSpellFamilyName.Location = new System.Drawing.Point(3, 24);
             this._cbProcSpellFamilyName.Name = "_cbProcSpellFamilyName";
-            this._cbProcSpellFamilyName.Size = new System.Drawing.Size(220, 21);
+            this._cbProcSpellFamilyName.Size = new System.Drawing.Size(272, 21);
             this._cbProcSpellFamilyName.TabIndex = 1;
             this._cbProcSpellFamilyName.SelectedIndexChanged += new System.EventHandler(this._cbSpellFamilyNames_SelectedIndexChanged);
             // 
@@ -828,11 +827,21 @@
             this._lvProcSpellList.GridLines = true;
             this._lvProcSpellList.Location = new System.Drawing.Point(3, 113);
             this._lvProcSpellList.Name = "_lvProcSpellList";
-            this._lvProcSpellList.Size = new System.Drawing.Size(220, 59);
+            this._lvProcSpellList.Size = new System.Drawing.Size(272, 59);
             this._lvProcSpellList.TabIndex = 0;
             this._lvProcSpellList.UseCompatibleStateImageBehavior = false;
             this._lvProcSpellList.View = System.Windows.Forms.View.Details;
             this._lvProcSpellList.SelectedIndexChanged += new System.EventHandler(this._lvSpellList_SelectedIndexChanged);
+            // 
+            // _chProcID
+            // 
+            this._chProcID.Text = "ID";
+            this._chProcID.Width = 45;
+            // 
+            // _chProcName
+            // 
+            this._chProcName.Text = "Name";
+            this._chProcName.Width = 221;
             // 
             // _lvProcAdditionalInfo
             // 
@@ -916,16 +925,6 @@
             this._tbSqlLog.Name = "_tbSqlLog";
             this._tbSqlLog.Size = new System.Drawing.Size(836, 161);
             this._tbSqlLog.TabIndex = 0;
-            // 
-            // _chProcID
-            // 
-            this._chProcID.Text = "ID";
-            this._chProcID.Width = 63;
-            // 
-            // _chProcName
-            // 
-            this._chProcName.Text = "Name";
-            this._chProcName.Width = 154;
             // 
             // MainForm
             // 
