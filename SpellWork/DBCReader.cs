@@ -20,29 +20,28 @@ namespace SpellWork
 
             Dictionary<uint, string> nullStringDict = null;
 
-            DBC.Spell            = DBCReader.ReadDBC<SpellEntry>(path + "Spell.dbc", ref DBC._SpellStrings);
-            DBC.SpellRadius      = DBCReader.ReadDBC<SpellRadiusEntry>(path + "SpellRadius.dbc", ref nullStringDict);
-            DBC.SpellRange       = DBCReader.ReadDBC<SpellRangeEntry>(path + "SpellRange.dbc", ref DBC._SpellRangeStrings);
-            DBC.SpellDuration    = DBCReader.ReadDBC<SpellDurationEntry>(path + "SpellDuration.dbc", ref nullStringDict);
-            DBC.SkillLineAbility = DBCReader.ReadDBC<SkillLineAbilityEntry>(path + "SkillLineAbility.dbc", ref nullStringDict);
-            DBC.SkillLine        = DBCReader.ReadDBC<SkillLineEntry>(path + "SkillLine.dbc", ref DBC._SkillLineStrings);
-            DBC.SpellCastTimes   = DBCReader.ReadDBC<SpellCastTimesEntry>(path + "SpellCastTimes.dbc", ref nullStringDict);
+            DBC.Spell            = DBCReader.ReadDBC<SpellEntry>(path + "Spell.dbc", DBC._SpellStrings);
+            DBC.SpellRadius      = DBCReader.ReadDBC<SpellRadiusEntry>(path + "SpellRadius.dbc", nullStringDict);
+            DBC.SpellRange       = DBCReader.ReadDBC<SpellRangeEntry>(path + "SpellRange.dbc", DBC._SpellRangeStrings);
+            DBC.SpellDuration    = DBCReader.ReadDBC<SpellDurationEntry>(path + "SpellDuration.dbc", nullStringDict);
+            DBC.SkillLineAbility = DBCReader.ReadDBC<SkillLineAbilityEntry>(path + "SkillLineAbility.dbc", nullStringDict);
+            DBC.SkillLine        = DBCReader.ReadDBC<SkillLineEntry>(path + "SkillLine.dbc", DBC._SkillLineStrings);
+            DBC.SpellCastTimes   = DBCReader.ReadDBC<SpellCastTimesEntry>(path + "SpellCastTimes.dbc", nullStringDict);
 
             // Currently we use entry 1 from Spell.dbc to detect DBC locale
             byte DetectedLocale = 0;
-            while (DBC.Spell.LookupEntry<SpellEntry>(1).GetName(DetectedLocale) == null)
+            while (DBC.Spell.LookupEntry<SpellEntry>(1).GetName(DetectedLocale) == "")
             {
                 if (DetectedLocale >= MAX_DBC_LOCALE)
-                    throw new Exception("Detected uncnown locale index " + DetectedLocale);
+                    throw new Exception("Detected unknown locale index " + DetectedLocale);
                 ++DetectedLocale;
             }
-            DBC.Locale = DetectedLocale;
 
+            DBC.Locale = DetectedLocale;
         }
 
-        public static unsafe Dictionary<uint,T> ReadDBC<T>(string fileName, ref Dictionary<uint, string> strDict) where T : struct
+        public static unsafe Dictionary<uint, T> ReadDBC<T>(string fileName, Dictionary<uint, string> strDict) where T : struct
         {
-
             Dictionary<uint, T> dict = new Dictionary<uint, T>();
 
             if (!File.Exists(fileName))
@@ -54,9 +53,9 @@ namespace SpellWork
             if (reader.BaseStream.Length < 20 || reader.ReadUInt32() != 0x43424457)
                 throw new Exception(String.Format("Bad DBC file {0}", fileName));
 
-            int recordsCount    = reader.ReadInt32();
-            int fieldsCount     = reader.ReadInt32();
-            int recordSize      = reader.ReadInt32();
+            int recordsCount = reader.ReadInt32();
+            int fieldsCount = reader.ReadInt32();
+            int recordSize = reader.ReadInt32();
             int stringTableSize = reader.ReadInt32();
 
             int size = Marshal.SizeOf(typeof(T));
@@ -73,13 +72,9 @@ namespace SpellWork
             {
                 uint key = dataReader.ReadUInt32();
                 dataReader.BaseStream.Position -= 4;
-
-                byte[] rawData = dataReader.ReadBytes(size);
-
-                GCHandle handle = GCHandle.Alloc(rawData, GCHandleType.Pinned);
-                T T_entry = (T)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(T));
-                handle.Free();
-
+                
+                T T_entry = dataReader.ReadStruct<T>();
+                
                 dict.Add(key, T_entry);
             }
 
@@ -88,19 +83,11 @@ namespace SpellWork
             // Now we read strings
             if (strDict != null)
             {
-                byte[] data = stringsReader.ReadBytes((int)stringsReader.BaseStream.Length);
-                List<byte> str = new List<byte>();
-                for (uint i = 1; i < data.Length; i++)
+                while (stringsReader.BaseStream.Position != stringsReader.BaseStream.Length)
                 {
-                    if (data[i] == char.MinValue && i > 0)
-                    {
-                        strDict.Add(i-(uint)str.Count, Encoding.UTF8.GetString(str.ToArray()));
-                        str.Clear();
-                    }
-                    else
-                    {
-                        str.Add(data[i]);
-                    }
+                    var offset = (uint)stringsReader.BaseStream.Position;
+                    var str = stringsReader.ReadCString();
+                    strDict.Add(offset, str);
                 }
             }
 

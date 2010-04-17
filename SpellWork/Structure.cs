@@ -220,14 +220,14 @@ namespace SpellWork
         public int CategoryId;                                     // 1        m_categoryID
         public uint SkillCostID;                                   // 2        m_skillCostsID
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-        private uint[] _Name;                                      // 3-18     m_displayName_lang
+        public uint[] _Name;                                       // 3-18     m_displayName_lang
         public uint NameFlags;                                     // 19
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-        private uint[] _Description;                               // 20-35    m_description_lang
+        public uint[] _Description;                                // 20-35    m_description_lang
         public uint DescriptionFlags;                              // 36
         public uint SpellIcon;                                     // 37       m_spellIconID
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-        private uint[] _AlternateVerb;                             // 38-53    m_alternateVerb_lang
+        public uint[] _AlternateVerb;                              // 38-53    m_alternateVerb_lang
         public uint AlternateVerbFlags;                            // 54
         public uint CanLink;                                       // 55       m_canLink (prof. with recipes
 
@@ -300,10 +300,10 @@ namespace SpellWork
         public float MaxRangeFriendly;
         public uint  Field5;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-        private uint[] _Desc1;
+        public uint[] _Desc1;
         public uint Desc1Flags;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-        private uint[] _Desc2;
+        public uint[] _Desc2;
         public uint Desc2Flags;
 
         public string Description1

@@ -231,7 +231,7 @@
             // 
             this._rtSpellInfo.BackColor = System.Drawing.Color.Gainsboro;
             this._rtSpellInfo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._rtSpellInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._rtSpellInfo.Font = new System.Drawing.Font("Arial Unicode MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this._rtSpellInfo.Location = new System.Drawing.Point(0, 0);
             this._rtSpellInfo.Name = "_rtSpellInfo";
             this._rtSpellInfo.ReadOnly = true;
@@ -741,6 +741,7 @@
             // 
             this._rtbProcSpellInfo.BackColor = System.Drawing.SystemColors.MenuBar;
             this._rtbProcSpellInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._rtbProcSpellInfo.Font = new System.Drawing.Font("Arial Unicode MS", 9F);
             this._rtbProcSpellInfo.Location = new System.Drawing.Point(0, 0);
             this._rtbProcSpellInfo.Name = "_rtbProcSpellInfo";
             this._rtbProcSpellInfo.Size = new System.Drawing.Size(261, 174);

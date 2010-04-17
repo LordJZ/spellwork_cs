@@ -26,7 +26,7 @@ namespace SpellWork
                          select new
                          {
                              Spell,
-                             SkillId = (Skill.Value.SkillId)
+                             Skill.Value.SkillId
                          };
 
             for (int i = 0; i < 96; i++)
@@ -243,9 +243,9 @@ namespace SpellWork
                     str += String.Format("Trigger spell ({0}) {1}. Chance = {2}\r\n", spell.EffectTriggerSpell[index],
                         trigger.SpellName, spell.procChance);
 
-                    if (trigger.Description != null)
+                    if (trigger.Description != "")
                         str += String.Format("{0}\r\n", trigger.Description);
-                    if (trigger.ToolTip != null)
+                    if (trigger.ToolTip != "")
                         str += String.Format("{0}\r\n", trigger.ToolTip);
 
                     if (trigger.procFlags != 0)
@@ -283,7 +283,7 @@ namespace SpellWork
                 if (/*spell.EffectBaseDice[i]*/1 < spell.EffectDieSides[i])
                 {
                 if (spell.EffectRealPointsPerLevel[i] != 0)
-                    str += String.Format(" to {0} + lvl * {1:F})",
+                    str += String.Format(" to {0} + lvl * {1:F}",
                         spell.EffectBasePoints[i] + /*spell.EffectBaseDice[i]*/ 1 + spell.EffectDieSides[i], spell.EffectRealPointsPerLevel[i]);
                 else
                     str += String.Format(" to {0}", spell.EffectBasePoints[i] +/*+ spell.EffectBaseDice[i]*/ 1 + spell.EffectDieSides[i]);
@@ -323,7 +323,7 @@ namespace SpellWork
                     case 2: ClassMask[2] = spell.EffectSpellClassMaskC[i]; break;
                 }
 
-                if (ClassMask[0]!=0 || ClassMask[1]!=0 || ClassMask[2]!=0)
+                if (ClassMask[0] != 0 || ClassMask[1] != 0 || ClassMask[2] != 0)
                 {
                     str += String.Format("SpellClassMask = {0:X8} {1:X8} {2:X8}\r\n", ClassMask[2], ClassMask[1], ClassMask[0]);
 
@@ -349,7 +349,7 @@ namespace SpellWork
                             (s.SpellFamilyFlags3 & mask_2) != 0)
                         {
                             var exist = (row.SkillId > 0) ? "+" : "-";
-                            var name = s.Rank == null ? s.SpellName : s.SpellName + " (" + s.Rank + ")";
+                            var name = s.Rank == "" ? s.SpellName : s.SpellName + " (" + s.Rank + ")";
                             str += String.Format("    {0} {1} - {2}\r\n", exist, s.ID, name);
                         }
                     }
@@ -428,9 +428,9 @@ namespace SpellWork
 
             str += String.Format("ID - {0} {1} ({2})\r\n", spell.ID, spell.SpellName, spell.Rank);
 
-            if (spell.Description != null)
+            if (spell.Description != "")
                 str += String.Format("=================================================\r\n{0}\r\n", spell.Description);
-            if (spell.ToolTip != null)
+            if (spell.ToolTip != "")
                 str += String.Format("ToolTip: {0}\r\n", spell.ToolTip);
             if (spell.modalNextSpell != 0)
                 str += String.Format("Modal Next Spell: {0}\r\n", spell.modalNextSpell);
@@ -446,7 +446,7 @@ namespace SpellWork
                 (SpellDmgClass)spell.DmgClass, (SpellPreventionType)spell.PreventionType);
 
             if (spell.Targets != 0 || spell.TargetCreatureType != 0)
-                str += String.Format("Targets 0x%08X, Creature Type 0x%08X\r\n", spell.Targets, spell.TargetCreatureType);
+                str += String.Format("Targets 0x{0:X8}, Creature Type 0x{1:X8}\r\n", spell.Targets, spell.TargetCreatureType);
             // Начало
             // Необходимо поправить, я незнаю как должно формароватся значение, смотри функцию
             if (spell.Stances != 0)
