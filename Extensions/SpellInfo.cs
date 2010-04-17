@@ -21,8 +21,13 @@ namespace SpellWork
             familyTree.Nodes.Clear();
             var spells = from Spell in DBC.Spell
                          where Spell.Value.SpellFamilyName == (uint)spellfamily
-                         join  Skill in DBC.SkillLineAbility on Spell.Key equals Skill.Value.SpellId
-                         select new { Spell, Skill.Value.SkillId };
+                         join sk in DBC.SkillLineAbility on Spell.Key equals sk.Value.SpellId into temp
+                         from Skill in temp.DefaultIfEmpty()
+                         select new 
+                         { 
+                             Spell, 
+                             SkillId = (Skill.Value.SkillId)
+                         };
 
             for (int i = 0; i < 96; i++)
             {
@@ -44,13 +49,10 @@ namespace SpellWork
             foreach (var elem in spells)
             {
                 var spell = elem.Spell.Value;
-                string name = "";
-                if (elem.SkillId != 0)
-                    name += String.Format("+({0}) {1} ({2})_({3}, {4})",
-                        spell.ID, spell.SpellName, spell.Rank, elem.SkillId, (SpellSchools)spell.SchoolMask);
-                else
-                    name += String.Format("-({0}) {1} ({2})_({3})", 
-                        spell.ID, spell.SpellName, spell.Rank, (SpellSchools)spell.SchoolMask);
+                string name = elem.SkillId != 0
+                ? String.Format("+({0}) {1} ({2})_({3}, {4})", 
+                    spell.ID, spell.SpellName, spell.Rank, elem.SkillId, (SpellSchools)spell.SchoolMask)
+                : String.Format("-({0}) {1} ({2})_({3})", spell.ID, spell.SpellName, spell.Rank, (SpellSchools)spell.SchoolMask);
 
                 int i = 0;
                 foreach(TreeNode node in familyTree.Nodes) 
@@ -71,7 +73,6 @@ namespace SpellWork
                         TreeNode child = new TreeNode();
                         child = node.Nodes.Add(name);
                         child.Name = spell.ID.ToString();
-                        //child.Text = name;
                     }
                     i++;
                 }

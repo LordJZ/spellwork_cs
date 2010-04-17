@@ -676,7 +676,7 @@
             // 
             this.splitContainer4.Panel2.Controls.Add(this.splitContainer5);
             this.splitContainer4.Size = new System.Drawing.Size(848, 174);
-            this.splitContainer4.SplitterDistance = 219;
+            this.splitContainer4.SplitterDistance = 301;
             this.splitContainer4.TabIndex = 0;
             // 
             // _cbProcSpellFamilyTree
@@ -690,7 +690,7 @@
             "3"});
             this._cbProcSpellFamilyTree.Location = new System.Drawing.Point(0, 2);
             this._cbProcSpellFamilyTree.Name = "_cbProcSpellFamilyTree";
-            this._cbProcSpellFamilyTree.Size = new System.Drawing.Size(218, 21);
+            this._cbProcSpellFamilyTree.Size = new System.Drawing.Size(300, 21);
             this._cbProcSpellFamilyTree.TabIndex = 1;
             this._cbProcSpellFamilyTree.SelectedIndexChanged += new System.EventHandler(this.comboBox4_SelectedIndexChanged);
             // 
@@ -701,7 +701,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this._tvFamilyTree.Location = new System.Drawing.Point(1, 23);
             this._tvFamilyTree.Name = "_tvFamilyTree";
-            this._tvFamilyTree.Size = new System.Drawing.Size(217, 149);
+            this._tvFamilyTree.Size = new System.Drawing.Size(299, 149);
             this._tvFamilyTree.TabIndex = 0;
             // 
             // splitContainer5
@@ -726,8 +726,8 @@
             this.splitContainer5.Panel2.Controls.Add(this._cbProcSpellAura);
             this.splitContainer5.Panel2.Controls.Add(this._cbProcSpellFamilyName);
             this.splitContainer5.Panel2.Controls.Add(this._lvProcSpellList);
-            this.splitContainer5.Size = new System.Drawing.Size(625, 174);
-            this.splitContainer5.SplitterDistance = 343;
+            this.splitContainer5.Size = new System.Drawing.Size(543, 174);
+            this.splitContainer5.SplitterDistance = 261;
             this.splitContainer5.TabIndex = 0;
             // 
             // _rtbProcSpellInfo
@@ -736,7 +736,7 @@
             this._rtbProcSpellInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this._rtbProcSpellInfo.Location = new System.Drawing.Point(0, 0);
             this._rtbProcSpellInfo.Name = "_rtbProcSpellInfo";
-            this._rtbProcSpellInfo.Size = new System.Drawing.Size(343, 174);
+            this._rtbProcSpellInfo.Size = new System.Drawing.Size(261, 174);
             this._rtbProcSpellInfo.TabIndex = 0;
             this._rtbProcSpellInfo.Text = "";
             // 
