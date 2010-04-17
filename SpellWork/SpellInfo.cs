@@ -327,12 +327,12 @@ namespace SpellWork
                 {
                     str += String.Format("SpellClassMask = {0:X8} {1:X8} {2:X8}\r\n", ClassMask[2], ClassMask[1], ClassMask[0]);
 
-                    uint family = spell.SpellFamilyName;
                     uint mask_0 = ClassMask[0];
                     uint mask_1 = ClassMask[1];
                     uint mask_2 = ClassMask[2];
 
                     var query = from Spell in DBC.Spell
+                                where Spell.Value.SpellFamilyName == spell.SpellFamilyName
                                 join sk in DBC.SkillLineAbility on Spell.Key equals sk.Value.SpellId into temp
                                 from Skill in temp.DefaultIfEmpty()
                                 select new
@@ -344,14 +344,13 @@ namespace SpellWork
                     foreach (var row in query)
                     {
                         var s = row.Spell.Value;
-                        if (s.SpellFamilyName != family)
-                            continue;
                         if ((s.SpellFamilyFlags1 & mask_0) != 0 ||
                             (s.SpellFamilyFlags2 & mask_1) != 0 ||
                             (s.SpellFamilyFlags3 & mask_2) != 0)
                         {
                             var exist = (row.SkillId > 0) ? "+" : "-";
-                            str += String.Format("    {0} {1} - {2} ({3})\r\n", exist, s.ID, s.SpellName, s.Rank);
+                            var name = s.Rank == null ? s.SpellName : s.SpellName + " (" + s.Rank + ")";
+                            str += String.Format("    {0} {1} - {2}\r\n", exist, s.ID, name);
                         }
                     }
                 }
