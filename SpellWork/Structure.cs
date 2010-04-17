@@ -20,10 +20,10 @@ namespace SpellWork
         public uint AttributesEx5;                                // 9        m_attributesExE
         public uint AttributesEx6;                                // 10       m_attributesExF
         public uint AttributesExG;                                // 11       3.2.0 (0x20 - totems, 0x4 - paladin auras, etc...)
-        public uint Stances;                                      // 12       m_shapeshiftMask
-        public uint unk_320_2;                                    // 13       3.2.0
-        public uint StancesNot;                                   // 14       m_shapeshiftExclude
-        public uint unk_320_3;                                    // 15       3.2.0
+        public ulong Stances;                                     // 12       m_shapeshiftMask
+        //public uint unk_320_2;                                  // 13       3.2.0
+        public ulong StancesNot;                                  // 14       m_shapeshiftExclude
+        //public uint unk_320_3;                                  // 15       3.2.0
         public uint Targets;                                      // 16       m_targets
         public uint TargetCreatureType;                           // 17       m_targetCreatureType
         public uint RequiresSpellFocus;                           // 18       m_requiresSpellFocus
