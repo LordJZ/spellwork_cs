@@ -29,7 +29,7 @@ namespace SpellWork
             byte DetectedLocale = 0;
             while (DBC.Spell.LookupEntry<SpellEntry>(1).GetName(DetectedLocale) == null)
                 ++DetectedLocale;
-            if (DetectedLocale > 8)
+            if (DetectedLocale > 16)
                 throw new Exception("Detected uncnown locale index " + DetectedLocale);
         }
 
