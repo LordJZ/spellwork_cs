@@ -278,7 +278,7 @@ namespace SpellWork
                     return str;
                 }
 
-                str += String.Format("\r\nEffect: {0}\r\n", (SpellEffects)spell.Effect[i]);
+                str += String.Format("\r\nEffect_{0}: {1}\r\n", i, (SpellEffects)spell.Effect[i]);
                 str += String.Format("Base point = {0}", spell.EffectBasePoints[i] + 1/*spell.EffectDieSides[i]*/);
                 if (spell.EffectRealPointsPerLevel[i]!=0)
                     str += String.Format(" + lvl * {0:F}", spell.EffectRealPointsPerLevel[i]);

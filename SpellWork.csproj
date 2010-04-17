@@ -79,18 +79,9 @@
     </Compile>
     <Compile Include="DBC\DBC.cs" />
     <Compile Include="DBC\DBCReader.cs" />
-    <Compile Include="DBC\ReaderThread.cs" />
     <Compile Include="DBC\Structure.cs" />
-    <Compile Include="Extensions\SpellInfo.cs" />
-    <Compile Include="Util\SpellEnums.cs" />
-    <Compile Include="Extensions\Controls.cs" />
-    <Compile Include="Loading\Loader.cs" />
-    <Compile Include="Loading\LoadingForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Loading\LoadingForm.Designer.cs">
-      <DependentUpon>LoadingForm.cs</DependentUpon>
-    </Compile>
+    <Compile Include="SpellInfo.cs" />
+    <Compile Include="SpellEnums.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,10 +92,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Loading\LoadingForm.resx">
-      <DependentUpon>LoadingForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -128,7 +115,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Util\Utility.cs" />
+    <Compile Include="Utility.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="New Icon.ico" />

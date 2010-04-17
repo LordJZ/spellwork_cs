@@ -10,9 +10,31 @@ namespace SpellWork
 {
     static class DBCReader
     {
+        public static void Run()
+        {
+            // First we load DBC files
+            string path = @"./dbc/";
+
+            Dictionary<uint, string> nullStringDict = null;
+
+            DBC.Spell            = DBCReader.ReadDBC<SpellEntry>(path + "Spell.dbc", ref DBC._SpellStrings);
+            DBC.SpellRadius      = DBCReader.ReadDBC<SpellRadiusEntry>(path + "SpellRadius.dbc", ref nullStringDict);
+            DBC.SpellRange       = DBCReader.ReadDBC<SpellRangeEntry>(path + "SpellRange.dbc", ref DBC._SpellRangeStrings);
+            DBC.SpellDuration    = DBCReader.ReadDBC<SpellDurationEntry>(path + "SpellDuration.dbc", ref nullStringDict);
+            DBC.SkillLineAbility = DBCReader.ReadDBC<SkillLineAbilityEntry>(path + "SkillLineAbility.dbc", ref nullStringDict);
+            DBC.SkillLine        = DBCReader.ReadDBC<SkillLineEntry>(path + "SkillLine.dbc", ref DBC._SkillLineStrings);
+            DBC.SpellCastTimes   = DBCReader.ReadDBC<SpellCastTimesEntry>(path + "SpellCastTimes.dbc", ref nullStringDict);
+
+            // Currently we use entry 1 from Spell.dbc to detect DBC locale
+            byte DetectedLocale = 0;
+            while (DBC.Spell.LookupEntry<SpellEntry>(1).GetName(DetectedLocale) == null)
+                ++DetectedLocale;
+            if (DetectedLocale > 8)
+                throw new Exception("Detected uncnown locale index " + DetectedLocale);
+        }
+
         public static unsafe Dictionary<uint,T> ReadDBC<T>(string fileName, ref Dictionary<uint, string> strDict) where T : struct
         {
-            Program.loadingForm.SetLabelText("Loading " + fileName);
 
             Dictionary<uint, T> dict = new Dictionary<uint, T>();
 
@@ -76,8 +98,6 @@ namespace SpellWork
             }
 
             stringsReader.Close();
-
-            Program.loadingForm.ProgressBarStep();
 
             return dict;
         }
