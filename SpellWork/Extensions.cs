@@ -61,6 +61,17 @@ namespace SpellWork
             return _struct;
         }
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="builder"></param>
+        /// <param name="format"></param>
+        /// <param name="arg0"></param>
+        /// <returns></returns>
+        public static StringBuilder AppendFormatLine(this StringBuilder builder, string format, params object[] arg0)
+        {
+            return builder.AppendFormat(format, arg0).AppendLine();
+        }
+        /// <summary>
         ///  A function to calculate time diff
         /// </summary>
         /// <returns>Milliseconds between two timestamps</returns>

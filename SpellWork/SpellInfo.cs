@@ -438,7 +438,7 @@ namespace SpellWork
                 sb.AppendFormat("Modal Next Spell: {0}\r\n", spell.modalNextSpell);
             sb.AppendFormat("=================================================\r\n");
 
-            sb.AppendFormat("Category = {0}, SpellIconID = {1}, activeIconID = {2}, SpellVisual_0 = {3}, SpellVisual_1 = {4}\r\n",
+            sb.AppendFormatLine("Category = {0}, SpellIconID = {1}, activeIconID = {2}, SpellVisual_0 = {3}, SpellVisual_1 = {4}",
                 spell.Category, spell.SpellIconID, spell.activeIconID, spell.SpellVisual[0], spell.SpellVisual[1]);
 
             sb.AppendFormat("Family {0}, flag 0x{1:X8} {2:X8} {3:X8}\r\n",
@@ -482,7 +482,7 @@ namespace SpellWork
             if (spell.speed != 0)
                 sb.AppendFormat("Speed {0:F}\r\n", spell.speed);
 
-            sb.AppendFormat("Attributes 0x{0:X8}, Ex 0x{1:X8}, Ex2 0x{2:X8}, Ex3 0x{3:X8}, Ex4 0x{4:X8}, Ex5 0x{5:X8}, Ex6 0x{6:X8}, ExG 0x{7:X8}\r\n",
+            sb.AppendFormatLine("Attributes 0x{0:X8}, Ex 0x{1:X8}, Ex2 0x{2:X8}, Ex3 0x{3:X8}, Ex4 0x{4:X8}, Ex5 0x{5:X8}, Ex6 0x{6:X8}, ExG 0x{7:X8}",
                      spell.Attributes, spell.AttributesEx, spell.AttributesEx2, spell.AttributesEx3, spell.AttributesEx4,
                      spell.AttributesEx5, spell.AttributesEx6, spell.AttributesExG);
 
@@ -494,7 +494,7 @@ namespace SpellWork
             if (spell.RecoveryTime!=0 || spell.CategoryRecoveryTime!=0 || spell.StartRecoveryCategory!=0)
             {
                 sb.AppendFormat("Recovery time {0}, Category Recovery time {1}, ", spell.RecoveryTime / 1000, spell.CategoryRecoveryTime / 1000);
-                sb.AppendFormat("Start Recovery Category = {0}, Start Recovery Time = {1:F}\r\n", spell.StartRecoveryCategory, spell.StartRecoveryTime / 1000.0f);
+                sb.AppendFormatLine("Start Recovery Category = {0}, Start Recovery Time = {1:F}", spell.StartRecoveryCategory, spell.StartRecoveryTime / 1000.0f);
             }
 
             sb.Append(GetDuration(spell.DurationIndex));
@@ -514,30 +514,30 @@ namespace SpellWork
 
                 sb.Append(Environment.NewLine);
             }
-            sb.AppendFormat("Interrupt Flags: 0x{0:X8}, AuraIF 0x{1:X8}, ChannelIF 0x{2:X8}\r\n",
+            sb.AppendFormatLine("Interrupt Flags: 0x{0:X8}, AuraIF 0x{1:X8}, ChannelIF 0x{2:X8}",
                 spell.InterruptFlags, spell.AuraInterruptFlags, spell.ChannelInterruptFlags);
 
             if (spell.CasterAuraState != 0 || spell.TargetAuraState != 0)
-                sb.AppendFormat("CasterAuraState 0x{0:X8}, TargetAuraState 0x{1:X8}\r\n", spell.CasterAuraState, spell.TargetAuraState);
+                sb.AppendFormatLine("CasterAuraState 0x{0:X8}, TargetAuraState 0x{1:X8}", spell.CasterAuraState, spell.TargetAuraState);
             if (spell.CasterAuraStateNot != 0 || spell.TargetAuraStateNot != 0)
-                sb.AppendFormat("CasterAuraStateNot 0x{0:X8}, TargetAuraStateNot 0x{1:X8}\r\n", spell.CasterAuraStateNot, spell.TargetAuraStateNot);
+                sb.AppendFormatLine("CasterAuraStateNot 0x{0:X8}, TargetAuraStateNot 0x{1:X8}", spell.CasterAuraStateNot, spell.TargetAuraStateNot);
 
             sb.Append(GetSpellAura(spell));
 
             if (spell.RequiresSpellFocus != 0)
-                sb.AppendFormat("Requires Spell Focus {0}\r\n", spell.RequiresSpellFocus);
+                sb.AppendFormatLine("Requires Spell Focus {0}", spell.RequiresSpellFocus);
 
             if (spell.procFlags!=0)
             {
-                sb.AppendFormat("Proc flag 0x{0:X8}, chance = {1}, charges - {2}\r\n",
+                sb.AppendFormatLine("Proc flag 0x{0:X8}, chance = {1}, charges - {2}",
                 spell.procFlags, spell.procChance, spell.procCharges);
-                sb.AppendFormat("=================================================\r\n");
+                sb.AppendFormatLine("=================================================");
                 sb.Append(GetProcInfo(spell));
-                sb.AppendFormat("=================================================\r\n");
+                sb.AppendFormatLine("=================================================");
             }
             else // if(spell.procCharges)
             {
-                sb.AppendFormat("Chance = {0}, charges - {1}\r\n", spell.procChance, spell.procCharges);
+                sb.AppendFormatLine("Chance = {0}, charges - {1}", spell.procChance, spell.procCharges);
             }
             sb.Append(GetSpellEffectInfo(spell));
 
