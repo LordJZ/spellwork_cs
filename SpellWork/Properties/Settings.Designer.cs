@@ -37,13 +37,13 @@ namespace SpellWork.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int Potr {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Port {
             get {
-                return ((int)(this["Potr"]));
+                return ((string)(this["Port"]));
             }
             set {
-                this["Potr"] = value;
+                this["Port"] = value;
             }
         }
         
