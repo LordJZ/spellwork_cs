@@ -33,6 +33,7 @@
             this._status = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this._tsmFile = new System.Windows.Forms.ToolStripMenuItem();
+            this._tsmSettings = new System.Windows.Forms.ToolStripMenuItem();
             this._tsmExit = new System.Windows.Forms.ToolStripMenuItem();
             this._tsmHelp = new System.Windows.Forms.ToolStripMenuItem();
             this._tsmAbout = new System.Windows.Forms.ToolStripMenuItem();
@@ -98,7 +99,6 @@
             this.splitContainer6 = new System.Windows.Forms.SplitContainer();
             this._lvDataList = new System.Windows.Forms.ListView();
             this._tbSqlLog = new System.Windows.Forms.TextBox();
-            this._tsmSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -163,10 +163,17 @@
             this._tsmFile.Size = new System.Drawing.Size(35, 20);
             this._tsmFile.Text = "File";
             // 
+            // _tsmSettings
+            // 
+            this._tsmSettings.Name = "_tsmSettings";
+            this._tsmSettings.Size = new System.Drawing.Size(119, 22);
+            this._tsmSettings.Text = "Setting";
+            this._tsmSettings.Click += new System.EventHandler(this._tsmSettings_Click);
+            // 
             // _tsmExit
             // 
             this._tsmExit.Name = "_tsmExit";
-            this._tsmExit.Size = new System.Drawing.Size(152, 22);
+            this._tsmExit.Size = new System.Drawing.Size(119, 22);
             this._tsmExit.Text = "Exit";
             this._tsmExit.Click += new System.EventHandler(this._tsmExit_Click);
             // 
@@ -373,7 +380,7 @@
             this.tabPage3.Controls.Add(this.splitContainer2);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(848, 384);
+            this.tabPage3.Size = new System.Drawing.Size(864, 479);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Spell Proc Event";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -393,8 +400,8 @@
             // 
             this.splitContainer2.Panel2.BackColor = System.Drawing.Color.Gainsboro;
             this.splitContainer2.Panel2.Controls.Add(this._lvProcAdditionalInfo);
-            this.splitContainer2.Size = new System.Drawing.Size(848, 384);
-            this.splitContainer2.SplitterDistance = 338;
+            this.splitContainer2.Size = new System.Drawing.Size(864, 479);
+            this.splitContainer2.SplitterDistance = 421;
             this.splitContainer2.TabIndex = 0;
             // 
             // splitContainer3
@@ -415,7 +422,7 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer4);
-            this.splitContainer3.Size = new System.Drawing.Size(848, 338);
+            this.splitContainer3.Size = new System.Drawing.Size(864, 421);
             this.splitContainer3.SplitterDistance = 160;
             this.splitContainer3.TabIndex = 0;
             // 
@@ -439,7 +446,7 @@
             this._clbProcFlags.Location = new System.Drawing.Point(1, 63);
             this._clbProcFlags.MultiColumn = true;
             this._clbProcFlags.Name = "_clbProcFlags";
-            this._clbProcFlags.Size = new System.Drawing.Size(844, 94);
+            this._clbProcFlags.Size = new System.Drawing.Size(860, 94);
             this._clbProcFlags.TabIndex = 0;
             // 
             // groupBox4
@@ -467,7 +474,7 @@
             this.groupBox4.Controls.Add(this.checkBox1);
             this.groupBox4.Location = new System.Drawing.Point(3, 0);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(840, 52);
+            this.groupBox4.Size = new System.Drawing.Size(856, 52);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "ProcEx";
@@ -477,7 +484,7 @@
             this._cbProcFlag.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this._cbProcFlag.Appearance = System.Windows.Forms.Appearance.Button;
             this._cbProcFlag.AutoSize = true;
-            this._cbProcFlag.Location = new System.Drawing.Point(778, 14);
+            this._cbProcFlag.Location = new System.Drawing.Point(794, 14);
             this._cbProcFlag.Name = "_cbProcFlag";
             this._cbProcFlag.Size = new System.Drawing.Size(59, 23);
             this._cbProcFlag.TabIndex = 2;
@@ -682,7 +689,7 @@
             // splitContainer4.Panel2
             // 
             this.splitContainer4.Panel2.Controls.Add(this.splitContainer5);
-            this.splitContainer4.Size = new System.Drawing.Size(848, 174);
+            this.splitContainer4.Size = new System.Drawing.Size(864, 257);
             this.splitContainer4.SplitterDistance = 301;
             this.splitContainer4.TabIndex = 0;
             // 
@@ -709,7 +716,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this._tvFamilyTree.Location = new System.Drawing.Point(1, 23);
             this._tvFamilyTree.Name = "_tvFamilyTree";
-            this._tvFamilyTree.Size = new System.Drawing.Size(299, 149);
+            this._tvFamilyTree.Size = new System.Drawing.Size(299, 232);
             this._tvFamilyTree.TabIndex = 0;
             this._tvFamilyTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this._tvFamilyTree_AfterSelect);
             // 
@@ -735,8 +742,8 @@
             this.splitContainer5.Panel2.Controls.Add(this._cbProcSpellAura);
             this.splitContainer5.Panel2.Controls.Add(this._cbProcSpellFamilyName);
             this.splitContainer5.Panel2.Controls.Add(this._lvProcSpellList);
-            this.splitContainer5.Size = new System.Drawing.Size(543, 174);
-            this.splitContainer5.SplitterDistance = 261;
+            this.splitContainer5.Size = new System.Drawing.Size(559, 257);
+            this.splitContainer5.SplitterDistance = 277;
             this.splitContainer5.TabIndex = 0;
             // 
             // _rtbProcSpellInfo
@@ -746,7 +753,7 @@
             this._rtbProcSpellInfo.Font = new System.Drawing.Font("Arial Unicode MS", 9F);
             this._rtbProcSpellInfo.Location = new System.Drawing.Point(0, 0);
             this._rtbProcSpellInfo.Name = "_rtbProcSpellInfo";
-            this._rtbProcSpellInfo.Size = new System.Drawing.Size(261, 174);
+            this._rtbProcSpellInfo.Size = new System.Drawing.Size(277, 257);
             this._rtbProcSpellInfo.TabIndex = 0;
             this._rtbProcSpellInfo.Text = "";
             // 
@@ -842,7 +849,7 @@
             this._lvProcSpellList.GridLines = true;
             this._lvProcSpellList.Location = new System.Drawing.Point(3, 113);
             this._lvProcSpellList.Name = "_lvProcSpellList";
-            this._lvProcSpellList.Size = new System.Drawing.Size(272, 59);
+            this._lvProcSpellList.Size = new System.Drawing.Size(272, 142);
             this._lvProcSpellList.TabIndex = 0;
             this._lvProcSpellList.UseCompatibleStateImageBehavior = false;
             this._lvProcSpellList.View = System.Windows.Forms.View.Details;
@@ -866,7 +873,7 @@
             this._lvProcAdditionalInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this._lvProcAdditionalInfo.Location = new System.Drawing.Point(0, 0);
             this._lvProcAdditionalInfo.Name = "_lvProcAdditionalInfo";
-            this._lvProcAdditionalInfo.Size = new System.Drawing.Size(848, 42);
+            this._lvProcAdditionalInfo.Size = new System.Drawing.Size(864, 54);
             this._lvProcAdditionalInfo.TabIndex = 0;
             this._lvProcAdditionalInfo.UseCompatibleStateImageBehavior = false;
             this._lvProcAdditionalInfo.View = System.Windows.Forms.View.Details;
@@ -886,7 +893,7 @@
             this.tabPage4.Controls.Add(this.groupBox2);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(848, 384);
+            this.tabPage4.Size = new System.Drawing.Size(864, 479);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Sql Data";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -897,7 +904,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(848, 384);
+            this.groupBox2.Size = new System.Drawing.Size(864, 479);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "SQL Data";
@@ -916,8 +923,8 @@
             // splitContainer6.Panel2
             // 
             this.splitContainer6.Panel2.Controls.Add(this._tbSqlLog);
-            this.splitContainer6.Size = new System.Drawing.Size(842, 365);
-            this.splitContainer6.SplitterDistance = 144;
+            this.splitContainer6.Size = new System.Drawing.Size(858, 460);
+            this.splitContainer6.SplitterDistance = 181;
             this.splitContainer6.TabIndex = 0;
             // 
             // _lvDataList
@@ -925,7 +932,7 @@
             this._lvDataList.Dock = System.Windows.Forms.DockStyle.Fill;
             this._lvDataList.Location = new System.Drawing.Point(0, 0);
             this._lvDataList.Name = "_lvDataList";
-            this._lvDataList.Size = new System.Drawing.Size(842, 144);
+            this._lvDataList.Size = new System.Drawing.Size(858, 181);
             this._lvDataList.TabIndex = 0;
             this._lvDataList.UseCompatibleStateImageBehavior = false;
             this._lvDataList.View = System.Windows.Forms.View.Details;
@@ -938,15 +945,8 @@
             this._tbSqlLog.Location = new System.Drawing.Point(3, 53);
             this._tbSqlLog.Multiline = true;
             this._tbSqlLog.Name = "_tbSqlLog";
-            this._tbSqlLog.Size = new System.Drawing.Size(836, 161);
+            this._tbSqlLog.Size = new System.Drawing.Size(852, 219);
             this._tbSqlLog.TabIndex = 0;
-            // 
-            // _tsmSettings
-            // 
-            this._tsmSettings.Name = "_tsmSettings";
-            this._tsmSettings.Size = new System.Drawing.Size(152, 22);
-            this._tsmSettings.Text = "Setting";
-            this._tsmSettings.Click += new System.EventHandler(this._tsmSettings_Click);
             // 
             // MainForm
             // 

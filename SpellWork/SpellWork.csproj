@@ -85,6 +85,7 @@
     </Compile>
     <Compile Include="DBC.cs" />
     <Compile Include="DBCReader.cs" />
+    <Compile Include="RichTextBoxExtensions.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="MySQLConnenct.cs" />
     <Compile Include="SettingsForm.cs">

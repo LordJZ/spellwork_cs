@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows.Forms;
+using System.Drawing;
 using MySql.Data.MySqlClient;
 
 namespace SpellWork

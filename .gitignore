@@ -3,6 +3,7 @@
 *.user
 SpellWork/obj/*
 SpellWork/bin/*
-
+*.orig
+*.rej
 *.patch
 *.log
