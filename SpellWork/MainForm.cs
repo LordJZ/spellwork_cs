@@ -230,5 +230,11 @@ namespace SpellWork
             if (node.Level > 0)
                 SpellInfo.View(_rtbProcSpellInfo, node.Name.ToUInt32());
         }
+
+        private void _tsmSettings_Click(object sender, EventArgs e)
+        {
+            SettingsForm frm = new SettingsForm();
+            frm.ShowDialog(this);
+        }
     }
 }

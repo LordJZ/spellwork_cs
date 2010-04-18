@@ -98,6 +98,7 @@
             this.splitContainer6 = new System.Windows.Forms.SplitContainer();
             this._lvDataList = new System.Windows.Forms.ListView();
             this._tbSqlLog = new System.Windows.Forms.TextBox();
+            this._tsmSettings = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -131,9 +132,9 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._status});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 434);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 529);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(856, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(872, 22);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -149,13 +150,14 @@
             this._tsmHelp});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(856, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(872, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // _tsmFile
             // 
             this._tsmFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._tsmSettings,
             this._tsmExit});
             this._tsmFile.Name = "_tsmFile";
             this._tsmFile.Size = new System.Drawing.Size(35, 20);
@@ -164,7 +166,7 @@
             // _tsmExit
             // 
             this._tsmExit.Name = "_tsmExit";
-            this._tsmExit.Size = new System.Drawing.Size(103, 22);
+            this._tsmExit.Size = new System.Drawing.Size(152, 22);
             this._tsmExit.Text = "Exit";
             this._tsmExit.Click += new System.EventHandler(this._tsmExit_Click);
             // 
@@ -192,7 +194,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 24);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(856, 410);
+            this.tabControl1.Size = new System.Drawing.Size(872, 505);
             this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
@@ -201,7 +203,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(848, 384);
+            this.tabPage1.Size = new System.Drawing.Size(864, 479);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Spell Info";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -223,8 +225,8 @@
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.Gainsboro;
             this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
-            this.splitContainer1.Size = new System.Drawing.Size(842, 378);
-            this.splitContainer1.SplitterDistance = 564;
+            this.splitContainer1.Size = new System.Drawing.Size(858, 473);
+            this.splitContainer1.SplitterDistance = 580;
             this.splitContainer1.TabIndex = 0;
             // 
             // _rtSpellInfo
@@ -235,7 +237,7 @@
             this._rtSpellInfo.Location = new System.Drawing.Point(0, 0);
             this._rtSpellInfo.Name = "_rtSpellInfo";
             this._rtSpellInfo.ReadOnly = true;
-            this._rtSpellInfo.Size = new System.Drawing.Size(564, 378);
+            this._rtSpellInfo.Size = new System.Drawing.Size(580, 473);
             this._rtSpellInfo.TabIndex = 0;
             this._rtSpellInfo.Text = "";
             // 
@@ -252,7 +254,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(274, 378);
+            this.groupBox1.Size = new System.Drawing.Size(274, 473);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
@@ -269,7 +271,7 @@
             this._lvSpellList.Location = new System.Drawing.Point(0, 129);
             this._lvSpellList.MultiSelect = false;
             this._lvSpellList.Name = "_lvSpellList";
-            this._lvSpellList.Size = new System.Drawing.Size(277, 249);
+            this._lvSpellList.Size = new System.Drawing.Size(277, 344);
             this._lvSpellList.TabIndex = 7;
             this._lvSpellList.UseCompatibleStateImageBehavior = false;
             this._lvSpellList.View = System.Windows.Forms.View.Details;
@@ -939,6 +941,13 @@
             this._tbSqlLog.Size = new System.Drawing.Size(836, 161);
             this._tbSqlLog.TabIndex = 0;
             // 
+            // _tsmSettings
+            // 
+            this._tsmSettings.Name = "_tsmSettings";
+            this._tsmSettings.Size = new System.Drawing.Size(152, 22);
+            this._tsmSettings.Text = "Setting";
+            this._tsmSettings.Click += new System.EventHandler(this._tsmSettings_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1062,5 +1071,6 @@
         private System.Windows.Forms.ComboBox _cbProcTarget1;
         private System.Windows.Forms.ColumnHeader _chProcID;
         private System.Windows.Forms.ColumnHeader _chProcName;
+        private System.Windows.Forms.ToolStripMenuItem _tsmSettings;
     }
 }
