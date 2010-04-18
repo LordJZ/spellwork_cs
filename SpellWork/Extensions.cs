@@ -59,6 +59,7 @@ namespace SpellWork
 
             return builder;
         }
+
         public static StringBuilder AppendFormatIfNotNull(this StringBuilder builder, string format, uint arg)
         {
             if (arg != 0)
@@ -68,6 +69,7 @@ namespace SpellWork
 
             return builder;
         }
+
         public static StringBuilder AppendFormatIfNotNull(this StringBuilder builder, string format, int arg)
         {
             if (arg != 0)
@@ -77,6 +79,7 @@ namespace SpellWork
 
             return builder;
         }
+
         public static StringBuilder AppendFormatIfNotNull(this StringBuilder builder, string format, float arg)
         {
             if (arg != 0.0f)
@@ -92,6 +95,7 @@ namespace SpellWork
         {
             return builder.AppendFormat(format, arg0).AppendLine();
         }
+
         public static StringBuilder AppendFormatLineIfNotNull(this StringBuilder builder, string format, string arg)
         {
             if (!String.IsNullOrEmpty(arg))
@@ -111,6 +115,7 @@ namespace SpellWork
 
             return builder;
         }
+
         public static StringBuilder AppendFormatLineIfNotNull(this StringBuilder builder, string format, uint arg)
         {
             if (arg != 0)
@@ -136,6 +141,7 @@ namespace SpellWork
         {
             return String.IsNullOrEmpty(str);
         }
+
         public static string IfNotEmpty(this uint val, string _return)
         {
             return val == 0 ? String.Empty : (_return + val.ToString());

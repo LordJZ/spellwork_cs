@@ -1,4 +1,6 @@
-﻿namespace SpellWork
+﻿using System;
+
+namespace SpellWork
 {
     public enum LocalesDBC
     {
@@ -12,6 +14,7 @@
         esMX,
         ruRU
     };
+
     /// <summary>
     ///
     /// </summary>
@@ -36,6 +39,7 @@
         // unused               = 16,
         SPELLFAMILY_PET         = 17
     };
+
     /// <summary>
     ///
     /// </summary>
@@ -65,6 +69,7 @@
         SPELL_DRINK             = 21,
         SPELL_FOOD_AND_DRINK    = 22,
     };
+
     /// <summary>
     ///
     /// </summary>
@@ -235,6 +240,7 @@
         SPELL_EFFECT_TALENT_SPEC_SELECT         = 162,
         TOTAL_SPELL_EFFECTS                     = 163
     };
+
     /// <summary>
     ///
     /// </summary>
@@ -559,6 +565,7 @@
         SPELL_AURA_316                                      = 316,
         TOTAL_AURAS                                         = 317
     }
+
     /// <summary>
     /// Target
     /// </summary>
@@ -637,14 +644,16 @@
         TARGET_NONCOMBAT_PET                    = 90,
         TARGET_IN_FRONT_OF_CASTER_30            = 104,
     };
+
     ///<summary>
     ///Spell proc event related declarations (accessed using SpellMgr functions)
     ///</summary>
+    [Flags]
     public enum ProcFlags
     {
         PROC_FLAG_NONE                              = 0x00000000,
 
-        PROC_FLAG_KILLED                            = 0x00000001,    // 00 Killed by agressor
+        PROC_FLAG_KILLED                            = 0x00000001,    // 00 Killed by aggressor
         PROC_FLAG_KILL                              = 0x00000002,    // 01 Kill target (in most cases need XP/Honor reward)
 
         PROC_FLAG_SUCCESSFUL_MELEE_HIT              = 0x00000004,    // 02 Successful melee auto attack
@@ -659,11 +668,11 @@
         PROC_FLAG_SUCCESSFUL_RANGED_SPELL_HIT       = 0x00000100,    // 08 Successful Ranged attack by Spell that use ranged weapon
         PROC_FLAG_TAKEN_RANGED_SPELL_HIT            = 0x00000200,    // 09 Taken damage by Spell that use ranged weapon
 
-        PROC_FLAG_SUCCESSFUL_POSITIVE_AOE_HIT       = 0x00000400,    // 10 Successful AoE (not 100% shure unused)
-        PROC_FLAG_TAKEN_POSITIVE_AOE                = 0x00000800,    // 11 Taken AoE      (not 100% shure unused)
+        PROC_FLAG_SUCCESSFUL_POSITIVE_AOE_HIT       = 0x00000400,    // 10 Successful AoE (not 100% sure unused)
+        PROC_FLAG_TAKEN_POSITIVE_AOE                = 0x00000800,    // 11 Taken AoE      (not 100% sure unused)
 
-        PROC_FLAG_SUCCESSFUL_AOE_SPELL_HIT          = 0x00001000,    // 12 Successful AoE damage spell hit (not 100% shure unused)
-        PROC_FLAG_TAKEN_AOE_SPELL_HIT               = 0x00002000,    // 13 Taken AoE damage spell hit      (not 100% shure unused)
+        PROC_FLAG_SUCCESSFUL_AOE_SPELL_HIT          = 0x00001000,    // 12 Successful AoE damage spell hit (not 100% sure unused)
+        PROC_FLAG_TAKEN_AOE_SPELL_HIT               = 0x00002000,    // 13 Taken AoE damage spell hit      (not 100% sure unused)
 
         PROC_FLAG_SUCCESSFUL_POSITIVE_SPELL         = 0x00004000,    // 14 Successful cast positive spell (by default only on healing)
         PROC_FLAG_TAKEN_POSITIVE_SPELL              = 0x00008000,    // 15 Taken positive spell hit (by default only on healing)
@@ -681,9 +690,10 @@
         PROC_FLAG_SUCCESSFUL_OFFHAND_HIT            = 0x00800000     // 23 Successful off-hand melee attacks
     };
 
+    [Flags]
     public enum ProcFlagsEx
     {
-        PROC_EX_NONE                    = 0x0000000,                 // If none can tigger on Hit/Crit only (passive spells MUST defined by SpellFamily flag)
+        PROC_EX_NONE                    = 0x0000000,                 // If none can trigger on Hit/Crit only (passive spells MUST defined by SpellFamily flag)
 
         PROC_EX_NORMAL_HIT              = 0x0000001,                 // If set only from normal hit (only damage spells)
         PROC_EX_CRITICAL_HIT            = 0x0000002,
@@ -715,7 +725,7 @@
 
     public enum SpellSchools
     {
-        NORMAL     = 0,
+        PHYSICAL   = 0,
         HOLY       = 1,
         FIRE       = 2,
         NATURE     = 3,
@@ -724,10 +734,11 @@
         ARCANE     = 6
     };
 
+    [Flags]
     public enum SpellSchoolMask
     {
-        MASK_NONE      = 0x00,                       // not exist
-        MASK_NORMAL    = (1 << SpellSchools.NORMAL), // PHYSICAL (Armor)
+        MASK_NONE      = 0x00,                         // not exist
+        MASK_PHYSICAL  = (1 << SpellSchools.PHYSICAL), // PHYSICAL (Armor)
         MASK_HOLY      = (1 << SpellSchools.HOLY),
         MASK_FIRE      = (1 << SpellSchools.FIRE),
         MASK_NATURE    = (1 << SpellSchools.NATURE),
@@ -742,7 +753,7 @@
         // 126
         MASK_MAGIC     = (MASK_HOLY | MASK_SPELL),
         // 127
-        MASK_ALL       = (MASK_NORMAL | MASK_MAGIC)
+        MASK_ALL       = (MASK_PHYSICAL | MASK_MAGIC)
     };
 
     public enum Mechanics
@@ -797,6 +808,7 @@
         SPELL_MISS_REFLECT  = 11
     };
 
+    [Flags]
     public enum SpellHitType
     {
         SPELL_HIT_TYPE_UNK1 = 0x00001,
@@ -910,7 +922,7 @@
         public static readonly string[] ProcFlagDesc = 
         {
             //00 0x00000001 000000000000000000000001 -
-            "00 Killed by agressor that resive experience or honor",
+            "00 Killed by aggressor that receive experience or honor",
             //01 0x00000002 000000000000000000000010 -
             "01 Kill that yields experience or honor",
 

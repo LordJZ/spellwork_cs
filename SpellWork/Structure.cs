@@ -20,10 +20,8 @@ namespace SpellWork
         public uint AttributesEx5;                                // 9        m_attributesExE
         public uint AttributesEx6;                                // 10       m_attributesExF
         public uint AttributesExG;                                // 11       3.2.0 (0x20 - totems, 0x4 - paladin auras, etc...)
-        public ulong Stances;                                     // 12       m_shapeshiftMask
-        //public uint unk_320_2;                                  // 13       3.2.0
-        public ulong StancesNot;                                  // 14       m_shapeshiftExclude
-        //public uint unk_320_3;                                  // 15       3.2.0
+        public ulong Stances;                                     // 12-13    m_shapeshiftMask
+        public ulong StancesNot;                                  // 14-15    m_shapeshiftExclude
         public uint Targets;                                      // 16       m_targets
         public uint TargetCreatureType;                           // 17       m_targetCreatureType
         public uint RequiresSpellFocus;                           // 18       m_requiresSpellFocus
@@ -152,6 +150,7 @@ namespace SpellWork
         public float[] unk_320_4;                                 // 229-231  3.2.0
         public uint spellDescriptionVariableID;                   // 232      3.2.0
         public uint SpellDifficultyId;                            // 233      3.3.0                           // 239      3.3.0
+
         /// <summary>
         /// Return current Spell Name
         /// </summary>
@@ -165,6 +164,7 @@ namespace SpellWork
                 return s;
             }
         }
+
         /// <summary>
         /// Return current Spell Rank
         /// </summary>
@@ -178,6 +178,7 @@ namespace SpellWork
                 return s;
             }
         }
+
         /// <summary>
         /// Return current Spell Description
         /// </summary>
@@ -191,6 +192,7 @@ namespace SpellWork
                 return s;
             }
         }
+
         /// <summary>
         /// Return current Spell ToolTip
         /// </summary>
@@ -211,7 +213,107 @@ namespace SpellWork
             uint offset = _SpellName[loc];
             DBC._SpellStrings.TryGetValue(offset, out s);
             return s;
-         }
+        }
+
+        public string ProcInfo
+        {
+            get
+            {
+                int i = 0;
+                string str = String.Empty;
+                var proc = procFlags;
+                while (proc != 0)
+                {
+                    if ((proc & 1) != 0)
+                        str += String.Format("  {0}\r\n", SpellEnums.ProcFlagDesc[i]);
+                    i++;
+                    proc >>= 1;
+                }
+                return str;
+            }
+        }
+
+        public string Duration
+        {
+            get
+            {
+                if (DBC.SpellDuration.ContainsKey(DurationIndex))
+                {
+                    var q = DBC.SpellDuration[DurationIndex];
+                    return String.Format("Duration: ID {0}  {1}, {2}, {3}\r\n", q.ID, q.Duration[0], q.Duration[1], q.Duration[2]);
+                }
+                return String.Empty;
+            }
+        }
+
+        public string Range
+        {
+            get
+            {
+                if (rangeIndex == 0 || !DBC.SpellRange.ContainsKey(rangeIndex))
+                    return String.Empty;
+
+                var q = DBC.SpellRange[rangeIndex];
+                StringBuilder sb = new StringBuilder();
+                sb.AppendFormatLine("SpellRange: (Id {0}) \"{1}\":", q.ID, q.Description1);
+                sb.AppendFormatLine("    MinRange = {0}, MinRangeFriendly = {1}", q.MinRange, q.MinRangeFriendly);
+                sb.AppendFormatLine("    MaxRange = {0}, MaxRangeFriendly = {1}", q.MaxRange, q.MaxRangeFriendly);
+
+                return sb.ToString();
+            }
+        }
+
+        public string GetRadius(int index)
+        {
+            var rIndex = EffectRadiusIndex[index];
+            if (rIndex != 0)
+            {
+                if (DBC.SpellRadius.ContainsKey(rIndex))
+                    return String.Format("Radius (Id {0}) {0:F}\r\n", rIndex, DBC.SpellRadius[rIndex].Radius);
+                else
+                    return String.Format("Radius (Id {0}) Not found\r\n", rIndex);
+            }
+            return String.Empty;
+        }
+
+        public string GetAuraModTypeName(int index)
+        {
+            var id = EffectApplyAuraName[index];
+            var mod = EffectMiscValue[index];
+            if (id == 107 || id == 108 || mod < 29)
+                return ((SpellModOp)mod).ToString();
+            return mod.ToString();
+        }
+
+        public string CastTime
+        {
+            get
+            {
+                if (CastingTimeIndex == 0)
+                    return String.Empty;
+
+                if (!DBC.SpellCastTimes.ContainsKey(CastingTimeIndex))
+                    return String.Format("CastingTime (Id {0}) = ????\r\n", CastingTimeIndex);
+                else
+                    return String.Format("CastingTime (Id {0}) = {1:F}\r\n", CastingTimeIndex, DBC.SpellCastTimes[CastingTimeIndex].CastTime / 1000.0f);
+            }
+        }
+
+        public SpellSchoolMask School
+        {
+            get
+            {
+                //List<string> mask = new List<string>();
+                //foreach (var a in Enum.GetValues(typeof(SpellSchools)))
+                //{
+                //    //MessageBox.Show(Enum.GetName(typeof(SpellSchools), a));
+                //    if ((SchoolMask & (1 << (int)a)) != 0)
+                //        mask.Add(Enum.GetName(typeof(SpellSchools), a));
+                //}
+                //return String.Join("|", mask.ToArray());
+                return (SpellSchoolMask)SchoolMask;
+            }
+        }
     };
 
     public struct SkillLineEntry

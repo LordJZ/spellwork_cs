@@ -11,7 +11,7 @@ namespace SpellWork
 {
     static class DBCReader
     {
-        public static readonly int MAX_DBC_LOCALE = 16;
+        public const int MAX_DBC_LOCALE = 16;
         
         public static void Run()
         {

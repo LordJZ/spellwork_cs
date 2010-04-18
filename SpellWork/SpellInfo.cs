@@ -12,7 +12,7 @@ namespace SpellWork
         public static void View(RichTextBox rtb, uint spellId)
         {
             rtb.Clear();
-            SpellEntry spell = DBC.Spell[spellId];
+            var spell = DBC.Spell[spellId];
             rtb.AppendText(GenerateSpellDesc(spell));
         }
 
@@ -49,8 +49,8 @@ namespace SpellWork
             {
                 var spell = elem.Spell.Value;
                 string name = elem.SkillId != 0
-                ? String.Format("+({0}) {1} ({2}) (Sk{3}) ({4})", spell.ID, spell.SpellName, spell.Rank, elem.SkillId, GetSchool(spell))
-                : String.Format("-({0}) {1} ({2}) ({3})",      spell.ID, spell.SpellName, spell.Rank, GetSchool(spell));
+                ? String.Format("+({0}) {1} ({2}) (Sk{3}) ({4})", spell.ID, spell.SpellName, spell.Rank, elem.SkillId, spell.School)
+                : String.Format("-({0}) {1} ({2}) ({3})",      spell.ID, spell.SpellName, spell.Rank, spell.School);
 
                 int i = 0;
                 foreach(TreeNode node in familyTree.Nodes)
@@ -74,54 +74,6 @@ namespace SpellWork
                     }
                     i++;
                 }
-            }
-        }
-
-        static String GetDuration(uint DurationIndex)
-        {
-            var query = from duration in DBC.SpellDuration where duration.Key == DurationIndex select duration;
-
-            if (query.Count() == 0)
-                return String.Empty;
-
-            var q = query.First().Value;
-            return String.Format("Duration: (Id {0}) {1}, {2}, {3}\r\n", q.ID, q.Duration[0], q.Duration[1], q.Duration[2]);
-        }
-
-        static String GetRange(uint index)
-        {
-            if (index == 0)
-                return String.Empty;
-
-            var query = from rande in DBC.SpellRange where rande.Key == index select rande;
-
-            if (query.Count() == 0)
-                return String.Empty;
-
-            var q = query.First();
-            StringBuilder sb = new StringBuilder();
-            sb.AppendFormatLine("SpellRange: (Id {0}) \"{1}\"",                  q.Key, q.Value.Description1);
-            sb.AppendFormatLine("    MinRange = {0}, MinRangeFriendly = {1}",     q.Value.MinRange, q.Value.MinRangeFriendly);
-            sb.AppendFormatLine("    MaxRange = {0}, MaxRangeFriendly = {1}",     q.Value.MaxRange, q.Value.MaxRangeFriendly);
-            
-            return sb.ToString();
-        }
-
-        static String GetCastTime(SpellEntry spell)
-        {
-            if (spell.CastingTimeIndex == 0) 
-                return String.Empty;
-
-            var query = from t in DBC.SpellCastTimes where t.Key == spell.CastingTimeIndex select t.Value;
-
-            if(query.Count() == 0)
-            {
-                return String.Format("CastingTime (Id {0}) = ????\r\n", spell.CastingTimeIndex);
-            }
-            else
-            {
-                return String.Format("CastingTime (Id {0}) = {1:F}\r\n", spell.CastingTimeIndex,
-                    query.First().CastTime / 1000.0f);
             }
         }
 
@@ -150,32 +102,6 @@ namespace SpellWork
             return sb.ToString();
         }
 
-        static String GetSchool(SpellEntry spell)
-        {
-            List<string> mask = new List<string>();
-            foreach (var a in Enum.GetValues(typeof(SpellSchools)))
-            {
-                if ((spell.SchoolMask & (1 << (int)a)) != 0)
-                    mask.Add(Enum.GetName(typeof(SpellSchools), a));
-            }
-            return String.Join(" | ", mask.ToArray());
-        }
-
-        static String GetProcInfo(SpellEntry spell)
-        {
-            int i = 0;
-            string str = "";
-            var proc = spell.procFlags;
-            while (proc != 0)
-            {
-                if ((proc & 1) != 0)
-                    str += String.Format("  {0}\r\n", SpellEnums.ProcFlagDesc[i]);
-                i++;
-                proc >>= 1;
-            }
-            return str;
-        }
-
         static String GetFormInfo(ulong val, string name)
         {
             if (val == 0)
@@ -195,28 +121,6 @@ namespace SpellWork
             // Получить из базы данных ()
             // SELECT `entry`, `name` FROM `item_template` WHERE `spellid_1` = {0} OR `spellid_2` = {1} OR `spellid_3` = {2}
             //      OR `spellid_4` = {3} OR `spellid_5` = {4}
-            return "";
-        }
-
-        static String GetAuraModTypeName(uint id, int mod)
-        {
-            if (id == 107 || id == 108 || mod < 29)
-                return "" + (SpellModOp)mod;
-            return "" + mod;
-        }
-
-        static String GetRadius(SpellEntry spell, int index)
-        {
-            if (spell.EffectRadiusIndex[index] != 0)
-            {
-                var query = from r in DBC.SpellRadius where r.Key == spell.EffectRadiusIndex[index] select r.Value.Radius;
-
-
-                if (query.Count() > 0)
-                    return String.Format("Radius (Id {0}) {0:F}\r\n", spell.EffectRadiusIndex[index], query.First());
-                else
-                    return String.Format("Radius (Id {0}) Not found\r\n", spell.EffectRadiusIndex[index]);
-            }
             return "";
         }
 
@@ -241,7 +145,7 @@ namespace SpellWork
                     if (trigger.procFlags != 0)
                     {
                         sb.AppendFormat("Charges - {0}  =======================================\r\n", trigger.procCharges);
-                        sb.Append(GetProcInfo(trigger));
+                        sb.Append(trigger.ProcInfo);
                         sb.AppendFormat("=================================================\r\n");
                     }
                 }
@@ -304,7 +208,7 @@ namespace SpellWork
                 {
                     sb.AppendFormatLine("\r\nAura {0}, value = {1}, misc = {2}, miscB = {3}, periodic = {4}",
                         (AuraType)spell.EffectApplyAuraName[i],
-                        spell.EffectBasePoints[i] + 1, GetAuraModTypeName(spell.EffectApplyAuraName[i], spell.EffectMiscValue[i]),
+                        spell.EffectBasePoints[i] + 1, spell.GetAuraModTypeName(i),
                         spell.EffectMiscValueB[i], spell.EffectAmplitude[i]);
                 }
                 else
@@ -354,7 +258,7 @@ namespace SpellWork
                     }
                 }
 
-                sb.Append(GetRadius(spell, i));
+                sb.Append(spell.GetRadius(i));
                 sb.Append(GetTriggerSpell(spell, i));
 
                 sb.AppendFormatLineIfNotNull("EffectChainTarget = {0}", spell.EffectChainTarget[i]);
@@ -367,53 +271,40 @@ namespace SpellWork
 
         static String GetSpellAura(SpellEntry spell)
         {
-            // Для того чтобы не нагружать поцессор лишним запросом,просто сделаем проверку на входной параметр,
+            // Для того чтобы не нагружать процессор лишним запросом, просто сделаем проверку на входной параметр,
             // если он не != 0, тогда ищем, иначе нет смысла
             StringBuilder sb = new StringBuilder();
+
             if (spell.casterAuraSpell != 0)
             {
-                var query = from ss in DBC.Spell where ss.Key == spell.casterAuraSpell select ss;
-                if (query.Count() > 0)
-                {
-                    var s = query.First().Value;
-                    if (s.ID > 0)
-                        sb.AppendFormat("  Caster Aura Spell ({0}) {1}\r\n", spell.casterAuraSpell, s.SpellName);
-                    else
-                        sb.AppendFormat("  Caster Aura Spell ({0}) ?????\r\n", spell.casterAuraSpell);
-                }
+                if(DBC.Spell.ContainsKey(spell.casterAuraSpell))
+                    sb.AppendFormatLine("  Caster Aura Spell ({0}) {1}", spell.casterAuraSpell, DBC.Spell[spell.casterAuraSpell].SpellName);
+                else
+                    sb.AppendFormatLine("  Caster Aura Spell ({0}) ?????", spell.casterAuraSpell);
             }
 
             if (spell.targetAuraSpell != 0)
             {
-                var query2 = from ss in DBC.Spell where ss.Key == spell.targetAuraSpell select ss;
-                if (query2.Count() > 0)
-                {
-                    var s = query2.First().Value;
-                    sb.AppendFormat("  Target Aura Spell ({0}) {1}\r\n", spell.targetAuraSpell, s.SpellName);
-                }
+                if(DBC.Spell.ContainsKey(spell.targetAuraSpell))
+                    sb.AppendFormatLine("  Target Aura Spell ({0}) {1}", spell.targetAuraSpell, DBC.Spell[spell.targetAuraSpell].SpellName);
+                else
+                    sb.AppendFormatLine("  Target Aura Spell ({0}) ?????", spell.targetAuraSpell);
             }
 
             if (spell.excludeCasterAuraSpell != 0)
             {
-                var query3 = from ss in DBC.Spell where ss.Key == spell.excludeCasterAuraSpell select ss;
-                if (query3.Count() > 0)
-                {
-                    var s = query3.First().Value;
-                    if (s.ID != 0)
-                        sb.AppendFormat("  Ex Caster Aura Spell ({0}) {1}\r\n", spell.excludeCasterAuraSpell, s.SpellName);
-                    else
-                        sb.AppendFormat("  Ex Caster Aura Spell ({0})\r\n", spell.excludeCasterAuraSpell);
-                }
+                if(DBC.Spell.ContainsKey(spell.excludeCasterAuraSpell))
+                    sb.AppendFormatLine("  Ex Caster Aura Spell ({0}) {1}", spell.excludeCasterAuraSpell, DBC.Spell[spell.excludeCasterAuraSpell].SpellName);
+                else
+                    sb.AppendFormatLine("  Ex Caster Aura Spell ({0}) ?????", spell.excludeCasterAuraSpell);
             }
 
             if (spell.excludeTargetAuraSpell != 0)
             {
-                var query4 = from asp in DBC.Spell where asp.Key == spell.excludeTargetAuraSpell select asp;
-                if (query4.Count() > 0)
-                    sb.AppendFormat("  Ex Target Aura Spell ({0}) {1}\r\n", spell.excludeTargetAuraSpell,
-                        query4.First().Value.SpellName);
+                if(DBC.Spell.ContainsKey(spell.excludeTargetAuraSpell))
+                    sb.AppendFormatLine("  Ex Target Aura Spell ({0}) {1}", spell.excludeTargetAuraSpell, DBC.Spell[spell.excludeTargetAuraSpell].SpellName);
                 else
-                    sb.AppendFormat("  Ex Target Aura Spell ({0})\r\n", spell.excludeTargetAuraSpell);
+                    sb.AppendFormatLine("  Ex Target Aura Spell ({0}) ?????", spell.excludeTargetAuraSpell);
             }
 
             return sb.ToString();
@@ -437,7 +328,7 @@ namespace SpellWork
                 (SpellFamilyNames)spell.SpellFamilyName, spell.SpellFamilyFlags3, spell.SpellFamilyFlags2, spell.SpellFamilyFlags1);
 
             sb.AppendLine();
-            sb.AppendFormatLine("SpellSchoolMask = {0} ({1})", spell.SchoolMask, GetSchool(spell));
+            sb.AppendFormatLine("SpellSchoolMask = {0} ({1})", spell.SchoolMask, spell.School);
             sb.AppendFormatLine("DamageClass = {0} ({1})", spell.DmgClass, (SpellDmgClass)spell.DmgClass);
             sb.AppendFormatLine("PreventionType = {0} ({1})", spell.PreventionType, (SpellPreventionType)spell.PreventionType);
             sb.AppendLine();
@@ -467,7 +358,7 @@ namespace SpellWork
             sb.AppendFormatLine("Category = {0}", spell.Category);
             sb.AppendFormatLine("DispelType = {0}",   spell.Dispel);
             sb.AppendFormatLine("Mechanic = {0} ({1})", spell.Mechanic, (Mechanics)spell.Mechanic);
-            sb.AppendLine(GetRange(spell.rangeIndex));
+            sb.AppendLine(spell.Range);
 
             sb.AppendFormatLineIfNotNull("Speed {0:F}", spell.speed);
 
@@ -476,7 +367,7 @@ namespace SpellWork
                      spell.AttributesEx5, spell.AttributesEx6, spell.AttributesExG);
 
             sb.AppendFormatLineIfNotNull("Stackable up to {0}", spell.StackAmount);
-            sb.Append(GetCastTime(spell));
+            sb.AppendLine(spell.CastTime);
 
             if (spell.RecoveryTime != 0 || spell.CategoryRecoveryTime != 0 || spell.StartRecoveryCategory != 0)
             {
@@ -484,7 +375,7 @@ namespace SpellWork
                 sb.AppendFormatLine("    StartRecoveryCategory = {0}, StartRecoveryTime = {1:F} ms", spell.StartRecoveryCategory, spell.StartRecoveryTime);
             }
 
-            sb.AppendLine(GetDuration(spell.DurationIndex));
+            sb.AppendLine(spell.Duration);
 
             if (spell.manaCost != 0 || spell.ManaCostPercentage != 0)
             {
@@ -496,11 +387,13 @@ namespace SpellWork
 
                 sb.Append(Environment.NewLine);
             }
+
             sb.AppendFormatLine("Interrupt Flags: 0x{0:X8}, AuraIF 0x{1:X8}, ChannelIF 0x{2:X8}",
                 spell.InterruptFlags, spell.AuraInterruptFlags, spell.ChannelInterruptFlags);
 
             if (spell.CasterAuraState != 0 || spell.TargetAuraState != 0)
                 sb.AppendFormatLine("CasterAuraState 0x{0:X8}, TargetAuraState 0x{1:X8}", spell.CasterAuraState, spell.TargetAuraState);
+
             if (spell.CasterAuraStateNot != 0 || spell.TargetAuraStateNot != 0)
                 sb.AppendFormatLine("CasterAuraStateNot 0x{0:X8}, TargetAuraStateNot 0x{1:X8}", spell.CasterAuraStateNot, spell.TargetAuraStateNot);
 
@@ -512,13 +405,14 @@ namespace SpellWork
                 sb.AppendFormatLine("Proc flag 0x{0:X8}, chance = {1}, charges - {2}",
                 spell.procFlags, spell.procChance, spell.procCharges);
                 sb.AppendFormatLine("=================================================");
-                sb.Append(GetProcInfo(spell));
+                sb.Append(spell.ProcInfo);
                 sb.AppendFormatLine("=================================================");
             }
             else // if(spell.procCharges)
             {
                 sb.AppendFormatLine("Chance = {0}, charges - {1}", spell.procChance, spell.procCharges);
             }
+
             sb.Append(GetSpellEffectInfo(spell));
 
             sb.Append(GetItemInfo(spell));
