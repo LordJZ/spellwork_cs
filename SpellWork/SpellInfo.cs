@@ -49,8 +49,8 @@ namespace SpellWork
             {
                 var spell = elem.Spell.Value;
                 string name = elem.SkillId != 0
-                ? String.Format("+({0}) {1} ({2})_({3}, {4})", spell.ID, spell.SpellName, spell.Rank, elem.SkillId, GetSchool(spell))
-                : String.Format("-({0}) {1} ({2})_({3})",      spell.ID, spell.SpellName, spell.Rank, GetSchool(spell));
+                ? String.Format("+({0}) {1} ({2}) (Sk{3}) ({4})", spell.ID, spell.SpellName, spell.Rank, elem.SkillId, GetSchool(spell))
+                : String.Format("-({0}) {1} ({2}) ({3})",      spell.ID, spell.SpellName, spell.Rank, GetSchool(spell));
 
                 int i = 0;
                 foreach(TreeNode node in familyTree.Nodes)
@@ -85,7 +85,7 @@ namespace SpellWork
                 return "";
 
             var q = query.First().Value;
-            return String.Format("Duration: ID {0}  {1}, {2}, {3}\r\n", q.ID, q.Duration[0], q.Duration[1], q.Duration[2]);
+            return String.Format("Duration: (Id {0}) {1}, {2}, {3}\r\n", q.ID, q.Duration[0], q.Duration[1], q.Duration[2]);
         }
 
         static String GetRange(uint index)
@@ -97,26 +97,28 @@ namespace SpellWork
 
             var q = query.First();
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("SpellRange: ({0}) {1}: ",                    q.Key, q.Value.Description1);
-            sb.AppendFormat("MinRange = {0}, MinRangeFriendly = {1}, ",   q.Value.MinRange, q.Value.MinRangeFriendly);
-            sb.AppendFormat("MaxRange = {0}, MaxRangeFriendly = {1}\r\n", q.Value.MaxRange, q.Value.MaxRangeFriendly);
+            sb.AppendFormat("SpellRange: (Id {0}) \"{1}\":\r\n",              q.Key, q.Value.Description1);
+            sb.AppendFormat("    MinRange = {0}, MinRangeFriendly = {1}, ",   q.Value.MinRange, q.Value.MinRangeFriendly);
+            sb.AppendFormat("    MaxRange = {0}, MaxRangeFriendly = {1}\r\n", q.Value.MaxRange, q.Value.MaxRangeFriendly);
             
             return sb.ToString();
         }
 
         static String GetCastTime(SpellEntry spell)
         {
-            if(spell.CastingTimeIndex ==0) return "";
+            if(spell.CastingTimeIndex == 0)
+                return "";
 
             var query = from t in DBC.SpellCastTimes where t.Key == spell.CastingTimeIndex select t.Value;
 
             if(query.Count() == 0)
             {
-                return String.Format("CastingTime({0}) = ????\r\n", spell.CastingTimeIndex);
+                return String.Format("CastingTime (Id {0}) = ????\r\n", spell.CastingTimeIndex);
             }
             else
             {
-                return String.Format("CastingTime = {0:F}\r\n", query.First().CastTime / 1000.0f);
+                return String.Format("CastingTime (Id {0}) = {1:F}\r\n", spell.CastingTimeIndex,
+                    query.First().CastTime / 1000.0f);
             }
         }
 
@@ -135,7 +137,7 @@ namespace SpellWork
             var line = query.First().skillLine.Value;
 
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("Skill ({0})", skill.SkillId);
+            sb.AppendFormat("Skill (Id {0})", skill.SkillId);
 
             if (line.Name != "")
                 sb.AppendFormat(" {0}", line.Name);
@@ -161,17 +163,16 @@ namespace SpellWork
             return sb.ToString() + Environment.NewLine;
         }
 
-        static SpellSchools GetSchool(SpellEntry spell)
+        static string GetSchool(SpellEntry spell)
         {
-            if ((spell.SchoolMask & 1)   != 0) return (SpellSchools)0;
-            if ((spell.SchoolMask & 2)   != 0) return (SpellSchools)1;
-            if ((spell.SchoolMask & 4)   != 0) return (SpellSchools)2;
-            if ((spell.SchoolMask & 8)   != 0) return (SpellSchools)3;
-            if ((spell.SchoolMask & 16)  != 0) return (SpellSchools)4;
-            if ((spell.SchoolMask & 32)  != 0) return (SpellSchools)5;
-            if ((spell.SchoolMask & 64)  != 0) return (SpellSchools)6;
-            if ((spell.SchoolMask & 128) != 0) return (SpellSchools)7;
-            return (SpellSchools)0;
+            List<string> mask = new List<string>();
+            foreach (var a in Enum.GetValues(typeof(SpellSchools)))
+            {
+                //MessageBox.Show(Enum.GetName(typeof(SpellSchools), a));
+                if ((spell.SchoolMask & (1 << (int)a)) != 0)
+                    mask.Add(Enum.GetName(typeof(SpellSchools), a));
+            }
+            return String.Join("|", mask.ToArray());
         }
 
         static String GetProcInfo(SpellEntry spell)
@@ -431,12 +432,15 @@ namespace SpellWork
             sb.AppendFormat("ID - {0} {1} ({2})\r\n", spell.ID, spell.SpellName, spell.Rank);
 
             if (spell.Description != "")
-                sb.AppendFormat("=================================================\r\n{0}\r\n", spell.Description);
+            {
+                sb.AppendLine("=================================================");
+                sb.AppendLine(spell.Description);
+            }
             if (spell.ToolTip != "")
                 sb.AppendFormat("ToolTip: {0}\r\n", spell.ToolTip);
             if (spell.modalNextSpell != 0)
                 sb.AppendFormat("Modal Next Spell: {0}\r\n", spell.modalNextSpell);
-            sb.AppendFormat("=================================================\r\n");
+            sb.AppendLine("=================================================");
 
             sb.AppendFormatLine("Category = {0}, SpellIconID = {1}, activeIconID = {2}, SpellVisual_0 = {3}, SpellVisual_1 = {4}",
                 spell.Category, spell.SpellIconID, spell.activeIconID, spell.SpellVisual[0], spell.SpellVisual[1]);
@@ -444,11 +448,12 @@ namespace SpellWork
             sb.AppendFormat("Family {0}, flag 0x{1:X8} {2:X8} {3:X8}\r\n",
                 (SpellFamilyNames)spell.SpellFamilyName, spell.SpellFamilyFlags3, spell.SpellFamilyFlags2, spell.SpellFamilyFlags1);
 
-            sb.AppendFormat("SpellSchoolMask = {0}, DamageClass = {1}, PreventionType = {2}\r\n", GetSchool(spell),
-                (SpellDmgClass)spell.DmgClass, (SpellPreventionType)spell.PreventionType);
+            sb.AppendFormatLine("SpellSchoolMask = {0} ({1})", spell.SchoolMask, GetSchool(spell));
+            sb.AppendFormatLine("DamageClass = {0} ({1})", spell.DmgClass, (SpellDmgClass)spell.DmgClass);
+            sb.AppendFormatLine("PreventionType = {0} ({1})", spell.PreventionType, (SpellPreventionType)spell.PreventionType);
 
             if (spell.Targets != 0 || spell.TargetCreatureType != 0)
-                sb.AppendFormat("Targets 0x{0:X8}, Creature Type 0x{1:X8}\r\n", spell.Targets, spell.TargetCreatureType);
+                sb.AppendFormatLine("Targets 0x{0:X8}, Creature Type 0x{1:X8}", spell.Targets, spell.TargetCreatureType);
 
             if (spell.Stances != 0)
                 sb.Append(GetFormInfo(spell.Stances, "Stances: "));

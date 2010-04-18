@@ -22,19 +22,19 @@ namespace SpellWork
 
         private void Loads()
         {
-            SetEnumValues(_cbSpellFamilyName, typeof(SpellFamilyNames));
-            SetEnumValues(_cbSpellAura, typeof(AuraType));
-            SetEnumValues(_cbSpellEffect, typeof(SpellEffects));
-            SetEnumValues(_cbTarget1, typeof(Targets));
-            SetEnumValues(_cbTarget2, typeof(Targets));
+            SetEnumValues(_cbSpellFamilyName, typeof(SpellFamilyNames), "SpellFamilyName");
+            SetEnumValues(_cbSpellAura, typeof(AuraType), "Aura");
+            SetEnumValues(_cbSpellEffect, typeof(SpellEffects), "Effect");
+            SetEnumValues(_cbTarget1, typeof(Targets), "Target A");
+            SetEnumValues(_cbTarget2, typeof(Targets), "Target B");
 
-            SetEnumValues(_cbProcSpellFamilyName, typeof(SpellFamilyNames));
-            SetEnumValues(_cbProcSpellAura, typeof(AuraType));
-            SetEnumValues(_cbProcSpellEffect, typeof(SpellEffects));
-            SetEnumValues(_cbProcTarget1, typeof(Targets));
-            SetEnumValues(_cbProcTarget2, typeof(Targets));
+            SetEnumValues(_cbProcSpellFamilyName, typeof(SpellFamilyNames), "SpellFamilyName");
+            SetEnumValues(_cbProcSpellAura, typeof(AuraType), "Aura");
+            SetEnumValues(_cbProcSpellEffect, typeof(SpellEffects), "Effect");
+            SetEnumValues(_cbProcTarget1, typeof(Targets), "Target A");
+            SetEnumValues(_cbProcTarget2, typeof(Targets), "Target B");
 
-            SetEnumValues(_cbProcSpellFamilyTree, typeof(SpellFamilyNames));
+            SetEnumValues(_cbProcSpellFamilyTree, typeof(SpellFamilyNames), "SpellFamilyTree");
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -42,13 +42,13 @@ namespace SpellWork
             splitContainer3.SplitterDistance = 52;
         }
 
-        private void SetEnumValues(ComboBox cb, Type enums)
+        private void SetEnumValues(ComboBox cb, Type enums, string NoValue)
         {
             DataTable dt = new DataTable();
             dt.Columns.Add("ID");
             dt.Columns.Add("NAME");
 
-            dt.Rows.Add(new Object[] { -1, "No filter" });
+            dt.Rows.Add(new Object[] { -1, NoValue });
 
             foreach (var str in Enum.GetValues(enums))
             {

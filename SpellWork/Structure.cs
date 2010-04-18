@@ -312,7 +312,7 @@ namespace SpellWork
             {
                 string s;
                 uint offset = _Desc1[DBC.Locale];
-                DBC._SpellStrings.TryGetValue(offset, out s);
+                DBC._SpellRangeStrings.TryGetValue(offset, out s);
                 return s;
             }
         }
@@ -323,7 +323,7 @@ namespace SpellWork
             {
                 string s;
                 uint offset = _Desc2[DBC.Locale];
-                DBC._SpellStrings.TryGetValue(offset, out s);
+                DBC._SpellRangeStrings.TryGetValue(offset, out s);
                 return s;
             }
         }
