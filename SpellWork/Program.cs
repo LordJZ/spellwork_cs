@@ -15,8 +15,10 @@ namespace SpellWork
         static void Main()
         {
             var path = @"dbc\"; 
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
             if (!File.Exists(path + "Spell.dbc") ||
                 !File.Exists(path + "SpellRadius.dbc") ||
                 !File.Exists(path + "SpellRange.dbc") ||
@@ -34,6 +36,7 @@ namespace SpellWork
                 Application.Exit();
                 return;
             }
+
             DBCReader.Run();
             Application.Run(new MainForm());
         }

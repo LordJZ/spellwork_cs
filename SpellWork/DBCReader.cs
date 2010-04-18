@@ -30,7 +30,7 @@ namespace SpellWork
 
             // Currently we use entry 1 from Spell.dbc to detect DBC locale
             byte DetectedLocale = 0;
-            while (DBC.Spell.LookupEntry<SpellEntry>(1).GetName(DetectedLocale) == "")
+            while (DBC.Spell[1].GetName(DetectedLocale) == "")
             {
                 if (DetectedLocale >= MAX_DBC_LOCALE)
                     throw new Exception("Detected unknown locale index " + DetectedLocale);

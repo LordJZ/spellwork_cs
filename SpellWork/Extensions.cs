@@ -39,27 +39,6 @@ namespace SpellWork
             handle.Free();
             return returnObject;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="dict"></param>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public static T LookupEntry<T>(this Dictionary<uint, T> dict, uint id) where T : struct
-        {
-            T _struct = new T();
-            try
-            {
-                dict.TryGetValue(id, out _struct);
-            }
-            catch (Exception)
-            {
-                return default(T);
-            }
-
-            return _struct;
-        }
 
         // Append Line
         public static StringBuilder AppendLineIfNotNull(this StringBuilder builder, string line)
