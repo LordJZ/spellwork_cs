@@ -156,6 +156,7 @@ namespace SpellWork
             uint.TryParse(val.ToString(), out num);
             return num;
         }
+
         public static int ToInt32(this Object val)
         {
             if (val == null) 

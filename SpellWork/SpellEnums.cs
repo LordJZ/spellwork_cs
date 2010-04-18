@@ -903,6 +903,32 @@ namespace SpellWork
         SPELLMOD_RESIST_DISPEL_CHANCE   = 28
     };
 
+    [Flags]
+    public enum SpellCastTargetFlags
+    {
+        TARGET_FLAG_SELF = 0x00000000,
+        TARGET_FLAG_UNUSED1 = 0x00000001,               // not used in any spells as of 3.0.3 (can be set dynamically)
+        TARGET_FLAG_UNIT = 0x00000002,               // pguid
+        TARGET_FLAG_UNUSED2 = 0x00000004,               // not used in any spells as of 3.0.3 (can be set dynamically)
+        TARGET_FLAG_UNUSED3 = 0x00000008,               // not used in any spells as of 3.0.3 (can be set dynamically)
+        TARGET_FLAG_ITEM = 0x00000010,               // pguid
+        TARGET_FLAG_SOURCE_LOCATION = 0x00000020,               // 3 float
+        TARGET_FLAG_DEST_LOCATION = 0x00000040,               // 3 float
+        TARGET_FLAG_OBJECT_UNK = 0x00000080,               // used in 7 spells only
+        TARGET_FLAG_UNIT_UNK = 0x00000100,               // looks like self target (480 spells)
+        TARGET_FLAG_PVP_CORPSE = 0x00000200,               // pguid
+        TARGET_FLAG_UNIT_CORPSE = 0x00000400,               // 10 spells (gathering professions)
+        TARGET_FLAG_OBJECT = 0x00000800,               // pguid, 2 spells
+        TARGET_FLAG_TRADE_ITEM = 0x00001000,               // pguid, 0 spells
+        TARGET_FLAG_STRING = 0x00002000,               // string, 0 spells
+        TARGET_FLAG_UNK1 = 0x00004000,               // 199 spells, opening object/lock
+        TARGET_FLAG_CORPSE = 0x00008000,               // pguid, resurrection spells
+        TARGET_FLAG_UNK2 = 0x00010000,               // pguid, not used in any spells as of 3.0.3 (can be set dynamically)
+        TARGET_FLAG_GLYPH = 0x00020000,               // used in glyph spells
+        TARGET_FLAG_UNK3 = 0x00040000,               // 
+        TARGET_FLAG_UNK4 = 0x00080000                // uint32, loop { vec3, guid -> if guid == 0 break }
+    };
+
     public enum Powers : uint
     {
         POWER_MANA          = 0,
@@ -913,6 +939,139 @@ namespace SpellWork
         POWER_RUNE          = 5,
         POWER_RUNIC_POWER   = 6,
         POWER_HEALTH        = 0xFFFFFFFE,    // (-2 as signed value)
+    };
+
+    [Flags]
+    enum InventoryTypeMask
+    {
+        ALL             = -1,
+        NON_EQUIP       = 1 << 0,
+        HEAD            = 1 << 1,
+        NECK            = 1 << 2,
+        SHOULDERS       = 1 << 3,
+        BODY            = 1 << 4,
+        CHEST           = 1 << 5,
+        WAIST           = 1 << 6,
+        LEGS            = 1 << 7,
+        FEET            = 1 << 8,
+        WRISTS          = 1 << 9,
+        HANDS           = 1 << 10,
+        FINGER          = 1 << 11,
+        TRINKET         = 1 << 12,
+        WEAPON          = 1 << 13,
+        SHIELD          = 1 << 14,
+        RANGED          = 1 << 15,
+        CLOAK           = 1 << 16,
+        WEAPON_2H       = 1 << 17,
+        BAG             = 1 << 18,
+        TABARD          = 1 << 19,
+        ROBE            = 1 << 20,
+        WEAPONMAINHAND  = 1 << 21,
+        WEAPONOFFHAND   = 1 << 22,
+        HOLDABLE        = 1 << 23,
+        AMMO            = 1 << 24,
+        THROWN          = 1 << 25,
+        RANGEDRIGHT     = 1 << 26,
+        QUIVER          = 1 << 27,
+        RELIC           = 1 << 28,
+    };
+
+    public enum ItemClass
+    {
+        CONSUMABLE  = 0,
+        CONTAINER   = 1,
+        WEAPON      = 2,
+        GEM         = 3,
+        ARMOR       = 4,
+        REAGENT     = 5,
+        PROJECTILE  = 6,
+        TRADE_GOODS = 7,
+        GENERIC     = 8,
+        RECIPE      = 9,
+        MONEY       = 10,
+        QUIVER      = 11,
+        QUEST       = 12,
+        KEY         = 13,
+        PERMANENT   = 14,
+        MISC        = 15,
+        GLYPH       = 16,
+        MAX
+    };
+
+    [Flags]
+    public enum ItemSubClassWeaponMask
+    {
+        ALL             = -1,
+        AXE             = 1 << 0,
+        AXE2            = 1 << 1,
+        BOW             = 1 << 2,
+        GUN             = 1 << 3,
+        MACE            = 1 << 4,
+        MACE2           = 1 << 5,
+        POLEARM         = 1 << 6,
+        SWORD           = 1 << 7,
+        SWORD2          = 1 << 8,
+        obsolete        = 1 << 9,
+        STAFF           = 1 << 10,
+        EXOTIC          = 1 << 11,
+        EXOTIC2         = 1 << 12,
+        FIST            = 1 << 13,
+        MISC            = 1 << 14,
+        DAGGER          = 1 << 15,
+        THROWN          = 1 << 16,
+        SPEAR           = 1 << 17,
+        CROSSBOW        = 1 << 18,
+        WAND            = 1 << 19,
+        FISHING_POLE    = 1 << 20
+    };
+
+    [Flags]
+    public enum ItemSubClassArmorMask
+    {
+        ALL     = -1,
+        MISC    = 1 << 0,
+        CLOTH   = 1 << 1,
+        LEATHER = 1 << 2,
+        MAIL    = 1 << 3,
+        PLATE   = 1 << 4,
+        BUCKLER = 1 << 5,
+        SHIELD  = 1 << 6,
+        LIBRAM  = 1 << 7,
+        IDOL    = 1 << 8,
+        TOTEM   = 1 << 9,
+        SIGIL   = 1 << 10
+    };
+
+    [Flags]
+    public enum ItemSubClassMiscMask
+    {
+        ALL     = -1,
+        JUNK    = 1 << 0,
+        REAGENT = 1 << 1,
+        PET     = 1 << 2,
+        HOLIDAY = 1 << 3,
+        OTHER   = 1 << 4,
+        MOUNT   = 1 << 5,
+    }
+
+    [Flags]
+    public enum CreatureTypeMask
+    {
+        ALL             = -1,
+        NONE            = 0,
+        BEAST           = 1 << 0,
+        DRAGONKIN       = 1 << 1,
+        DEMON           = 1 << 2,
+        ELEMENTAL       = 1 << 3,
+        GIANT           = 1 << 4,
+        UNDEAD          = 1 << 5,
+        HUMANOID        = 1 << 6,
+        CRITTER         = 1 << 7,
+        MECHANICAL      = 1 << 8,
+        NOT_SPECIFIED   = 1 << 9,
+        TOTEM           = 1 << 10,
+        NON_COMBAT_PET  = 1 << 11,
+        GAS_CLOUD       = 1 << 12
     };
 
     public class SpellEnums

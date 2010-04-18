@@ -25,14 +25,15 @@ namespace SpellWork
                 !File.Exists(DBCReader.DBC_PATH + "SkillLine.dbc") ||
                 !File.Exists(DBCReader.DBC_PATH + "SpellCastTimes.dbc"))
             {
-                MessageBox.Show("Files not found:\r\n" 
-                    + DBCReader.DBC_PATH + "Spell.dbc\r\n"
-                    + DBCReader.DBC_PATH + "SpellRadius.dbc\r\n" 
-                    + DBCReader.DBC_PATH + "SpellRange.dbc\r\n"
-                    + DBCReader.DBC_PATH + "SpellDuration.dbc\r\n"
-                    + DBCReader.DBC_PATH + "SkillLineAbility.dbc\r\n"
-                    + DBCReader.DBC_PATH + "SkillLine.dbc\r\n" 
-                    + DBCReader.DBC_PATH + "SpellCastTimes.dbc\r\n",
+                MessageBox.Show(String.Format("Files not found:\r\n" 
+                    + "{0}Spell.dbc\r\n"
+                    + "{0}SpellRadius.dbc\r\n"
+                    + "{0}SpellRange.dbc\r\n"
+                    + "{0}SpellDuration.dbc\r\n"
+                    + "{0}SkillLineAbility.dbc\r\n"
+                    + "{0}SkillLine.dbc\r\n"
+                    + "{0}SpellCastTimes.dbc\r\n",
+                    DBCReader.DBC_PATH),
                 "SpellWork ERROR",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Error);

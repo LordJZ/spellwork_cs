@@ -94,7 +94,7 @@ namespace SpellWork
 
             StringBuilder sb = new StringBuilder();
             sb.AppendFormatLine("Skill (Id {0}) \"{1}\"", skill.SkillId, line.Name);
-            sb.AppendFormat    ("    ReqSkillValue {0}", skill.Req_skill_value);
+            sb.AppendFormat("    ReqSkillValue {0}", skill.Req_skill_value);
 
             sb.AppendFormat(", Forward Spell = {0}, MinMaxValue ({1}, {2})", skill.Forward_spellid, skill.Min_value, skill.Max_value);
             sb.AppendFormat(", CharacterPoints ({0}, {1})", skill.characterPoints[0], skill.characterPoints[1]);
@@ -102,7 +102,7 @@ namespace SpellWork
             return sb.ToString();
         }
 
-        static String GetFormInfo(ulong val, string name)
+        static String GetFormInfo(ulong val)
         {
             if (val == 0)
                 return String.Empty;
@@ -111,9 +111,9 @@ namespace SpellWork
             for (int i = 1; i < (int)ShapeshiftForm.MAX_FORM; ++i)
             {
                 if ((val & (((ulong)1) << (i - 1))) != 0)
-                    arr.Add(Enum.GetName(typeof(ShapeshiftForm), i));
+                    arr.Add(((ShapeshiftForm)i).ToString());
             }
-            return name + String.Join(", ", arr.ToArray());
+            return String.Join(", ", arr.ToArray());
         }
 
         static String GetItemInfo(SpellEntry spell)
@@ -331,15 +331,17 @@ namespace SpellWork
             sb.AppendFormatLine("PreventionType = {0} ({1})", spell.PreventionType, (SpellPreventionType)spell.PreventionType);
             sb.AppendLine();
 
-            if (spell.Targets != 0 || spell.TargetCreatureType != 0)
-                sb.AppendFormatLine("Targets = 0x{0:X8}, Creature Type = 0x{1:X8}", spell.Targets, spell.TargetCreatureType);
+            if (spell.Targets != 0)
+                sb.AppendFormatLine("Targets Mask = 0x{0:X8} ({1})", spell.Targets, (SpellCastTargetFlags)spell.Targets);
 
-            if (spell.Stances != 0 || spell.StancesNot != 0)
-            {
-                sb.Append(GetFormInfo(spell.Stances, "Stances: "));
-                sb.Append(GetFormInfo(spell.StancesNot, "Not Stances: "));
-                sb.AppendLine();
-            }
+            if (spell.TargetCreatureType != 0)
+                sb.AppendFormatLine("Creature Type Mask = 0x{0:X8} ({1})", spell.TargetCreatureType, (CreatureTypeMask)spell.TargetCreatureType);
+
+            if (spell.Stances != 0)
+                sb.AppendFormatLine("Stances: {0}", GetFormInfo(spell.Stances));
+
+            if(spell.StancesNot != 0)
+                sb.AppendFormatLine("Stances Not: {0}", GetFormInfo(spell.StancesNot));
 
             sb.AppendLine(GetSkillLine(spell.ID));
             sb.AppendFormatLine("Spell Level = {0}, base {1}, max {2}, maxTarget {3}",
@@ -347,9 +349,27 @@ namespace SpellWork
 
             if (spell.EquippedItemClass != -1)
             {
-                sb.AppendFormat("EquippedItemClass {0}", spell.EquippedItemClass);
-                sb.AppendFormatLineIfNotNull("    SubСlass mask 0x{0:X8}", spell.EquippedItemSubClassMask);
-                sb.AppendFormatLineIfNotNull("    InventoryType mask 0x{0:X8}", spell.EquippedItemInventoryTypeMask);
+                sb.AppendFormatLine("EquippedItemClass = {0} ({1})", spell.EquippedItemClass, (ItemClass)spell.EquippedItemClass);
+
+                if (spell.EquippedItemSubClassMask != 0)
+                {
+                    switch ((ItemClass)spell.EquippedItemClass)
+                    {
+                        case ItemClass.WEAPON:
+                            sb.AppendFormatLine("    SubClass mask 0x{0:X8} ({1})", spell.EquippedItemSubClassMask, (ItemSubClassWeaponMask)spell.EquippedItemSubClassMask);
+                            break;
+                        case ItemClass.ARMOR:
+                            sb.AppendFormatLine("    SubClass mask 0x{0:X8} ({1})", spell.EquippedItemSubClassMask, (ItemSubClassArmorMask)spell.EquippedItemSubClassMask);
+                            break;
+                        case ItemClass.MISC:
+                            sb.AppendFormatLine("    SubClass mask 0x{0:X8} ({1})", spell.EquippedItemSubClassMask, (ItemSubClassMiscMask)spell.EquippedItemSubClassMask);
+                            break;
+                    }
+                }
+
+                if (spell.EquippedItemInventoryTypeMask != 0)
+                    sb.AppendFormatLine("    InventoryType mask = 0x{0:X8} ({1})", spell.EquippedItemInventoryTypeMask, (InventoryTypeMask)spell.EquippedItemInventoryTypeMask);
+
             }
 
             sb.AppendLine();
@@ -383,7 +403,7 @@ namespace SpellWork
                 sb.AppendFormatIfNotNull(" + lvl * {0}", spell.manaPerSecondPerLevel);
                 sb.AppendFormatIfNotNull(" + PCT {0}", spell.ManaCostPercentage);
 
-                sb.Append(Environment.NewLine);
+                sb.AppendLine();
             }
 
             sb.AppendFormatLine("Interrupt Flags: 0x{0:X8}, AuraIF 0x{1:X8}, ChannelIF 0x{2:X8}",
