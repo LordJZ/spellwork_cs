@@ -100,9 +100,9 @@ namespace SpellWork
 
             var q = query.First();
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("SpellRange: (Id {0}) \"{1}\":\r\n",              q.Key, q.Value.Description1);
-            sb.AppendFormat("    MinRange = {0}, MinRangeFriendly = {1}, ",   q.Value.MinRange, q.Value.MinRangeFriendly);
-            sb.AppendFormat("    MaxRange = {0}, MaxRangeFriendly = {1}\r\n", q.Value.MaxRange, q.Value.MaxRangeFriendly);
+            sb.AppendFormatLine("SpellRange: (Id {0}) \"{1}\"",                  q.Key, q.Value.Description1);
+            sb.AppendFormatLine("    MinRange = {0}, MinRangeFriendly = {1}",     q.Value.MinRange, q.Value.MinRangeFriendly);
+            sb.AppendFormatLine("    MaxRange = {0}, MaxRangeFriendly = {1}",     q.Value.MaxRange, q.Value.MaxRangeFriendly);
             
             return sb.ToString();
         }
@@ -141,19 +141,13 @@ namespace SpellWork
             var line =  query.First().skillLine.Value;
 
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("Skill (Id {0})", skill.SkillId);
-            sb.AppendFormatIsNull(" {0}", line.Name);
+            sb.AppendFormatLine("Skill (Id {0}) \"{1}\"", skill.SkillId, line.Name);
+            sb.AppendFormat    ("    ReqSkillValue {0}", skill.Req_skill_value);
 
-            if (skill.Req_skill_value > 1)
-                sb.AppendFormat(", Req skill value {0}", skill.Req_skill_value);
+            sb.AppendFormat(", Forward Spell = {0}, MinMaxValue ({1}, {2})", skill.Forward_spellid, skill.Min_value, skill.Max_value);
+            sb.AppendFormat(", CharacterPoints ({0}, {1})", skill.characterPoints[0], skill.characterPoints[1]);
 
-            sb.AppendFormatIsNull(", Forward spell {0}", skill.Forward_spellid);
-            sb.AppendFormatIsNull(", Min Value {0}", skill.Min_value);
-            sb.AppendFormatIsNull(", Max Value {0}", skill.Max_value);
-            sb.AppendFormatIsNull(", Req characterPoints_0 {0}", skill.characterPoints[0]);
-            sb.AppendFormatIsNull(", Req characterPoints_1 {0}", skill.characterPoints[1]);
-
-            return sb.ToString() + Environment.NewLine;
+            return sb.ToString();
         }
 
         static string GetSchool(SpellEntry spell)
@@ -222,9 +216,9 @@ namespace SpellWork
 
 
                 if (query.Count() > 0)
-                    return String.Format("Radius ({0}) {0:F}\r\n", spell.EffectRadiusIndex[index], query.First());
+                    return String.Format("Radius (Id {0}) {0:F}\r\n", spell.EffectRadiusIndex[index], query.First());
                 else
-                    return String.Format("Radius ({0}) Not found\r\n", spell.EffectRadiusIndex[index]);
+                    return String.Format("Radius (Id {0}) Not found\r\n", spell.EffectRadiusIndex[index]);
             }
             return "";
         }
@@ -239,13 +233,13 @@ namespace SpellWork
                 if (query.Count() > 0)
                 {
                     var trigger = query.First().Value;
-                    sb.AppendFormat("Trigger spell ({0}) {1}. Chance = {2}\r\n", spell.EffectTriggerSpell[index],
+                    sb.AppendFormatLine("Trigger spell ({0}) {1}. Chance = {2}", spell.EffectTriggerSpell[index],
                         trigger.SpellName, spell.procChance);
 
                     if (trigger.Description != "")
-                        sb.AppendFormat("{0}\r\n", trigger.Description);
+                        sb.AppendLine(trigger.Description);
                     if (trigger.ToolTip != "")
-                        sb.AppendFormat("{0}\r\n", trigger.ToolTip);
+                        sb.AppendLine(trigger.ToolTip);
 
                     if (trigger.procFlags != 0)
                     {
@@ -267,18 +261,26 @@ namespace SpellWork
         static String GetSpellEffectInfo(SpellEntry spell)
         {
             StringBuilder sb = new StringBuilder();
+            
+            sb.AppendLine();
+            sb.AppendLine("______________________________________________________________________________");
+            sb.AppendLine();
+
             for (int i = 0; i < 3; i++)
             {
-                if (spell.Effect[i] == 0 && spell.EffectBasePoints[i] == 0)
+                if ((SpellEffects)spell.Effect[i] == SpellEffects.NO_SPELL_EFFECT)
                 {
-                    sb.AppendFormat("\r\nEffect_{0}: NO EFFECT\r\n", i);
+                    sb.AppendFormatLine("Effect {0}: NO EFFECT", i);
                     return sb.ToString();
                 }
 
-                sb.AppendFormat("\r\nEffect_{0}: {1}\r\n", i, (SpellEffects)spell.Effect[i]);
-                sb.AppendFormat("Base point = {0}", spell.EffectBasePoints[i] + 1/*spell.EffectDieSides[i]*/);
-                if (spell.EffectRealPointsPerLevel[i]!=0)
-                    sb.AppendFormat(" + lvl * {0:F}", spell.EffectRealPointsPerLevel[i]);
+                sb.AppendFormatLine("Effect {0}: {1}", i, (SpellEffects)spell.Effect[i]);
+
+                sb.AppendFormat("BasePoints = {0}", spell.EffectBasePoints[i] + 1);
+                if (spell.EffectRealPointsPerLevel[i] != 0)
+                    sb.AppendFormat(" + Level * {0:F}", spell.EffectRealPointsPerLevel[i]);
+
+                // WTF ?
                 if (/*spell.EffectBaseDice[i]*/1 < spell.EffectDieSides[i])
                 {
                     if (spell.EffectRealPointsPerLevel[i] != 0)
@@ -288,11 +290,13 @@ namespace SpellWork
                         sb.AppendFormat(" to {0}", spell.EffectBasePoints[i] +/*+ spell.EffectBaseDice[i]*/ 1 + spell.EffectDieSides[i]);
                 }
 
-                sb.AppendFormatIsNull(" + combo * {0:F}",    spell.EffectPointsPerComboPoint[i]);
-                sb.AppendFormatIsNull(" x {0:F}",            spell.DmgMultiplier[i]);
-                sb.AppendFormatIsNull("  Multiple = {0:F}",  spell.EffectMultipleValue[i]);
-                sb.AppendFormatIsNull("\r\nTarget A ({0}),", (Targets)spell.EffectImplicitTargetA[i]);
-                sb.AppendFormatIsNull(" Target B ({0})",     (Targets)spell.EffectImplicitTargetB[i]);
+                sb.AppendFormatIfNotNull(" + combo * {0:F}",    spell.EffectPointsPerComboPoint[i]);
+                sb.AppendFormatIfNotNull(" x {0:F}",            spell.DmgMultiplier[i]);
+                sb.AppendFormatIfNotNull("  Multiple = {0:F}",  spell.EffectMultipleValue[i]);
+                sb.AppendLine();
+                sb.AppendFormatLine("Targets ({0},{1}) ({2}, {3}),",
+                    spell.EffectImplicitTargetA[i], spell.EffectImplicitTargetB[i],
+                    (Targets)spell.EffectImplicitTargetA[i], (Targets)spell.EffectImplicitTargetB[i]);
 
                 if (spell.EffectApplyAuraName[i] != 0)
                     sb.AppendFormatLine("\r\nAura {0}, value = {1}, misc = {2}, miscB = {3}, periodic = {4}",
@@ -301,9 +305,9 @@ namespace SpellWork
                         spell.EffectMiscValueB[i], spell.EffectAmplitude[i]);
                 else
                 {
-                    sb.AppendFormatLineIsNull("EffectMiscValue = {0}",  spell.EffectMiscValue[i]);
-                    sb.AppendFormatLineIsNull("EffectMiscValueB = {0}", spell.EffectMiscValueB[i]);
-                    sb.AppendFormatLineIsNull("EffectAmplitude = {0}",  spell.EffectAmplitude[i]);
+                    sb.AppendFormatLineIfNotNull("EffectMiscValueA = {0}",  spell.EffectMiscValue[i]);
+                    sb.AppendFormatLineIfNotNull("EffectMiscValueB = {0}", spell.EffectMiscValueB[i]);
+                    sb.AppendFormatLineIfNotNull("EffectAmplitude = {0}",  spell.EffectAmplitude[i]);
                 }
 
                 uint[] ClassMask = new uint[3];
@@ -349,9 +353,10 @@ namespace SpellWork
                 sb.Append(GetRadius(spell, i));
                 sb.Append(GetTriggerSpell(spell, i));
 
-                sb.AppendFormatLineIsNull("EffectChainTarget = {0}",     spell.EffectChainTarget[i]);
-                sb.AppendFormatLineIsNull("EffectItemType = {0}",        spell.EffectItemType[i]);
-                sb.AppendFormatLineIsNull("Effect Mechanic = {0} - {1}", spell.EffectMechanic[i], (Mechanics)spell.EffectMechanic[i]);
+                sb.AppendFormatLineIfNotNull("EffectChainTarget = {0}", spell.EffectChainTarget[i]);
+                sb.AppendFormatLineIfNotNull("EffectItemType = {0}",    spell.EffectItemType[i]);
+                if((Mechanics)spell.EffectMechanic[i] != Mechanics.MECHANIC_NONE)
+                    sb.AppendFormatLine("Effect Mechanic = {0} ({1})", spell.EffectMechanic[i], (Mechanics)spell.EffectMechanic[i]);
             }
             return sb.ToString();
         }
@@ -416,69 +421,75 @@ namespace SpellWork
 
             sb.AppendFormatLine("ID - {0} {1} ({2})", spell.ID, spell.SpellName, spell.Rank);
 
-            sb.AppendFormatLineIsNull("=================================================\r\nDescription: {0}", true, spell.Description);
-            sb.AppendFormatLineIsNull("ToolTip: {0}", true, spell.ToolTip);
-            sb.AppendFormatLineIsNull("Modal Next Spell: {0}", spell.modalNextSpell);
+            sb.AppendFormatLineIfNotNull("=================================================\r\nDescription: {0}", spell.Description);
+            sb.AppendFormatLineIfNotNull("ToolTip: {0}", spell.ToolTip);
+            sb.AppendFormatLineIfNotNull("Modal Next Spell: {0}", spell.modalNextSpell);
             sb.AppendFormatLine("=================================================");
 
-            sb.AppendFormatLine("Category = {0}, SpellIconID = {1}, activeIconID = {2}, SpellVisual_0 = {3}, SpellVisual_1 = {4}",
+            sb.AppendFormatLine("Category = {0}, SpellIconID = {1}, activeIconID = {2}, SpellVisual = ({3},{4})",
                 spell.Category, spell.SpellIconID, spell.activeIconID, spell.SpellVisual[0], spell.SpellVisual[1]);
 
             sb.AppendFormatLine("Family {0}, flag 0x{1:X8} {2:X8} {3:X8}",
                 (SpellFamilyNames)spell.SpellFamilyName, spell.SpellFamilyFlags3, spell.SpellFamilyFlags2, spell.SpellFamilyFlags1);
 
+            sb.AppendLine();
             sb.AppendFormatLine("SpellSchoolMask = {0} ({1})", spell.SchoolMask, GetSchool(spell));
             sb.AppendFormatLine("DamageClass = {0} ({1})", spell.DmgClass, (SpellDmgClass)spell.DmgClass);
             sb.AppendFormatLine("PreventionType = {0} ({1})", spell.PreventionType, (SpellPreventionType)spell.PreventionType);
+            sb.AppendLine();
 
             if (spell.Targets != 0 || spell.TargetCreatureType != 0)
-                sb.AppendFormatLine("Targets 0x{0:X8}, Creature Type 0x{1:X8}", spell.Targets, spell.TargetCreatureType);
+                sb.AppendFormatLine("Targets = 0x{0:X8}, Creature Type = 0x{1:X8}", spell.Targets, spell.TargetCreatureType);
 
-            sb.Append(GetFormInfo(spell.Stances, "Stances: "));
-            sb.Append(GetFormInfo(spell.StancesNot, "Not Stances: "));
+            if (spell.Stances != 0 || spell.StancesNot != 0)
+            {
+                sb.Append(GetFormInfo(spell.Stances, "Stances: "));
+                sb.AppendLine(GetFormInfo(spell.StancesNot, "Not Stances: "));
+                sb.AppendLine();
+            }
 
-            sb.Append(GetSkillLine(spell.ID));
-            sb.AppendFormatIsNull("Spell level = {0}", spell.spellLevel);
-            sb.Append(spell.baseLevel.IsEmpty(", base = "));
-            sb.Append(spell.maxLevel.IsEmpty(", max = "));
-            sb.Append(spell.MaxTargetLevel.IsEmpty(", maxTargetLevel = "));
-
-            sb.Append(Environment.NewLine);
+            sb.AppendLine(GetSkillLine(spell.ID));
+            sb.AppendFormatLine("Spell Level = {0}, base {1}, max {2}, maxTarget {3}",
+                spell.spellLevel, spell.baseLevel, spell.maxLevel, spell.MaxTargetLevel);
 
             if (spell.EquippedItemClass != -1)
+            {
                 sb.AppendFormat("EquippedItemClass {0}", spell.EquippedItemClass);
-            sb.AppendFormatIsNull(" Sub class mask 0x{0:X8}", spell.EquippedItemSubClassMask);
-            sb.AppendFormatIsNull(" Inventory mask 0x{0:X8}", spell.EquippedItemInventoryTypeMask);
+                sb.AppendFormatLineIfNotNull("    SubСlass mask 0x{0:X8}", spell.EquippedItemSubClassMask);
+                sb.AppendFormatLineIfNotNull("    InventoryType mask 0x{0:X8}", spell.EquippedItemInventoryTypeMask);
+                sb.AppendLine();
+            }
 
-            sb.AppendFormatLineIsNull("Category - {0}", spell.Category);
-            sb.AppendFormatLineIsNull("Dispel - {0}",   spell.Dispel);
-            sb.AppendFormatLineIsNull("Mechanic - {0} - {1}", spell.Mechanic, (Mechanics)spell.Mechanic);
-            sb.Append(GetRange(spell.rangeIndex));
+            sb.AppendLine();
+            sb.AppendFormatLine("Category = {0}", spell.Category);
+            sb.AppendFormatLine("DispelType = {0}",   spell.Dispel);
+            sb.AppendFormatLine("Mechanic = {0} ({1})", spell.Mechanic, (Mechanics)spell.Mechanic);
+            sb.AppendLine(GetRange(spell.rangeIndex));
 
-            sb.AppendFormatLineIsNull("Speed {0:F}", spell.speed);
+            sb.AppendFormatLineIfNotNull("Speed {0:F}", spell.speed);
 
             sb.AppendFormatLine("Attributes 0x{0:X8}, Ex 0x{1:X8}, Ex2 0x{2:X8}, Ex3 0x{3:X8}, Ex4 0x{4:X8}, Ex5 0x{5:X8}, Ex6 0x{6:X8}, ExG 0x{7:X8}",
                      spell.Attributes, spell.AttributesEx, spell.AttributesEx2, spell.AttributesEx3, spell.AttributesEx4,
                      spell.AttributesEx5, spell.AttributesEx6, spell.AttributesExG);
 
-            sb.AppendFormatLineIsNull("Stackable up to {0}", spell.StackAmount);
+            sb.AppendFormatLineIfNotNull("Stackable up to {0}", spell.StackAmount);
             sb.Append(GetCastTime(spell));
 
             if (spell.RecoveryTime != 0 || spell.CategoryRecoveryTime != 0 || spell.StartRecoveryCategory != 0)
             {
-                sb.AppendFormat("Recovery time {0}, Category Recovery time {1}, ", spell.RecoveryTime / 1000, spell.CategoryRecoveryTime / 1000);
-                sb.AppendFormatLine("Start Recovery Category = {0}, Start Recovery Time = {1:F}", spell.StartRecoveryCategory, spell.StartRecoveryTime / 1000.0f);
+                sb.AppendFormatLine("RecoveryTime: {0} ms, CategoryRecoveryTime: {1} ms", spell.RecoveryTime, spell.CategoryRecoveryTime);
+                sb.AppendFormatLine("    StartRecoveryCategory = {0}, StartRecoveryTime = {1:F} ms", spell.StartRecoveryCategory, spell.StartRecoveryTime);
             }
 
-            sb.Append(GetDuration(spell.DurationIndex));
+            sb.AppendLine(GetDuration(spell.DurationIndex));
 
             if (spell.manaCost != 0 || spell.ManaCostPercentage != 0)
             {
                 sb.AppendFormat("Power {0}, Cost {1}", (Powers)spell.powerType, spell.manaCost);
-                sb.AppendFormatIsNull(" + lvl * {0}", spell.manaCostPerlevel);
-                sb.AppendFormatIsNull(" + Per Second {0}", spell.manaPerSecond);
-                sb.AppendFormatIsNull(" + lvl * {0}", spell.manaPerSecondPerLevel);
-                sb.AppendFormatIsNull(" + PCT {0}", spell.ManaCostPercentage);
+                sb.AppendFormatIfNotNull(" + lvl * {0}", spell.manaCostPerlevel);
+                sb.AppendFormatIfNotNull(" + Per Second {0}", spell.manaPerSecond);
+                sb.AppendFormatIfNotNull(" + lvl * {0}", spell.manaPerSecondPerLevel);
+                sb.AppendFormatIfNotNull(" + PCT {0}", spell.ManaCostPercentage);
 
                 sb.Append(Environment.NewLine);
             }
@@ -491,7 +502,7 @@ namespace SpellWork
                 sb.AppendFormatLine("CasterAuraStateNot 0x{0:X8}, TargetAuraStateNot 0x{1:X8}", spell.CasterAuraStateNot, spell.TargetAuraStateNot);
 
             sb.Append(GetSpellAura(spell));
-            sb.AppendFormatLineIsNull("Requires Spell Focus {0}", spell.RequiresSpellFocus);
+            sb.AppendFormatLineIfNotNull("Requires Spell Focus {0}", spell.RequiresSpellFocus);
 
             if (spell.procFlags != 0)
             {

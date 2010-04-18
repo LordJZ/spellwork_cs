@@ -738,18 +738,11 @@
         // unions
 
         // 124, not include normal and holy damage
-        MASK_SPELL     = (MASK_FIRE
-                                     | MASK_NATURE
-                                     | MASK_FROST
-                                     | MASK_SHADOW
-                                     | MASK_ARCANE),
+        MASK_SPELL     = (MASK_FIRE | MASK_NATURE | MASK_FROST | MASK_SHADOW | MASK_ARCANE),
         // 126
-        MASK_MAGIC     = (MASK_HOLY
-                                     | MASK_SPELL),
-
+        MASK_MAGIC     = (MASK_HOLY | MASK_SPELL),
         // 127
-        MASK_ALL       = (MASK_NORMAL
-                                     | MASK_MAGIC)
+        MASK_ALL       = (MASK_NORMAL | MASK_MAGIC)
     };
 
     public enum Mechanics

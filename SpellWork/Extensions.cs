@@ -60,125 +60,108 @@ namespace SpellWork
 
             return _struct;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="builder"></param>
-        /// <param name="format"></param>
-        /// <param name="arg0"></param>
-        /// <returns></returns>
+
+        // Append Line
+        public static StringBuilder AppendLineIfNotNull(this StringBuilder builder, string line)
+        {
+            if (!String.IsNullOrEmpty(line))
+                return builder.AppendLine(line);
+
+            return builder;
+        }
+
+        // Append Format
+        public static StringBuilder AppendFormatIfNotNull(this StringBuilder builder, string format, string arg)
+        {
+            if (!String.IsNullOrEmpty(arg))
+            {
+                return builder.AppendFormat(format, arg);
+            }
+
+            return builder;
+        }
+        public static StringBuilder AppendFormatIfNotNull(this StringBuilder builder, string format, uint arg)
+        {
+            if (arg != 0)
+            {
+                return builder.AppendFormat(format, arg);
+            }
+
+            return builder;
+        }
+        public static StringBuilder AppendFormatIfNotNull(this StringBuilder builder, string format, int arg)
+        {
+            if (arg != 0)
+            {
+                return builder.AppendFormat(format, arg);
+            }
+
+            return builder;
+        }
+        public static StringBuilder AppendFormatIfNotNull(this StringBuilder builder, string format, float arg)
+        {
+            if (arg != 0.0f)
+            {
+                return builder.AppendFormat(format, arg);
+            }
+
+            return builder;
+        }
+
+        // Append Format Line
         public static StringBuilder AppendFormatLine(this StringBuilder builder, string format, params object[] arg0)
         {
             return builder.AppendFormat(format, arg0).AppendLine();
         }
-
-        public static StringBuilder AppendFormatIsNull(this StringBuilder builder, string format, params object[] arg0)
+        public static StringBuilder AppendFormatLineIfNotNull(this StringBuilder builder, string format, string arg)
         {
-            if(arg0.Length > 0)
+            if (!String.IsNullOrEmpty(arg))
             {
-                if (arg0[0].ToInt32() != 0)
-                {
-                    return builder.AppendFormat(format, arg0);
-                }
+                return builder.AppendFormat(format, arg).AppendLine();
             }
 
-            return builder.Append(String.Empty);
+            return builder;
         }
 
-        public static StringBuilder AppendFormatLineIsNull(this StringBuilder builder, string format, params object[] arg0)
+        public static StringBuilder AppendFormatLineIfNotNull(this StringBuilder builder, string format, int arg)
         {
-            if (arg0.Length > 0)
+            if (arg != 0)
             {
-                if (arg0[0].ToInt32() != 0)
-                {
-                    return builder.AppendFormat(format, arg0).AppendLine();
-                }
+                return builder.AppendFormat(format, arg).AppendLine();
             }
 
-            return builder.Append(String.Empty);
+            return builder;
         }
-
-        public static StringBuilder AppendFormatLineIsNull(this StringBuilder builder, string format, bool IsString, params object[] arg0)
+        public static StringBuilder AppendFormatLineIfNotNull(this StringBuilder builder, string format, uint arg)
         {
-            if (arg0.Length > 0)
+            if (arg != 0)
             {
-                if (arg0[0].ToString() != "")
-                {
-                    return builder.AppendFormat(format, arg0).AppendLine();
-                }
+                return builder.AppendFormat(format, arg).AppendLine();
             }
 
-            return builder.Append(String.Empty);
+            return builder;
         }
-        /// <summary>
-        ///  A function to calculate time diff
-        /// </summary>
-        /// <returns>Milliseconds between two timestamps</returns>
-        public static Int32 MsDiff(DateTime time1, DateTime time2)
-        {
-            return (Int32)(time2 - time1).TotalMilliseconds;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public static UInt32 UnixTime()
-        {
-            return (UInt32)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="str"></param>
-        /// <returns></returns>
-        public static String IsEmpty(this String str)
-        {
-            if(String.IsNullOrEmpty(str))
-                return String.Empty;
-            return str;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="str"></param>
-        /// <param name="desc"></param>
-        /// <returns></returns>
-        public static String IsEmpty(this String str, String desc)
-        {
-            if (String.IsNullOrEmpty(str))
-                return String.Empty;
-            return desc + str;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="str"></param>
-        /// <param name="desc"></param>
-        /// <returns></returns>
-        public static String IsEmptyLine(this String str, String desc)
-        {
-            if (String.IsNullOrEmpty(str))
-                return String.Empty;
-            return desc + str + Environment.NewLine;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="num"></param>
-        /// <param name="desc"></param>
-        /// <returns></returns>
-        public static String IsEmpty(this UInt32 num, String desc)
-        {
-            if (num > 0)
-                return desc + num;
 
-            return String.Empty;
+        public static StringBuilder AppendFormatLineIfNotNull(this StringBuilder builder, string format, float arg)
+        {
+            if (arg != 0.0f)
+            {
+                return builder.AppendFormat(format, arg).AppendLine();
+            }
+
+            return builder;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="val"></param>
-        /// <returns></returns>
+
+        // Empty
+        public static bool IsEmpty(this String str)
+        {
+            return String.IsNullOrEmpty(str);
+        }
+        public static string IfNotEmpty(this uint val, string _return)
+        {
+            return val == 0 ? String.Empty : (_return + val.ToString());
+        }
+
         public static uint ToUInt32(this Object val)
         {
             if (val == null)
@@ -188,11 +171,6 @@ namespace SpellWork
             uint.TryParse(val.ToString(), out num);
             return num;
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="val"></param>
-        /// <returns></returns>
         public static int ToInt32(this Object val)
         {
             if (val == null) 
@@ -201,6 +179,17 @@ namespace SpellWork
             int num;
             int.TryParse(val.ToString(), out num);
             return num;
+        }
+
+        // Time methods
+        public static Int32 MsDiff(DateTime time1, DateTime time2)
+        {
+            return (Int32)(time2 - time1).TotalMilliseconds;
+        }
+
+        public static UInt32 UnixTime()
+        {
+            return (UInt32)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds;
         }
     }
 }
