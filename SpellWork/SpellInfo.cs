@@ -31,6 +31,7 @@ namespace SpellWork
                 (SpellFamilyNames)spell.SpellFamilyName, spell.SpellFamilyFlags3, spell.SpellFamilyFlags2, spell.SpellFamilyFlags1);
 
             sb.AppendLine();
+
             sb.AppendFormatLine("SpellSchoolMask = {0} ({1})", spell.SchoolMask, spell.School);
             sb.AppendFormatLine("DamageClass = {0} ({1})", spell.DmgClass, (SpellDmgClass)spell.DmgClass);
             sb.AppendFormatLine("PreventionType = {0} ({1})", spell.PreventionType, (SpellPreventionType)spell.PreventionType);
@@ -135,7 +136,6 @@ namespace SpellWork
                 spell.procFlags, spell.procChance, spell.procCharges);
                 sb.AppendFormatLine("=================================================");
                 sb.AppendText(spell.ProcInfo);
-                sb.AppendFormatLine("=================================================");
             }
             else // if(spell.procCharges)
             {
@@ -179,7 +179,8 @@ namespace SpellWork
             foreach (var elem in spells)
             {
                 var spell = elem.Spell.Value;
-                string name = elem.SkillId != 0
+                bool IsSkill = elem.SkillId != 0;
+                string name = IsSkill
                 ? String.Format("+({0}) {1} ({2}) (Sk{3}) ({4})", spell.ID, spell.SpellName, spell.Rank, elem.SkillId, spell.School)
                 : String.Format("-({0}) {1} ({2}) ({3})",      spell.ID, spell.SpellName, spell.Rank, spell.School);
 
@@ -202,6 +203,7 @@ namespace SpellWork
                         TreeNode child = new TreeNode();
                         child = node.Nodes.Add(name);
                         child.Name = spell.ID.ToString();
+                        child.ForeColor = IsSkill ? Color.Blue: Color.Red;
                     }
                     i++;
                 }
@@ -240,7 +242,7 @@ namespace SpellWork
 
         static void AppendSpellEffectInfo(RichTextBox sb, SpellEntry spell)
         {
-            sb.AppendLine("_________________________________________________");
+            sb.AppendLine("=================================================");
 
             for (int i = 0; i < 3; i++)
             {
@@ -325,7 +327,6 @@ namespace SpellWork
                             (s.SpellFamilyFlags2 & mask_1) != 0 ||
                             (s.SpellFamilyFlags3 & mask_2) != 0)
                         {
-                            //var exist = (row.SkillId > 0) ? "+" : "-";
                             var name = s.Rank == "" ? s.SpellName : s.SpellName + " (" + s.Rank + ")";
                             if (row.SkillId > 0)
                             {
