@@ -14,22 +14,25 @@ namespace SpellWork
         [STAThread]
         static void Main()
         {
-            var path = @"dbc\"; 
-            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            if (!File.Exists(path + "Spell.dbc") ||
-                !File.Exists(path + "SpellRadius.dbc") ||
-                !File.Exists(path + "SpellRange.dbc") ||
-                !File.Exists(path + "SpellDuration.dbc") ||
-                !File.Exists(path + "SkillLineAbility.dbc") ||
-                !File.Exists(path + "SkillLine.dbc") ||
-                !File.Exists(path + "SpellCastTimes.dbc"))
+            if (!File.Exists(DBCReader.DBC_PATH + "Spell.dbc") ||
+                !File.Exists(DBCReader.DBC_PATH + "SpellRadius.dbc") ||
+                !File.Exists(DBCReader.DBC_PATH + "SpellRange.dbc") ||
+                !File.Exists(DBCReader.DBC_PATH + "SpellDuration.dbc") ||
+                !File.Exists(DBCReader.DBC_PATH + "SkillLineAbility.dbc") ||
+                !File.Exists(DBCReader.DBC_PATH + "SkillLine.dbc") ||
+                !File.Exists(DBCReader.DBC_PATH + "SpellCastTimes.dbc"))
             {
-                MessageBox.Show("Files not found:\r\n" + path + "Spell.dbc\r\n" + path + "SpellRadius.dbc\r\n" + path + "SpellRange.dbc\r\n"
-                + path + "SpellDuration.dbc\r\n" +
-                "" + path + "SkillLineAbility.dbc\r\n" + path + "SkillLine.dbc\r\n" + path + "SpellCastTimes.dbc\r\n",
+                MessageBox.Show("Files not found:\r\n" 
+                    + DBCReader.DBC_PATH + "Spell.dbc\r\n"
+                    + DBCReader.DBC_PATH + "SpellRadius.dbc\r\n" 
+                    + DBCReader.DBC_PATH + "SpellRange.dbc\r\n"
+                    + DBCReader.DBC_PATH + "SpellDuration.dbc\r\n"
+                    + DBCReader.DBC_PATH + "SkillLineAbility.dbc\r\n"
+                    + DBCReader.DBC_PATH + "SkillLine.dbc\r\n" 
+                    + DBCReader.DBC_PATH + "SpellCastTimes.dbc\r\n",
                 "SpellWork ERROR",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Error);

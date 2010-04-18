@@ -12,21 +12,19 @@ namespace SpellWork
     static class DBCReader
     {
         public const int MAX_DBC_LOCALE = 16;
+        public const string DBC_PATH = @"dbc\";
         
         public static void Run()
         {
-            // First we load DBC files
-            string path = @"./dbc/";
-
             Dictionary<uint, string> nullStringDict = null;
 
-            DBC.Spell            = DBCReader.ReadDBC<SpellEntry>(path + "Spell.dbc", DBC._SpellStrings);
-            DBC.SpellRadius      = DBCReader.ReadDBC<SpellRadiusEntry>(path + "SpellRadius.dbc", nullStringDict);
-            DBC.SpellRange       = DBCReader.ReadDBC<SpellRangeEntry>(path + "SpellRange.dbc", DBC._SpellRangeStrings);
-            DBC.SpellDuration    = DBCReader.ReadDBC<SpellDurationEntry>(path + "SpellDuration.dbc", nullStringDict);
-            DBC.SkillLineAbility = DBCReader.ReadDBC<SkillLineAbilityEntry>(path + "SkillLineAbility.dbc", nullStringDict);
-            DBC.SkillLine        = DBCReader.ReadDBC<SkillLineEntry>(path + "SkillLine.dbc", DBC._SkillLineStrings);
-            DBC.SpellCastTimes   = DBCReader.ReadDBC<SpellCastTimesEntry>(path + "SpellCastTimes.dbc", nullStringDict);
+            DBC.Spell               = DBCReader.ReadDBC<SpellEntry>(DBC_PATH + "Spell.dbc", DBC._SpellStrings);
+            DBC.SpellRadius         = DBCReader.ReadDBC<SpellRadiusEntry>(DBC_PATH + "SpellRadius.dbc", nullStringDict);
+            DBC.SpellRange          = DBCReader.ReadDBC<SpellRangeEntry>(DBC_PATH + "SpellRange.dbc", DBC._SpellRangeStrings);
+            DBC.SpellDuration       = DBCReader.ReadDBC<SpellDurationEntry>(DBC_PATH + "SpellDuration.dbc", nullStringDict);
+            DBC.SkillLineAbility    = DBCReader.ReadDBC<SkillLineAbilityEntry>(DBC_PATH + "SkillLineAbility.dbc", nullStringDict);
+            DBC.SkillLine           = DBCReader.ReadDBC<SkillLineEntry>(DBC_PATH + "SkillLine.dbc", DBC._SkillLineStrings);
+            DBC.SpellCastTimes      = DBCReader.ReadDBC<SpellCastTimesEntry>(DBC_PATH + "SpellCastTimes.dbc", nullStringDict);
 
             // Currently we use entry 1 from Spell.dbc to detect DBC locale
             byte DetectedLocale = 0;
