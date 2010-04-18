@@ -150,16 +150,15 @@ namespace SpellWork
             return sb.ToString();
         }
 
-        static string GetSchool(SpellEntry spell)
+        static String GetSchool(SpellEntry spell)
         {
             List<string> mask = new List<string>();
             foreach (var a in Enum.GetValues(typeof(SpellSchools)))
             {
-                //MessageBox.Show(Enum.GetName(typeof(SpellSchools), a));
                 if ((spell.SchoolMask & (1 << (int)a)) != 0)
                     mask.Add(Enum.GetName(typeof(SpellSchools), a));
             }
-            return String.Join("|", mask.ToArray());
+            return String.Join(" | ", mask.ToArray());
         }
 
         static String GetProcInfo(SpellEntry spell)
@@ -182,15 +181,13 @@ namespace SpellWork
             if (val == 0)
                 return String.Empty;
 
-            int i = 1;
-            while (val != 0)
+            List<string> arr = new List<string>();
+            for (int i = 1; i < (int)ShapeshiftForm.MAX_FORM; ++i)
             {
-                if ((val & 1) != 0)
-                    name += String.Format("{0} ", (ShapeshiftForm)i);
-                i++;
-                val >>= 1;
+                if ((val & (((ulong)1) << (i - 1))) != 0)
+                    arr.Add(Enum.GetName(typeof(ShapeshiftForm), i));
             }
-            return name;
+            return name + String.Join(", ", arr.ToArray());
         }
 
         static String GetItemInfo(SpellEntry spell)
