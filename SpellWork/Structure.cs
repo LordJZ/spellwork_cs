@@ -303,14 +303,6 @@ namespace SpellWork
         {
             get
             {
-                //List<string> mask = new List<string>();
-                //foreach (var a in Enum.GetValues(typeof(SpellSchools)))
-                //{
-                //    //MessageBox.Show(Enum.GetName(typeof(SpellSchools), a));
-                //    if ((SchoolMask & (1 << (int)a)) != 0)
-                //        mask.Add(Enum.GetName(typeof(SpellSchools), a));
-                //}
-                //return String.Join("|", mask.ToArray());
                 return (SpellSchoolMask)SchoolMask;
             }
         }

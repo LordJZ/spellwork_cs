@@ -271,8 +271,6 @@ namespace SpellWork
 
         static String GetSpellAura(SpellEntry spell)
         {
-            // Для того чтобы не нагружать процессор лишним запросом, просто сделаем проверку на входной параметр,
-            // если он не != 0, тогда ищем, иначе нет смысла
             StringBuilder sb = new StringBuilder();
 
             if (spell.casterAuraSpell != 0)
