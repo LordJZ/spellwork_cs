@@ -29,9 +29,24 @@ namespace SpellWork
 
         private void _bSaveSettings_Click(object sender, EventArgs e)
         {
-            //
+            Settings.Default.Host = _tbHost.Text;
+            Settings.Default.Port = _tbPort.Text;
+            Settings.Default.User = _tbUser.Text;
+            Settings.Default.Pass = _tbPass.Text;
+            Settings.Default.Db_mangos = _tbBase.Text;
+            Settings.Default.UseDbConnect = _cbUseDBConnect.Checked;
             Settings.Default.Save();
             this.Close();
+        }
+
+        private void SettingsForm_Load(object sender, EventArgs e)
+        {
+            _tbHost.Text = Settings.Default.Host;
+            _tbPort.Text = Settings.Default.Port;
+            _tbUser.Text = Settings.Default.User;
+            _tbPass.Text = Settings.Default.Pass;
+            _gbDbSetting.Text = Settings.Default.Db_mangos;
+            _cbUseDBConnect.Checked = Settings.Default.UseDbConnect;
         }
     }
 }

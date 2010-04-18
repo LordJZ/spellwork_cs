@@ -51,7 +51,7 @@ namespace SpellWork
         public uint manaCost;                                     // 42       m_manaCost
         public uint manaCostPerlevel;                             // 43       m_manaCostPerLevel
         public uint manaPerSecond;                                // 44       m_manaPerSecond
-        public uint manaPerSecondPerLevel;                        // 45       m_manaPerSecondPerLeve
+        public uint manaPerSecondPerLevel;                        // 45       m_manaPerSecondPerLevel
         public uint rangeIndex;                                   // 46       m_rangeIndex
         public float speed;                                       // 47       m_speed
         public uint modalNextSpell;                               // 48       m_modalNextSpell not used
@@ -225,7 +225,7 @@ namespace SpellWork
                 while (proc != 0)
                 {
                     if ((proc & 1) != 0)
-                        str += String.Format("  {0}\r\n", SpellEnums.ProcFlagDesc[i]);
+                        str += String.Format("  {0}{1}", SpellEnums.ProcFlagDesc[i], Environment.NewLine);
                     i++;
                     proc >>= 1;
                 }
@@ -240,7 +240,7 @@ namespace SpellWork
                 if (DBC.SpellDuration.ContainsKey(DurationIndex))
                 {
                     var q = DBC.SpellDuration[DurationIndex];
-                    return String.Format("Duration: ID {0}  {1}, {2}, {3}\r\n", q.ID, q.Duration[0], q.Duration[1], q.Duration[2]);
+                    return String.Format("Duration: ID {0}  {1}, {2}, {3}", q.ID, q.Duration[0], q.Duration[1], q.Duration[2]);
                 }
                 return String.Empty;
             }
@@ -269,9 +269,9 @@ namespace SpellWork
             if (rIndex != 0)
             {
                 if (DBC.SpellRadius.ContainsKey(rIndex))
-                    return String.Format("Radius (Id {0}) {0:F}\r\n", rIndex, DBC.SpellRadius[rIndex].Radius);
+                    return String.Format("Radius (Id {0}) {0:F}", rIndex, DBC.SpellRadius[rIndex].Radius);
                 else
-                    return String.Format("Radius (Id {0}) Not found\r\n", rIndex);
+                    return String.Format("Radius (Id {0}) Not found", rIndex);
             }
             return String.Empty;
         }
@@ -293,9 +293,9 @@ namespace SpellWork
                     return String.Empty;
 
                 if (!DBC.SpellCastTimes.ContainsKey(CastingTimeIndex))
-                    return String.Format("CastingTime (Id {0}) = ????\r\n", CastingTimeIndex);
+                    return String.Format("CastingTime (Id {0}) = ????", CastingTimeIndex);
                 else
-                    return String.Format("CastingTime (Id {0}) = {1:F}\r\n", CastingTimeIndex, DBC.SpellCastTimes[CastingTimeIndex].CastTime / 1000.0f);
+                    return String.Format("CastingTime (Id {0}) = {1:F}", CastingTimeIndex, DBC.SpellCastTimes[CastingTimeIndex].CastTime / 1000.0f);
             }
         }
 
@@ -305,6 +305,37 @@ namespace SpellWork
             {
                 return (SpellSchoolMask)SchoolMask;
             }
+        }
+
+        public string GetTriggerSpellInfo(int index)
+        {
+            StringBuilder sb = new StringBuilder();
+            var tsId = EffectTriggerSpell[index];
+            if (tsId != 0)
+            {
+                if (DBC.Spell.ContainsKey(tsId))
+                {
+                    var trigger = DBC.Spell[tsId];
+                    sb.AppendFormatLine("Trigger spell ({0}) {1}. Chance = {2}", tsId, trigger.SpellName, procChance);
+
+                    sb.AppendFormatLineIfNotNull("Description: {0}", trigger.Description);
+                    sb.AppendFormatLineIfNotNull("ToolTip: {0}", trigger.ToolTip);
+
+                    if (trigger.procFlags != 0)
+                    {
+                        sb.AppendFormatLine("Charges - {0}", trigger.procCharges);
+                        sb.AppendLine("=================================================");
+                        sb.Append(trigger.ProcInfo);
+                        sb.AppendLine("=================================================");
+                    }
+                }
+                else
+                {
+                    sb.AppendFormatLine("Trigger spell ({0}) Not found, Chance = {1}", tsId, procChance);
+                }
+            }
+
+            return sb.ToString();
         }
     };
 
@@ -436,5 +467,31 @@ namespace SpellWork
         public int   CastTime;   
         public float CastTimePerLevel;
         public int   MinCastTime;
+    };
+
+    //=============== DateBase ==================\\
+
+    public struct SpellProcEvent
+    {
+        public uint     ID;
+        public ushort   SchoolMask;
+        public uint     SpellFamilyName;
+        public uint     SpellFamilyMask0;
+        public uint     SpellFamilyMask1;
+        public uint     SpellFamilyMask2;
+        public uint     ProcFlags;
+        public uint     ProcEx;
+        public float    PpmRate;
+        public float    CustomChance;
+        public uint     Cooldown;
+    };
+
+    public struct SpellChain
+    {
+        public int ID;
+        public int PrevSpell;
+        public int FirstSpell;
+        public int Rank;
+        public int ReqSpell;
     };
 }

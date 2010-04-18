@@ -194,6 +194,7 @@
             this.Name = "SettingsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "SpellWork Settings";
+            this.Load += new System.EventHandler(this.SettingsForm_Load);
             this._gbDbSetting.ResumeLayout(false);
             this._gbDbSetting.PerformLayout();
             this.ResumeLayout(false);

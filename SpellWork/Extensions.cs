@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using MySql.Data.MySqlClient;
 
 namespace SpellWork
 {

@@ -593,7 +593,7 @@ namespace SpellWork
         TARGET_GAMEOBJECT_ITEM                  = 26,
         TARGET_MASTER                           = 27,
         TARGET_ALL_ENEMY_IN_AREA_CHANNELED      = 28,
-        TARGET_ALL_FRIENDLY_UNITS_AROUND_CASTER = 30,           // in TargetB used only with TARGET_ALL_AROUND_CASTER and in self casting range in TargetA
+        TARGET_ALL_FRIENDLY_UNITS_AROUND_CASTER = 30,                // in TargetB used only with TARGET_ALL_AROUND_CASTER and in self casting range in TargetA
         TARGET_ALL_FRIENDLY_UNITS_IN_AREA       = 31,
         TARGET_MINION                           = 32,
         TARGET_ALL_PARTY                        = 33,
@@ -834,40 +834,59 @@ namespace SpellWork
         SPELL_PREVENTION_TYPE_PACIFY  = 2
     };
 
-    public enum ShapeshiftForm
+    [Flags]
+    public enum ShapeshiftFormMask
     {
-        FORM_NONE               = 0x00,
-        FORM_CAT                = 0x01,
-        FORM_TREE               = 0x02,
-        FORM_TRAVEL             = 0x03,
-        FORM_AQUA               = 0x04,
-        FORM_BEAR               = 0x05,
-        FORM_AMBIENT            = 0x06,
-        FORM_GHOUL              = 0x07,
-        FORM_DIREBEAR           = 0x08,
-        FORM_STEVES_GHOUL       = 0x09,
-        FORM_THARONJA_SKELETON  = 0x0A,
-        FORM_TEST_OF_STRENGTH   = 0x0B,
-        FORM_BLB_PLAYER         = 0x0C,
-        FORM_SHADOW_DANCE       = 0x0D,
-        FORM_CREATUREBEAR       = 0x0E,
-        FORM_CREATURECAT        = 0x0F,
-        FORM_GHOSTWOLF          = 0x10,
-        FORM_BATTLESTANCE       = 0x11,
-        FORM_DEFENSIVESTANCE    = 0x12,
-        FORM_BERSERKERSTANCE    = 0x13,
-        FORM_TEST               = 0x14,
-        FORM_ZOMBIE             = 0x15,
-        FORM_METAMORPHOSIS      = 0x16,
-        FORM_UNDEAD             = 0x19,
-        FORM_FRENZY             = 0x1A,
-        FORM_FLIGHT_EPIC        = 0x1B,
-        FORM_SHADOW             = 0x1C,
-        FORM_FLIGHT             = 0x1D,
-        FORM_STEALTH            = 0x1E,
-        FORM_MOONKIN            = 0x1F,
-        FORM_SPIRITOFREDEMPTION = 0x20,
-        MAX_FORM
+        FORM_ALL                = -1,
+        FORM_NONE               = 0,
+        FORM_CAT                = 1 << 0x00,    // 1
+        FORM_TREE               = 1 << 0x01,    // 2
+        FORM_TRAVEL             = 1 << 0x02,    // 3
+        FORM_AQUA               = 1 << 0x03,    // 4
+        FORM_BEAR               = 1 << 0x04,    // 5
+        FORM_AMBIENT            = 1 << 0x05,    // 6
+        FORM_GHOUL              = 1 << 0x06,    // 7
+        FORM_DIREBEAR           = 1 << 0x07,    // 8
+        FORM_STEVES_GHOUL       = 1 << 0x08,    // 9
+        FORM_THARONJA_SKELETON  = 1 << 0x09,    // 10
+        FORM_TEST_OF_STRENGTH   = 1 << 0x0A,    // 11
+        FORM_BLB_PLAYER         = 1 << 0x0B,    // 12
+        FORM_SHADOW_DANCE       = 1 << 0x0C,    // 13
+        FORM_CREATUREBEAR       = 1 << 0x0D,    // 14
+        FORM_CREATURECAT        = 1 << 0x0E,    // 15
+        FORM_GHOSTWOLF          = 1 << 0x0F,    // 16
+        FORM_BATTLESTANCE       = 1 << 0x10,    // 17
+        FORM_DEFENSIVESTANCE    = 1 << 0x11,    // 18
+        FORM_BERSERKERSTANCE    = 1 << 0x12,    // 19
+        FORM_TEST               = 1 << 0x13,    // 20
+        FORM_ZOMBIE             = 1 << 0x14,    // 21
+        FORM_METAMORPHOSIS      = 1 << 0x15,    // 22
+        FORM_UNK1               = 1 << 0x16,    // 23
+        FORM_UNK2               = 1 << 0x17,    // 24
+        FORM_UNDEAD             = 1 << 0x18,    // 25
+        FORM_FRENZY             = 1 << 0x19,    // 26
+        FORM_FLIGHT_EPIC        = 1 << 0x1A,    // 27
+        FORM_SHADOW             = 1 << 0x1B,    // 28
+        FORM_FLIGHT             = 1 << 0x1C,    // 29
+        FORM_STEALTH            = 1 << 0x1D,    // 30
+        FORM_MOONKIN            = 1 << 0x1E,    // 31
+        FORM_SPIRITOFREDEMPTION = 1 << 0x1F,    // 32
+    };
+
+    public enum DispelType
+    {
+        DISPEL_NONE         = 0,
+        DISPEL_MAGIC        = 1,
+        DISPEL_CURSE        = 2,
+        DISPEL_DISEASE      = 3,
+        DISPEL_POISON       = 4,
+        DISPEL_STEALTH      = 5,
+        DISPEL_INVISIBILITY = 6,
+        DISPEL_ALL          = 7,
+        DISPEL_SPE_NPC_ONLY = 8,
+        DISPEL_ENRAGE       = 9,
+        DISPEL_ZG_TICKET    = 10,
+        DESPEL_OLD_UNUSED   = 11
     };
 
     public enum SpellModOp
@@ -906,27 +925,27 @@ namespace SpellWork
     [Flags]
     public enum SpellCastTargetFlags
     {
-        TARGET_FLAG_SELF = 0x00000000,
-        TARGET_FLAG_UNUSED1 = 0x00000001,               // not used in any spells as of 3.0.3 (can be set dynamically)
-        TARGET_FLAG_UNIT = 0x00000002,               // pguid
-        TARGET_FLAG_UNUSED2 = 0x00000004,               // not used in any spells as of 3.0.3 (can be set dynamically)
-        TARGET_FLAG_UNUSED3 = 0x00000008,               // not used in any spells as of 3.0.3 (can be set dynamically)
-        TARGET_FLAG_ITEM = 0x00000010,               // pguid
+        TARGET_FLAG_SELF            = 0x00000000,
+        TARGET_FLAG_UNUSED1         = 0x00000001,               // not used in any spells as of 3.0.3 (can be set dynamically)
+        TARGET_FLAG_UNIT            = 0x00000002,               // pguid
+        TARGET_FLAG_UNUSED2         = 0x00000004,               // not used in any spells as of 3.0.3 (can be set dynamically)
+        TARGET_FLAG_UNUSED3         = 0x00000008,               // not used in any spells as of 3.0.3 (can be set dynamically)
+        TARGET_FLAG_ITEM            = 0x00000010,               // pguid
         TARGET_FLAG_SOURCE_LOCATION = 0x00000020,               // 3 float
-        TARGET_FLAG_DEST_LOCATION = 0x00000040,               // 3 float
-        TARGET_FLAG_OBJECT_UNK = 0x00000080,               // used in 7 spells only
-        TARGET_FLAG_UNIT_UNK = 0x00000100,               // looks like self target (480 spells)
-        TARGET_FLAG_PVP_CORPSE = 0x00000200,               // pguid
-        TARGET_FLAG_UNIT_CORPSE = 0x00000400,               // 10 spells (gathering professions)
-        TARGET_FLAG_OBJECT = 0x00000800,               // pguid, 2 spells
-        TARGET_FLAG_TRADE_ITEM = 0x00001000,               // pguid, 0 spells
-        TARGET_FLAG_STRING = 0x00002000,               // string, 0 spells
-        TARGET_FLAG_UNK1 = 0x00004000,               // 199 spells, opening object/lock
-        TARGET_FLAG_CORPSE = 0x00008000,               // pguid, resurrection spells
-        TARGET_FLAG_UNK2 = 0x00010000,               // pguid, not used in any spells as of 3.0.3 (can be set dynamically)
-        TARGET_FLAG_GLYPH = 0x00020000,               // used in glyph spells
-        TARGET_FLAG_UNK3 = 0x00040000,               // 
-        TARGET_FLAG_UNK4 = 0x00080000                // uint32, loop { vec3, guid -> if guid == 0 break }
+        TARGET_FLAG_DEST_LOCATION   = 0x00000040,               // 3 float
+        TARGET_FLAG_OBJECT_UNK      = 0x00000080,               // used in 7 spells only
+        TARGET_FLAG_UNIT_UNK        = 0x00000100,               // looks like self target (480 spells)
+        TARGET_FLAG_PVP_CORPSE      = 0x00000200,               // pguid
+        TARGET_FLAG_UNIT_CORPSE     = 0x00000400,               // 10 spells (gathering professions)
+        TARGET_FLAG_OBJECT          = 0x00000800,               // pguid, 2 spells
+        TARGET_FLAG_TRADE_ITEM      = 0x00001000,               // pguid, 0 spells
+        TARGET_FLAG_STRING          = 0x00002000,               // string, 0 spells
+        TARGET_FLAG_UNK1            = 0x00004000,               // 199 spells, opening object/lock
+        TARGET_FLAG_CORPSE          = 0x00008000,               // pguid, resurrection spells
+        TARGET_FLAG_UNK2            = 0x00010000,               // pguid, not used in any spells as of 3.0.3 (can be set dynamically)
+        TARGET_FLAG_GLYPH           = 0x00020000,               // used in glyph spells
+        TARGET_FLAG_UNK3            = 0x00040000,               // 
+        TARGET_FLAG_UNK4            = 0x00080000                // uint32, loop { vec3, guid -> if guid == 0 break }
     };
 
     public enum Powers : uint
@@ -939,6 +958,37 @@ namespace SpellWork
         POWER_RUNE          = 5,
         POWER_RUNIC_POWER   = 6,
         POWER_HEALTH        = 0xFFFFFFFE,    // (-2 as signed value)
+    };
+
+    public enum AuraState
+    {   // (C) used in caster aura state     (T) used in target aura state
+        // (c) used in caster aura state-not (t) used in target aura state-not
+        AURA_STATE_NONE                     = 0,
+        AURA_STATE_DEFENSE                  = 1,            // C   |
+        AURA_STATE_HEALTHLESS_20_PERCENT    = 2,            // CcT |
+        AURA_STATE_BERSERKING               = 3,            // C T |
+        AURA_STATE_FROZEN                   = 4,            //  c t| frozen target
+        AURA_STATE_JUDGEMENT                = 5,            // C   |
+        AURA_STATE_UNKNOWN6                 = 6,            //     | not used
+        AURA_STATE_HUNTER_PARRY             = 7,            // C   |
+        //AURA_STATE_ROGUE_ATTACK_FROM_STEALTH    = 7,      // C   | FIX ME: not implemented yet!
+        //AURA_STATE_UNKNOWN7                     = 7,      //  c  | random/focused bursts spells (?)
+        AURA_STATE_UNKNOWN8                 = 8,            //     | not used
+        AURA_STATE_UNKNOWN9                 = 9,            //     | not used
+        AURA_STATE_WARRIOR_VICTORY_RUSH     = 10,           // C   | warrior victory rush
+        AURA_STATE_UNKNOWN11                = 11,           //    t|
+        AURA_STATE_FAERIE_FIRE              = 12,           //  c t| prevent invisibility
+        AURA_STATE_HEALTHLESS_35_PERCENT    = 13,           // C T |
+        AURA_STATE_CONFLAGRATE              = 14,           //   T | per-caster
+        AURA_STATE_SWIFTMEND                = 15,           //   T |
+        AURA_STATE_DEADLY_POISON            = 16,           //   T |
+        AURA_STATE_ENRAGE                   = 17,           // C   |
+        AURA_STATE_UNKNOWN18                = 18,           // C  t|
+        AURA_STATE_UNKNOWN19                = 19,           //     | not used
+        AURA_STATE_UNKNOWN20                = 20,           //  c  | only (45317 Suicide)
+        AURA_STATE_UNKNOWN21                = 21,           //     | not used
+        AURA_STATE_UNKNOWN22                = 22,           // C   | not implemented yet (Requires Evasive Charges to use)
+        AURA_STATE_HEALTH_ABOVE_75_PERCENT  = 23            // C   |
     };
 
     [Flags]
@@ -1077,7 +1127,7 @@ namespace SpellWork
     public class SpellEnums
     {
         #region ProcFlagDesc
-        
+
         public static readonly string[] ProcFlagDesc = 
         {
             //00 0x00000001 000000000000000000000001 -
