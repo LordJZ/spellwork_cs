@@ -919,7 +919,7 @@ namespace SpellWork
     {
         #region ProcFlagDesc
         
-        public static readonly string[] ProcFlagDesc = 
+        public const string[] ProcFlagDesc = 
         {
             //00 0x00000001 000000000000000000000001 -
             "00 Killed by aggressor that receive experience or honor",
