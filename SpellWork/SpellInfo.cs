@@ -190,7 +190,7 @@ namespace SpellWork
                 i++;
                 val >>= 1;
             }
-            return name + Environment.NewLine;
+            return name;
         }
 
         static String GetItemInfo(SpellEntry spell)
@@ -264,10 +264,11 @@ namespace SpellWork
             
             sb.AppendLine();
             sb.AppendLine("______________________________________________________________________________");
-            sb.AppendLine();
 
             for (int i = 0; i < 3; i++)
             {
+                sb.AppendLine();
+
                 if ((SpellEffects)spell.Effect[i] == SpellEffects.NO_SPELL_EFFECT)
                 {
                     sb.AppendFormatLine("Effect {0}: NO EFFECT", i);
@@ -291,18 +292,24 @@ namespace SpellWork
                 }
 
                 sb.AppendFormatIfNotNull(" + combo * {0:F}",    spell.EffectPointsPerComboPoint[i]);
-                sb.AppendFormatIfNotNull(" x {0:F}",            spell.DmgMultiplier[i]);
+
+                if (spell.DmgMultiplier[i] != 1.0f)
+                    sb.AppendFormat(" x {0:F}", spell.DmgMultiplier[i]);
+
                 sb.AppendFormatIfNotNull("  Multiple = {0:F}",  spell.EffectMultipleValue[i]);
                 sb.AppendLine();
-                sb.AppendFormatLine("Targets ({0},{1}) ({2}, {3}),",
+
+                sb.AppendFormatLine("Targets ({0},{1}) ({2},{3}),",
                     spell.EffectImplicitTargetA[i], spell.EffectImplicitTargetB[i],
                     (Targets)spell.EffectImplicitTargetA[i], (Targets)spell.EffectImplicitTargetB[i]);
 
                 if (spell.EffectApplyAuraName[i] != 0)
+                {
                     sb.AppendFormatLine("\r\nAura {0}, value = {1}, misc = {2}, miscB = {3}, periodic = {4}",
                         (AuraType)spell.EffectApplyAuraName[i],
                         spell.EffectBasePoints[i] + 1, GetAuraModTypeName(spell.EffectApplyAuraName[i], spell.EffectMiscValue[i]),
                         spell.EffectMiscValueB[i], spell.EffectAmplitude[i]);
+                }
                 else
                 {
                     sb.AppendFormatLineIfNotNull("EffectMiscValueA = {0}",  spell.EffectMiscValue[i]);
@@ -444,7 +451,7 @@ namespace SpellWork
             if (spell.Stances != 0 || spell.StancesNot != 0)
             {
                 sb.Append(GetFormInfo(spell.Stances, "Stances: "));
-                sb.AppendLine(GetFormInfo(spell.StancesNot, "Not Stances: "));
+                sb.Append(GetFormInfo(spell.StancesNot, "Not Stances: "));
                 sb.AppendLine();
             }
 
@@ -457,7 +464,6 @@ namespace SpellWork
                 sb.AppendFormat("EquippedItemClass {0}", spell.EquippedItemClass);
                 sb.AppendFormatLineIfNotNull("    SubСlass mask 0x{0:X8}", spell.EquippedItemSubClassMask);
                 sb.AppendFormatLineIfNotNull("    InventoryType mask 0x{0:X8}", spell.EquippedItemInventoryTypeMask);
-                sb.AppendLine();
             }
 
             sb.AppendLine();
