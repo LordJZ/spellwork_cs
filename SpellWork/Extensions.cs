@@ -71,6 +71,45 @@ namespace SpellWork
         {
             return builder.AppendFormat(format, arg0).AppendLine();
         }
+
+        public static StringBuilder AppendFormatIsNull(this StringBuilder builder, string format, params object[] arg0)
+        {
+            if(arg0.Length > 0)
+            {
+                if (arg0[0].ToInt32() != 0)
+                {
+                    return builder.AppendFormat(format, arg0);
+                }
+            }
+
+            return builder.Append(String.Empty);
+        }
+
+        public static StringBuilder AppendFormatLineIsNull(this StringBuilder builder, string format, params object[] arg0)
+        {
+            if (arg0.Length > 0)
+            {
+                if (arg0[0].ToInt32() != 0)
+                {
+                    return builder.AppendFormat(format, arg0).AppendLine();
+                }
+            }
+
+            return builder.Append(String.Empty);
+        }
+
+        public static StringBuilder AppendFormatLineIsNull(this StringBuilder builder, string format, bool IsString, params object[] arg0)
+        {
+            if (arg0.Length > 0)
+            {
+                if (arg0[0].ToString() != "")
+                {
+                    return builder.AppendFormat(format, arg0).AppendLine();
+                }
+            }
+
+            return builder.Append(String.Empty);
+        }
         /// <summary>
         ///  A function to calculate time diff
         /// </summary>
@@ -113,6 +152,18 @@ namespace SpellWork
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="str"></param>
+        /// <param name="desc"></param>
+        /// <returns></returns>
+        public static String IsEmptyLine(this String str, String desc)
+        {
+            if (String.IsNullOrEmpty(str))
+                return String.Empty;
+            return desc + str + Environment.NewLine;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="num"></param>
         /// <param name="desc"></param>
         /// <returns></returns>
@@ -130,6 +181,9 @@ namespace SpellWork
         /// <returns></returns>
         public static uint ToUInt32(this Object val)
         {
+            if (val == null)
+                return 0;
+
             uint num;
             uint.TryParse(val.ToString(), out num);
             return num;
@@ -141,6 +195,9 @@ namespace SpellWork
         /// <returns></returns>
         public static int ToInt32(this Object val)
         {
+            if (val == null) 
+                return 0;
+
             int num;
             int.TryParse(val.ToString(), out num);
             return num;
