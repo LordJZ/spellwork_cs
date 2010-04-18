@@ -37,7 +37,7 @@ namespace SpellWork
                 ++DetectedLocale;
             }
 
-            DBC.Locale = DetectedLocale;
+            DBC.Locale = (LocalesDBC)DetectedLocale;
         }
 
         public static unsafe Dictionary<uint, T> ReadDBC<T>(string fileName, Dictionary<uint, string> strDict) where T : struct

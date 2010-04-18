@@ -21,6 +21,6 @@ namespace SpellWork
         public static Dictionary<uint, SkillLineEntry> SkillLine = new Dictionary<uint, SkillLineEntry>();
         public static Dictionary<uint, string> _SkillLineStrings = new Dictionary<uint, string>();
 
-        public static byte Locale;
+        public static LocalesDBC Locale;
     }
 }

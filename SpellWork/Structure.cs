@@ -159,7 +159,7 @@ namespace SpellWork
             get
             {
                 string s;
-                uint offset = _SpellName[DBC.Locale];
+                uint offset = _SpellName[(uint)DBC.Locale];
                 DBC._SpellStrings.TryGetValue(offset, out s);
                 return s;
             }
@@ -173,7 +173,7 @@ namespace SpellWork
             get
             {
                 string s;
-                uint offset = _Rank[DBC.Locale];
+                uint offset = _Rank[(uint)DBC.Locale];
                 DBC._SpellStrings.TryGetValue(offset, out s);
                 return s;
             }
@@ -187,7 +187,7 @@ namespace SpellWork
             get
             {
                 string s;
-                uint offset = _Description[DBC.Locale];
+                uint offset = _Description[(uint)DBC.Locale];
                 DBC._SpellStrings.TryGetValue(offset, out s);
                 return s;
             }
@@ -201,7 +201,7 @@ namespace SpellWork
             get
             {
                 string s;
-                uint offset = _ToolTip[DBC.Locale];
+                uint offset = _ToolTip[(uint)DBC.Locale];
                 DBC._SpellStrings.TryGetValue(offset, out s);
                 return s;
             }
@@ -330,7 +330,7 @@ namespace SpellWork
             get
             {
                 string s;
-                uint offset = _Name[DBC.Locale];
+                uint offset = _Name[(uint)DBC.Locale];
                 DBC._SkillLineStrings.TryGetValue(offset, out s);
                 return s;
             }
@@ -341,7 +341,7 @@ namespace SpellWork
             get
             {
                 string s;
-                uint offset = _Description[DBC.Locale];
+                uint offset = _Description[(uint)DBC.Locale];
                 DBC._SkillLineStrings.TryGetValue(offset, out s);
                 return s;
             }
@@ -352,7 +352,7 @@ namespace SpellWork
             get
             {
                 string s;
-                uint offset = _AlternateVerb[DBC.Locale];
+                uint offset = _AlternateVerb[(uint)DBC.Locale];
                 DBC._SkillLineStrings.TryGetValue(offset, out s);
                 return s;
             }
@@ -405,7 +405,7 @@ namespace SpellWork
             get
             {
                 string s;
-                uint offset = _Desc1[DBC.Locale];
+                uint offset = _Desc1[(uint)DBC.Locale];
                 DBC._SpellRangeStrings.TryGetValue(offset, out s);
                 return s;
             }
@@ -416,7 +416,7 @@ namespace SpellWork
             get
             {
                 string s;
-                uint offset = _Desc2[DBC.Locale];
+                uint offset = _Desc2[(uint)DBC.Locale];
                 DBC._SpellRangeStrings.TryGetValue(offset, out s);
                 return s;
             }

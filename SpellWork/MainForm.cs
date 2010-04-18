@@ -35,6 +35,8 @@ namespace SpellWork
             SetEnumValues(_cbProcTarget2, typeof(Targets), "Target B");
 
             SetEnumValues(_cbProcSpellFamilyTree, typeof(SpellFamilyNames), "SpellFamilyTree");
+
+            _status.Text = String.Format("DBC Locale: {0}", DBC.Locale);
         }
 
         private void Form1_Load(object sender, EventArgs e)
