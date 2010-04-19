@@ -20,11 +20,12 @@ namespace SpellWork
         public static string ReadCString(this BinaryReader reader)
         {
             byte num;
-
             var temp = new List<byte>();
 
             while ((num = reader.ReadByte()) != 0)
+            {
                 temp.Add(num);
+            }
 
             return Encoding.UTF8.GetString(temp.ToArray());
         }
@@ -38,9 +39,12 @@ namespace SpellWork
         public static unsafe T ReadStruct<T>(this BinaryReader reader) where T : struct
         {
             var rawData = reader.ReadBytes(Marshal.SizeOf(typeof(T)));
+            
             GCHandle handle = GCHandle.Alloc(rawData, GCHandleType.Pinned);
             T returnObject = (T)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(T));
+            
             handle.Free();
+            
             return returnObject;
         }
 
@@ -140,17 +144,6 @@ namespace SpellWork
             return builder;
         }
 
-        // Empty
-        public static bool IsEmpty(this String str)
-        {
-            return String.IsNullOrEmpty(str);
-        }
-
-        public static string IfNotEmpty(this uint val, string _return)
-        {
-            return val == 0 ? String.Empty : (_return + val.ToString());
-        }
-
         public static uint ToUInt32(this Object val)
         {
             if (val == null)
@@ -185,8 +178,10 @@ namespace SpellWork
         public static String NormaliseString(this String text, String remove)
         {
             var str = String.Empty;
-            if(remove != String.Empty)
+            if (remove != String.Empty)
+            {
                 text = text.Replace(remove, String.Empty);
+            }
 
             foreach (var s in text.Split('_'))
             {
@@ -202,7 +197,7 @@ namespace SpellWork
             return str.Remove(str.Length - 1);
         }
 
-        public static void SetCheckedItemFromFlag(this CheckedListBox _name, int _value)
+        public static void SetCheckedItemFromFlag(this CheckedListBox _name, uint _value)
         {
             for (int i = 0; i < _name.Items.Count; ++i)
             {
@@ -253,6 +248,28 @@ namespace SpellWork
             foreach (var str in Enum.GetValues(enums))
             {
                 dt.Rows.Add(new Object[] { (int)str, "(" + ((int)str).ToString("000") + ") " + str });
+            }
+
+            cb.DataSource = dt;
+            cb.DisplayMember = "NAME";
+            cb.ValueMember = "ID";
+        }
+
+        public static void SetEnumValues(this ComboBox cb, Type enums, string NoValue, string remove)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("ID");
+            dt.Columns.Add("NAME");
+
+            dt.Rows.Add(new Object[] { -1, NoValue });
+
+            foreach (var str in Enum.GetValues(enums))
+            {
+                dt.Rows.Add(new Object[] 
+                { 
+                    (int)str, 
+                    "(" + ((int)str).ToString("000") + ") " + str.ToString().NormaliseString(remove) 
+                });
             }
 
             cb.DataSource = dt;

@@ -17,16 +17,12 @@ namespace SpellWork
             StartPosition = FormStartPosition.CenterScreen;
 
             InitializeComponent();
-            Loads();
-        }
 
-        private void Loads()
-        {
-            _cbSpellFamilyName.SetEnumValues(typeof(SpellFamilyNames), "SpellFamilyName");
-            _cbSpellAura.SetEnumValues(typeof(AuraType), "Aura");
-            _cbSpellEffect.SetEnumValues(typeof(SpellEffects), "Effect");
-            _cbTarget1.SetEnumValues(typeof(Targets), "Target A");
-            _cbTarget2.SetEnumValues(typeof(Targets), "Target B");
+            _cbSpellFamilyName.SetEnumValues(typeof(SpellFamilyNames), "SpellFamilyName", "SPELLFAMILY_");
+            _cbSpellAura.SetEnumValues(typeof(AuraType), "Aura", "SPELL_AURA_");
+            _cbSpellEffect.SetEnumValues(typeof(SpellEffects), "Effect", "SPELL_EFFECT_");
+            _cbTarget1.SetEnumValues(typeof(Targets), "Target A", "TARGET_");
+            _cbTarget2.SetEnumValues(typeof(Targets), "Target B", "TARGET_");
 
             _cbProcSpellFamilyName.SetEnumValues(typeof(SpellFamilyNames), "SpellFamilyName");
             _cbProcSpellAura.SetEnumValues(typeof(AuraType), "Aura");
@@ -132,14 +128,8 @@ namespace SpellWork
             var lv = (ListView)sender;
             if (lv.SelectedItems.Count > 0)
             {
-                var rtb = lv.Name == "_lvSpellList" ? _rtSpellInfo : _rtbProcSpellInfo;
                 var id = lv.SelectedItems[0].SubItems[0].Text.ToUInt32();
-                SpellInfo.View(rtb, id);
-                if (lv.Name == "_lvProcSpellList")
-                {
-                    var result = (from s in DBC.Spell where s.Key == id select s.Value.SpellFamilyName).First();
-                    _cbProcSpellFamilyTree.SelectedValue = result;
-                }
+                SpellInfo.View(_rtSpellInfo, id);
             }
         }
 
@@ -229,6 +219,29 @@ namespace SpellWork
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             _cbProcFlag.Visible = _bWrite.Visible = ((TabControl)sender).SelectedIndex == 1;
+        }
+
+        private void _lvProcSpellList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var lv = (ListView)sender;
+            if (lv.SelectedItems.Count > 0)
+            {
+                var id = lv.SelectedItems[0].SubItems[0].Text.ToUInt32();
+                SpellInfo.View(_rtbProcSpellInfo, id);
+
+                var result = (from s in DBC.Spell where s.Key == id select s.Value.SpellFamilyName).First();
+                _cbProcSpellFamilyTree.SelectedValue = result;
+
+                ProcInfo.SetProcData(this);
+                var spell = DBC.Spell[id];
+                _clbProcFlags.SetCheckedItemFromFlag(spell.ProcFlags);
+                //_clbProcFlagEx.SetCheckedItemFromFlag(spell. // необходимо указать поле
+                _clbSchools.SetCheckedItemFromFlag(spell.SchoolMask);
+                _cbProcFitstSpellFamily.SelectedValue = spell.SpellFamilyName;
+                //_tbPPM.Text = spell.;   // необходимо указать поле
+                _tbChance.Text = spell.ProcChance.ToString();
+                _tbCooldown.Text = (spell.RecoveryTime/1000f).ToString();
+            }
         }
     }
 }

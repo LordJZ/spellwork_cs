@@ -21,11 +21,11 @@ namespace SpellWork
             sb.AppendFormatLine("=================================================");
             sb.AppendFormatLineIfNotNull("Description: {0}", spell.Description);
             sb.AppendFormatLineIfNotNull("ToolTip: {0}", spell.ToolTip);
-            sb.AppendFormatLineIfNotNull("Modal Next Spell: {0}", spell.modalNextSpell);
+            sb.AppendFormatLineIfNotNull("Modal Next Spell: {0}", spell.ModalNextSpell);
             sb.AppendFormatLine("=================================================");
 
             sb.AppendFormatLine("Category = {0}, SpellIconID = {1}, activeIconID = {2}, SpellVisual = ({3},{4})",
-                spell.Category, spell.SpellIconID, spell.activeIconID, spell.SpellVisual[0], spell.SpellVisual[1]);
+                spell.Category, spell.SpellIconID, spell.ActiveIconID, spell.SpellVisual[0], spell.SpellVisual[1]);
 
             sb.AppendFormatLine("Family {0}, flag 0x{1:X8} {2:X8} {3:X8}",
                 (SpellFamilyNames)spell.SpellFamilyName, spell.SpellFamilyFlags3, spell.SpellFamilyFlags2, spell.SpellFamilyFlags1);
@@ -52,7 +52,7 @@ namespace SpellWork
             AppendSkillLine(sb, spell.ID);
 
             sb.AppendFormatLine("Spell Level = {0}, base {1}, max {2}, maxTarget {3}", 
-                spell.spellLevel, spell.baseLevel, spell.maxLevel, spell.MaxTargetLevel);
+                spell.SpellLevel, spell.BaseLevel, spell.MaxLevel, spell.MaxTargetLevel);
 
             if (spell.EquippedItemClass != -1)
             {
@@ -88,7 +88,7 @@ namespace SpellWork
             sb.AppendFormatLine("Mechanic = {0} ({1})", spell.Mechanic, (Mechanics)spell.Mechanic);
             sb.AppendLine(spell.Range);
 
-            sb.AppendFormatLineIfNotNull("Speed {0:F}", spell.speed);
+            sb.AppendFormatLineIfNotNull("Speed {0:F}", spell.Speed);
 
             sb.SetBold();
             sb.AppendFormatLine("Attributes 0x{0:X8}, Ex 0x{1:X8}, Ex2 0x{2:X8}, Ex3 0x{3:X8}, Ex4 0x{4:X8}, Ex5 0x{5:X8}, Ex6 0x{6:X8}, ExG 0x{7:X8}",
@@ -107,13 +107,13 @@ namespace SpellWork
 
             sb.AppendLine(spell.Duration);
 
-            if (spell.manaCost != 0 || spell.ManaCostPercentage != 0)
+            if (spell.ManaCost != 0 || spell.ManaCostPercentage != 0)
             {
                 sb.AppendFormat("Power {0}, Cost {1}", 
-                    (Powers)spell.powerType, spell.manaCost == 0 ? spell.ManaCostPercentage.ToString() + " %" : spell.manaCost.ToString());
-                sb.AppendFormatIfNotNull(" + lvl * {0}", spell.manaCostPerlevel);
-                sb.AppendFormatIfNotNull(" + {0} Per Second", spell.manaPerSecond);
-                sb.AppendFormatIfNotNull(" + lvl * {0}", spell.manaPerSecondPerLevel);
+                    (Powers)spell.PowerType, spell.ManaCost == 0 ? spell.ManaCostPercentage.ToString() + " %" : spell.ManaCost.ToString());
+                sb.AppendFormatIfNotNull(" + lvl * {0}", spell.ManaCostPerlevel);
+                sb.AppendFormatIfNotNull(" + {0} Per Second", spell.ManaPerSecond);
+                sb.AppendFormatIfNotNull(" + lvl * {0}", spell.ManaPerSecondPerLevel);
                 sb.AppendLine();
             }
 
@@ -136,18 +136,18 @@ namespace SpellWork
 
             sb.AppendFormatLineIfNotNull("Requires Spell Focus {0}", spell.RequiresSpellFocus);
 
-            if (spell.procFlags != 0)
+            if (spell.ProcFlags != 0)
             {
                 sb.SetBold();
                 sb.AppendFormatLine("Proc flag 0x{0:X8}, chance = {1}, charges - {2}",
-                spell.procFlags, spell.procChance, spell.procCharges);
+                spell.ProcFlags, spell.ProcChance, spell.ProcCharges);
                 sb.SetDefaultStyle();
                 sb.AppendFormatLine("=================================================");
                 sb.AppendText(spell.ProcInfo);
             }
             else // if(spell.procCharges)
             {
-                sb.AppendFormatLine("Chance = {0}, charges - {1}", spell.procChance, spell.procCharges);
+                sb.AppendFormatLine("Chance = {0}, charges - {1}", spell.ProcChance, spell.ProcCharges);
             }
 
             AppendSpellEffectInfo(sb, spell);
@@ -175,7 +175,7 @@ namespace SpellWork
             sb.AppendFormat("    ReqSkillValue {0}", skill.Req_skill_value);
 
             sb.AppendFormat(", Forward Spell = {0}, MinMaxValue ({1}, {2})", skill.Forward_spellid, skill.Min_value, skill.Max_value);
-            sb.AppendFormat(", CharacterPoints ({0}, {1})", skill.characterPoints[0], skill.characterPoints[1]);
+            sb.AppendFormat(", CharacterPoints ({0}, {1})", skill.CharacterPoints[0], skill.CharacterPoints[1]);
         }
 
         static void AppendSpellEffectInfo(RichTextBox sb, SpellEntry spell)
@@ -297,36 +297,36 @@ namespace SpellWork
 
         static void AppendSpellAura(RichTextBox sb, SpellEntry spell)
         {
-            if (spell.casterAuraSpell != 0)
+            if (spell.CasterAuraSpell != 0)
             {
-                if(DBC.Spell.ContainsKey(spell.casterAuraSpell))
-                    sb.AppendFormatLine("  Caster Aura Spell ({0}) {1}", spell.casterAuraSpell, DBC.Spell[spell.casterAuraSpell].SpellName);
+                if(DBC.Spell.ContainsKey(spell.CasterAuraSpell))
+                    sb.AppendFormatLine("  Caster Aura Spell ({0}) {1}", spell.CasterAuraSpell, DBC.Spell[spell.CasterAuraSpell].SpellName);
                 else
-                    sb.AppendFormatLine("  Caster Aura Spell ({0}) ?????", spell.casterAuraSpell);
+                    sb.AppendFormatLine("  Caster Aura Spell ({0}) ?????", spell.CasterAuraSpell);
             }
 
-            if (spell.targetAuraSpell != 0)
+            if (spell.TargetAuraSpell != 0)
             {
-                if(DBC.Spell.ContainsKey(spell.targetAuraSpell))
-                    sb.AppendFormatLine("  Target Aura Spell ({0}) {1}", spell.targetAuraSpell, DBC.Spell[spell.targetAuraSpell].SpellName);
+                if(DBC.Spell.ContainsKey(spell.TargetAuraSpell))
+                    sb.AppendFormatLine("  Target Aura Spell ({0}) {1}", spell.TargetAuraSpell, DBC.Spell[spell.TargetAuraSpell].SpellName);
                 else
-                    sb.AppendFormatLine("  Target Aura Spell ({0}) ?????", spell.targetAuraSpell);
+                    sb.AppendFormatLine("  Target Aura Spell ({0}) ?????", spell.TargetAuraSpell);
             }
 
-            if (spell.excludeCasterAuraSpell != 0)
+            if (spell.ExcludeCasterAuraSpell != 0)
             {
-                if(DBC.Spell.ContainsKey(spell.excludeCasterAuraSpell))
-                    sb.AppendFormatLine("  Ex Caster Aura Spell ({0}) {1}", spell.excludeCasterAuraSpell, DBC.Spell[spell.excludeCasterAuraSpell].SpellName);
+                if(DBC.Spell.ContainsKey(spell.ExcludeCasterAuraSpell))
+                    sb.AppendFormatLine("  Ex Caster Aura Spell ({0}) {1}", spell.ExcludeCasterAuraSpell, DBC.Spell[spell.ExcludeCasterAuraSpell].SpellName);
                 else
-                    sb.AppendFormatLine("  Ex Caster Aura Spell ({0}) ?????", spell.excludeCasterAuraSpell);
+                    sb.AppendFormatLine("  Ex Caster Aura Spell ({0}) ?????", spell.ExcludeCasterAuraSpell);
             }
 
-            if (spell.excludeTargetAuraSpell != 0)
+            if (spell.ExcludeTargetAuraSpell != 0)
             {
-                if(DBC.Spell.ContainsKey(spell.excludeTargetAuraSpell))
-                    sb.AppendFormatLine("  Ex Target Aura Spell ({0}) {1}", spell.excludeTargetAuraSpell, DBC.Spell[spell.excludeTargetAuraSpell].SpellName);
+                if(DBC.Spell.ContainsKey(spell.ExcludeTargetAuraSpell))
+                    sb.AppendFormatLine("  Ex Target Aura Spell ({0}) {1}", spell.ExcludeTargetAuraSpell, DBC.Spell[spell.ExcludeTargetAuraSpell].SpellName);
                 else
-                    sb.AppendFormatLine("  Ex Target Aura Spell ({0}) ?????", spell.excludeTargetAuraSpell);
+                    sb.AppendFormatLine("  Ex Target Aura Spell ({0}) ?????", spell.ExcludeTargetAuraSpell);
             }
         }
     }

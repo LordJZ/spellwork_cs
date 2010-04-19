@@ -55,7 +55,11 @@ namespace SpellWork
                 object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
                 if (attributes.Length == 0)
                 {
-                    return "";
+                    return "SpellWork is a tool originally created by Chestr (also known as DiSlord).\r\n\r\n"+
+                            "This project is a try to rebuild the application using C#.\r\n\r\n"+
+                            "Thanks goes to:\r\n"+
+                            "\tChestr             - for the idea and released source of original spell_work\r\n"+
+                            "\tTOM_RUS            - for code samples";
                 }
                 return ((AssemblyDescriptionAttribute)attributes[0]).Description;
             }

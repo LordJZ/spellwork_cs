@@ -41,6 +41,8 @@ namespace SpellWork
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
+            _gbDbSetting.Enabled = Settings.Default.UseDbConnect;
+
             _tbHost.Text = Settings.Default.Host;
             _tbPort.Text = Settings.Default.Port;
             _tbUser.Text = Settings.Default.User;

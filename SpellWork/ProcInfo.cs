@@ -71,5 +71,10 @@ namespace SpellWork
                 }
             }
         }
+
+        public static void SetProcData(Form frm)
+        {
+            var t = frm.Controls;
+        }
     }
 }
