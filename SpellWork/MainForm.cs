@@ -232,7 +232,6 @@ namespace SpellWork
                 var result = (from s in DBC.Spell where s.Key == id select s.Value.SpellFamilyName).First();
                 _cbProcSpellFamilyTree.SelectedValue = result;
 
-                ProcInfo.SetProcData(this);
                 var spell = DBC.Spell[id];
                 _clbProcFlags.SetCheckedItemFromFlag(spell.ProcFlags);
                 //_clbProcFlagEx.SetCheckedItemFromFlag(spell. // необходимо указать поле
