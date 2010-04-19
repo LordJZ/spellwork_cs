@@ -115,11 +115,11 @@ namespace SpellWork
 
             foreach (var element in query)
             {
-                var id = element.Key.ToString();
-                var name = element.Value.SpellName;
-                var rank = element.Value.Rank != "" ? " ("+element.Value.Rank +")" : "";
-
-                lv.Items.Add(new ListViewItem(new String[] { id, name + rank}));
+                lv.Items.Add(new ListViewItem(new String[] 
+                { 
+                    element.Key.ToString(), 
+                    element.Value.SpellNameRank
+                }));
             }
         }
 
@@ -195,11 +195,11 @@ namespace SpellWork
 
             foreach (var element in query)
             {
-                var id = element.Key.ToString();
-                var name = element.Value.SpellName;
-                var rank = element.Value.Rank != "" ? " (" + element.Value.Rank + ")" : "";
-
-                lv.Items.Add(new ListViewItem(new String[] { id, name + rank }));
+                lv.Items.Add(new ListViewItem(new String[] 
+                { 
+                    element.Key.ToString(), 
+                    element.Value.SpellNameRank 
+                }));
             }
         }
 
@@ -234,7 +234,7 @@ namespace SpellWork
 
                 var spell = DBC.Spell[id];
                 _clbProcFlags.SetCheckedItemFromFlag(spell.ProcFlags);
-                //_clbProcFlagEx.SetCheckedItemFromFlag(spell. // необходимо указать поле
+                _clbProcFlagEx.SetCheckedItemFromFlag(spell.ProcFlags); // необходимо указать поле
                 _clbSchools.SetCheckedItemFromFlag(spell.SchoolMask);
                 _cbProcFitstSpellFamily.SelectedValue = spell.SpellFamilyName;
                 //_tbPPM.Text = spell.;   // необходимо указать поле

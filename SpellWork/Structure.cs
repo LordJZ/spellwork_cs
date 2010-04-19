@@ -179,6 +179,22 @@ namespace SpellWork
             }
         }
 
+        public string SpellNameRank
+        {
+            get
+            {
+                string n, r;
+
+                uint offsetname = _SpellName[(uint)DBC.Locale];
+                uint offsetrank = _Rank[(uint)DBC.Locale];
+
+                DBC._SpellStrings.TryGetValue(offsetname, out n);
+                DBC._SpellStrings.TryGetValue(offsetrank, out r);
+                
+                return r == String.Empty ? n : n + " (" + r + ")";
+            }
+        }
+
         /// <summary>
         /// Return current Spell Description
         /// </summary>
@@ -316,7 +332,7 @@ namespace SpellWork
                 if (DBC.Spell.ContainsKey(tsId))
                 {
                     var trigger = DBC.Spell[tsId];
-                    sb.AppendFormatLine("Trigger spell ({0}) {1}. Chance = {2}", tsId, trigger.SpellName, ProcChance);
+                    sb.AppendFormatLine("Trigger spell ({0}) {1}. Chance = {2}", tsId, trigger.SpellNameRank, ProcChance);
 
                     sb.AppendFormatLineIfNotNull("Description: {0}", trigger.Description);
                     sb.AppendFormatLineIfNotNull("ToolTip: {0}", trigger.ToolTip);

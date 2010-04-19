@@ -15,7 +15,7 @@ namespace SpellWork
             sb.Clear();
             var spell = DBC.Spell[spellId];
             sb.SetBold();
-            sb.AppendFormatLine("ID - {0} {1} ({2})", spell.ID, spell.SpellName, spell.Rank);
+            sb.AppendFormatLine("ID - {0} {1}", spell.ID, spell.SpellNameRank);
             sb.SetDefaultStyle();
 
             sb.AppendFormatLine("=================================================");
@@ -266,16 +266,15 @@ namespace SpellWork
                             (s.SpellFamilyFlags2 & mask_1) != 0 ||
                             (s.SpellFamilyFlags3 & mask_2) != 0)
                         {
-                            var name = s.Rank == "" ? s.SpellName : s.SpellName + " (" + s.Rank + ")";
                             if (row.SkillId > 0)
                             {
                                 sb.SelectionColor = Color.Blue;
-                                sb.AppendFormatLine("    + {0} - {1}",  s.ID, name);
+                                sb.AppendFormatLine("\t+ {0} - {1}",  s.ID, s.SpellNameRank);
                             }
                             else
                             {
                                 sb.SelectionColor = Color.Red;
-                                sb.AppendFormatLine("    - {0} - {1}",  s.ID, name);
+                                sb.AppendFormatLine("\t- {0} - {1}", s.ID, s.SpellNameRank);
                             }
                             sb.SelectionColor = Color.Black;
                         }
