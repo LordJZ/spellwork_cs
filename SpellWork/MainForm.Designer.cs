@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this._status = new System.Windows.Forms.ToolStripStatusLabel();
+            this._ProcStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this._tsmFile = new System.Windows.Forms.ToolStripMenuItem();
             this._tsmSettings = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,8 +56,19 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
             this._clbProcFlags = new System.Windows.Forms.CheckedListBox();
-            this._cbProcFlag = new System.Windows.Forms.CheckBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this._clbProcFlagEx = new System.Windows.Forms.CheckedListBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this._clbSchools = new System.Windows.Forms.CheckedListBox();
+            this._cbProcFitstSpellFamily = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this._tbPPM = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this._tbChance = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this._tbCooldown = new System.Windows.Forms.TextBox();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this._cbProcSpellFamilyTree = new System.Windows.Forms.ComboBox();
             this._tvFamilyTree = new System.Windows.Forms.TreeView();
@@ -80,16 +92,7 @@
             this.splitContainer6 = new System.Windows.Forms.SplitContainer();
             this._lvDataList = new System.Windows.Forms.ListView();
             this._tbSqlLog = new System.Windows.Forms.TextBox();
-            this._clbProcFlagEx = new System.Windows.Forms.CheckedListBox();
-            this._cbProcFitstSpellFamily = new System.Windows.Forms.ComboBox();
-            this._clbSchools = new System.Windows.Forms.CheckedListBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this._tbPPM = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this._tbChance = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this._tbCooldown = new System.Windows.Forms.TextBox();
-            this._ProcStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this._cbProcFlag = new System.Windows.Forms.CheckBox();
             this._bWrite = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -106,6 +109,9 @@
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.splitContainer4.Panel1.SuspendLayout();
             this.splitContainer4.Panel2.SuspendLayout();
             this.splitContainer4.SuspendLayout();
@@ -134,6 +140,11 @@
             // 
             this._status.Name = "_status";
             this._status.Size = new System.Drawing.Size(0, 17);
+            // 
+            // _ProcStatus
+            // 
+            this._ProcStatus.Name = "_ProcStatus";
+            this._ProcStatus.Size = new System.Drawing.Size(0, 17);
             // 
             // menuStrip1
             // 
@@ -203,7 +214,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(864, 539);
+            this.tabPage1.Size = new System.Drawing.Size(864, 557);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Spell Info";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -225,7 +236,7 @@
             // 
             this.splitContainer1.Panel2.BackColor = System.Drawing.Color.Gainsboro;
             this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
-            this.splitContainer1.Size = new System.Drawing.Size(858, 533);
+            this.splitContainer1.Size = new System.Drawing.Size(858, 551);
             this.splitContainer1.SplitterDistance = 580;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -237,7 +248,7 @@
             this._rtSpellInfo.Location = new System.Drawing.Point(0, 0);
             this._rtSpellInfo.Name = "_rtSpellInfo";
             this._rtSpellInfo.ReadOnly = true;
-            this._rtSpellInfo.Size = new System.Drawing.Size(580, 533);
+            this._rtSpellInfo.Size = new System.Drawing.Size(580, 551);
             this._rtSpellInfo.TabIndex = 0;
             this._rtSpellInfo.Text = "";
             // 
@@ -254,7 +265,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(274, 533);
+            this.groupBox1.Size = new System.Drawing.Size(274, 551);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
@@ -273,7 +284,7 @@
             this._lvSpellList.Location = new System.Drawing.Point(0, 129);
             this._lvSpellList.MultiSelect = false;
             this._lvSpellList.Name = "_lvSpellList";
-            this._lvSpellList.Size = new System.Drawing.Size(277, 404);
+            this._lvSpellList.Size = new System.Drawing.Size(277, 422);
             this._lvSpellList.TabIndex = 7;
             this._lvSpellList.UseCompatibleStateImageBehavior = false;
             this._lvSpellList.View = System.Windows.Forms.View.Details;
@@ -411,51 +422,153 @@
             // splitContainer3.Panel1
             // 
             this.splitContainer3.Panel1.BackColor = System.Drawing.Color.White;
-            this.splitContainer3.Panel1.Controls.Add(this._tbCooldown);
-            this.splitContainer3.Panel1.Controls.Add(this.label3);
-            this.splitContainer3.Panel1.Controls.Add(this._tbChance);
-            this.splitContainer3.Panel1.Controls.Add(this.label2);
-            this.splitContainer3.Panel1.Controls.Add(this._tbPPM);
-            this.splitContainer3.Panel1.Controls.Add(this.label1);
-            this.splitContainer3.Panel1.Controls.Add(this._clbSchools);
-            this.splitContainer3.Panel1.Controls.Add(this._cbProcFitstSpellFamily);
-            this.splitContainer3.Panel1.Controls.Add(this._clbProcFlags);
-            this.splitContainer3.Panel1.Controls.Add(this._clbProcFlagEx);
+            this.splitContainer3.Panel1.Controls.Add(this.groupBox5);
+            this.splitContainer3.Panel1.Controls.Add(this.groupBox4);
+            this.splitContainer3.Panel1.Controls.Add(this.groupBox3);
             // 
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer4);
             this.splitContainer3.Size = new System.Drawing.Size(864, 489);
-            this.splitContainer3.SplitterDistance = 214;
+            this.splitContainer3.SplitterDistance = 241;
             this.splitContainer3.TabIndex = 0;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox5.Controls.Add(this._clbProcFlags);
+            this.groupBox5.Location = new System.Drawing.Point(3, 128);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(858, 115);
+            this.groupBox5.TabIndex = 10;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Spell Proc Flags";
             // 
             // _clbProcFlags
             // 
-            this._clbProcFlags.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
             this._clbProcFlags.CheckOnClick = true;
-            this._clbProcFlags.ColumnWidth = 220;
+            this._clbProcFlags.ColumnWidth = 170;
+            this._clbProcFlags.Dock = System.Windows.Forms.DockStyle.Fill;
             this._clbProcFlags.FormattingEnabled = true;
-            this._clbProcFlags.Location = new System.Drawing.Point(1, 101);
+            this._clbProcFlags.Location = new System.Drawing.Point(3, 16);
             this._clbProcFlags.MultiColumn = true;
             this._clbProcFlags.Name = "_clbProcFlags";
-            this._clbProcFlags.Size = new System.Drawing.Size(860, 109);
+            this._clbProcFlags.Size = new System.Drawing.Size(852, 94);
             this._clbProcFlags.TabIndex = 0;
             // 
-            // _cbProcFlag
+            // groupBox4
             // 
-            this._cbProcFlag.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this._cbProcFlag.Appearance = System.Windows.Forms.Appearance.Button;
-            this._cbProcFlag.AutoSize = true;
-            this._cbProcFlag.Location = new System.Drawing.Point(809, 1);
-            this._cbProcFlag.Name = "_cbProcFlag";
-            this._cbProcFlag.Size = new System.Drawing.Size(59, 23);
-            this._cbProcFlag.TabIndex = 2;
-            this._cbProcFlag.Text = "ProcFlag";
-            this._cbProcFlag.UseVisualStyleBackColor = true;
-            this._cbProcFlag.Visible = false;
-            this._cbProcFlag.CheckedChanged += new System.EventHandler(this._cbProcFlag_CheckedChanged);
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this._clbProcFlagEx);
+            this.groupBox4.Location = new System.Drawing.Point(3, 60);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(858, 75);
+            this.groupBox4.TabIndex = 9;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Spell Proc Ex";
+            // 
+            // _clbProcFlagEx
+            // 
+            this._clbProcFlagEx.CheckOnClick = true;
+            this._clbProcFlagEx.ColumnWidth = 120;
+            this._clbProcFlagEx.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._clbProcFlagEx.FormattingEnabled = true;
+            this._clbProcFlagEx.Location = new System.Drawing.Point(3, 16);
+            this._clbProcFlagEx.MultiColumn = true;
+            this._clbProcFlagEx.Name = "_clbProcFlagEx";
+            this._clbProcFlagEx.Size = new System.Drawing.Size(852, 49);
+            this._clbProcFlagEx.TabIndex = 3;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this._clbSchools);
+            this.groupBox3.Controls.Add(this._cbProcFitstSpellFamily);
+            this.groupBox3.Controls.Add(this.label1);
+            this.groupBox3.Controls.Add(this._tbPPM);
+            this.groupBox3.Controls.Add(this.label2);
+            this.groupBox3.Controls.Add(this._tbChance);
+            this.groupBox3.Controls.Add(this.label3);
+            this.groupBox3.Controls.Add(this._tbCooldown);
+            this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox3.Location = new System.Drawing.Point(4, 0);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(857, 63);
+            this.groupBox3.TabIndex = 8;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Spell Proc Event";
+            // 
+            // _clbSchools
+            // 
+            this._clbSchools.CheckOnClick = true;
+            this._clbSchools.ColumnWidth = 100;
+            this._clbSchools.Dock = System.Windows.Forms.DockStyle.Right;
+            this._clbSchools.FormattingEnabled = true;
+            this._clbSchools.Location = new System.Drawing.Point(391, 16);
+            this._clbSchools.MultiColumn = true;
+            this._clbSchools.Name = "_clbSchools";
+            this._clbSchools.Size = new System.Drawing.Size(463, 34);
+            this._clbSchools.TabIndex = 5;
+            // 
+            // _cbProcFitstSpellFamily
+            // 
+            this._cbProcFitstSpellFamily.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this._cbProcFitstSpellFamily.FormattingEnabled = true;
+            this._cbProcFitstSpellFamily.Location = new System.Drawing.Point(3, 14);
+            this._cbProcFitstSpellFamily.Name = "_cbProcFitstSpellFamily";
+            this._cbProcFitstSpellFamily.Size = new System.Drawing.Size(342, 21);
+            this._cbProcFitstSpellFamily.TabIndex = 4;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 41);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(30, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "PPM";
+            // 
+            // _tbPPM
+            // 
+            this._tbPPM.Location = new System.Drawing.Point(39, 38);
+            this._tbPPM.Name = "_tbPPM";
+            this._tbPPM.Size = new System.Drawing.Size(60, 20);
+            this._tbPPM.TabIndex = 7;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(105, 41);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(44, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Chance";
+            // 
+            // _tbChance
+            // 
+            this._tbChance.Location = new System.Drawing.Point(155, 38);
+            this._tbChance.Name = "_tbChance";
+            this._tbChance.Size = new System.Drawing.Size(60, 20);
+            this._tbChance.TabIndex = 7;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(225, 41);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(54, 13);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Cooldown";
+            // 
+            // _tbCooldown
+            // 
+            this._tbCooldown.Location = new System.Drawing.Point(285, 38);
+            this._tbCooldown.Name = "_tbCooldown";
+            this._tbCooldown.Size = new System.Drawing.Size(60, 20);
+            this._tbCooldown.TabIndex = 7;
             // 
             // splitContainer4
             // 
@@ -474,7 +587,7 @@
             // splitContainer4.Panel2
             // 
             this.splitContainer4.Panel2.Controls.Add(this.splitContainer5);
-            this.splitContainer4.Size = new System.Drawing.Size(864, 271);
+            this.splitContainer4.Size = new System.Drawing.Size(864, 244);
             this.splitContainer4.SplitterDistance = 260;
             this.splitContainer4.TabIndex = 0;
             // 
@@ -501,7 +614,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this._tvFamilyTree.Location = new System.Drawing.Point(1, 23);
             this._tvFamilyTree.Name = "_tvFamilyTree";
-            this._tvFamilyTree.Size = new System.Drawing.Size(258, 246);
+            this._tvFamilyTree.Size = new System.Drawing.Size(258, 219);
             this._tvFamilyTree.TabIndex = 0;
             this._tvFamilyTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this._tvFamilyTree_AfterSelect);
             // 
@@ -527,7 +640,7 @@
             this.splitContainer5.Panel2.Controls.Add(this._cbProcSpellAura);
             this.splitContainer5.Panel2.Controls.Add(this._cbProcSpellFamilyName);
             this.splitContainer5.Panel2.Controls.Add(this._lvProcSpellList);
-            this.splitContainer5.Size = new System.Drawing.Size(600, 271);
+            this.splitContainer5.Size = new System.Drawing.Size(600, 244);
             this.splitContainer5.SplitterDistance = 330;
             this.splitContainer5.TabIndex = 0;
             // 
@@ -538,7 +651,7 @@
             this._rtbProcSpellInfo.Font = new System.Drawing.Font("Arial Unicode MS", 9F);
             this._rtbProcSpellInfo.Location = new System.Drawing.Point(0, 0);
             this._rtbProcSpellInfo.Name = "_rtbProcSpellInfo";
-            this._rtbProcSpellInfo.Size = new System.Drawing.Size(330, 271);
+            this._rtbProcSpellInfo.Size = new System.Drawing.Size(330, 244);
             this._rtbProcSpellInfo.TabIndex = 0;
             this._rtbProcSpellInfo.Text = "";
             // 
@@ -638,7 +751,7 @@
             this._lvProcSpellList.MultiSelect = false;
             this._lvProcSpellList.Name = "_lvProcSpellList";
             this._lvProcSpellList.ShowItemToolTips = true;
-            this._lvProcSpellList.Size = new System.Drawing.Size(260, 156);
+            this._lvProcSpellList.Size = new System.Drawing.Size(260, 129);
             this._lvProcSpellList.TabIndex = 0;
             this._lvProcSpellList.UseCompatibleStateImageBehavior = false;
             this._lvProcSpellList.View = System.Windows.Forms.View.Details;
@@ -682,7 +795,7 @@
             this.tabPage4.Controls.Add(this.groupBox2);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(864, 539);
+            this.tabPage4.Size = new System.Drawing.Size(864, 557);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Sql Data";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -693,7 +806,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(864, 539);
+            this.groupBox2.Size = new System.Drawing.Size(864, 557);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "SQL Data";
@@ -712,8 +825,8 @@
             // splitContainer6.Panel2
             // 
             this.splitContainer6.Panel2.Controls.Add(this._tbSqlLog);
-            this.splitContainer6.Size = new System.Drawing.Size(858, 520);
-            this.splitContainer6.SplitterDistance = 204;
+            this.splitContainer6.Size = new System.Drawing.Size(858, 538);
+            this.splitContainer6.SplitterDistance = 211;
             this.splitContainer6.TabIndex = 0;
             // 
             // _lvDataList
@@ -721,7 +834,7 @@
             this._lvDataList.Dock = System.Windows.Forms.DockStyle.Fill;
             this._lvDataList.Location = new System.Drawing.Point(0, 0);
             this._lvDataList.Name = "_lvDataList";
-            this._lvDataList.Size = new System.Drawing.Size(858, 204);
+            this._lvDataList.Size = new System.Drawing.Size(858, 211);
             this._lvDataList.TabIndex = 0;
             this._lvDataList.UseCompatibleStateImageBehavior = false;
             this._lvDataList.View = System.Windows.Forms.View.Details;
@@ -734,95 +847,22 @@
             this._tbSqlLog.Location = new System.Drawing.Point(3, 53);
             this._tbSqlLog.Multiline = true;
             this._tbSqlLog.Name = "_tbSqlLog";
-            this._tbSqlLog.Size = new System.Drawing.Size(852, 256);
+            this._tbSqlLog.Size = new System.Drawing.Size(852, 267);
             this._tbSqlLog.TabIndex = 0;
             // 
-            // _clbProcFlagEx
+            // _cbProcFlag
             // 
-            this._clbProcFlagEx.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this._clbProcFlagEx.CheckOnClick = true;
-            this._clbProcFlagEx.ColumnWidth = 120;
-            this._clbProcFlagEx.FormattingEnabled = true;
-            this._clbProcFlagEx.Location = new System.Drawing.Point(3, 48);
-            this._clbProcFlagEx.MultiColumn = true;
-            this._clbProcFlagEx.Name = "_clbProcFlagEx";
-            this._clbProcFlagEx.Size = new System.Drawing.Size(858, 49);
-            this._clbProcFlagEx.TabIndex = 3;
-            // 
-            // _cbProcFitstSpellFamily
-            // 
-            this._cbProcFitstSpellFamily.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this._cbProcFitstSpellFamily.FormattingEnabled = true;
-            this._cbProcFitstSpellFamily.Location = new System.Drawing.Point(3, 3);
-            this._cbProcFitstSpellFamily.Name = "_cbProcFitstSpellFamily";
-            this._cbProcFitstSpellFamily.Size = new System.Drawing.Size(342, 21);
-            this._cbProcFitstSpellFamily.TabIndex = 4;
-            // 
-            // _clbSchools
-            // 
-            this._clbSchools.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this._clbSchools.CheckOnClick = true;
-            this._clbSchools.ColumnWidth = 100;
-            this._clbSchools.FormattingEnabled = true;
-            this._clbSchools.Location = new System.Drawing.Point(398, 9);
-            this._clbSchools.MultiColumn = true;
-            this._clbSchools.Name = "_clbSchools";
-            this._clbSchools.Size = new System.Drawing.Size(463, 34);
-            this._clbSchools.TabIndex = 5;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 30);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(30, 13);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "PPM";
-            // 
-            // _tbPPM
-            // 
-            this._tbPPM.Location = new System.Drawing.Point(39, 27);
-            this._tbPPM.Name = "_tbPPM";
-            this._tbPPM.Size = new System.Drawing.Size(60, 20);
-            this._tbPPM.TabIndex = 7;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(105, 30);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(44, 13);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Chance";
-            // 
-            // _tbChance
-            // 
-            this._tbChance.Location = new System.Drawing.Point(155, 27);
-            this._tbChance.Name = "_tbChance";
-            this._tbChance.Size = new System.Drawing.Size(60, 20);
-            this._tbChance.TabIndex = 7;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(225, 30);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(54, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Cooldown";
-            // 
-            // _tbCooldown
-            // 
-            this._tbCooldown.Location = new System.Drawing.Point(285, 27);
-            this._tbCooldown.Name = "_tbCooldown";
-            this._tbCooldown.Size = new System.Drawing.Size(60, 20);
-            this._tbCooldown.TabIndex = 7;
-            // 
-            // _ProcStatus
-            // 
-            this._ProcStatus.Name = "_ProcStatus";
-            this._ProcStatus.Size = new System.Drawing.Size(0, 17);
+            this._cbProcFlag.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this._cbProcFlag.Appearance = System.Windows.Forms.Appearance.Button;
+            this._cbProcFlag.AutoSize = true;
+            this._cbProcFlag.Location = new System.Drawing.Point(809, 1);
+            this._cbProcFlag.Name = "_cbProcFlag";
+            this._cbProcFlag.Size = new System.Drawing.Size(59, 23);
+            this._cbProcFlag.TabIndex = 2;
+            this._cbProcFlag.Text = "ProcFlag";
+            this._cbProcFlag.UseVisualStyleBackColor = true;
+            this._cbProcFlag.Visible = false;
+            this._cbProcFlag.CheckedChanged += new System.EventHandler(this._cbProcFlag_CheckedChanged);
             // 
             // _bWrite
             // 
@@ -868,9 +908,12 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             this.splitContainer2.ResumeLayout(false);
             this.splitContainer3.Panel1.ResumeLayout(false);
-            this.splitContainer3.Panel1.PerformLayout();
             this.splitContainer3.Panel2.ResumeLayout(false);
             this.splitContainer3.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.splitContainer4.Panel1.ResumeLayout(false);
             this.splitContainer4.Panel2.ResumeLayout(false);
             this.splitContainer4.ResumeLayout(false);
@@ -953,5 +996,8 @@
         private System.Windows.Forms.TextBox _tbPPM;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button _bWrite;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox groupBox3;
     }
 }

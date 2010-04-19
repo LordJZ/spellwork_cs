@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.Runtime.InteropServices;
 
 namespace SpellWork
 {
@@ -42,7 +36,7 @@ namespace SpellWork
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            splitContainer3.SplitterDistance = 100;
+            splitContainer3.SplitterDistance = 128;
         }
 
         private bool ContainText(String text, String str)
@@ -133,11 +127,6 @@ namespace SpellWork
             }
         }
 
-        private void _bProc_Click(object sender, EventArgs e)
-        {
-            splitContainer3.SplitterDistance = 70;
-        }
-
         private void _bSpellInfo_Click(object sender, EventArgs e)
         {
             splitContainer2.Panel2Collapsed = !splitContainer2.Panel2Collapsed;
@@ -155,7 +144,7 @@ namespace SpellWork
 
         private void _cbProcFlag_CheckedChanged(object sender, EventArgs e)
         {
-            splitContainer3.SplitterDistance = ((CheckBox)sender).Checked ? 216 : 100;
+            splitContainer3.SplitterDistance = ((CheckBox)sender).Checked ? 240 : 128;
         }
 
         private void _tsmExit_Click(object sender, EventArgs e)
