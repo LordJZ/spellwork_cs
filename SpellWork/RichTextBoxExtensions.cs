@@ -10,6 +10,7 @@ namespace SpellWork
     public static class RichTextBoxExtensions
     {
         public const String DefaultFamily = "Arial Unicode MS";
+        public const float  DefaultSize   = 9f;
 
         public static void AppendFormatLine(this RichTextBox textbox, string format, params object[] arg0)
         {
@@ -55,6 +56,14 @@ namespace SpellWork
             }
         }
 
+        public static void AppendFormatLineIfNotNull(this RichTextBox builder, string format, object arg)
+        {
+            if (arg.ToInt32() != 0)
+            {
+                builder.AppendFormatLine(format, arg);
+            }
+        }
+
         public static void AppendFormatLineIfNotNull(this RichTextBox builder, string format, string arg)
         {
             if (arg != String.Empty)
@@ -87,6 +96,14 @@ namespace SpellWork
             }
         }
 
+        public static void AppendFormatIfNotNull(this RichTextBox builder, string format, object arg)
+        {
+            if (arg.ToInt32() != 0)
+            {
+                builder.AppendFormat(format, arg);
+            }
+        }
+
         public static void AppendFormatIfNotNull(this RichTextBox builder, string format, string arg)
         {
             if (arg != String.Empty)
@@ -98,28 +115,23 @@ namespace SpellWork
         public static void SetStyle(this RichTextBox textbox, Color color, FontStyle style)
         {
             textbox.SelectionColor = color;
-            textbox.SelectionFont = new Font(DefaultFamily, 9f, style);
+            textbox.SelectionFont = new Font(DefaultFamily, DefaultSize, style);
         }
         
         public static void SetStyle(this RichTextBox textbox, FontStyle style)
         {
-            textbox.SelectionFont = new Font(DefaultFamily, 9f, style);
+            textbox.SelectionFont = new Font(DefaultFamily, DefaultSize, style);
         }
-
-        //public static void SetStyle(this RichTextBox textbox, Color color)
-        //{
-        //    textbox.SelectionFont = new Font(DefaultFamily, 9f, style);
-        //}
 
         public static void SetBold(this RichTextBox textbox)
         {
-            textbox.SelectionFont = new Font(DefaultFamily, 9f, FontStyle.Bold);
+            textbox.SelectionFont = new Font(DefaultFamily, DefaultSize, FontStyle.Bold);
         }
 
         public static void SetStyle(this RichTextBox textbox, FontStyle style, Color color)
         {
             textbox.SelectionColor = color;
-            textbox.SelectionFont = new Font(DefaultFamily, 9f, style);
+            textbox.SelectionFont = new Font(DefaultFamily, DefaultSize, style);
         }
 
         public static void SetStyle(this RichTextBox textbox, FontStyle style, Color color, float size)
@@ -136,7 +148,7 @@ namespace SpellWork
 
         public static void SetDefaultStyle(this RichTextBox textbox)
         {
-            textbox.SelectionFont = new Font(DefaultFamily, 9f, FontStyle.Regular);
+            textbox.SelectionFont = new Font(DefaultFamily, DefaultSize, FontStyle.Regular);
             textbox.SelectionColor = Color.Black;
         }
     }

@@ -50,8 +50,7 @@ namespace SpellWork
 
             AppendSkillLine(sb, spell.ID);
 
-            sb.AppendFormatLine("Spell Level = {0}, base {1}, max {2}, maxTarget {3}",
-                spell.spellLevel, spell.baseLevel, spell.maxLevel, spell.MaxTargetLevel);
+            sb.AppendFormatLine("Spell Level = {0}, base {1}, max {2}, maxTarget {3}", spell.spellLevel, spell.baseLevel, spell.maxLevel, spell.MaxTargetLevel);
 
             if (spell.EquippedItemClass != -1)
             {
@@ -85,9 +84,11 @@ namespace SpellWork
 
             sb.AppendFormatLineIfNotNull("Speed {0:F}", spell.speed);
 
+            sb.SetBold();
             sb.AppendFormatLine("Attributes 0x{0:X8}, Ex 0x{1:X8}, Ex2 0x{2:X8}, Ex3 0x{3:X8}, Ex4 0x{4:X8}, Ex5 0x{5:X8}, Ex6 0x{6:X8}, ExG 0x{7:X8}",
                      spell.Attributes, spell.AttributesEx, spell.AttributesEx2, spell.AttributesEx3, spell.AttributesEx4,
                      spell.AttributesEx5, spell.AttributesEx6, spell.AttributesExG);
+            sb.SetDefaultStyle();
 
             sb.AppendFormatLineIfNotNull("Stackable up to {0}", spell.StackAmount);
             sb.AppendLine(spell.CastTime);
@@ -132,8 +133,10 @@ namespace SpellWork
 
             if (spell.procFlags != 0)
             {
+                sb.SetBold();
                 sb.AppendFormatLine("Proc flag 0x{0:X8}, chance = {1}, charges - {2}",
                 spell.procFlags, spell.procChance, spell.procCharges);
+                sb.SetDefaultStyle();
                 sb.AppendFormatLine("=================================================");
                 sb.AppendText(spell.ProcInfo);
             }
@@ -143,8 +146,6 @@ namespace SpellWork
             }
 
             AppendSpellEffectInfo(sb, spell);
-
-            AppendItemInfo(sb, spell);
         }
 
         public static void BuildFamilyTree(TreeView familyTree, SpellFamilyNames spellfamily)
@@ -232,20 +233,13 @@ namespace SpellWork
             sb.AppendFormat(", CharacterPoints ({0}, {1})", skill.characterPoints[0], skill.characterPoints[1]);
         }
 
-        static void AppendItemInfo(RichTextBox sb, SpellEntry spell)
-        {
-            // Получить из базы данных ()
-            // SELECT `entry`, `name` FROM `item_template` WHERE `spellid_1` = {0} OR `spellid_2` = {1} OR `spellid_3` = {2}
-            //      OR `spellid_4` = {3} OR `spellid_5` = {4}
-            return;
-        }
-
         static void AppendSpellEffectInfo(RichTextBox sb, SpellEntry spell)
         {
             sb.AppendLine("=================================================");
 
             for (int i = 0; i < 3; i++)
             {
+                sb.SetBold();
                 if ((SpellEffects)spell.Effect[i] == SpellEffects.NO_SPELL_EFFECT)
                 {
                     sb.AppendFormatLine("Effect {0}: NO EFFECT", i);
@@ -253,7 +247,7 @@ namespace SpellWork
                 }
 
                 sb.AppendFormatLine("Effect {0}: {1}", i, (SpellEffects)spell.Effect[i]);
-
+                sb.SetDefaultStyle();
                 sb.AppendFormat("BasePoints = {0}", spell.EffectBasePoints[i] + 1);
                 if (spell.EffectRealPointsPerLevel[i] != 0)
                     sb.AppendFormat(" + Level * {0:F}", spell.EffectRealPointsPerLevel[i]);
@@ -332,14 +326,13 @@ namespace SpellWork
                             {
                                 sb.SelectionColor = Color.Blue;
                                 sb.AppendFormatLine("    + {0} - {1}",  s.ID, name);
-                                sb.SelectionColor = Color.Black;
                             }
                             else
                             {
                                 sb.SelectionColor = Color.Red;
                                 sb.AppendFormatLine("    - {0} - {1}",  s.ID, name);
-                                sb.SelectionColor = Color.Black;
                             }
+                            sb.SelectionColor = Color.Black;
                         }
                     }
                 }

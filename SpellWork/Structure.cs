@@ -469,7 +469,7 @@ namespace SpellWork
         public int   MinCastTime;
     };
 
-    //=============== DateBase ==================\\
+    //=============== DateBase =================\\
 
     public struct SpellProcEvent
     {

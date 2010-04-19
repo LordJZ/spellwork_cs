@@ -63,17 +63,17 @@
             this.checkBox16 = new System.Windows.Forms.CheckBox();
             this.checkBox15 = new System.Windows.Forms.CheckBox();
             this.checkBox14 = new System.Windows.Forms.CheckBox();
-            this.checkBox13 = new System.Windows.Forms.CheckBox();
-            this.checkBox12 = new System.Windows.Forms.CheckBox();
-            this.checkBox11 = new System.Windows.Forms.CheckBox();
-            this.checkBox10 = new System.Windows.Forms.CheckBox();
-            this.checkBox9 = new System.Windows.Forms.CheckBox();
-            this.checkBox8 = new System.Windows.Forms.CheckBox();
-            this.checkBox7 = new System.Windows.Forms.CheckBox();
-            this.checkBox6 = new System.Windows.Forms.CheckBox();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this._cbNeedInrrupt = new System.Windows.Forms.CheckBox();
+            this._cbNeedReflect = new System.Windows.Forms.CheckBox();
+            this._cbNeedAbsorb = new System.Windows.Forms.CheckBox();
+            this._cbNeedDeflect = new System.Windows.Forms.CheckBox();
+            this._cbNeedImune = new System.Windows.Forms.CheckBox();
+            this._cbNeedEvade = new System.Windows.Forms.CheckBox();
+            this._cbNeedBlock = new System.Windows.Forms.CheckBox();
+            this._cbNeedParry = new System.Windows.Forms.CheckBox();
+            this._cbNeedDodge = new System.Windows.Forms.CheckBox();
+            this._cbNeedFullResist = new System.Windows.Forms.CheckBox();
+            this._cbNeedMiss = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
@@ -442,7 +442,22 @@
             "On take melee spell hit",
             "On ranged hit",
             "On take ranged hit",
-            "On ranged spell hit"});
+            "On ranged spell hit",
+            "On take ranged spell hit",
+            "Sucess AoE heal hit",
+            "Take AoE heal hit",
+            "Sucess AoE spell hit",
+            "Take AoE spell hit",
+            "On cast healing spell",
+            "On take heal",
+            "On harmful spell hit",
+            "On take harmful spell hit",
+            "On deal periodic damage",
+            "On take periodic damage",
+            "On take any damage",
+            "On trap activation",
+            "On take offhand melee?",
+            "On offhand melee hit"});
             this._clbProcFlags.Location = new System.Drawing.Point(1, 63);
             this._clbProcFlags.MultiColumn = true;
             this._clbProcFlags.Name = "_clbProcFlags";
@@ -459,17 +474,17 @@
             this.groupBox4.Controls.Add(this.checkBox16);
             this.groupBox4.Controls.Add(this.checkBox15);
             this.groupBox4.Controls.Add(this.checkBox14);
-            this.groupBox4.Controls.Add(this.checkBox13);
-            this.groupBox4.Controls.Add(this.checkBox12);
-            this.groupBox4.Controls.Add(this.checkBox11);
-            this.groupBox4.Controls.Add(this.checkBox10);
-            this.groupBox4.Controls.Add(this.checkBox9);
-            this.groupBox4.Controls.Add(this.checkBox8);
-            this.groupBox4.Controls.Add(this.checkBox7);
-            this.groupBox4.Controls.Add(this.checkBox6);
-            this.groupBox4.Controls.Add(this.checkBox5);
-            this.groupBox4.Controls.Add(this.checkBox4);
-            this.groupBox4.Controls.Add(this.checkBox3);
+            this.groupBox4.Controls.Add(this._cbNeedInrrupt);
+            this.groupBox4.Controls.Add(this._cbNeedReflect);
+            this.groupBox4.Controls.Add(this._cbNeedAbsorb);
+            this.groupBox4.Controls.Add(this._cbNeedDeflect);
+            this.groupBox4.Controls.Add(this._cbNeedImune);
+            this.groupBox4.Controls.Add(this._cbNeedEvade);
+            this.groupBox4.Controls.Add(this._cbNeedBlock);
+            this.groupBox4.Controls.Add(this._cbNeedParry);
+            this.groupBox4.Controls.Add(this._cbNeedDodge);
+            this.groupBox4.Controls.Add(this._cbNeedFullResist);
+            this.groupBox4.Controls.Add(this._cbNeedMiss);
             this.groupBox4.Controls.Add(this.checkBox2);
             this.groupBox4.Controls.Add(this.checkBox1);
             this.groupBox4.Location = new System.Drawing.Point(3, 0);
@@ -497,9 +512,9 @@
             this.checkBox18.AutoSize = true;
             this.checkBox18.Location = new System.Drawing.Point(694, 29);
             this.checkBox18.Name = "checkBox18";
-            this.checkBox18.Size = new System.Drawing.Size(80, 17);
+            this.checkBox18.Size = new System.Drawing.Size(78, 17);
             this.checkBox18.TabIndex = 1;
-            this.checkBox18.Text = "checkBox2";
+            this.checkBox18.Text = "Reserved4";
             this.checkBox18.UseVisualStyleBackColor = true;
             // 
             // checkBox17
@@ -507,9 +522,9 @@
             this.checkBox17.AutoSize = true;
             this.checkBox17.Location = new System.Drawing.Point(694, 14);
             this.checkBox17.Name = "checkBox17";
-            this.checkBox17.Size = new System.Drawing.Size(80, 17);
+            this.checkBox17.Size = new System.Drawing.Size(95, 17);
             this.checkBox17.TabIndex = 0;
-            this.checkBox17.Text = "checkBox1";
+            this.checkBox17.Text = "Trigger Always";
             this.checkBox17.UseVisualStyleBackColor = true;
             // 
             // checkBox16
@@ -517,9 +532,9 @@
             this.checkBox16.AutoSize = true;
             this.checkBox16.Location = new System.Drawing.Point(608, 29);
             this.checkBox16.Name = "checkBox16";
-            this.checkBox16.Size = new System.Drawing.Size(80, 17);
+            this.checkBox16.Size = new System.Drawing.Size(78, 17);
             this.checkBox16.TabIndex = 1;
-            this.checkBox16.Text = "checkBox2";
+            this.checkBox16.Text = "Reserved3";
             this.checkBox16.UseVisualStyleBackColor = true;
             // 
             // checkBox15
@@ -527,9 +542,9 @@
             this.checkBox15.AutoSize = true;
             this.checkBox15.Location = new System.Drawing.Point(608, 14);
             this.checkBox15.Name = "checkBox15";
-            this.checkBox15.Size = new System.Drawing.Size(80, 17);
+            this.checkBox15.Size = new System.Drawing.Size(78, 17);
             this.checkBox15.TabIndex = 0;
-            this.checkBox15.Text = "checkBox1";
+            this.checkBox15.Text = "Reserved2";
             this.checkBox15.UseVisualStyleBackColor = true;
             // 
             // checkBox14
@@ -537,120 +552,120 @@
             this.checkBox14.AutoSize = true;
             this.checkBox14.Location = new System.Drawing.Point(522, 29);
             this.checkBox14.Name = "checkBox14";
-            this.checkBox14.Size = new System.Drawing.Size(80, 17);
+            this.checkBox14.Size = new System.Drawing.Size(78, 17);
             this.checkBox14.TabIndex = 1;
-            this.checkBox14.Text = "checkBox2";
+            this.checkBox14.Text = "Reserved1";
             this.checkBox14.UseVisualStyleBackColor = true;
             // 
-            // checkBox13
+            // _cbNeedInrrupt
             // 
-            this.checkBox13.AutoSize = true;
-            this.checkBox13.Location = new System.Drawing.Point(522, 14);
-            this.checkBox13.Name = "checkBox13";
-            this.checkBox13.Size = new System.Drawing.Size(80, 17);
-            this.checkBox13.TabIndex = 0;
-            this.checkBox13.Text = "checkBox1";
-            this.checkBox13.UseVisualStyleBackColor = true;
+            this._cbNeedInrrupt.AutoSize = true;
+            this._cbNeedInrrupt.Location = new System.Drawing.Point(522, 14);
+            this._cbNeedInrrupt.Name = "_cbNeedInrrupt";
+            this._cbNeedInrrupt.Size = new System.Drawing.Size(85, 17);
+            this._cbNeedInrrupt.TabIndex = 0;
+            this._cbNeedInrrupt.Text = "Need Inrrupt";
+            this._cbNeedInrrupt.UseVisualStyleBackColor = true;
             // 
-            // checkBox12
+            // _cbNeedReflect
             // 
-            this.checkBox12.AutoSize = true;
-            this.checkBox12.Location = new System.Drawing.Point(436, 29);
-            this.checkBox12.Name = "checkBox12";
-            this.checkBox12.Size = new System.Drawing.Size(80, 17);
-            this.checkBox12.TabIndex = 1;
-            this.checkBox12.Text = "checkBox2";
-            this.checkBox12.UseVisualStyleBackColor = true;
+            this._cbNeedReflect.AutoSize = true;
+            this._cbNeedReflect.Location = new System.Drawing.Point(436, 29);
+            this._cbNeedReflect.Name = "_cbNeedReflect";
+            this._cbNeedReflect.Size = new System.Drawing.Size(89, 17);
+            this._cbNeedReflect.TabIndex = 1;
+            this._cbNeedReflect.Text = "Need Reflect";
+            this._cbNeedReflect.UseVisualStyleBackColor = true;
             // 
-            // checkBox11
+            // _cbNeedAbsorb
             // 
-            this.checkBox11.AutoSize = true;
-            this.checkBox11.Location = new System.Drawing.Point(436, 14);
-            this.checkBox11.Name = "checkBox11";
-            this.checkBox11.Size = new System.Drawing.Size(80, 17);
-            this.checkBox11.TabIndex = 0;
-            this.checkBox11.Text = "checkBox1";
-            this.checkBox11.UseVisualStyleBackColor = true;
+            this._cbNeedAbsorb.AutoSize = true;
+            this._cbNeedAbsorb.Location = new System.Drawing.Point(436, 14);
+            this._cbNeedAbsorb.Name = "_cbNeedAbsorb";
+            this._cbNeedAbsorb.Size = new System.Drawing.Size(88, 17);
+            this._cbNeedAbsorb.TabIndex = 0;
+            this._cbNeedAbsorb.Text = "Need Absorb";
+            this._cbNeedAbsorb.UseVisualStyleBackColor = true;
             // 
-            // checkBox10
+            // _cbNeedDeflect
             // 
-            this.checkBox10.AutoSize = true;
-            this.checkBox10.Location = new System.Drawing.Point(350, 29);
-            this.checkBox10.Name = "checkBox10";
-            this.checkBox10.Size = new System.Drawing.Size(80, 17);
-            this.checkBox10.TabIndex = 1;
-            this.checkBox10.Text = "checkBox2";
-            this.checkBox10.UseVisualStyleBackColor = true;
+            this._cbNeedDeflect.AutoSize = true;
+            this._cbNeedDeflect.Location = new System.Drawing.Point(350, 29);
+            this._cbNeedDeflect.Name = "_cbNeedDeflect";
+            this._cbNeedDeflect.Size = new System.Drawing.Size(89, 17);
+            this._cbNeedDeflect.TabIndex = 1;
+            this._cbNeedDeflect.Text = "Need Deflect";
+            this._cbNeedDeflect.UseVisualStyleBackColor = true;
             // 
-            // checkBox9
+            // _cbNeedImune
             // 
-            this.checkBox9.AutoSize = true;
-            this.checkBox9.Location = new System.Drawing.Point(350, 14);
-            this.checkBox9.Name = "checkBox9";
-            this.checkBox9.Size = new System.Drawing.Size(80, 17);
-            this.checkBox9.TabIndex = 0;
-            this.checkBox9.Text = "checkBox1";
-            this.checkBox9.UseVisualStyleBackColor = true;
+            this._cbNeedImune.AutoSize = true;
+            this._cbNeedImune.Location = new System.Drawing.Point(350, 14);
+            this._cbNeedImune.Name = "_cbNeedImune";
+            this._cbNeedImune.Size = new System.Drawing.Size(92, 17);
+            this._cbNeedImune.TabIndex = 0;
+            this._cbNeedImune.Text = "Need Immune";
+            this._cbNeedImune.UseVisualStyleBackColor = true;
             // 
-            // checkBox8
+            // _cbNeedEvade
             // 
-            this.checkBox8.AutoSize = true;
-            this.checkBox8.Location = new System.Drawing.Point(264, 29);
-            this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(80, 17);
-            this.checkBox8.TabIndex = 1;
-            this.checkBox8.Text = "checkBox2";
-            this.checkBox8.UseVisualStyleBackColor = true;
+            this._cbNeedEvade.AutoSize = true;
+            this._cbNeedEvade.Location = new System.Drawing.Point(264, 29);
+            this._cbNeedEvade.Name = "_cbNeedEvade";
+            this._cbNeedEvade.Size = new System.Drawing.Size(86, 17);
+            this._cbNeedEvade.TabIndex = 1;
+            this._cbNeedEvade.Text = "Need Evade";
+            this._cbNeedEvade.UseVisualStyleBackColor = true;
             // 
-            // checkBox7
+            // _cbNeedBlock
             // 
-            this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(264, 14);
-            this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(80, 17);
-            this.checkBox7.TabIndex = 0;
-            this.checkBox7.Text = "checkBox1";
-            this.checkBox7.UseVisualStyleBackColor = true;
+            this._cbNeedBlock.AutoSize = true;
+            this._cbNeedBlock.Location = new System.Drawing.Point(264, 14);
+            this._cbNeedBlock.Name = "_cbNeedBlock";
+            this._cbNeedBlock.Size = new System.Drawing.Size(82, 17);
+            this._cbNeedBlock.TabIndex = 0;
+            this._cbNeedBlock.Text = "Need Block";
+            this._cbNeedBlock.UseVisualStyleBackColor = true;
             // 
-            // checkBox6
+            // _cbNeedParry
             // 
-            this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(178, 29);
-            this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(80, 17);
-            this.checkBox6.TabIndex = 1;
-            this.checkBox6.Text = "checkBox2";
-            this.checkBox6.UseVisualStyleBackColor = true;
+            this._cbNeedParry.AutoSize = true;
+            this._cbNeedParry.Location = new System.Drawing.Point(178, 29);
+            this._cbNeedParry.Name = "_cbNeedParry";
+            this._cbNeedParry.Size = new System.Drawing.Size(79, 17);
+            this._cbNeedParry.TabIndex = 1;
+            this._cbNeedParry.Text = "Need Parry";
+            this._cbNeedParry.UseVisualStyleBackColor = true;
             // 
-            // checkBox5
+            // _cbNeedDodge
             // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(178, 14);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(80, 17);
-            this.checkBox5.TabIndex = 0;
-            this.checkBox5.Text = "checkBox1";
-            this.checkBox5.UseVisualStyleBackColor = true;
+            this._cbNeedDodge.AutoSize = true;
+            this._cbNeedDodge.Location = new System.Drawing.Point(178, 14);
+            this._cbNeedDodge.Name = "_cbNeedDodge";
+            this._cbNeedDodge.Size = new System.Drawing.Size(87, 17);
+            this._cbNeedDodge.TabIndex = 0;
+            this._cbNeedDodge.Text = "Need Dodge";
+            this._cbNeedDodge.UseVisualStyleBackColor = true;
             // 
-            // checkBox4
+            // _cbNeedFullResist
             // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(92, 29);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(80, 17);
-            this.checkBox4.TabIndex = 1;
-            this.checkBox4.Text = "checkBox2";
-            this.checkBox4.UseVisualStyleBackColor = true;
+            this._cbNeedFullResist.AutoSize = true;
+            this._cbNeedFullResist.Location = new System.Drawing.Point(92, 29);
+            this._cbNeedFullResist.Name = "_cbNeedFullResist";
+            this._cbNeedFullResist.Size = new System.Drawing.Size(103, 17);
+            this._cbNeedFullResist.TabIndex = 1;
+            this._cbNeedFullResist.Text = "Need Full Resist";
+            this._cbNeedFullResist.UseVisualStyleBackColor = true;
             // 
-            // checkBox3
+            // _cbNeedMiss
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(92, 14);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(80, 17);
-            this.checkBox3.TabIndex = 0;
-            this.checkBox3.Text = "checkBox1";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this._cbNeedMiss.AutoSize = true;
+            this._cbNeedMiss.Location = new System.Drawing.Point(92, 14);
+            this._cbNeedMiss.Name = "_cbNeedMiss";
+            this._cbNeedMiss.Size = new System.Drawing.Size(76, 17);
+            this._cbNeedMiss.TabIndex = 0;
+            this._cbNeedMiss.Text = "Need Miss";
+            this._cbNeedMiss.UseVisualStyleBackColor = true;
             // 
             // checkBox2
             // 
@@ -1047,17 +1062,17 @@
         private System.Windows.Forms.CheckBox checkBox16;
         private System.Windows.Forms.CheckBox checkBox15;
         private System.Windows.Forms.CheckBox checkBox14;
-        private System.Windows.Forms.CheckBox checkBox13;
-        private System.Windows.Forms.CheckBox checkBox12;
-        private System.Windows.Forms.CheckBox checkBox11;
-        private System.Windows.Forms.CheckBox checkBox10;
-        private System.Windows.Forms.CheckBox checkBox9;
-        private System.Windows.Forms.CheckBox checkBox8;
-        private System.Windows.Forms.CheckBox checkBox7;
-        private System.Windows.Forms.CheckBox checkBox6;
-        private System.Windows.Forms.CheckBox checkBox5;
-        private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox _cbNeedInrrupt;
+        private System.Windows.Forms.CheckBox _cbNeedReflect;
+        private System.Windows.Forms.CheckBox _cbNeedAbsorb;
+        private System.Windows.Forms.CheckBox _cbNeedDeflect;
+        private System.Windows.Forms.CheckBox _cbNeedImune;
+        private System.Windows.Forms.CheckBox _cbNeedEvade;
+        private System.Windows.Forms.CheckBox _cbNeedBlock;
+        private System.Windows.Forms.CheckBox _cbNeedParry;
+        private System.Windows.Forms.CheckBox _cbNeedDodge;
+        private System.Windows.Forms.CheckBox _cbNeedFullResist;
+        private System.Windows.Forms.CheckBox _cbNeedMiss;
         private System.Windows.Forms.CheckBox _cbProcFlag;
         private System.Windows.Forms.CheckedListBox _clbProcFlags;
         private System.Windows.Forms.SplitContainer splitContainer6;
