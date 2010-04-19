@@ -22,44 +22,31 @@ namespace SpellWork
 
         private void Loads()
         {
-            SetEnumValues(_cbSpellFamilyName, typeof(SpellFamilyNames), "SpellFamilyName");
-            SetEnumValues(_cbSpellAura, typeof(AuraType), "Aura");
-            SetEnumValues(_cbSpellEffect, typeof(SpellEffects), "Effect");
-            SetEnumValues(_cbTarget1, typeof(Targets), "Target A");
-            SetEnumValues(_cbTarget2, typeof(Targets), "Target B");
+            _cbSpellFamilyName.SetEnumValues(typeof(SpellFamilyNames), "SpellFamilyName");
+            _cbSpellAura.SetEnumValues(typeof(AuraType), "Aura");
+            _cbSpellEffect.SetEnumValues(typeof(SpellEffects), "Effect");
+            _cbTarget1.SetEnumValues(typeof(Targets), "Target A");
+            _cbTarget2.SetEnumValues(typeof(Targets), "Target B");
 
-            SetEnumValues(_cbProcSpellFamilyName, typeof(SpellFamilyNames), "SpellFamilyName");
-            SetEnumValues(_cbProcSpellAura, typeof(AuraType), "Aura");
-            SetEnumValues(_cbProcSpellEffect, typeof(SpellEffects), "Effect");
-            SetEnumValues(_cbProcTarget1, typeof(Targets), "Target A");
-            SetEnumValues(_cbProcTarget2, typeof(Targets), "Target B");
+            _cbProcSpellFamilyName.SetEnumValues(typeof(SpellFamilyNames), "SpellFamilyName");
+            _cbProcSpellAura.SetEnumValues(typeof(AuraType), "Aura");
+            _cbProcSpellEffect.SetEnumValues(typeof(SpellEffects), "Effect");
+            _cbProcTarget1.SetEnumValues(typeof(Targets), "Target A");
+            _cbProcTarget2.SetEnumValues(typeof(Targets), "Target B");
 
-            SetEnumValues(_cbProcSpellFamilyTree, typeof(SpellFamilyNames), "SpellFamilyTree");
+            _cbProcSpellFamilyTree.SetEnumValues(typeof(SpellFamilyNames), "SpellFamilyTree");
+            _cbProcFitstSpellFamily.SetEnumValues(typeof(SpellFamilyNames), "SpellFamilyName");
+
+            _clbSchools.SetFlags(typeof(SpellSchools));
+            _clbProcFlags.SetFlags(typeof(ProcFlags));
+            _clbProcFlagEx.SetFlags( typeof(ProcFlagsEx));
 
             _status.Text = String.Format("DBC Locale: {0}", DBC.Locale);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            splitContainer3.SplitterDistance = 52;
-        }
-
-        private void SetEnumValues(ComboBox cb, Type enums, string NoValue)
-        {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("ID");
-            dt.Columns.Add("NAME");
-
-            dt.Rows.Add(new Object[] { -1, NoValue });
-
-            foreach (var str in Enum.GetValues(enums))
-            {
-                dt.Rows.Add(new Object[] { (int)str, "(" + ((int)str).ToString("000") + ") " + str });
-            }
-
-            cb.DataSource = dt;
-            cb.DisplayMember = "NAME";
-            cb.ValueMember = "ID";
+            splitContainer3.SplitterDistance = 100;
         }
 
         private bool ContainText(String text, String str)
@@ -173,12 +160,12 @@ namespace SpellWork
                 return;
             _tvFamilyTree.Nodes.Clear();
             var spellfamily = (SpellFamilyNames)int.Parse(sen.SelectedValue.ToString());
-            SpellInfo.BuildFamilyTree(_tvFamilyTree, spellfamily);
+            ProcInfo.BuildFamilyTree(_tvFamilyTree, spellfamily);
         }
 
         private void _cbProcFlag_CheckedChanged(object sender, EventArgs e)
         {
-            splitContainer3.SplitterDistance = ((CheckBox)sender).Checked ? 160 : 52;
+            splitContainer3.SplitterDistance = ((CheckBox)sender).Checked ? 216 : 100;
         }
 
         private void _tsmExit_Click(object sender, EventArgs e)
@@ -237,6 +224,11 @@ namespace SpellWork
         {
             SettingsForm frm = new SettingsForm();
             frm.ShowDialog(this);
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _cbProcFlag.Visible = _bWrite.Visible = ((TabControl)sender).SelectedIndex == 1;
         }
     }
 }

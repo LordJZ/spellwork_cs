@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Data;
 using MySql.Data.MySqlClient;
 
 namespace SpellWork
@@ -179,6 +180,71 @@ namespace SpellWork
         public static UInt32 UnixTime()
         {
             return (UInt32)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds;
+        }
+
+        public static String NormaliseString(this String text)
+        {
+            var str = String.Empty;
+            
+            foreach (var s in text.Split('_'))
+            {
+                int i = 0;
+                foreach (var c in s.ToCharArray())
+                {
+                    str += i == 0 ? c.ToString().ToUpper() : c.ToString().ToLower();
+                    i++;
+                }
+                str += " ";
+            }
+
+            return str.Remove(str.Length - 1);
+        }
+
+        public static void SetCheckedItemFromFlag(this CheckedListBox _name, int _value)
+        {
+            for (int i = 0; i < _name.Items.Count; ++i)
+            {
+                var pow = Math.Pow(2, i);
+                var x = (int)Math.Truncate(_value / pow);
+                var check = (x % 2) != 0;
+                _name.SetItemChecked(i, check);
+            }
+        }
+
+        public static int GetFlagsValue(this CheckedListBox _name)
+        {
+            int val = 0;
+            for (int i = 0; i < _name.CheckedIndices.Count; i++)
+                val += (int)(Math.Pow(2, _name.CheckedIndices[i]));
+
+            return val;
+        }
+
+        public static void SetFlags(this CheckedListBox _clb, Type enums)
+        {
+            _clb.Items.Clear();
+            foreach (var elem in Enum.GetValues(enums))
+            {
+                _clb.Items.Add(elem.ToString().NormaliseString());
+            }
+        }
+
+        public static void SetEnumValues(this ComboBox cb, Type enums, string NoValue)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("ID");
+            dt.Columns.Add("NAME");
+
+            dt.Rows.Add(new Object[] { -1, NoValue });
+
+            foreach (var str in Enum.GetValues(enums))
+            {
+                dt.Rows.Add(new Object[] { (int)str, "(" + ((int)str).ToString("000") + ") " + str });
+            }
+
+            cb.DataSource = dt;
+            cb.DisplayMember = "NAME";
+            cb.ValueMember = "ID";
         }
     }
 }
