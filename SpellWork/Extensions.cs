@@ -182,10 +182,12 @@ namespace SpellWork
             return (UInt32)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds;
         }
 
-        public static String NormaliseString(this String text)
+        public static String NormaliseString(this String text, String remove)
         {
             var str = String.Empty;
-            
+            if(remove != String.Empty)
+                text = text.Replace(remove, String.Empty);
+
             foreach (var s in text.Split('_'))
             {
                 int i = 0;
@@ -204,9 +206,9 @@ namespace SpellWork
         {
             for (int i = 0; i < _name.Items.Count; ++i)
             {
-                var pow = Math.Pow(2, i);
-                var x = (int)Math.Truncate(_value / pow);
-                var check = (x % 2) != 0;
+                double pow = Math.Pow(2, i);
+                int x = (int)Math.Truncate(_value / pow);
+                bool check = (x % 2) != 0;
                 _name.SetItemChecked(i, check);
             }
         }
@@ -215,7 +217,9 @@ namespace SpellWork
         {
             int val = 0;
             for (int i = 0; i < _name.CheckedIndices.Count; i++)
+            {
                 val += (int)(Math.Pow(2, _name.CheckedIndices[i]));
+            }
 
             return val;
         }
@@ -225,7 +229,16 @@ namespace SpellWork
             _clb.Items.Clear();
             foreach (var elem in Enum.GetValues(enums))
             {
-                _clb.Items.Add(elem.ToString().NormaliseString());
+                _clb.Items.Add(elem.ToString().NormaliseString(String.Empty));
+            }
+        }
+
+        public static void SetFlags(this CheckedListBox _clb, Type enums, String remove)
+        {
+            _clb.Items.Clear();
+            foreach (var elem in Enum.GetValues(enums))
+            {
+                _clb.Items.Add(elem.ToString().NormaliseString(remove));
             }
         }
 

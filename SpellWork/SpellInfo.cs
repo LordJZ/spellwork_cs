@@ -40,7 +40,8 @@ namespace SpellWork
                 sb.AppendFormatLine("Targets Mask = 0x{0:X8} ({1})", spell.Targets, (SpellCastTargetFlags)spell.Targets);
 
             if (spell.TargetCreatureType != 0)
-                sb.AppendFormatLine("Creature Type Mask = 0x{0:X8} ({1})", spell.TargetCreatureType, (CreatureTypeMask)spell.TargetCreatureType);
+                sb.AppendFormatLine("Creature Type Mask = 0x{0:X8} ({1})", 
+                    spell.TargetCreatureType, (CreatureTypeMask)spell.TargetCreatureType);
 
             if (spell.Stances != 0)
                 sb.AppendFormatLine("Stances: {0}", (ShapeshiftFormMask)spell.Stances);
@@ -50,7 +51,8 @@ namespace SpellWork
 
             AppendSkillLine(sb, spell.ID);
 
-            sb.AppendFormatLine("Spell Level = {0}, base {1}, max {2}, maxTarget {3}", spell.spellLevel, spell.baseLevel, spell.maxLevel, spell.MaxTargetLevel);
+            sb.AppendFormatLine("Spell Level = {0}, base {1}, max {2}, maxTarget {3}", 
+                spell.spellLevel, spell.baseLevel, spell.maxLevel, spell.MaxTargetLevel);
 
             if (spell.EquippedItemClass != -1)
             {
@@ -61,19 +63,23 @@ namespace SpellWork
                     switch ((ItemClass)spell.EquippedItemClass)
                     {
                         case ItemClass.WEAPON:
-                            sb.AppendFormatLine("    SubClass mask 0x{0:X8} ({1})", spell.EquippedItemSubClassMask, (ItemSubClassWeaponMask)spell.EquippedItemSubClassMask);
+                            sb.AppendFormatLine("    SubClass mask 0x{0:X8} ({1})", 
+                                spell.EquippedItemSubClassMask, (ItemSubClassWeaponMask)spell.EquippedItemSubClassMask);
                             break;
                         case ItemClass.ARMOR:
-                            sb.AppendFormatLine("    SubClass mask 0x{0:X8} ({1})", spell.EquippedItemSubClassMask, (ItemSubClassArmorMask)spell.EquippedItemSubClassMask);
+                            sb.AppendFormatLine("    SubClass mask 0x{0:X8} ({1})", 
+                                spell.EquippedItemSubClassMask, (ItemSubClassArmorMask)spell.EquippedItemSubClassMask);
                             break;
                         case ItemClass.MISC:
-                            sb.AppendFormatLine("    SubClass mask 0x{0:X8} ({1})", spell.EquippedItemSubClassMask, (ItemSubClassMiscMask)spell.EquippedItemSubClassMask);
+                            sb.AppendFormatLine("    SubClass mask 0x{0:X8} ({1})", 
+                                spell.EquippedItemSubClassMask, (ItemSubClassMiscMask)spell.EquippedItemSubClassMask);
                             break;
                     }
                 }
 
                 if (spell.EquippedItemInventoryTypeMask != 0)
-                    sb.AppendFormatLine("    InventoryType mask = 0x{0:X8} ({1})", spell.EquippedItemInventoryTypeMask, (InventoryTypeMask)spell.EquippedItemInventoryTypeMask);
+                    sb.AppendFormatLine("    InventoryType mask = 0x{0:X8} ({1})", 
+                        spell.EquippedItemInventoryTypeMask, (InventoryTypeMask)spell.EquippedItemInventoryTypeMask);
             }
 
             sb.AppendLine();
@@ -103,12 +109,11 @@ namespace SpellWork
 
             if (spell.manaCost != 0 || spell.ManaCostPercentage != 0)
             {
-                sb.AppendFormat("Power {0}, Cost {1}", (Powers)spell.powerType, spell.manaCost == 0 ? spell.ManaCostPercentage.ToString() + " %" : spell.manaCost.ToString());
-                //sb.AppendFormatIfNotNull(" + {0}", spell.manaCost);
+                sb.AppendFormat("Power {0}, Cost {1}", 
+                    (Powers)spell.powerType, spell.manaCost == 0 ? spell.ManaCostPercentage.ToString() + " %" : spell.manaCost.ToString());
                 sb.AppendFormatIfNotNull(" + lvl * {0}", spell.manaCostPerlevel);
                 sb.AppendFormatIfNotNull(" + {0} Per Second", spell.manaPerSecond);
                 sb.AppendFormatIfNotNull(" + lvl * {0}", spell.manaPerSecondPerLevel);
-                //sb.AppendFormatIfNotNull(" + {0} %", spell.ManaCostPercentage);
                 sb.AppendLine();
             }
 
@@ -150,12 +155,15 @@ namespace SpellWork
 
         static void AppendSkillLine(RichTextBox sb, uint entry)
         {
-            var query =
-               from skillLineAbility in DBC.SkillLineAbility
-               join skillLine in DBC.SkillLine
-               on skillLineAbility.Value.SkillId equals skillLine.Key
-               where skillLineAbility.Value.SpellId == entry
-               select new { skillLineAbility, skillLine };
+            var query = from skillLineAbility in DBC.SkillLineAbility
+                        join skillLine in DBC.SkillLine
+                        on skillLineAbility.Value.SkillId equals skillLine.Key
+                        where skillLineAbility.Value.SpellId == entry
+                        select new 
+                        { 
+                            skillLineAbility, 
+                            skillLine 
+                        };
 
             if (query.Count() == 0)
                 return;
@@ -189,14 +197,14 @@ namespace SpellWork
                 if (spell.EffectRealPointsPerLevel[i] != 0)
                     sb.AppendFormat(" + Level * {0:F}", spell.EffectRealPointsPerLevel[i]);
 
-                // WTF ?
-                if (/*spell.EffectBaseDice[i]*/1 < spell.EffectDieSides[i])
+                // WTF ? 1 = spell.EffectBaseDice[i]
+                if (1 < spell.EffectDieSides[i])
                 {
                     if (spell.EffectRealPointsPerLevel[i] != 0)
                         sb.AppendFormat(" to {0} + lvl * {1:F}",
-                            spell.EffectBasePoints[i] + /*spell.EffectBaseDice[i]*/ 1 + spell.EffectDieSides[i], spell.EffectRealPointsPerLevel[i]);
+                            spell.EffectBasePoints[i] + 1 + spell.EffectDieSides[i], spell.EffectRealPointsPerLevel[i]);
                     else
-                        sb.AppendFormat(" to {0}", spell.EffectBasePoints[i] +/*+ spell.EffectBaseDice[i]*/ 1 + spell.EffectDieSides[i]);
+                        sb.AppendFormat(" to {0}", spell.EffectBasePoints[i] + 1 + spell.EffectDieSides[i]);
                 }
 
                 sb.AppendFormatIfNotNull(" + combo * {0:F}", spell.EffectPointsPerComboPoint[i]);
@@ -207,7 +215,7 @@ namespace SpellWork
                 sb.AppendFormatIfNotNull("  Multiple = {0:F}", spell.EffectMultipleValue[i]);
                 sb.AppendLine();
 
-                sb.AppendFormatLine("Targets ({0},{1}) ({2},{3})",
+                sb.AppendFormatLine("Targets ({0}, {1}) ({2}, {3})",
                     spell.EffectImplicitTargetA[i], spell.EffectImplicitTargetB[i],
                     (Targets)spell.EffectImplicitTargetA[i], (Targets)spell.EffectImplicitTargetB[i]);
 

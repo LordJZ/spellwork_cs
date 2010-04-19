@@ -38,8 +38,8 @@ namespace SpellWork
             _cbProcFitstSpellFamily.SetEnumValues(typeof(SpellFamilyNames), "SpellFamilyName");
 
             _clbSchools.SetFlags(typeof(SpellSchools));
-            _clbProcFlags.SetFlags(typeof(ProcFlags));
-            _clbProcFlagEx.SetFlags( typeof(ProcFlagsEx));
+            _clbProcFlags.SetFlags(typeof(ProcFlags), "PROC_FLAG_");
+            _clbProcFlagEx.SetFlags(typeof(ProcFlagsEx), "PROC_EX_");
 
             _status.Text = String.Format("DBC Locale: {0}", DBC.Locale);
         }
