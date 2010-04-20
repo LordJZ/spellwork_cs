@@ -8,6 +8,8 @@ namespace SpellWork
     {
         public static void View(RichTextBox sb, SpellEntry spell)
         {
+            ProcInfo.SpellProc = spell;
+
             sb.Clear();
             sb.SetBold();
             sb.AppendFormatLine("ID - {0} {1}", spell.ID, spell.SpellNameRank);

@@ -51,7 +51,7 @@
             this._cbSpellFamilyName = new System.Windows.Forms.ComboBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this._bSearch = new System.Windows.Forms.Button();
-            this._tbSearch = new System.Windows.Forms.TextBox();
+            this._tbSearchId = new System.Windows.Forms.TextBox();
             this._lvSpellList = new System.Windows.Forms.ListView();
             this.chSpellID = new System.Windows.Forms.ColumnHeader();
             this.chSpellName = new System.Windows.Forms.ColumnHeader();
@@ -62,7 +62,7 @@
             this._clbProcFlags = new System.Windows.Forms.CheckedListBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this._clbProcFlagEx = new System.Windows.Forms.CheckedListBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this._gSpellProcEvent = new System.Windows.Forms.GroupBox();
             this._clbSchools = new System.Windows.Forms.CheckedListBox();
             this._cbProcFitstSpellFamily = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -96,6 +96,11 @@
             this._tbSqlLog = new System.Windows.Forms.TextBox();
             this._cbProcFlag = new System.Windows.Forms.CheckBox();
             this._bWrite = new System.Windows.Forms.Button();
+            this._tbSearchIcon = new System.Windows.Forms.TextBox();
+            this._tbSearchAttributes = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -115,7 +120,7 @@
             this.splitContainer3.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.groupBox3.SuspendLayout();
+            this._gSpellProcEvent.SuspendLayout();
             this.splitContainer4.Panel1.SuspendLayout();
             this.splitContainer4.Panel2.SuspendLayout();
             this.splitContainer4.SuspendLayout();
@@ -278,7 +283,7 @@
             this.groupBox6.Controls.Add(this._cbSpellEffect);
             this.groupBox6.Controls.Add(this._cbSpellAura);
             this.groupBox6.Controls.Add(this._cbSpellFamilyName);
-            this.groupBox6.Location = new System.Drawing.Point(2, 42);
+            this.groupBox6.Location = new System.Drawing.Point(2, 81);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(272, 113);
             this.groupBox6.TabIndex = 8;
@@ -350,11 +355,16 @@
             this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox7.BackColor = System.Drawing.Color.LightGray;
+            this.groupBox7.Controls.Add(this.label6);
+            this.groupBox7.Controls.Add(this.label5);
+            this.groupBox7.Controls.Add(this.label4);
             this.groupBox7.Controls.Add(this._bSearch);
-            this.groupBox7.Controls.Add(this._tbSearch);
+            this.groupBox7.Controls.Add(this._tbSearchAttributes);
+            this.groupBox7.Controls.Add(this._tbSearchIcon);
+            this.groupBox7.Controls.Add(this._tbSearchId);
             this.groupBox7.Location = new System.Drawing.Point(0, 2);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(272, 43);
+            this.groupBox7.Size = new System.Drawing.Size(272, 89);
             this.groupBox7.TabIndex = 9;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Spell Search";
@@ -362,23 +372,23 @@
             // _bSearch
             // 
             this._bSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this._bSearch.Location = new System.Drawing.Point(221, 14);
+            this._bSearch.Location = new System.Drawing.Point(221, 11);
             this._bSearch.Name = "_bSearch";
             this._bSearch.Size = new System.Drawing.Size(47, 23);
             this._bSearch.TabIndex = 1;
             this._bSearch.Text = "Seach";
             this._bSearch.UseVisualStyleBackColor = true;
-            this._bSearch.Click += new System.EventHandler(this._bSearch_Click);
+            this._bSearch.Click += new System.EventHandler(this._bSearch_Click_1);
             // 
-            // _tbSearch
+            // _tbSearchId
             // 
-            this._tbSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this._tbSearchId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this._tbSearch.Location = new System.Drawing.Point(6, 16);
-            this._tbSearch.Name = "_tbSearch";
-            this._tbSearch.Size = new System.Drawing.Size(210, 20);
-            this._tbSearch.TabIndex = 0;
-            this._tbSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this._tbSearch_KeyDown);
+            this._tbSearchId.Location = new System.Drawing.Point(73, 13);
+            this._tbSearchId.Name = "_tbSearchId";
+            this._tbSearchId.Size = new System.Drawing.Size(143, 20);
+            this._tbSearchId.TabIndex = 0;
+            this._tbSearchId.KeyDown += new System.Windows.Forms.KeyEventHandler(this._tbSearchId_KeyDown);
             // 
             // _lvSpellList
             // 
@@ -392,10 +402,10 @@
             this._lvSpellList.FullRowSelect = true;
             this._lvSpellList.GridLines = true;
             this._lvSpellList.HideSelection = false;
-            this._lvSpellList.Location = new System.Drawing.Point(6, 154);
+            this._lvSpellList.Location = new System.Drawing.Point(6, 195);
             this._lvSpellList.MultiSelect = false;
             this._lvSpellList.Name = "_lvSpellList";
-            this._lvSpellList.Size = new System.Drawing.Size(265, 397);
+            this._lvSpellList.Size = new System.Drawing.Size(265, 356);
             this._lvSpellList.TabIndex = 7;
             this._lvSpellList.UseCompatibleStateImageBehavior = false;
             this._lvSpellList.View = System.Windows.Forms.View.Details;
@@ -454,7 +464,7 @@
             this.splitContainer3.Panel1.BackColor = System.Drawing.Color.White;
             this.splitContainer3.Panel1.Controls.Add(this.groupBox5);
             this.splitContainer3.Panel1.Controls.Add(this.groupBox4);
-            this.splitContainer3.Panel1.Controls.Add(this.groupBox3);
+            this.splitContainer3.Panel1.Controls.Add(this._gSpellProcEvent);
             // 
             // splitContainer3.Panel2
             // 
@@ -511,25 +521,25 @@
             this._clbProcFlagEx.Size = new System.Drawing.Size(852, 49);
             this._clbProcFlagEx.TabIndex = 3;
             // 
-            // groupBox3
+            // _gSpellProcEvent
             // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this._gSpellProcEvent.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this._clbSchools);
-            this.groupBox3.Controls.Add(this._cbProcFitstSpellFamily);
-            this.groupBox3.Controls.Add(this.label1);
-            this.groupBox3.Controls.Add(this._tbPPM);
-            this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Controls.Add(this._tbChance);
-            this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this._tbCooldown);
-            this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox3.Location = new System.Drawing.Point(4, 0);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(857, 63);
-            this.groupBox3.TabIndex = 8;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Spell Proc Event";
+            this._gSpellProcEvent.Controls.Add(this._clbSchools);
+            this._gSpellProcEvent.Controls.Add(this._cbProcFitstSpellFamily);
+            this._gSpellProcEvent.Controls.Add(this.label1);
+            this._gSpellProcEvent.Controls.Add(this._tbPPM);
+            this._gSpellProcEvent.Controls.Add(this.label2);
+            this._gSpellProcEvent.Controls.Add(this._tbChance);
+            this._gSpellProcEvent.Controls.Add(this.label3);
+            this._gSpellProcEvent.Controls.Add(this._tbCooldown);
+            this._gSpellProcEvent.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this._gSpellProcEvent.Location = new System.Drawing.Point(4, 0);
+            this._gSpellProcEvent.Name = "_gSpellProcEvent";
+            this._gSpellProcEvent.Size = new System.Drawing.Size(857, 63);
+            this._gSpellProcEvent.TabIndex = 8;
+            this._gSpellProcEvent.TabStop = false;
+            this._gSpellProcEvent.Text = "Spell Proc Event";
             // 
             // _clbSchools
             // 
@@ -542,6 +552,7 @@
             this._clbSchools.Name = "_clbSchools";
             this._clbSchools.Size = new System.Drawing.Size(463, 34);
             this._clbSchools.TabIndex = 5;
+            this._clbSchools.SelectedIndexChanged += new System.EventHandler(this._clbSchools_SelectedIndexChanged);
             // 
             // _cbProcFitstSpellFamily
             // 
@@ -906,6 +917,53 @@
             this._bWrite.UseVisualStyleBackColor = true;
             this._bWrite.Visible = false;
             // 
+            // _tbSearchIcon
+            // 
+            this._tbSearchIcon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this._tbSearchIcon.Location = new System.Drawing.Point(73, 35);
+            this._tbSearchIcon.Name = "_tbSearchIcon";
+            this._tbSearchIcon.Size = new System.Drawing.Size(143, 20);
+            this._tbSearchIcon.TabIndex = 0;
+            this._tbSearchIcon.KeyDown += new System.Windows.Forms.KeyEventHandler(this._tbSearchId_KeyDown);
+            // 
+            // _tbSearchAttributes
+            // 
+            this._tbSearchAttributes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this._tbSearchAttributes.Location = new System.Drawing.Point(73, 57);
+            this._tbSearchAttributes.Name = "_tbSearchAttributes";
+            this._tbSearchAttributes.Size = new System.Drawing.Size(143, 20);
+            this._tbSearchAttributes.TabIndex = 0;
+            this._tbSearchAttributes.KeyDown += new System.Windows.Forms.KeyEventHandler(this._tbSearchId_KeyDown);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 16);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(64, 13);
+            this.label4.TabIndex = 2;
+            this.label4.Text = "ID or Name:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 38);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(57, 13);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "Spell Icon:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 60);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(54, 13);
+            this.label6.TabIndex = 2;
+            this.label6.Text = "Attributes:";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -920,7 +978,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(880, 585);
             this.Name = "MainForm";
-            this.Text = "Spell Work";
+            this.Text = "Spell Work 3.3.3a (11723)";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
@@ -944,8 +1002,8 @@
             this.splitContainer3.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
+            this._gSpellProcEvent.ResumeLayout(false);
+            this._gSpellProcEvent.PerformLayout();
             this.splitContainer4.Panel1.ResumeLayout(false);
             this.splitContainer4.Panel2.ResumeLayout(false);
             this.splitContainer4.ResumeLayout(false);
@@ -974,7 +1032,7 @@
         private System.Windows.Forms.RichTextBox _rtSpellInfo;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button _bSearch;
-        private System.Windows.Forms.TextBox _tbSearch;
+        private System.Windows.Forms.TextBox _tbSearchId;
         private System.Windows.Forms.ComboBox _cbSpellFamilyName;
         private System.Windows.Forms.ListView _lvSpellList;
         private System.Windows.Forms.ColumnHeader chSpellID;
@@ -1030,8 +1088,13 @@
         private System.Windows.Forms.Button _bWrite;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox _gSpellProcEvent;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox _tbSearchAttributes;
+        private System.Windows.Forms.TextBox _tbSearchIcon;
     }
 }

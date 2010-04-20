@@ -162,6 +162,16 @@ namespace SpellWork
             return num;
         }
 
+        public static float ToFloat(this Object val)
+        {
+            if (val == null)
+                return 0;
+
+            float num;
+            float.TryParse(val.ToString().Replace(',', '.'), out num);
+            return num;
+        }
+
         // Time methods
         public static Int32 MsDiff(DateTime time1, DateTime time2)
         {

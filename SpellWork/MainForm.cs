@@ -50,7 +50,7 @@ namespace SpellWork
             switch (b.Name)
             {
                 case "_bSearch":
-                    Search(_lvSpellList, _tbSearch);
+                    Search(_lvSpellList, _tbSearchId);
                     break;
                 case "_bProcSearch":
                     Search(_lvProcSpellList, _tbProcSeach);
@@ -242,6 +242,81 @@ namespace SpellWork
             _cbProcFitstSpellFamily.SelectedValue = spell.SpellFamilyName;
             _tbChance.Text = spell.ProcChance.ToString();
             _tbCooldown.Text = (spell.RecoveryTime / 1000f).ToString();
+        }
+
+        private void GetProcAttribute(SpellEntry spell)
+        {
+            // test
+            var statusproc = String.Format("Spell ({0}) {1}. Proc Event ==>SchoolMask 0x{2:X2}, SpellFamily {3}, 0x{4:X8} {5:X8} {6:X8}, procFlag {7:X8}, PPMRate {8}",
+                spell.ID, 
+                spell.SpellNameRank, 
+                _clbSchools.GetFlagsValue(),
+                _cbProcFitstSpellFamily.ValueMember,
+                spell.SpellFamilyFlags1,
+                spell.SpellFamilyFlags2,
+                spell.SpellFamilyFlags3,
+                spell.ProcFlags,
+                _tbPPM.Text.ToFloat());
+
+            _gSpellProcEvent.Text = "Spell Proc Event       " + statusproc;
+        }
+
+        private void _clbSchools_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ProcInfo.SpellProc.ID != 0)
+            {
+                GetProcAttribute(ProcInfo.SpellProc);
+            }
+        }
+
+        private void _tbSearchId_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                AdditionalSeach();
+            }
+        }
+
+        private void _bSearch_Click_1(object sender, EventArgs e)
+        {
+            AdditionalSeach();
+        }
+
+        private void AdditionalSeach()
+        {
+            _lvSpellList.Items.Clear();
+
+            string name = _tbSearchId.Text;
+            uint id = _tbSearchId.Text.ToUInt32();
+            uint ic = _tbSearchIcon.Text.ToUInt32();
+            uint at = _tbSearchAttributes.Text.ToUInt32();
+
+            var query = from spell in DBC.Spell
+                        where (id == 0 || (id == 0 || spell.Key  == id) 
+                                       && (id != 0 || ContainText(spell.Value.SpellName, name)))
+
+                        && (ic == 0 || spell.Value.SpellIconID   == ic)
+
+                        && (at == 0 || spell.Value.Attributes    == at
+                                    || spell.Value.AttributesEx  == at
+                                    || spell.Value.AttributesEx2 == at
+                                    || spell.Value.AttributesEx3 == at
+                                    || spell.Value.AttributesEx4 == at
+                                    || spell.Value.AttributesEx5 == at
+                                    || spell.Value.AttributesEx6 == at
+                                    || spell.Value.AttributesExG == at)
+                        select spell;
+
+            if (query.Count() == 0) return;
+
+            foreach (var element in query)
+            {
+                _lvSpellList.Items.Add(new ListViewItem(new String[] 
+                    { 
+                        element.Key.ToString(), 
+                        element.Value.SpellNameRank 
+                    }));
+            }
         }
     }
 }
