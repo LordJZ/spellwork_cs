@@ -296,14 +296,14 @@ namespace SpellWork
 
                             && (ic == 0 || spell.Value.SpellIconID   == ic)
 
-                            && (at == 0 || spell.Value.Attributes    == at
-                                        || spell.Value.AttributesEx  == at
-                                        || spell.Value.AttributesEx2 == at
-                                        || spell.Value.AttributesEx3 == at
-                                        || spell.Value.AttributesEx4 == at
-                                        || spell.Value.AttributesEx5 == at
-                                        || spell.Value.AttributesEx6 == at
-                                        || spell.Value.AttributesExG == at))
+                            && (at == 0 || (spell.Value.Attributes    & at) != 0
+                                        || (spell.Value.AttributesEx  & at) != 0
+                                        || (spell.Value.AttributesEx2 & at) != 0
+                                        || (spell.Value.AttributesEx3 & at) != 0
+                                        || (spell.Value.AttributesEx4 & at) != 0
+                                        || (spell.Value.AttributesEx5 & at) != 0
+                                        || (spell.Value.AttributesEx6 & at) != 0
+                                        || (spell.Value.AttributesExG & at) != 0))
 
                             && ((id != 0 || ic != 0 && at != 0) || ContainText(spell.Value.SpellName, name))
 

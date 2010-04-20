@@ -184,11 +184,11 @@ namespace SpellWork
                 sb.SetBold();
                 if ((SpellEffects)spell.Effect[i] == SpellEffects.NO_SPELL_EFFECT)
                 {
-                    sb.AppendFormatLine("Effect {0}: NO EFFECT", i);
+                    sb.AppendFormatLine("Effect {0}:  NO EFFECT", i);
                     return;
                 }
 
-                sb.AppendFormatLine("Effect {0}: {1}", i, (SpellEffects)spell.Effect[i]);
+                sb.AppendFormatLine("Effect {0}: Id {1} ({2})", i, spell.Effect[i], (SpellEffects)spell.Effect[i]);
                 sb.SetDefaultStyle();
                 sb.AppendFormat("BasePoints = {0}", spell.EffectBasePoints[i] + 1);
                 if (spell.EffectRealPointsPerLevel[i] != 0)
@@ -218,7 +218,8 @@ namespace SpellWork
 
                 if (spell.EffectApplyAuraName[i] != 0)
                 {
-                    sb.AppendFormatLine("Aura {0}, value = {1}, misc = {2}, miscB = {3}, periodic = {4}",
+                    sb.AppendFormatLine("Aura Id {0} ({1}), value = {2}, misc = {3}, miscB = {4}, periodic = {5}",
+                        spell.EffectApplyAuraName[i],
                         (AuraType)spell.EffectApplyAuraName[i],
                         spell.EffectBasePoints[i] + 1, spell.GetAuraModTypeName(i),
                         spell.EffectMiscValueB[i], spell.EffectAmplitude[i]);
