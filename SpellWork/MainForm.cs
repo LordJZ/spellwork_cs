@@ -292,19 +292,23 @@ namespace SpellWork
             uint at = _tbSearchAttributes.Text.ToUInt32();
 
             var query = from spell in DBC.Spell
-                        where (id == 0 || (id == 0 || spell.Key  == id) 
-                                       && (id != 0 || ContainText(spell.Value.SpellName, name)))
+                        where (
+                               (id == 0 || spell.Key == id) 
 
-                        && (ic == 0 || spell.Value.SpellIconID   == ic)
+                            && (ic == 0 || spell.Value.SpellIconID   == ic)
 
-                        && (at == 0 || spell.Value.Attributes    == at
-                                    || spell.Value.AttributesEx  == at
-                                    || spell.Value.AttributesEx2 == at
-                                    || spell.Value.AttributesEx3 == at
-                                    || spell.Value.AttributesEx4 == at
-                                    || spell.Value.AttributesEx5 == at
-                                    || spell.Value.AttributesEx6 == at
-                                    || spell.Value.AttributesExG == at)
+                            && (at == 0 || spell.Value.Attributes    == at
+                                        || spell.Value.AttributesEx  == at
+                                        || spell.Value.AttributesEx2 == at
+                                        || spell.Value.AttributesEx3 == at
+                                        || spell.Value.AttributesEx4 == at
+                                        || spell.Value.AttributesEx5 == at
+                                        || spell.Value.AttributesEx6 == at
+                                        || spell.Value.AttributesExG == at)
+                              )
+
+                            && ((id != 0 || ic != 0 && at != 0) || ContainText(spell.Value.SpellName, name))
+
                         select spell;
 
             if (query.Count() == 0) return;

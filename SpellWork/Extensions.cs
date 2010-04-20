@@ -165,7 +165,7 @@ namespace SpellWork
         public static float ToFloat(this Object val)
         {
             if (val == null)
-                return 0;
+                return 0.0f;
 
             float num;
             float.TryParse(val.ToString().Replace(',', '.'), out num);
