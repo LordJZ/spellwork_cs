@@ -182,15 +182,15 @@ namespace SpellWork
         {
             get
             {
-                string n, r;
+                string name, rank;
 
                 uint offsetname = _SpellName[(uint)DBC.Locale];
                 uint offsetrank = _Rank[(uint)DBC.Locale];
 
-                DBC._SpellStrings.TryGetValue(offsetname, out n);
-                DBC._SpellStrings.TryGetValue(offsetrank, out r);
+                DBC._SpellStrings.TryGetValue(offsetname, out name);
+                DBC._SpellStrings.TryGetValue(offsetrank, out rank);
                 
-                return r == String.Empty ? n : n + " (" + r + ")";
+                return rank == String.Empty ? name : String.Format("{0} ({1})", name, rank);
             }
         }
 

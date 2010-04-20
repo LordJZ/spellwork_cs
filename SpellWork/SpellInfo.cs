@@ -6,10 +6,9 @@ namespace SpellWork
 {
     class SpellInfo
     {
-        public static void View(RichTextBox sb, uint spellId)
+        public static void View(RichTextBox sb, SpellEntry spell)
         {
             sb.Clear();
-            var spell = DBC.Spell[spellId];
             sb.SetBold();
             sb.AppendFormatLine("ID - {0} {1}", spell.ID, spell.SpellNameRank);
             sb.SetDefaultStyle();

@@ -18,14 +18,14 @@ namespace SpellWork
             _cbTarget1.SetEnumValues(typeof(Targets), "Target A", "TARGET_");
             _cbTarget2.SetEnumValues(typeof(Targets), "Target B", "TARGET_");
 
-            _cbProcSpellFamilyName.SetEnumValues(typeof(SpellFamilyNames), "SpellFamilyName");
-            _cbProcSpellAura.SetEnumValues(typeof(AuraType), "Aura");
-            _cbProcSpellEffect.SetEnumValues(typeof(SpellEffects), "Effect");
-            _cbProcTarget1.SetEnumValues(typeof(Targets), "Target A");
-            _cbProcTarget2.SetEnumValues(typeof(Targets), "Target B");
+            _cbProcSpellFamilyName.SetEnumValues(typeof(SpellFamilyNames), "SpellFamilyName", "SPELLFAMILY_");
+            _cbProcSpellAura.SetEnumValues(typeof(AuraType), "Aura", "SPELL_AURA_");
+            _cbProcSpellEffect.SetEnumValues(typeof(SpellEffects), "Effect", "SPELL_EFFECT_");
+            _cbProcTarget1.SetEnumValues(typeof(Targets), "Target A", "TARGET_");
+            _cbProcTarget2.SetEnumValues(typeof(Targets), "Target B", "TARGET_");
 
-            _cbProcSpellFamilyTree.SetEnumValues(typeof(SpellFamilyNames), "SpellFamilyTree");
-            _cbProcFitstSpellFamily.SetEnumValues(typeof(SpellFamilyNames), "SpellFamilyName");
+            _cbProcSpellFamilyTree.SetEnumValues(typeof(SpellFamilyNames), "SpellFamilyTree", "SPELLFAMILY_");
+            _cbProcFitstSpellFamily.SetEnumValues(typeof(SpellFamilyNames), "SpellFamilyName", "SPELLFAMILY_");
 
             _clbSchools.SetFlags(typeof(SpellSchools));
             _clbProcFlags.SetFlags(typeof(ProcFlags), "PROC_FLAG_");
@@ -47,10 +47,15 @@ namespace SpellWork
         private void _bSearch_Click(object sender, EventArgs e)
         {
             var b = (Button)sender;
-            if (b.Name == "_bSearch")
-                Search(_lvSpellList, _tbSearch);
-            else if (b.Name == "_bProcSearch")
-                Search(_lvProcSpellList, _tbProcSeach);
+            switch (b.Name)
+            {
+                case "_bSearch":
+                    Search(_lvSpellList, _tbSearch);
+                    break;
+                case "_bProcSearch":
+                    Search(_lvProcSpellList, _tbProcSeach);
+                    break;
+            }
         }
 
         private void _cbSpellFamilyNames_SelectedIndexChanged(object sender, EventArgs e)
@@ -89,16 +94,16 @@ namespace SpellWork
 
             var query = from spell in DBC.Spell
                         where (!bFamilyNames || spell.Value.SpellFamilyName == fFamilyNames)
-                           && (!bSpellAura || spell.Value.EffectApplyAuraName[0] == fSpellAura
+                           && (!bSpellAura   || spell.Value.EffectApplyAuraName[0] == fSpellAura
                                              || spell.Value.EffectApplyAuraName[1] == fSpellAura
                                              || spell.Value.EffectApplyAuraName[2] == fSpellAura)
                            && (!bSpellEffect || spell.Value.Effect[0] == fSpellEffect
                                              || spell.Value.Effect[1] == fSpellEffect
                                              || spell.Value.Effect[2] == fSpellEffect)
-                           && (!bTarget1 || spell.Value.EffectImplicitTargetA[0] == fTarget1
+                           && (!bTarget1     || spell.Value.EffectImplicitTargetA[0] == fTarget1
                                              || spell.Value.EffectImplicitTargetA[1] == fTarget1
                                              || spell.Value.EffectImplicitTargetA[2] == fTarget1)
-                           && (!bTarget2 || spell.Value.EffectImplicitTargetB[0] == fTarget2
+                           && (!bTarget2     || spell.Value.EffectImplicitTargetB[0] == fTarget2
                                              || spell.Value.EffectImplicitTargetB[1] == fTarget2
                                              || spell.Value.EffectImplicitTargetB[2] == fTarget2)
 
@@ -123,7 +128,7 @@ namespace SpellWork
             if (lv.SelectedItems.Count > 0)
             {
                 var id = lv.SelectedItems[0].SubItems[0].Text.ToUInt32();
-                SpellInfo.View(_rtSpellInfo, id);
+                SpellInfo.View(_rtSpellInfo, DBC.Spell[id]);
             }
         }
 
@@ -163,22 +168,26 @@ namespace SpellWork
             var tb = (TextBox)sender;
             if (e.KeyCode == Keys.Enter)
             {
-                if (tb.Name == "_tbSearch")
-                    Search(_lvSpellList, tb);
-                else if (tb.Name == "_tbProcSeach")
-                    Search(_lvProcSpellList, tb);
+                switch (tb.Name)
+                {
+                    case "_tbSearch": 
+                        Search(_lvSpellList, tb); 
+                        break;
+                    case "_tbProcSeach":  
+                        Search(_lvProcSpellList, tb); 
+                        break;
+                }
             }
         }
 
         private void Search(ListView lv, TextBox tb)
         {
             lv.Items.Clear();
-
-            var query =
-                from spell in DBC.Spell
-                where (spell.Key.ToString() == tb.Text)
-                  || ContainText(spell.Value.SpellName, tb.Text)
-                select spell;
+            uint id = tb.Text.ToUInt32();
+            var query = from spell in DBC.Spell
+                        where (id == 0 || spell.Key == id) 
+                           && (id != 0 || ContainText(spell.Value.SpellName, tb.Text))
+                        select spell;
 
             if (query.Count() == 0) return;
 
@@ -196,7 +205,10 @@ namespace SpellWork
         {
             TreeNode node = ((TreeView)sender).SelectedNode;
             if (node.Level > 0)
-                SpellInfo.View(_rtbProcSpellInfo, node.Name.ToUInt32());
+            {
+                SpellEntry spell = DBC.Spell[node.Name.ToUInt32()];
+                SetProcAtribute(spell);
+            }
         }
 
         private void _tsmSettings_Click(object sender, EventArgs e)
@@ -216,20 +228,20 @@ namespace SpellWork
             if (lv.SelectedItems.Count > 0)
             {
                 var id = lv.SelectedItems[0].SubItems[0].Text.ToUInt32();
-                SpellInfo.View(_rtbProcSpellInfo, id);
-
-                var result = (from s in DBC.Spell where s.Key == id select s.Value.SpellFamilyName).First();
-                _cbProcSpellFamilyTree.SelectedValue = result;
-
-                var spell = DBC.Spell[id];
-                _clbProcFlags.SetCheckedItemFromFlag(spell.ProcFlags);
-                _clbProcFlagEx.SetCheckedItemFromFlag(spell.ProcFlags); // необходимо указать поле
-                _clbSchools.SetCheckedItemFromFlag(spell.SchoolMask);
-                _cbProcFitstSpellFamily.SelectedValue = spell.SpellFamilyName;
-                //_tbPPM.Text = spell.;   // необходимо указать поле
-                _tbChance.Text = spell.ProcChance.ToString();
-                _tbCooldown.Text = (spell.RecoveryTime/1000f).ToString();
+                SetProcAtribute(DBC.Spell[id]);
             }
+        }
+
+        private void SetProcAtribute(SpellEntry spell)
+        {
+            SpellInfo.View(_rtbProcSpellInfo, spell);
+
+            _cbProcSpellFamilyTree.SelectedValue = spell.SpellFamilyName;
+            _clbProcFlags.SetCheckedItemFromFlag(spell.ProcFlags);
+            _clbSchools.SetCheckedItemFromFlag(spell.SchoolMask);
+            _cbProcFitstSpellFamily.SelectedValue = spell.SpellFamilyName;
+            _tbChance.Text = spell.ProcChance.ToString();
+            _tbCooldown.Text = (spell.RecoveryTime / 1000f).ToString();
         }
     }
 }

@@ -27,7 +27,7 @@ namespace SpellWork
             byte DetectedLocale = 0;
             while (DBC.Spell[1].GetName(DetectedLocale) == "")
             {
-                if (DetectedLocale >= MAX_DBC_LOCALE)
+                if (DetectedLocale >= MAX_DBC_LOCALE)// TODO: необходимо как-то сообщить пользователю о том, что ДБЦ у него неправильные
                     throw new Exception("Detected unknown locale index " + DetectedLocale);
                 ++DetectedLocale;
             }
@@ -55,7 +55,7 @@ namespace SpellWork
 
             int size = Marshal.SizeOf(typeof(T));
 
-            if (recordSize != size)
+            if (recordSize != size)// TODO: необходимо как-то сообщить пользователю о том, что ДБЦ у него возможно не той версии
                 throw new Exception(String.Format("\n\nSize of row in DBC file ({0}) != size of DBC struct ({1})\nDBC: {2}\n\n", 
                     recordSize, size, fileName));
 
