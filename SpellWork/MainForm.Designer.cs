@@ -43,7 +43,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this._rtSpellInfo = new System.Windows.Forms.RichTextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this._gSpellFilter = new System.Windows.Forms.GroupBox();
             this._cbTarget2 = new System.Windows.Forms.ComboBox();
             this._cbTarget1 = new System.Windows.Forms.ComboBox();
             this._cbSpellEffect = new System.Windows.Forms.ComboBox();
@@ -109,7 +109,7 @@
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBox6.SuspendLayout();
+            this._gSpellFilter.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.splitContainer2.Panel1.SuspendLayout();
@@ -263,7 +263,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.groupBox6);
+            this.groupBox1.Controls.Add(this._gSpellFilter);
             this.groupBox1.Controls.Add(this.groupBox7);
             this.groupBox1.Controls.Add(this._lvSpellList);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -273,22 +273,22 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             // 
-            // groupBox6
+            // _gSpellFilter
             // 
-            this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this._gSpellFilter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox6.BackColor = System.Drawing.Color.LightGray;
-            this.groupBox6.Controls.Add(this._cbTarget2);
-            this.groupBox6.Controls.Add(this._cbTarget1);
-            this.groupBox6.Controls.Add(this._cbSpellEffect);
-            this.groupBox6.Controls.Add(this._cbSpellAura);
-            this.groupBox6.Controls.Add(this._cbSpellFamilyName);
-            this.groupBox6.Location = new System.Drawing.Point(2, 81);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(309, 136);
-            this.groupBox6.TabIndex = 8;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Spell Filter";
+            this._gSpellFilter.BackColor = System.Drawing.Color.LightGray;
+            this._gSpellFilter.Controls.Add(this._cbTarget2);
+            this._gSpellFilter.Controls.Add(this._cbTarget1);
+            this._gSpellFilter.Controls.Add(this._cbSpellEffect);
+            this._gSpellFilter.Controls.Add(this._cbSpellAura);
+            this._gSpellFilter.Controls.Add(this._cbSpellFamilyName);
+            this._gSpellFilter.Location = new System.Drawing.Point(2, 81);
+            this._gSpellFilter.Name = "_gSpellFilter";
+            this._gSpellFilter.Size = new System.Drawing.Size(309, 136);
+            this._gSpellFilter.TabIndex = 8;
+            this._gSpellFilter.TabStop = false;
+            this._gSpellFilter.Text = "Spell Filter";
             // 
             // _cbTarget2
             // 
@@ -627,9 +627,11 @@
             // _tbPPM
             // 
             this._tbPPM.Location = new System.Drawing.Point(39, 38);
+            this._tbPPM.MaxLength = 10;
             this._tbPPM.Name = "_tbPPM";
             this._tbPPM.Size = new System.Drawing.Size(60, 20);
             this._tbPPM.TabIndex = 7;
+            this._tbPPM.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBox_KeyPress);
             // 
             // label2
             // 
@@ -643,9 +645,11 @@
             // _tbChance
             // 
             this._tbChance.Location = new System.Drawing.Point(155, 38);
+            this._tbChance.MaxLength = 10;
             this._tbChance.Name = "_tbChance";
             this._tbChance.Size = new System.Drawing.Size(60, 20);
             this._tbChance.TabIndex = 7;
+            this._tbChance.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBox_KeyPress);
             // 
             // label3
             // 
@@ -659,9 +663,11 @@
             // _tbCooldown
             // 
             this._tbCooldown.Location = new System.Drawing.Point(285, 38);
+            this._tbCooldown.MaxLength = 10;
             this._tbCooldown.Name = "_tbCooldown";
             this._tbCooldown.Size = new System.Drawing.Size(60, 20);
             this._tbCooldown.TabIndex = 7;
+            this._tbCooldown.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBox_KeyPress);
             // 
             // splitContainer4
             // 
@@ -690,10 +696,6 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this._cbProcSpellFamilyTree.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._cbProcSpellFamilyTree.FormattingEnabled = true;
-            this._cbProcSpellFamilyTree.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3"});
             this._cbProcSpellFamilyTree.Location = new System.Drawing.Point(1, 2);
             this._cbProcSpellFamilyTree.Name = "_cbProcSpellFamilyTree";
             this._cbProcSpellFamilyTree.Size = new System.Drawing.Size(258, 21);
@@ -995,7 +997,7 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
-            this.groupBox6.ResumeLayout(false);
+            this._gSpellFilter.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             this.tabPage3.ResumeLayout(false);
@@ -1095,7 +1097,7 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox _gSpellProcEvent;
         private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.GroupBox _gSpellFilter;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;

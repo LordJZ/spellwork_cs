@@ -111,7 +111,7 @@ namespace SpellWork
 
             if (query.Count() == 0)
                 return;
-
+            //_gSpellFilter.Text = "Spell Filter " + "count: " + query.Count();
             foreach (var element in query)
             {
                 lv.Items.Add(new ListViewItem(new String[] 
@@ -310,6 +310,7 @@ namespace SpellWork
                         select spell;
 
             if (query.Count() == 0) return;
+            //_gSpellFilter.Text = "Spell Filter " + "count: " + query.Count();
 
             foreach (var element in query)
             {
@@ -319,6 +320,12 @@ namespace SpellWork
                         element.Value.SpellNameRank 
                     }));
             }
+        }
+
+        private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!((Char.IsDigit(e.KeyChar) || e.KeyChar == (char)Keys.Back)))
+                e.Handled = true;
         }
     }
 }
