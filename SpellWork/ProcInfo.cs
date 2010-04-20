@@ -43,31 +43,29 @@ namespace SpellWork
                 var spell = elem.Spell.Value;
                 bool IsSkill = elem.SkillId != 0;
                 string name = IsSkill
-                ? String.Format("+({0}) {1} ({2}) (Sk{3}) ({4})", spell.ID, spell.SpellName, spell.Rank, elem.SkillId, spell.School)
-                : String.Format("-({0}) {1} ({2}) ({3})", spell.ID, spell.SpellName, spell.Rank, spell.School);
+                ? String.Format("+{0} - {1} (Skill {2}) ({3})", spell.ID, spell.SpellNameRank, elem.SkillId, spell.School.ToString().NormaliseString("MASK_"))
+                : String.Format("-{0} - {1} ({2})", spell.ID, spell.SpellNameRank, spell.School.ToString().NormaliseString("MASK_"));
 
-                int i = 0;
                 foreach (TreeNode node in familyTree.Nodes)
                 {
-                    uint mask_1 = 0, mask_2 = 0, mask_3 = 0;
+                    uint mask_0 = 0, mask_1 = 0, mask_2 = 0;
 
-                    if (i < 32)
-                        mask_1 = 1U << i;
-                    else if (i < 64)
-                        mask_2 = 1U << (i - 32);
+                    if (node.Index < 32)
+                        mask_0 = 1U << node.Index;
+                    else if (node.Index < 64)
+                        mask_1 = 1U << (node.Index - 32);
                     else
-                        mask_3 = 1U << (i - 64);
+                        mask_2 = 1U << (node.Index - 64);
 
-                    if ((spell.SpellFamilyFlags1 & mask_1) != 0 ||
+                    if ((spell.SpellFamilyFlags1 & mask_0) != 0 ||
                         (spell.SpellFamilyFlags2 & mask_1) != 0 ||
-                        (spell.SpellFamilyFlags3 & mask_3) != 0)
+                        (spell.SpellFamilyFlags3 & mask_2) != 0)
                     {
                         TreeNode child = new TreeNode();
                         child = node.Nodes.Add(name);
                         child.Name = spell.ID.ToString();
                         child.ForeColor = IsSkill ? Color.Blue : Color.Red;
                     }
-                    i++;
                 }
             }
         }

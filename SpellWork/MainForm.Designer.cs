@@ -673,6 +673,7 @@
             // splitContainer5.Panel2
             // 
             this.splitContainer5.Panel2.BackColor = System.Drawing.Color.Gainsboro;
+            this.splitContainer5.Panel2.Controls.Add(this._lvProcSpellList);
             this.splitContainer5.Panel2.Controls.Add(this._bProcSearch);
             this.splitContainer5.Panel2.Controls.Add(this._tbProcSeach);
             this.splitContainer5.Panel2.Controls.Add(this._cbProcTarget2);
@@ -680,7 +681,6 @@
             this.splitContainer5.Panel2.Controls.Add(this._cbProcSpellEffect);
             this.splitContainer5.Panel2.Controls.Add(this._cbProcSpellAura);
             this.splitContainer5.Panel2.Controls.Add(this._cbProcSpellFamilyName);
-            this.splitContainer5.Panel2.Controls.Add(this._lvProcSpellList);
             this.splitContainer5.Size = new System.Drawing.Size(600, 244);
             this.splitContainer5.SplitterDistance = 330;
             this.splitContainer5.TabIndex = 0;
@@ -788,11 +788,11 @@
             this._lvProcSpellList.FullRowSelect = true;
             this._lvProcSpellList.GridLines = true;
             this._lvProcSpellList.HideSelection = false;
-            this._lvProcSpellList.Location = new System.Drawing.Point(3, 113);
+            this._lvProcSpellList.Location = new System.Drawing.Point(2, 117);
             this._lvProcSpellList.MultiSelect = false;
             this._lvProcSpellList.Name = "_lvProcSpellList";
             this._lvProcSpellList.ShowItemToolTips = true;
-            this._lvProcSpellList.Size = new System.Drawing.Size(260, 129);
+            this._lvProcSpellList.Size = new System.Drawing.Size(261, 124);
             this._lvProcSpellList.TabIndex = 0;
             this._lvProcSpellList.UseCompatibleStateImageBehavior = false;
             this._lvProcSpellList.View = System.Windows.Forms.View.Details;
@@ -806,7 +806,7 @@
             // _chProcName
             // 
             this._chProcName.Text = "Name";
-            this._chProcName.Width = 221;
+            this._chProcName.Width = 210;
             // 
             // _lvProcAdditionalInfo
             // 

@@ -284,7 +284,7 @@ namespace SpellWork
             if (rIndex != 0)
             {
                 if (DBC.SpellRadius.ContainsKey(rIndex))
-                    return String.Format("Radius (Id {0}) {0:F}", rIndex, DBC.SpellRadius[rIndex].Radius);
+                    return String.Format("Radius (Id {0}) {1:F}", rIndex, DBC.SpellRadius[rIndex].Radius);
                 else
                     return String.Format("Radius (Id {0}) Not found", rIndex);
             }

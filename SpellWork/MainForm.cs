@@ -12,20 +12,20 @@ namespace SpellWork
 
             InitializeComponent();
 
-            _cbSpellFamilyName.SetEnumValues(typeof(SpellFamilyNames), "SpellFamilyName", "SPELLFAMILY_");
-            _cbSpellAura.SetEnumValues(typeof(AuraType), "Aura", "SPELL_AURA_");
-            _cbSpellEffect.SetEnumValues(typeof(SpellEffects), "Effect", "SPELL_EFFECT_");
-            _cbTarget1.SetEnumValues(typeof(Targets), "Target A", "TARGET_");
-            _cbTarget2.SetEnumValues(typeof(Targets), "Target B", "TARGET_");
+            _cbSpellFamilyName.SetEnumValues(typeof(SpellFamilyNames), "SpellFamilyName");
+            _cbSpellAura.SetEnumValues(typeof(AuraType), "Aura");
+            _cbSpellEffect.SetEnumValues(typeof(SpellEffects), "Effect");
+            _cbTarget1.SetEnumValues(typeof(Targets), "Target A");
+            _cbTarget2.SetEnumValues(typeof(Targets), "Target B");
 
-            _cbProcSpellFamilyName.SetEnumValues(typeof(SpellFamilyNames), "SpellFamilyName", "SPELLFAMILY_");
-            _cbProcSpellAura.SetEnumValues(typeof(AuraType), "Aura", "SPELL_AURA_");
-            _cbProcSpellEffect.SetEnumValues(typeof(SpellEffects), "Effect", "SPELL_EFFECT_");
-            _cbProcTarget1.SetEnumValues(typeof(Targets), "Target A", "TARGET_");
-            _cbProcTarget2.SetEnumValues(typeof(Targets), "Target B", "TARGET_");
+            _cbProcSpellFamilyName.SetEnumValues(typeof(SpellFamilyNames), "SpellFamilyName");
+            _cbProcSpellAura.SetEnumValues(typeof(AuraType), "Aura");
+            _cbProcSpellEffect.SetEnumValues(typeof(SpellEffects), "Effect");
+            _cbProcTarget1.SetEnumValues(typeof(Targets), "Target A");
+            _cbProcTarget2.SetEnumValues(typeof(Targets), "Target B");
 
-            _cbProcSpellFamilyTree.SetEnumValues(typeof(SpellFamilyNames), "SpellFamilyTree", "SPELLFAMILY_");
-            _cbProcFitstSpellFamily.SetEnumValues(typeof(SpellFamilyNames), "SpellFamilyName", "SPELLFAMILY_");
+            _cbProcSpellFamilyTree.SetEnumValues(typeof(SpellFamilyNames), "SpellFamilyTree");
+            _cbProcFitstSpellFamily.SetEnumValues(typeof(SpellFamilyNames), "SpellFamilyName");
 
             _clbSchools.SetFlags(typeof(SpellSchools));
             _clbProcFlags.SetFlags(typeof(ProcFlags), "PROC_FLAG_");
@@ -273,16 +273,16 @@ namespace SpellWork
         {
             if (e.KeyCode == Keys.Enter)
             {
-                AdditionalSeach();
+                AdvancedSearch();
             }
         }
 
         private void _bSearch_Click_1(object sender, EventArgs e)
         {
-            AdditionalSeach();
+            AdvancedSearch();
         }
 
-        private void AdditionalSeach()
+        private void AdvancedSearch()
         {
             _lvSpellList.Items.Clear();
 
@@ -292,8 +292,7 @@ namespace SpellWork
             uint at = _tbSearchAttributes.Text.ToUInt32();
 
             var query = from spell in DBC.Spell
-                        where (
-                               (id == 0 || spell.Key == id) 
+                        where ((id == 0 || spell.Key == id) 
 
                             && (ic == 0 || spell.Value.SpellIconID   == ic)
 
@@ -304,8 +303,7 @@ namespace SpellWork
                                         || spell.Value.AttributesEx4 == at
                                         || spell.Value.AttributesEx5 == at
                                         || spell.Value.AttributesEx6 == at
-                                        || spell.Value.AttributesExG == at)
-                              )
+                                        || spell.Value.AttributesExG == at))
 
                             && ((id != 0 || ic != 0 && at != 0) || ContainText(spell.Value.SpellName, name))
 
