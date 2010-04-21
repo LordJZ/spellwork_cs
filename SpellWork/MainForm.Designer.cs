@@ -110,6 +110,8 @@
             this.procflag = new System.Windows.Forms.ColumnHeader();
             this.procEx = new System.Windows.Forms.ColumnHeader();
             this.ppmRate = new System.Windows.Forms.ColumnHeader();
+            this.customchance = new System.Windows.Forms.ColumnHeader();
+            this.cooldown = new System.Windows.Forms.ColumnHeader();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -944,9 +946,15 @@
             this.spellfamilymask2,
             this.procflag,
             this.procEx,
-            this.ppmRate});
+            this.ppmRate,
+            this.customchance,
+            this.cooldown});
             this._lvDataList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._lvDataList.FullRowSelect = true;
+            this._lvDataList.GridLines = true;
+            this._lvDataList.HideSelection = false;
             this._lvDataList.Location = new System.Drawing.Point(0, 0);
+            this._lvDataList.MultiSelect = false;
             this._lvDataList.Name = "_lvDataList";
             this._lvDataList.Size = new System.Drawing.Size(858, 211);
             this._lvDataList.TabIndex = 0;
@@ -993,14 +1001,55 @@
             // entry
             // 
             this.entry.Text = "Entry";
+            this.entry.Width = 56;
             // 
             // schoolmask
             // 
             this.schoolmask.Text = "School Mask";
+            this.schoolmask.Width = 78;
             // 
             // spellfamilyname
             // 
             this.spellfamilyname.Text = "Spell Family Name";
+            this.spellfamilyname.Width = 103;
+            // 
+            // spellfamilymask0
+            // 
+            this.spellfamilymask0.Text = "Spell Family Mask 0";
+            this.spellfamilymask0.Width = 118;
+            // 
+            // spellfamilymask1
+            // 
+            this.spellfamilymask1.Text = "Spell Family Mask 1";
+            this.spellfamilymask1.Width = 112;
+            // 
+            // spellfamilymask2
+            // 
+            this.spellfamilymask2.Text = "Spell Family Mask 2";
+            this.spellfamilymask2.Width = 115;
+            // 
+            // procflag
+            // 
+            this.procflag.Text = "Proc Flags";
+            this.procflag.Width = 67;
+            // 
+            // procEx
+            // 
+            this.procEx.Text = "Proc Ex";
+            // 
+            // ppmRate
+            // 
+            this.ppmRate.Text = "PPM Rate";
+            this.ppmRate.Width = 67;
+            // 
+            // customchance
+            // 
+            this.customchance.Text = "Custom Chance";
+            this.customchance.Width = 93;
+            // 
+            // cooldown
+            // 
+            this.cooldown.Text = "Colldown";
             // 
             // MainForm
             // 
@@ -1143,5 +1192,7 @@
         private System.Windows.Forms.ColumnHeader procflag;
         private System.Windows.Forms.ColumnHeader procEx;
         private System.Windows.Forms.ColumnHeader ppmRate;
+        private System.Windows.Forms.ColumnHeader customchance;
+        private System.Windows.Forms.ColumnHeader cooldown;
     }
 }
