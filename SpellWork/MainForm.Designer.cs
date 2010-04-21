@@ -101,6 +101,15 @@
             this._tbSqlLog = new System.Windows.Forms.TextBox();
             this._cbProcFlag = new System.Windows.Forms.CheckBox();
             this._bWrite = new System.Windows.Forms.Button();
+            this.entry = new System.Windows.Forms.ColumnHeader();
+            this.schoolmask = new System.Windows.Forms.ColumnHeader();
+            this.spellfamilyname = new System.Windows.Forms.ColumnHeader();
+            this.spellfamilymask0 = new System.Windows.Forms.ColumnHeader();
+            this.spellfamilymask1 = new System.Windows.Forms.ColumnHeader();
+            this.spellfamilymask2 = new System.Windows.Forms.ColumnHeader();
+            this.procflag = new System.Windows.Forms.ColumnHeader();
+            this.procEx = new System.Windows.Forms.ColumnHeader();
+            this.ppmRate = new System.Windows.Forms.ColumnHeader();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -926,6 +935,16 @@
             // 
             // _lvDataList
             // 
+            this._lvDataList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.entry,
+            this.schoolmask,
+            this.spellfamilyname,
+            this.spellfamilymask0,
+            this.spellfamilymask1,
+            this.spellfamilymask2,
+            this.procflag,
+            this.procEx,
+            this.ppmRate});
             this._lvDataList.Dock = System.Windows.Forms.DockStyle.Fill;
             this._lvDataList.Location = new System.Drawing.Point(0, 0);
             this._lvDataList.Name = "_lvDataList";
@@ -970,6 +989,18 @@
             this._bWrite.Text = "Write";
             this._bWrite.UseVisualStyleBackColor = true;
             this._bWrite.Visible = false;
+            // 
+            // entry
+            // 
+            this.entry.Text = "Entry";
+            // 
+            // schoolmask
+            // 
+            this.schoolmask.Text = "School Mask";
+            // 
+            // spellfamilyname
+            // 
+            this.spellfamilyname.Text = "Spell Family Name";
             // 
             // MainForm
             // 
@@ -1103,5 +1134,14 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox _tbSearchAttributes;
         private System.Windows.Forms.TextBox _tbSearchIcon;
+        private System.Windows.Forms.ColumnHeader entry;
+        private System.Windows.Forms.ColumnHeader schoolmask;
+        private System.Windows.Forms.ColumnHeader spellfamilyname;
+        private System.Windows.Forms.ColumnHeader spellfamilymask0;
+        private System.Windows.Forms.ColumnHeader spellfamilymask1;
+        private System.Windows.Forms.ColumnHeader spellfamilymask2;
+        private System.Windows.Forms.ColumnHeader procflag;
+        private System.Windows.Forms.ColumnHeader procEx;
+        private System.Windows.Forms.ColumnHeader ppmRate;
     }
 }
