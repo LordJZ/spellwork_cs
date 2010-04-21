@@ -978,6 +978,7 @@
             this._lvDataList.TabIndex = 0;
             this._lvDataList.UseCompatibleStateImageBehavior = false;
             this._lvDataList.View = System.Windows.Forms.View.Details;
+            this._lvDataList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this._lvDataList_MouseDoubleClick);
             // 
             // _tbSqlLog
             // 

@@ -49,18 +49,18 @@ namespace SpellWork
             {
                 list.Add(new ListViewItem(new[]
                 {
-                    reader[0].ToString(),                   // Entry 
-                    GetSpellName(reader[0]),     // Name
-                    reader[1].ToString(),                   // School Mask
-                    reader[2].ToString(),                   // Spell Family Name
-                    reader[3].ToString(),                   // Spell Family Mask 0
-                    reader[4].ToString(),                   // Spell Family Mask 1
-                    reader[5].ToString(),                   // Spell Family Mask 2
-                    reader[6].ToString(),                   // Proc Flags
-                    reader[7].ToString(),                   // Proc Ex
-                    reader[8].ToString(),                   // PPM Rate
-                    reader[9].ToString(),                   // Chance
-                    reader[10].ToString()                   // Cooldown
+                    reader[0].ToString(),                   // 0  Entry 
+                    GetSpellName(reader[0]),                // 1  Name
+                    reader[1].ToString(),                   // 2  School Mask
+                    reader[2].ToString(),                   // 3  Spell Family Name
+                    reader[3].ToString(),                   // 4  Spell Family Mask 0
+                    reader[4].ToString(),                   // 5  Spell Family Mask 1
+                    reader[5].ToString(),                   // 6  Spell Family Mask 2
+                    reader[6].ToString(),                   // 7  Proc Flags
+                    reader[7].ToString(),                   // 8  Proc Ex
+                    reader[8].ToString(),                   // 9  PPM Rate
+                    reader[9].ToString(),                   // 10 Chance
+                    reader[10].ToString()                   // 11 Cooldown
                 }));
             }
             reader.Close();

@@ -249,7 +249,7 @@ namespace SpellWork
         private void GetProcAttribute(SpellEntry spell)
         {
             // test
-            var statusproc = String.Format("Spell ({0}) {1}. Proc Event ==>SchoolMask 0x{2:X2}, SpellFamily {3}, 0x{4:X8} {5:X8} {6:X8}, procFlag {7:X8}, PPMRate {8}",
+            var statusproc = String.Format("Spell ({0}) {1}. Proc Event ==> SchoolMask 0x{2:X2}, SpellFamily {3}, 0x{4:X8} {5:X8} {6:X8}, procFlag {7:X8}, PPMRate {8}",
                 spell.ID, 
                 spell.SpellNameRank, 
                 _clbSchools.GetFlagsValue(),
@@ -369,7 +369,7 @@ namespace SpellWork
 
         private void _bSelect_Click(object sender, EventArgs e)
         {
-            var query = String.Format("SELECT * FROM `spell_proc_event` ORDER BY entry");
+            var query = String.Format("SELECT * FROM `spell_proc_event` ORDER BY entry"); // need more parametr
             var result = MySQLConnenct.SelectProc(query);
             _lvDataList.Items.AddRange(result.ToArray());
         }
@@ -378,6 +378,36 @@ namespace SpellWork
         {
             var query = _tbSqlLog.Text;
             MySQLConnenct.Insert(query);
+        }
+
+        private void _lvDataList_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                var str = ((ListView)sender).SelectedItems[0];
+                uint id = str.SubItems[0].Text.ToUInt32();
+                var spell = DBC.Spell[id];
+                tabControl1.SelectedIndex = 1;
+
+                SpellInfo.View(_rtbProcSpellInfo, spell);
+                
+                _clbSchools.SetCheckedItemFromFlag(str.SubItems[2].Text.ToUInt32());
+                _clbProcFlags.SetCheckedItemFromFlag(str.SubItems[7].Text.ToUInt32());
+                _clbProcFlagEx.SetCheckedItemFromFlag(str.SubItems[8].Text.ToUInt32());
+
+                _cbProcSpellFamilyTree.SelectedValue  = str.SubItems[3].Text.ToUInt32();
+                _cbProcFitstSpellFamily.SelectedValue = str.SubItems[3].Text.ToUInt32();
+
+                _tbPPM.Text      = str.SubItems[9].Text;
+                _tbChance.Text   = str.SubItems[10].Text;
+                _tbCooldown.Text = str.SubItems[11].Text;
+
+                ProcInfo.SpellProc = spell;
+            }
+            catch
+            {
+                MessageBox.Show("Error");
+            }
         }
     }
 }
