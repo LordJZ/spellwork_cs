@@ -988,6 +988,7 @@
             this._tbSqlLog.Location = new System.Drawing.Point(3, 66);
             this._tbSqlLog.Multiline = true;
             this._tbSqlLog.Name = "_tbSqlLog";
+            this._tbSqlLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this._tbSqlLog.Size = new System.Drawing.Size(852, 197);
             this._tbSqlLog.TabIndex = 0;
             // 
