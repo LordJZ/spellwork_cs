@@ -11,6 +11,10 @@ namespace SpellWork
         static MySqlConnection  _conn;
         static MySqlCommand     _command;
 
+        public static bool Connected { get; private set; }
+
+        public static List<string> Dropped = new List<string>();
+
         static String ConnectionString
         {
             get 
@@ -32,6 +36,7 @@ namespace SpellWork
             }
             catch
             {
+                Dropped.Add(String.Format("DELETE FROM `spell_proc_event` WHERE `entry` IN ({0});\r\n", id.ToUInt32()));
                 return String.Empty;
             }
         }
@@ -39,6 +44,7 @@ namespace SpellWork
         public static List<ListViewItem> SelectProc(string query)
         {
             List<ListViewItem> list = new List<ListViewItem>();
+
             _conn    = new MySqlConnection(ConnectionString);
             _command = new MySqlCommand(query, _conn);
             _conn.Open();
@@ -76,6 +82,21 @@ namespace SpellWork
             _conn.Open();
             _command.ExecuteNonQuery();
             _command.Connection.Close();
+        }
+
+        public static void TestConnect()
+        {
+            try
+            {
+                _conn = new MySqlConnection(ConnectionString);
+                _conn.Open();
+                _conn.Close();
+                Connected = true;
+            }
+            catch
+            {
+                Connected = false;
+            }
         }
     }
 }

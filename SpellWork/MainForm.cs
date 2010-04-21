@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 using SpellWork.Properties;
+using System.Drawing;
 using System.IO;
 using System.Text;
 
@@ -35,6 +36,8 @@ namespace SpellWork
             _clbProcFlagEx.SetFlags(typeof(ProcFlagsEx), "PROC_EX_");
 
             _status.Text = String.Format("DBC Locale: {0}", DBC.Locale);
+
+            ConnStatus();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -218,6 +221,7 @@ namespace SpellWork
         {
             SettingsForm frm = new SettingsForm();
             frm.ShowDialog(this);
+            ConnStatus();
         }
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
@@ -335,7 +339,6 @@ namespace SpellWork
 
         private void _bWrite_Click(object sender, EventArgs e)
         {
-            //----------- test ----------\\
             // spell comment
             var comment = String.Format("-- ({0}) {1}", ProcInfo.SpellProc.ID, ProcInfo.SpellProc.SpellNameRank);
             // drop query
@@ -355,7 +358,9 @@ namespace SpellWork
                 _tbCooldown.Text.Replace(',', '.'));
 
             _tbSqlLog.AppendText(comment + "\r\n" + drop + "\r\n" + insert + "\r\n\r\n");
-            MySQLConnenct.Insert(drop + insert);
+            
+            if(MySQLConnenct.Connected)
+                MySQLConnenct.Insert(drop + insert);
 
             ((Button)sender).Enabled = false;
         }
@@ -373,13 +378,23 @@ namespace SpellWork
         {
             var query = String.Format("SELECT * FROM `spell_proc_event` ORDER BY entry"); // need more parametr
             var result = MySQLConnenct.SelectProc(query);
+            _lvDataList.Items.Clear();
             _lvDataList.Items.AddRange(result.ToArray());
+
+            foreach(var str in MySQLConnenct.Dropped)
+                _tbSqlLog.AppendText(str);
         }
 
         private void _bSqlToBase_Click(object sender, EventArgs e)
         {
-            var query = _tbSqlLog.Text;
-            MySQLConnenct.Insert(query);
+            if (MySQLConnenct.Connected)
+            {
+                MySQLConnenct.Insert(_tbSqlLog.Text);
+            }
+            else
+            {
+                MessageBox.Show("Can't connect to database!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void _lvDataList_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -425,6 +440,39 @@ namespace SpellWork
             StreamWriter sw = new StreamWriter(sd.FileName, false, Encoding.UTF8);
             sw.Write(_tbSqlLog.Text);
             sw.Close();
+        }
+
+        private void _Connected_Click(object sender, EventArgs e)
+        {
+            MySQLConnenct.TestConnect();
+
+            if (MySQLConnenct.Connected)
+            {
+                MessageBox.Show("Connection is successfully!", "MySQL Connections!",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Connection is failed!", "ERROR!",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            ConnStatus();
+        }
+
+        private void ConnStatus()
+        {
+            MySQLConnenct.TestConnect();
+
+            if (MySQLConnenct.Connected)
+            {
+                _dbConnect.Text = "Connection is successfully";
+                _dbConnect.ForeColor = Color.Green;
+            }
+            else
+            {
+                _dbConnect.Text = "No DB Connected";
+                _dbConnect.ForeColor = Color.Red;
+            }
         }
     }
 }

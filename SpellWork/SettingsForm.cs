@@ -22,11 +22,6 @@ namespace SpellWork
             _gbDbSetting.Enabled = ((CheckBox)sender).Checked;
         }
 
-        private void _bTestConnect_Click(object sender, EventArgs e)
-        {
-            //
-        }
-
         private void _bSaveSettings_Click(object sender, EventArgs e)
         {
             Settings.Default.Host = _tbHost.Text;
@@ -35,20 +30,38 @@ namespace SpellWork
             Settings.Default.Pass = _tbPass.Text;
             Settings.Default.Db_mangos = _tbBase.Text;
             Settings.Default.UseDbConnect = _cbUseDBConnect.Checked;
-            Settings.Default.Save();
-            this.Close();
+
+            MySQLConnenct.TestConnect();
+            
+            if (((Button)sender).Text != "Save")
+            {
+                if (MySQLConnenct.Connected)
+                {
+                    MessageBox.Show("Connection is successfully!", "MySQL Connections!",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Connection is failed!", "ERROR!",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
+            if (((Button)sender).Text == "Save")
+            {
+                Settings.Default.Save();
+                this.Close();
+            }
         }
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
-            _gbDbSetting.Enabled = Settings.Default.UseDbConnect;
-
             _tbHost.Text = Settings.Default.Host;
             _tbPort.Text = Settings.Default.Port;
             _tbUser.Text = Settings.Default.User;
             _tbPass.Text = Settings.Default.Pass;
-            _gbDbSetting.Text = Settings.Default.Db_mangos;
-            _cbUseDBConnect.Checked = Settings.Default.UseDbConnect;
+            _tbBase.Text = Settings.Default.Db_mangos;
+            _gbDbSetting.Enabled = _cbUseDBConnect.Checked = Settings.Default.UseDbConnect;
         }
     }
 }

@@ -95,13 +95,13 @@
             this._chID = new System.Windows.Forms.ColumnHeader();
             this._chName = new System.Windows.Forms.ColumnHeader();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this._bSelect = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.splitContainer6 = new System.Windows.Forms.SplitContainer();
             this._lvDataList = new System.Windows.Forms.ListView();
-            this._tbSqlLog = new System.Windows.Forms.TextBox();
-            this._cbProcFlag = new System.Windows.Forms.CheckBox();
-            this._bWrite = new System.Windows.Forms.Button();
             this.entry = new System.Windows.Forms.ColumnHeader();
+            this.spellname = new System.Windows.Forms.ColumnHeader();
             this.schoolmask = new System.Windows.Forms.ColumnHeader();
             this.spellfamilyname = new System.Windows.Forms.ColumnHeader();
             this.spellfamilymask0 = new System.Windows.Forms.ColumnHeader();
@@ -112,11 +112,13 @@
             this.ppmRate = new System.Windows.Forms.ColumnHeader();
             this.customchance = new System.Windows.Forms.ColumnHeader();
             this.cooldown = new System.Windows.Forms.ColumnHeader();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this._bSqlSave = new System.Windows.Forms.Button();
             this._bSqlToBase = new System.Windows.Forms.Button();
-            this.spellname = new System.Windows.Forms.ColumnHeader();
-            this._bSelect = new System.Windows.Forms.Button();
+            this._bSqlSave = new System.Windows.Forms.Button();
+            this._tbSqlLog = new System.Windows.Forms.TextBox();
+            this._cbProcFlag = new System.Windows.Forms.CheckBox();
+            this._bWrite = new System.Windows.Forms.Button();
+            this._Connected = new System.Windows.Forms.ToolStripMenuItem();
+            this._dbConnect = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -144,16 +146,17 @@
             this.splitContainer5.Panel2.SuspendLayout();
             this.splitContainer5.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.splitContainer6.Panel1.SuspendLayout();
             this.splitContainer6.Panel2.SuspendLayout();
             this.splitContainer6.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._dbConnect,
             this._status,
             this._ProcStatus});
             this.statusStrip1.Location = new System.Drawing.Point(0, 607);
@@ -186,6 +189,7 @@
             // _tsmFile
             // 
             this._tsmFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this._Connected,
             this._tsmSettings,
             this._tsmExit});
             this._tsmFile.Name = "_tsmFile";
@@ -195,14 +199,14 @@
             // _tsmSettings
             // 
             this._tsmSettings.Name = "_tsmSettings";
-            this._tsmSettings.Size = new System.Drawing.Size(119, 22);
+            this._tsmSettings.Size = new System.Drawing.Size(152, 22);
             this._tsmSettings.Text = "Setting";
             this._tsmSettings.Click += new System.EventHandler(this._tsmSettings_Click);
             // 
             // _tsmExit
             // 
             this._tsmExit.Name = "_tsmExit";
-            this._tsmExit.Size = new System.Drawing.Size(119, 22);
+            this._tsmExit.Size = new System.Drawing.Size(152, 22);
             this._tsmExit.Text = "Exit";
             this._tsmExit.Click += new System.EventHandler(this._tsmExit_Click);
             // 
@@ -919,6 +923,29 @@
             this.tabPage4.Text = "Sql Data";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this._bSelect);
+            this.groupBox3.Location = new System.Drawing.Point(6, 3);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(855, 85);
+            this.groupBox3.TabIndex = 1;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Filter";
+            // 
+            // _bSelect
+            // 
+            this._bSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this._bSelect.Location = new System.Drawing.Point(775, 10);
+            this._bSelect.Name = "_bSelect";
+            this._bSelect.Size = new System.Drawing.Size(75, 23);
+            this._bSelect.TabIndex = 0;
+            this._bSelect.Text = "Select";
+            this._bSelect.UseVisualStyleBackColor = true;
+            this._bSelect.Click += new System.EventHandler(this._bSelect_Click);
+            // 
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -949,7 +976,7 @@
             this.splitContainer6.Panel2.Controls.Add(this._bSqlSave);
             this.splitContainer6.Panel2.Controls.Add(this._tbSqlLog);
             this.splitContainer6.Size = new System.Drawing.Size(858, 444);
-            this.splitContainer6.SplitterDistance = 174;
+            this.splitContainer6.SplitterDistance = 173;
             this.splitContainer6.TabIndex = 0;
             // 
             // _lvDataList
@@ -974,55 +1001,21 @@
             this._lvDataList.Location = new System.Drawing.Point(0, 0);
             this._lvDataList.MultiSelect = false;
             this._lvDataList.Name = "_lvDataList";
-            this._lvDataList.Size = new System.Drawing.Size(858, 174);
+            this._lvDataList.Size = new System.Drawing.Size(858, 173);
             this._lvDataList.TabIndex = 0;
             this._lvDataList.UseCompatibleStateImageBehavior = false;
             this._lvDataList.View = System.Windows.Forms.View.Details;
             this._lvDataList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this._lvDataList_MouseDoubleClick);
             // 
-            // _tbSqlLog
-            // 
-            this._tbSqlLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this._tbSqlLog.Location = new System.Drawing.Point(3, 66);
-            this._tbSqlLog.Multiline = true;
-            this._tbSqlLog.Name = "_tbSqlLog";
-            this._tbSqlLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this._tbSqlLog.Size = new System.Drawing.Size(852, 197);
-            this._tbSqlLog.TabIndex = 0;
-            // 
-            // _cbProcFlag
-            // 
-            this._cbProcFlag.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this._cbProcFlag.Appearance = System.Windows.Forms.Appearance.Button;
-            this._cbProcFlag.AutoSize = true;
-            this._cbProcFlag.Location = new System.Drawing.Point(809, 1);
-            this._cbProcFlag.Name = "_cbProcFlag";
-            this._cbProcFlag.Size = new System.Drawing.Size(59, 23);
-            this._cbProcFlag.TabIndex = 2;
-            this._cbProcFlag.Text = "ProcFlag";
-            this._cbProcFlag.UseVisualStyleBackColor = true;
-            this._cbProcFlag.Visible = false;
-            this._cbProcFlag.CheckedChanged += new System.EventHandler(this._cbProcFlag_CheckedChanged);
-            // 
-            // _bWrite
-            // 
-            this._bWrite.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this._bWrite.Enabled = false;
-            this._bWrite.Location = new System.Drawing.Point(728, 1);
-            this._bWrite.Name = "_bWrite";
-            this._bWrite.Size = new System.Drawing.Size(75, 23);
-            this._bWrite.TabIndex = 3;
-            this._bWrite.Text = "Write";
-            this._bWrite.UseVisualStyleBackColor = true;
-            this._bWrite.Visible = false;
-            this._bWrite.Click += new System.EventHandler(this._bWrite_Click);
-            // 
             // entry
             // 
             this.entry.Text = "Entry";
             this.entry.Width = 56;
+            // 
+            // spellname
+            // 
+            this.spellname.Text = "Spell Name";
+            this.spellname.Width = 300;
             // 
             // schoolmask
             // 
@@ -1073,17 +1066,15 @@
             // 
             this.cooldown.Text = "Colldown";
             // 
-            // groupBox3
+            // _bSqlToBase
             // 
-            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this._bSelect);
-            this.groupBox3.Location = new System.Drawing.Point(6, 3);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(855, 85);
-            this.groupBox3.TabIndex = 1;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Filter";
+            this._bSqlToBase.Location = new System.Drawing.Point(96, 37);
+            this._bSqlToBase.Name = "_bSqlToBase";
+            this._bSqlToBase.Size = new System.Drawing.Size(75, 23);
+            this._bSqlToBase.TabIndex = 2;
+            this._bSqlToBase.Text = "To Base";
+            this._bSqlToBase.UseVisualStyleBackColor = true;
+            this._bSqlToBase.Click += new System.EventHandler(this._bSqlToBase_Click);
             // 
             // _bSqlSave
             // 
@@ -1095,31 +1086,56 @@
             this._bSqlSave.UseVisualStyleBackColor = true;
             this._bSqlSave.Click += new System.EventHandler(this._bSqlSave_Click);
             // 
-            // _bSqlToBase
+            // _tbSqlLog
             // 
-            this._bSqlToBase.Location = new System.Drawing.Point(96, 37);
-            this._bSqlToBase.Name = "_bSqlToBase";
-            this._bSqlToBase.Size = new System.Drawing.Size(75, 23);
-            this._bSqlToBase.TabIndex = 2;
-            this._bSqlToBase.Text = "To Base";
-            this._bSqlToBase.UseVisualStyleBackColor = true;
-            this._bSqlToBase.Click += new System.EventHandler(this._bSqlToBase_Click);
+            this._tbSqlLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this._tbSqlLog.Location = new System.Drawing.Point(3, 66);
+            this._tbSqlLog.Multiline = true;
+            this._tbSqlLog.Name = "_tbSqlLog";
+            this._tbSqlLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this._tbSqlLog.Size = new System.Drawing.Size(852, 198);
+            this._tbSqlLog.TabIndex = 0;
             // 
-            // spellname
+            // _cbProcFlag
             // 
-            this.spellname.Text = "Spell Name";
-            this.spellname.Width = 300;
+            this._cbProcFlag.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this._cbProcFlag.Appearance = System.Windows.Forms.Appearance.Button;
+            this._cbProcFlag.AutoSize = true;
+            this._cbProcFlag.Location = new System.Drawing.Point(809, 1);
+            this._cbProcFlag.Name = "_cbProcFlag";
+            this._cbProcFlag.Size = new System.Drawing.Size(59, 23);
+            this._cbProcFlag.TabIndex = 2;
+            this._cbProcFlag.Text = "ProcFlag";
+            this._cbProcFlag.UseVisualStyleBackColor = true;
+            this._cbProcFlag.Visible = false;
+            this._cbProcFlag.CheckedChanged += new System.EventHandler(this._cbProcFlag_CheckedChanged);
             // 
-            // _bSelect
+            // _bWrite
             // 
-            this._bSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this._bSelect.Location = new System.Drawing.Point(775, 10);
-            this._bSelect.Name = "_bSelect";
-            this._bSelect.Size = new System.Drawing.Size(75, 23);
-            this._bSelect.TabIndex = 0;
-            this._bSelect.Text = "Select";
-            this._bSelect.UseVisualStyleBackColor = true;
-            this._bSelect.Click += new System.EventHandler(this._bSelect_Click);
+            this._bWrite.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this._bWrite.Enabled = false;
+            this._bWrite.Location = new System.Drawing.Point(728, 1);
+            this._bWrite.Name = "_bWrite";
+            this._bWrite.Size = new System.Drawing.Size(75, 23);
+            this._bWrite.TabIndex = 3;
+            this._bWrite.Text = "Write";
+            this._bWrite.UseVisualStyleBackColor = true;
+            this._bWrite.Visible = false;
+            this._bWrite.Click += new System.EventHandler(this._bWrite_Click);
+            // 
+            // _Connected
+            // 
+            this._Connected.Name = "_Connected";
+            this._Connected.Size = new System.Drawing.Size(152, 22);
+            this._Connected.Text = "Connected";
+            this._Connected.Click += new System.EventHandler(this._Connected_Click);
+            // 
+            // _dbConnect
+            // 
+            this._dbConnect.Name = "_dbConnect";
+            this._dbConnect.Size = new System.Drawing.Size(0, 17);
             // 
             // MainForm
             // 
@@ -1169,12 +1185,12 @@
             this.splitContainer5.Panel2.PerformLayout();
             this.splitContainer5.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.splitContainer6.Panel1.ResumeLayout(false);
             this.splitContainer6.Panel2.ResumeLayout(false);
             this.splitContainer6.Panel2.PerformLayout();
             this.splitContainer6.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1270,5 +1286,7 @@
         private System.Windows.Forms.Button _bSqlToBase;
         private System.Windows.Forms.Button _bSqlSave;
         private System.Windows.Forms.Button _bSelect;
+        private System.Windows.Forms.ToolStripMenuItem _Connected;
+        private System.Windows.Forms.ToolStripStatusLabel _dbConnect;
     }
 }

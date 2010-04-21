@@ -70,7 +70,7 @@
             this._tbBase.Location = new System.Drawing.Point(54, 126);
             this._tbBase.Name = "_tbBase";
             this._tbBase.Size = new System.Drawing.Size(152, 20);
-            this._tbBase.TabIndex = 1;
+            this._tbBase.TabIndex = 4;
             // 
             // label5
             // 
@@ -86,7 +86,7 @@
             this._tbPass.Location = new System.Drawing.Point(54, 100);
             this._tbPass.Name = "_tbPass";
             this._tbPass.Size = new System.Drawing.Size(152, 20);
-            this._tbPass.TabIndex = 1;
+            this._tbPass.TabIndex = 3;
             this._tbPass.UseSystemPasswordChar = true;
             // 
             // label4
@@ -103,7 +103,7 @@
             this._tbUser.Location = new System.Drawing.Point(54, 74);
             this._tbUser.Name = "_tbUser";
             this._tbUser.Size = new System.Drawing.Size(152, 20);
-            this._tbUser.TabIndex = 1;
+            this._tbUser.TabIndex = 2;
             // 
             // label3
             // 
@@ -135,7 +135,7 @@
             this._tbHost.Location = new System.Drawing.Point(54, 22);
             this._tbHost.Name = "_tbHost";
             this._tbHost.Size = new System.Drawing.Size(152, 20);
-            this._tbHost.TabIndex = 1;
+            this._tbHost.TabIndex = 0;
             // 
             // label1
             // 
@@ -152,7 +152,7 @@
             this._cbUseDBConnect.Location = new System.Drawing.Point(21, 176);
             this._cbUseDBConnect.Name = "_cbUseDBConnect";
             this._cbUseDBConnect.Size = new System.Drawing.Size(106, 17);
-            this._cbUseDBConnect.TabIndex = 1;
+            this._cbUseDBConnect.TabIndex = 5;
             this._cbUseDBConnect.Text = "Use DB Connect";
             this._cbUseDBConnect.UseVisualStyleBackColor = true;
             this._cbUseDBConnect.CheckedChanged += new System.EventHandler(this._cbUseDBConnect_CheckedChanged);
@@ -162,17 +162,17 @@
             this._bTestConnect.Location = new System.Drawing.Point(12, 199);
             this._bTestConnect.Name = "_bTestConnect";
             this._bTestConnect.Size = new System.Drawing.Size(95, 23);
-            this._bTestConnect.TabIndex = 2;
+            this._bTestConnect.TabIndex = 6;
             this._bTestConnect.Text = "Test connect";
             this._bTestConnect.UseVisualStyleBackColor = true;
-            this._bTestConnect.Click += new System.EventHandler(this._bTestConnect_Click);
+            this._bTestConnect.Click += new System.EventHandler(this._bSaveSettings_Click);
             // 
             // _bSaveSettings
             // 
             this._bSaveSettings.Location = new System.Drawing.Point(134, 199);
             this._bSaveSettings.Name = "_bSaveSettings";
             this._bSaveSettings.Size = new System.Drawing.Size(95, 23);
-            this._bSaveSettings.TabIndex = 2;
+            this._bSaveSettings.TabIndex = 7;
             this._bSaveSettings.Text = "Save";
             this._bSaveSettings.UseVisualStyleBackColor = true;
             this._bSaveSettings.Click += new System.EventHandler(this._bSaveSettings_Click);
