@@ -1092,6 +1092,7 @@
             this._bSqlSave.TabIndex = 1;
             this._bSqlSave.Text = "Save";
             this._bSqlSave.UseVisualStyleBackColor = true;
+            this._bSqlSave.Click += new System.EventHandler(this._bSqlSave_Click);
             // 
             // _bSqlToBase
             // 
