@@ -559,6 +559,7 @@
             this._clbProcFlags.Name = "_clbProcFlags";
             this._clbProcFlags.Size = new System.Drawing.Size(852, 94);
             this._clbProcFlags.TabIndex = 0;
+            this._clbProcFlags.SelectedIndexChanged += new System.EventHandler(this._clbSchools_SelectedIndexChanged);
             // 
             // groupBox4
             // 
@@ -583,6 +584,7 @@
             this._clbProcFlagEx.Name = "_clbProcFlagEx";
             this._clbProcFlagEx.Size = new System.Drawing.Size(852, 49);
             this._clbProcFlagEx.TabIndex = 3;
+            this._clbProcFlagEx.SelectedIndexChanged += new System.EventHandler(this._clbSchools_SelectedIndexChanged);
             // 
             // _gSpellProcEvent
             // 
@@ -625,6 +627,7 @@
             this._cbProcFitstSpellFamily.Name = "_cbProcFitstSpellFamily";
             this._cbProcFitstSpellFamily.Size = new System.Drawing.Size(342, 21);
             this._cbProcFitstSpellFamily.TabIndex = 4;
+            this._cbProcFitstSpellFamily.SelectedIndexChanged += new System.EventHandler(this._clbSchools_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -642,6 +645,7 @@
             this._tbPPM.Name = "_tbPPM";
             this._tbPPM.Size = new System.Drawing.Size(60, 20);
             this._tbPPM.TabIndex = 7;
+            this._tbPPM.TextChanged += new System.EventHandler(this._tbCooldown_TextChanged);
             this._tbPPM.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBox_KeyPress);
             // 
             // label2
@@ -660,6 +664,7 @@
             this._tbChance.Name = "_tbChance";
             this._tbChance.Size = new System.Drawing.Size(60, 20);
             this._tbChance.TabIndex = 7;
+            this._tbChance.TextChanged += new System.EventHandler(this._tbCooldown_TextChanged);
             this._tbChance.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBox_KeyPress);
             // 
             // label3
@@ -678,6 +683,7 @@
             this._tbCooldown.Name = "_tbCooldown";
             this._tbCooldown.Size = new System.Drawing.Size(60, 20);
             this._tbCooldown.TabIndex = 7;
+            this._tbCooldown.TextChanged += new System.EventHandler(this._tbCooldown_TextChanged);
             this._tbCooldown.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBox_KeyPress);
             // 
             // splitContainer4
@@ -997,6 +1003,7 @@
             this._bWrite.Text = "Write";
             this._bWrite.UseVisualStyleBackColor = true;
             this._bWrite.Visible = false;
+            this._bWrite.Click += new System.EventHandler(this._bWrite_Click);
             // 
             // entry
             // 

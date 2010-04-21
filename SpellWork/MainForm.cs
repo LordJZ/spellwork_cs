@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using SpellWork.Properties;
 
 namespace SpellWork
 {
@@ -240,8 +241,9 @@ namespace SpellWork
             _clbProcFlags.SetCheckedItemFromFlag(spell.ProcFlags);
             _clbSchools.SetCheckedItemFromFlag(spell.SchoolMask);
             _cbProcFitstSpellFamily.SelectedValue = spell.SpellFamilyName;
+            _tbPPM.Text = "0"; // need correct value
             _tbChance.Text = spell.ProcChance.ToString();
-            _tbCooldown.Text = (spell.RecoveryTime / 1000f).ToString();
+            _tbCooldown.Text = (spell.RecoveryTime / 1000f).ToString(); // need correct value
         }
 
         private void GetProcAttribute(SpellEntry spell)
@@ -265,6 +267,7 @@ namespace SpellWork
         {
             if (ProcInfo.SpellProc.ID != 0)
             {
+                _bWrite.Enabled = true;
                 GetProcAttribute(ProcInfo.SpellProc);
             }
         }
@@ -326,6 +329,42 @@ namespace SpellWork
         {
             if (!((Char.IsDigit(e.KeyChar) || e.KeyChar == (char)Keys.Back)))
                 e.Handled = true;
+        }
+
+        private void _bWrite_Click(object sender, EventArgs e)
+        {
+            //----------- test ----------\\
+            // spell comment
+            var comment = String.Format("-- ({0}) {1}", ProcInfo.SpellProc.ID, ProcInfo.SpellProc.SpellNameRank);
+            // drop query
+            var drop = String.Format("DELETE FROM `spell_proc_event` WHERE `entry` = '{0}';", ProcInfo.SpellProc.ID);
+            // insert query
+            var insert = String.Format("INSERT INTO `spell_proc_event` VALUES ({0}, 0x{1:X2}, {2}, 0x{3:X8}, 0x{4:X8}, 0x{5:X8}, 0x{6:X8}, 0x{7:X8}, {8}, {9}, {10});",
+                ProcInfo.SpellProc.ID, 
+                _clbSchools.GetFlagsValue(), 
+                _cbProcFitstSpellFamily.ValueMember.ToUInt32(), 
+                ProcInfo.SpellProc.SpellFamilyFlags1,//SpellFamilyMask0 need correct value
+                ProcInfo.SpellProc.SpellFamilyFlags2,//SpellFamilyMask1 need correct value 
+                ProcInfo.SpellProc.SpellFamilyFlags3,//SpellFamilyMask2 need correct value
+                _clbProcFlags.GetFlagsValue(), 
+                _clbProcFlagEx.GetFlagsValue(), 
+                _tbPPM.Text.Replace(',', '.'),
+                _tbChance.Text.Replace(',', '.'), 
+                _tbCooldown.Text.Replace(',', '.'));
+
+            _tbSqlLog.AppendText(comment + "\r\n" + drop + "\r\n" + insert + "\r\n");
+            // todo: Занести в базу данных
+
+            ((Button)sender).Enabled = false;
+        }
+
+        private void _tbCooldown_TextChanged(object sender, EventArgs e)
+        {
+            if (ProcInfo.SpellProc.ID != 0)
+            {
+                _bWrite.Enabled = true;
+                GetProcAttribute(ProcInfo.SpellProc);
+            }
         }
     }
 }
