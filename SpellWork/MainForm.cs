@@ -352,8 +352,8 @@ namespace SpellWork
                 _tbChance.Text.Replace(',', '.'), 
                 _tbCooldown.Text.Replace(',', '.'));
 
-            _tbSqlLog.AppendText(comment + "\r\n" + drop + "\r\n" + insert + "\r\n");
-            // todo: Занести в базу данных
+            _tbSqlLog.AppendText(comment + "\r\n" + drop + "\r\n" + insert + "\r\n\r\n");
+            MySQLConnenct.Insert(drop + insert);
 
             ((Button)sender).Enabled = false;
         }
@@ -365,6 +365,19 @@ namespace SpellWork
                 _bWrite.Enabled = true;
                 GetProcAttribute(ProcInfo.SpellProc);
             }
+        }
+
+        private void _bSelect_Click(object sender, EventArgs e)
+        {
+            var query = String.Format("SELECT * FROM `spell_proc_event` ORDER BY entry");
+            var result = MySQLConnenct.SelectProc(query);
+            _lvDataList.Items.AddRange(result.ToArray());
+        }
+
+        private void _bSqlToBase_Click(object sender, EventArgs e)
+        {
+            var query = _tbSqlLog.Text;
+            MySQLConnenct.Insert(query);
         }
     }
 }

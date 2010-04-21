@@ -112,6 +112,11 @@
             this.ppmRate = new System.Windows.Forms.ColumnHeader();
             this.customchance = new System.Windows.Forms.ColumnHeader();
             this.cooldown = new System.Windows.Forms.ColumnHeader();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this._bSqlSave = new System.Windows.Forms.Button();
+            this._bSqlToBase = new System.Windows.Forms.Button();
+            this.spellname = new System.Windows.Forms.ColumnHeader();
+            this._bSelect = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -143,6 +148,7 @@
             this.splitContainer6.Panel1.SuspendLayout();
             this.splitContainer6.Panel2.SuspendLayout();
             this.splitContainer6.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -904,6 +910,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.groupBox3);
             this.tabPage4.Controls.Add(this.groupBox2);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
@@ -914,14 +921,16 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.splitContainer6);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(0, 0);
+            this.groupBox2.Location = new System.Drawing.Point(0, 94);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(864, 557);
+            this.groupBox2.Size = new System.Drawing.Size(864, 463);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "SQL Data";
+            this.groupBox2.Text = "Spell Proc Event";
             // 
             // splitContainer6
             // 
@@ -936,15 +945,18 @@
             // 
             // splitContainer6.Panel2
             // 
+            this.splitContainer6.Panel2.Controls.Add(this._bSqlToBase);
+            this.splitContainer6.Panel2.Controls.Add(this._bSqlSave);
             this.splitContainer6.Panel2.Controls.Add(this._tbSqlLog);
-            this.splitContainer6.Size = new System.Drawing.Size(858, 538);
-            this.splitContainer6.SplitterDistance = 211;
+            this.splitContainer6.Size = new System.Drawing.Size(858, 444);
+            this.splitContainer6.SplitterDistance = 174;
             this.splitContainer6.TabIndex = 0;
             // 
             // _lvDataList
             // 
             this._lvDataList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.entry,
+            this.spellname,
             this.schoolmask,
             this.spellfamilyname,
             this.spellfamilymask0,
@@ -962,7 +974,7 @@
             this._lvDataList.Location = new System.Drawing.Point(0, 0);
             this._lvDataList.MultiSelect = false;
             this._lvDataList.Name = "_lvDataList";
-            this._lvDataList.Size = new System.Drawing.Size(858, 211);
+            this._lvDataList.Size = new System.Drawing.Size(858, 174);
             this._lvDataList.TabIndex = 0;
             this._lvDataList.UseCompatibleStateImageBehavior = false;
             this._lvDataList.View = System.Windows.Forms.View.Details;
@@ -972,10 +984,10 @@
             this._tbSqlLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this._tbSqlLog.Location = new System.Drawing.Point(3, 53);
+            this._tbSqlLog.Location = new System.Drawing.Point(3, 66);
             this._tbSqlLog.Multiline = true;
             this._tbSqlLog.Name = "_tbSqlLog";
-            this._tbSqlLog.Size = new System.Drawing.Size(852, 267);
+            this._tbSqlLog.Size = new System.Drawing.Size(852, 197);
             this._tbSqlLog.TabIndex = 0;
             // 
             // _cbProcFlag
@@ -1023,26 +1035,27 @@
             // spellfamilymask0
             // 
             this.spellfamilymask0.Text = "Spell Family Mask 0";
-            this.spellfamilymask0.Width = 118;
+            this.spellfamilymask0.Width = 110;
             // 
             // spellfamilymask1
             // 
             this.spellfamilymask1.Text = "Spell Family Mask 1";
-            this.spellfamilymask1.Width = 112;
+            this.spellfamilymask1.Width = 110;
             // 
             // spellfamilymask2
             // 
             this.spellfamilymask2.Text = "Spell Family Mask 2";
-            this.spellfamilymask2.Width = 115;
+            this.spellfamilymask2.Width = 110;
             // 
             // procflag
             // 
             this.procflag.Text = "Proc Flags";
-            this.procflag.Width = 67;
+            this.procflag.Width = 80;
             // 
             // procEx
             // 
             this.procEx.Text = "Proc Ex";
+            this.procEx.Width = 80;
             // 
             // ppmRate
             // 
@@ -1057,6 +1070,53 @@
             // cooldown
             // 
             this.cooldown.Text = "Colldown";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this._bSelect);
+            this.groupBox3.Location = new System.Drawing.Point(6, 3);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(855, 85);
+            this.groupBox3.TabIndex = 1;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Filter";
+            // 
+            // _bSqlSave
+            // 
+            this._bSqlSave.Location = new System.Drawing.Point(5, 37);
+            this._bSqlSave.Name = "_bSqlSave";
+            this._bSqlSave.Size = new System.Drawing.Size(75, 23);
+            this._bSqlSave.TabIndex = 1;
+            this._bSqlSave.Text = "Save";
+            this._bSqlSave.UseVisualStyleBackColor = true;
+            // 
+            // _bSqlToBase
+            // 
+            this._bSqlToBase.Location = new System.Drawing.Point(96, 37);
+            this._bSqlToBase.Name = "_bSqlToBase";
+            this._bSqlToBase.Size = new System.Drawing.Size(75, 23);
+            this._bSqlToBase.TabIndex = 2;
+            this._bSqlToBase.Text = "To Base";
+            this._bSqlToBase.UseVisualStyleBackColor = true;
+            this._bSqlToBase.Click += new System.EventHandler(this._bSqlToBase_Click);
+            // 
+            // spellname
+            // 
+            this.spellname.Text = "Spell Name";
+            this.spellname.Width = 300;
+            // 
+            // _bSelect
+            // 
+            this._bSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this._bSelect.Location = new System.Drawing.Point(775, 10);
+            this._bSelect.Name = "_bSelect";
+            this._bSelect.Size = new System.Drawing.Size(75, 23);
+            this._bSelect.TabIndex = 0;
+            this._bSelect.Text = "Select";
+            this._bSelect.UseVisualStyleBackColor = true;
+            this._bSelect.Click += new System.EventHandler(this._bSelect_Click);
             // 
             // MainForm
             // 
@@ -1111,6 +1171,7 @@
             this.splitContainer6.Panel2.ResumeLayout(false);
             this.splitContainer6.Panel2.PerformLayout();
             this.splitContainer6.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1201,5 +1262,10 @@
         private System.Windows.Forms.ColumnHeader ppmRate;
         private System.Windows.Forms.ColumnHeader customchance;
         private System.Windows.Forms.ColumnHeader cooldown;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.ColumnHeader spellname;
+        private System.Windows.Forms.Button _bSqlToBase;
+        private System.Windows.Forms.Button _bSqlSave;
+        private System.Windows.Forms.Button _bSelect;
     }
 }
