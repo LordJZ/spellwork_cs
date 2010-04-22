@@ -1,6 +1,5 @@
 using System;
 using System.Text;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
 namespace SpellWork
@@ -241,7 +240,9 @@ namespace SpellWork
                 while (proc != 0)
                 {
                     if ((proc & 1) != 0)
+                    {
                         str += String.Format("  {0}{1}", SpellEnums.ProcFlagDesc[i], Environment.NewLine);
+                    }
                     i++;
                     proc >>= 1;
                 }
