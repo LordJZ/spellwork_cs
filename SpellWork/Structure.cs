@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
 namespace SpellWork
@@ -320,37 +321,6 @@ namespace SpellWork
             {
                 return (SpellSchoolMask)SchoolMask;
             }
-        }
-
-        public string GetTriggerSpellInfo(int index)
-        {
-            StringBuilder sb = new StringBuilder();
-            var tsId = EffectTriggerSpell[index];
-            if (tsId != 0)
-            {
-                if (DBC.Spell.ContainsKey(tsId))
-                {
-                    var trigger = DBC.Spell[tsId];
-                    sb.AppendFormatLine("Trigger spell ({0}) {1}. Chance = {2}", tsId, trigger.SpellNameRank, ProcChance);
-
-                    sb.AppendFormatLineIfNotNull("Description: {0}", trigger.Description);
-                    sb.AppendFormatLineIfNotNull("ToolTip: {0}", trigger.ToolTip);
-
-                    if (trigger.ProcFlags != 0)
-                    {
-                        sb.AppendFormatLine("Charges - {0}", trigger.ProcCharges);
-                        sb.AppendLine("=================================================");
-                        sb.Append(trigger.ProcInfo);
-                        sb.AppendLine("=================================================");
-                    }
-                }
-                else
-                {
-                    sb.AppendFormatLine("Trigger spell ({0}) Not found, Chance = {1}", tsId, ProcChance);
-                }
-            }
-
-            return sb.ToString();
         }
     };
 

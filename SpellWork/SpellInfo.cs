@@ -6,7 +6,7 @@ namespace SpellWork
 {
     class SpellInfo
     {
-        public static void View(RichTextBox sb, SpellEntry spell)
+        public static void ViewSpellInfo(RichTextBox sb, SpellEntry spell)
         {
             ProcInfo.SpellProc = spell;
 
@@ -280,7 +280,34 @@ namespace SpellWork
                 }
 
                 sb.AppendFormatLineIfNotNull("{0}", spell.GetRadius(i));
-                sb.AppendFormatLineIfNotNull("{0}", spell.GetTriggerSpellInfo(i));
+                
+                // append trigger spell
+                var tsId = spell.EffectTriggerSpell[i];
+                if (tsId != 0)
+                {
+                    if (DBC.Spell.ContainsKey(tsId))
+                    {
+                        var trigger = DBC.Spell[tsId];
+                        sb.SetStyle(Color.DarkGreen, FontStyle.Bold);
+                        sb.AppendFormatLine("   Trigger spell ({0}) {1}. Chance = {2}", tsId, trigger.SpellNameRank, spell.ProcChance);
+                        sb.SetStyle(FontStyle.Italic);
+                        sb.AppendFormatLineIfNotNull("   Description: {0}", trigger.Description);
+                        sb.SetStyle(FontStyle.Italic);
+                        sb.AppendFormatLineIfNotNull("   ToolTip: {0}", trigger.ToolTip);
+                        sb.SetDefaultStyle();
+                        if (trigger.ProcFlags != 0)
+                        {
+                            sb.AppendFormatLine("Charges - {0}", trigger.ProcCharges);
+                            sb.AppendLine("=================================================");
+                            sb.AppendLine(trigger.ProcInfo);
+                            sb.AppendLine("=================================================");
+                        }
+                    }
+                    else
+                    {
+                        sb.AppendFormatLine("Trigger spell ({0}) Not found, Chance = {1}", tsId, spell.ProcChance);
+                    }
+                }
 
                 sb.AppendFormatLineIfNotNull("EffectChainTarget = {0}", spell.EffectChainTarget[i]);
                 sb.AppendFormatLineIfNotNull("EffectItemType = {0}", spell.EffectItemType[i]);

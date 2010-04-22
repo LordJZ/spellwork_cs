@@ -134,7 +134,7 @@ namespace SpellWork
             if (lv.SelectedItems.Count > 0)
             {
                 var id = lv.SelectedItems[0].SubItems[0].Text.ToUInt32();
-                SpellInfo.View(_rtSpellInfo, DBC.Spell[id]);
+                SpellInfo.ViewSpellInfo(_rtSpellInfo, DBC.Spell[id]);
             }
         }
 
@@ -241,7 +241,7 @@ namespace SpellWork
 
         private void SetProcAtribute(SpellEntry spell)
         {
-            SpellInfo.View(_rtbProcSpellInfo, spell);
+            SpellInfo.ViewSpellInfo(_rtbProcSpellInfo, spell);
 
             _cbProcSpellFamilyTree.SelectedValue = spell.SpellFamilyName;
             _clbProcFlags.SetCheckedItemFromFlag(spell.ProcFlags);
@@ -406,7 +406,7 @@ namespace SpellWork
                 var spell = DBC.Spell[id];
                 tabControl1.SelectedIndex = 1;
 
-                SpellInfo.View(_rtbProcSpellInfo, spell);
+                SpellInfo.ViewSpellInfo(_rtbProcSpellInfo, spell);
                 
                 _clbSchools.SetCheckedItemFromFlag(str.SubItems[2].Text.ToUInt32());
                 _clbProcFlags.SetCheckedItemFromFlag(str.SubItems[7].Text.ToUInt32());
