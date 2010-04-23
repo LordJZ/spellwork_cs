@@ -1,0 +1,98 @@
+﻿namespace SpellWork
+{
+    partial class FormCalculateFlags
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormCalculateFlags));
+            this._bNo = new System.Windows.Forms.Button();
+            this._bOk = new System.Windows.Forms.Button();
+            this._clbCalcFlags = new System.Windows.Forms.CheckedListBox();
+            this.SuspendLayout();
+            // 
+            // _bNo
+            // 
+            this._bNo.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this._bNo.Location = new System.Drawing.Point(12, 270);
+            this._bNo.Name = "_bNo";
+            this._bNo.Size = new System.Drawing.Size(75, 23);
+            this._bNo.TabIndex = 1;
+            this._bNo.Text = "Cancel";
+            this._bNo.UseVisualStyleBackColor = true;
+            this._bNo.Click += new System.EventHandler(this._bNo_Click);
+            // 
+            // _bOk
+            // 
+            this._bOk.Location = new System.Drawing.Point(201, 270);
+            this._bOk.Name = "_bOk";
+            this._bOk.Size = new System.Drawing.Size(75, 23);
+            this._bOk.TabIndex = 2;
+            this._bOk.Text = "OK";
+            this._bOk.UseVisualStyleBackColor = true;
+            this._bOk.Click += new System.EventHandler(this._bOk_Click);
+            // 
+            // _clbCalcFlags
+            // 
+            this._clbCalcFlags.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this._clbCalcFlags.CheckOnClick = true;
+            this._clbCalcFlags.FormattingEnabled = true;
+            this._clbCalcFlags.Location = new System.Drawing.Point(0, 1);
+            this._clbCalcFlags.Name = "_clbCalcFlags";
+            this._clbCalcFlags.Size = new System.Drawing.Size(291, 259);
+            this._clbCalcFlags.TabIndex = 0;
+            // 
+            // FormCalculateFlags
+            // 
+            this.AcceptButton = this._bOk;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this._bNo;
+            this.ClientSize = new System.Drawing.Size(292, 297);
+            this.Controls.Add(this._clbCalcFlags);
+            this.Controls.Add(this._bOk);
+            this.Controls.Add(this._bNo);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(300, 331);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(300, 331);
+            this.Name = "FormCalculateFlags";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "FormCalculateFlags";
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.CheckedListBox _clbCalcFlags;
+        private System.Windows.Forms.Button _bNo;
+        private System.Windows.Forms.Button _bOk;
+    }
+}

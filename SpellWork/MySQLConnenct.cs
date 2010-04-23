@@ -8,14 +8,14 @@ namespace SpellWork
 {
     public static class MySQLConnenct
     {
-        static MySqlConnection  _conn;
-        static MySqlCommand     _command;
+        private static MySqlConnection  _conn;
+        private static MySqlCommand _command;
 
         public static bool Connected { get; private set; }
 
         public static List<string> Dropped = new List<string>();
 
-        static String ConnectionString
+        private static String ConnectionString
         {
             get 
             {
@@ -28,7 +28,7 @@ namespace SpellWork
             }
         }
 
-        static String GetSpellName(Object id)
+        private static String GetSpellName(Object id)
         {
             try
             {

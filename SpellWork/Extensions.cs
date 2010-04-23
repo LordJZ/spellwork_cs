@@ -216,12 +216,12 @@ namespace SpellWork
             }
         }
 
-        public static int GetFlagsValue(this CheckedListBox _name)
+        public static uint GetFlagsValue(this CheckedListBox _name)
         {
-            int val = 0;
+            uint val = 0;
             for (int i = 0; i < _name.CheckedIndices.Count; i++)
             {
-                val += (int)(Math.Pow(2, _name.CheckedIndices[i]));
+                val += (uint)(Math.Pow(2, _name.CheckedIndices[i]));
             }
 
             return val;

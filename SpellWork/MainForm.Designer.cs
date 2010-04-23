@@ -30,10 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this._dbConnect = new System.Windows.Forms.ToolStripStatusLabel();
             this._status = new System.Windows.Forms.ToolStripStatusLabel();
             this._ProcStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this._tsmFile = new System.Windows.Forms.ToolStripMenuItem();
+            this._Connected = new System.Windows.Forms.ToolStripMenuItem();
             this._tsmSettings = new System.Windows.Forms.ToolStripMenuItem();
             this._tsmExit = new System.Windows.Forms.ToolStripMenuItem();
             this._tsmHelp = new System.Windows.Forms.ToolStripMenuItem();
@@ -96,6 +98,21 @@
             this._chName = new System.Windows.Forms.ColumnHeader();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this._tbSqlManual = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this._bSqlProcEx = new System.Windows.Forms.Button();
+            this._bSqlProc = new System.Windows.Forms.Button();
+            this._bSqlSchool = new System.Windows.Forms.Button();
+            this._tbSqlProcEx = new System.Windows.Forms.TextBox();
+            this._tbSqlProc = new System.Windows.Forms.TextBox();
+            this._tbSqlSchool = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this._cbSqlSpellFamily = new System.Windows.Forms.ComboBox();
             this._bSelect = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.splitContainer6 = new System.Windows.Forms.SplitContainer();
@@ -117,8 +134,6 @@
             this._tbSqlLog = new System.Windows.Forms.TextBox();
             this._cbProcFlag = new System.Windows.Forms.CheckBox();
             this._bWrite = new System.Windows.Forms.Button();
-            this._Connected = new System.Windows.Forms.ToolStripMenuItem();
-            this._dbConnect = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -165,6 +180,11 @@
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
+            // _dbConnect
+            // 
+            this._dbConnect.Name = "_dbConnect";
+            this._dbConnect.Size = new System.Drawing.Size(0, 17);
+            // 
             // _status
             // 
             this._status.Name = "_status";
@@ -196,17 +216,24 @@
             this._tsmFile.Size = new System.Drawing.Size(35, 20);
             this._tsmFile.Text = "File";
             // 
+            // _Connected
+            // 
+            this._Connected.Name = "_Connected";
+            this._Connected.Size = new System.Drawing.Size(137, 22);
+            this._Connected.Text = "Connected";
+            this._Connected.Click += new System.EventHandler(this._Connected_Click);
+            // 
             // _tsmSettings
             // 
             this._tsmSettings.Name = "_tsmSettings";
-            this._tsmSettings.Size = new System.Drawing.Size(152, 22);
+            this._tsmSettings.Size = new System.Drawing.Size(137, 22);
             this._tsmSettings.Text = "Setting";
             this._tsmSettings.Click += new System.EventHandler(this._tsmSettings_Click);
             // 
             // _tsmExit
             // 
             this._tsmExit.Name = "_tsmExit";
-            this._tsmExit.Size = new System.Drawing.Size(152, 22);
+            this._tsmExit.Size = new System.Drawing.Size(137, 22);
             this._tsmExit.Text = "Exit";
             this._tsmExit.Click += new System.EventHandler(this._tsmExit_Click);
             // 
@@ -927,6 +954,21 @@
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.label9);
+            this.groupBox3.Controls.Add(this._tbSqlManual);
+            this.groupBox3.Controls.Add(this.label8);
+            this.groupBox3.Controls.Add(this.label12);
+            this.groupBox3.Controls.Add(this.label11);
+            this.groupBox3.Controls.Add(this.label10);
+            this.groupBox3.Controls.Add(this.label7);
+            this.groupBox3.Controls.Add(this._bSqlProcEx);
+            this.groupBox3.Controls.Add(this._bSqlProc);
+            this.groupBox3.Controls.Add(this._bSqlSchool);
+            this.groupBox3.Controls.Add(this._tbSqlProcEx);
+            this.groupBox3.Controls.Add(this._tbSqlProc);
+            this.groupBox3.Controls.Add(this._tbSqlSchool);
+            this.groupBox3.Controls.Add(this.textBox1);
+            this.groupBox3.Controls.Add(this._cbSqlSpellFamily);
             this.groupBox3.Controls.Add(this._bSelect);
             this.groupBox3.Location = new System.Drawing.Point(6, 3);
             this.groupBox3.Name = "groupBox3";
@@ -934,6 +976,133 @@
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Filter";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(6, 56);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(45, 13);
+            this.label9.TabIndex = 7;
+            this.label9.Text = "Manual:";
+            // 
+            // _tbSqlManual
+            // 
+            this._tbSqlManual.Location = new System.Drawing.Point(81, 53);
+            this._tbSqlManual.Name = "_tbSqlManual";
+            this._tbSqlManual.Size = new System.Drawing.Size(272, 20);
+            this._tbSqlManual.TabIndex = 6;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 20);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(70, 13);
+            this.label8.TabIndex = 5;
+            this.label8.Text = "Family Name:";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(571, 56);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(47, 13);
+            this.label12.TabIndex = 5;
+            this.label12.Text = "Proc Ex:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(376, 56);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(32, 13);
+            this.label11.TabIndex = 5;
+            this.label11.Text = "Proc:";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(571, 20);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(43, 13);
+            this.label10.TabIndex = 5;
+            this.label10.Text = "School:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(376, 20);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(47, 13);
+            this.label7.TabIndex = 5;
+            this.label7.Text = "Spell ID:";
+            // 
+            // _bSqlProcEx
+            // 
+            this._bSqlProcEx.Location = new System.Drawing.Point(718, 51);
+            this._bSqlProcEx.Name = "_bSqlProcEx";
+            this._bSqlProcEx.Size = new System.Drawing.Size(24, 23);
+            this._bSqlProcEx.TabIndex = 4;
+            this._bSqlProcEx.Text = "...";
+            this._bSqlProcEx.UseVisualStyleBackColor = true;
+            this._bSqlProcEx.Click += new System.EventHandler(this._bCalcProcFlags_Click);
+            // 
+            // _bSqlProc
+            // 
+            this._bSqlProc.Location = new System.Drawing.Point(535, 51);
+            this._bSqlProc.Name = "_bSqlProc";
+            this._bSqlProc.Size = new System.Drawing.Size(24, 23);
+            this._bSqlProc.TabIndex = 4;
+            this._bSqlProc.Text = "...";
+            this._bSqlProc.UseVisualStyleBackColor = true;
+            this._bSqlProc.Click += new System.EventHandler(this._bCalcProcFlags_Click);
+            // 
+            // _bSqlSchool
+            // 
+            this._bSqlSchool.Location = new System.Drawing.Point(718, 15);
+            this._bSqlSchool.Name = "_bSqlSchool";
+            this._bSqlSchool.Size = new System.Drawing.Size(24, 23);
+            this._bSqlSchool.TabIndex = 4;
+            this._bSqlSchool.Text = "...";
+            this._bSqlSchool.UseVisualStyleBackColor = true;
+            this._bSqlSchool.Click += new System.EventHandler(this._bCalcProcFlags_Click);
+            // 
+            // _tbSqlProcEx
+            // 
+            this._tbSqlProcEx.Location = new System.Drawing.Point(620, 53);
+            this._tbSqlProcEx.Name = "_tbSqlProcEx";
+            this._tbSqlProcEx.Size = new System.Drawing.Size(92, 20);
+            this._tbSqlProcEx.TabIndex = 3;
+            // 
+            // _tbSqlProc
+            // 
+            this._tbSqlProc.Location = new System.Drawing.Point(429, 53);
+            this._tbSqlProc.Name = "_tbSqlProc";
+            this._tbSqlProc.Size = new System.Drawing.Size(100, 20);
+            this._tbSqlProc.TabIndex = 3;
+            // 
+            // _tbSqlSchool
+            // 
+            this._tbSqlSchool.Location = new System.Drawing.Point(620, 17);
+            this._tbSqlSchool.Name = "_tbSqlSchool";
+            this._tbSqlSchool.Size = new System.Drawing.Size(92, 20);
+            this._tbSqlSchool.TabIndex = 3;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(429, 17);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 2;
+            // 
+            // _cbSqlSpellFamily
+            // 
+            this._cbSqlSpellFamily.FormattingEnabled = true;
+            this._cbSqlSpellFamily.Location = new System.Drawing.Point(81, 17);
+            this._cbSqlSpellFamily.Name = "_cbSqlSpellFamily";
+            this._cbSqlSpellFamily.Size = new System.Drawing.Size(272, 21);
+            this._cbSqlSpellFamily.TabIndex = 1;
             // 
             // _bSelect
             // 
@@ -957,7 +1126,7 @@
             this.groupBox2.Size = new System.Drawing.Size(864, 463);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Spell Proc Event";
+            this.groupBox2.Text = "Spell Proc Event   (Select item and press Enter or Mouse double click)";
             // 
             // splitContainer6
             // 
@@ -976,7 +1145,7 @@
             this.splitContainer6.Panel2.Controls.Add(this._bSqlSave);
             this.splitContainer6.Panel2.Controls.Add(this._tbSqlLog);
             this.splitContainer6.Size = new System.Drawing.Size(858, 444);
-            this.splitContainer6.SplitterDistance = 173;
+            this.splitContainer6.SplitterDistance = 229;
             this.splitContainer6.TabIndex = 0;
             // 
             // _lvDataList
@@ -1001,11 +1170,12 @@
             this._lvDataList.Location = new System.Drawing.Point(0, 0);
             this._lvDataList.MultiSelect = false;
             this._lvDataList.Name = "_lvDataList";
-            this._lvDataList.Size = new System.Drawing.Size(858, 173);
+            this._lvDataList.Size = new System.Drawing.Size(858, 229);
             this._lvDataList.TabIndex = 0;
             this._lvDataList.UseCompatibleStateImageBehavior = false;
             this._lvDataList.View = System.Windows.Forms.View.Details;
             this._lvDataList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this._lvDataList_MouseDoubleClick);
+            this._lvDataList.KeyDown += new System.Windows.Forms.KeyEventHandler(this._lvDataList_KeyDown);
             // 
             // entry
             // 
@@ -1068,7 +1238,7 @@
             // 
             // _bSqlToBase
             // 
-            this._bSqlToBase.Location = new System.Drawing.Point(96, 37);
+            this._bSqlToBase.Location = new System.Drawing.Point(84, 3);
             this._bSqlToBase.Name = "_bSqlToBase";
             this._bSqlToBase.Size = new System.Drawing.Size(75, 23);
             this._bSqlToBase.TabIndex = 2;
@@ -1078,7 +1248,7 @@
             // 
             // _bSqlSave
             // 
-            this._bSqlSave.Location = new System.Drawing.Point(5, 37);
+            this._bSqlSave.Location = new System.Drawing.Point(3, 3);
             this._bSqlSave.Name = "_bSqlSave";
             this._bSqlSave.Size = new System.Drawing.Size(75, 23);
             this._bSqlSave.TabIndex = 1;
@@ -1091,11 +1261,11 @@
             this._tbSqlLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this._tbSqlLog.Location = new System.Drawing.Point(3, 66);
+            this._tbSqlLog.Location = new System.Drawing.Point(3, 32);
             this._tbSqlLog.Multiline = true;
             this._tbSqlLog.Name = "_tbSqlLog";
             this._tbSqlLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this._tbSqlLog.Size = new System.Drawing.Size(852, 198);
+            this._tbSqlLog.Size = new System.Drawing.Size(852, 176);
             this._tbSqlLog.TabIndex = 0;
             // 
             // _cbProcFlag
@@ -1124,18 +1294,6 @@
             this._bWrite.UseVisualStyleBackColor = true;
             this._bWrite.Visible = false;
             this._bWrite.Click += new System.EventHandler(this._bWrite_Click);
-            // 
-            // _Connected
-            // 
-            this._Connected.Name = "_Connected";
-            this._Connected.Size = new System.Drawing.Size(152, 22);
-            this._Connected.Text = "Connected";
-            this._Connected.Click += new System.EventHandler(this._Connected_Click);
-            // 
-            // _dbConnect
-            // 
-            this._dbConnect.Name = "_dbConnect";
-            this._dbConnect.Size = new System.Drawing.Size(0, 17);
             // 
             // MainForm
             // 
@@ -1186,6 +1344,7 @@
             this.splitContainer5.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.splitContainer6.Panel1.ResumeLayout(false);
             this.splitContainer6.Panel2.ResumeLayout(false);
@@ -1288,5 +1447,20 @@
         private System.Windows.Forms.Button _bSelect;
         private System.Windows.Forms.ToolStripMenuItem _Connected;
         private System.Windows.Forms.ToolStripStatusLabel _dbConnect;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ComboBox _cbSqlSpellFamily;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Button _bSqlProcEx;
+        private System.Windows.Forms.Button _bSqlProc;
+        private System.Windows.Forms.Button _bSqlSchool;
+        private System.Windows.Forms.TextBox _tbSqlProcEx;
+        private System.Windows.Forms.TextBox _tbSqlProc;
+        private System.Windows.Forms.TextBox _tbSqlSchool;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox _tbSqlManual;
     }
 }

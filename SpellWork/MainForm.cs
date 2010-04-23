@@ -35,6 +35,8 @@ namespace SpellWork
             _clbProcFlags.SetFlags(typeof(ProcFlags), "PROC_FLAG_");
             _clbProcFlagEx.SetFlags(typeof(ProcFlagsEx), "PROC_EX_");
 
+            _cbSqlSpellFamily.SetEnumValues(typeof(SpellFamilyNames), "SpellFamilyName");
+
             _status.Text = String.Format("DBC Locale: {0}", DBC.Locale);
 
             ConnStatus();
@@ -249,7 +251,7 @@ namespace SpellWork
             _cbProcFitstSpellFamily.SelectedValue = spell.SpellFamilyName;
             _tbPPM.Text = "0"; // need correct value
             _tbChance.Text = spell.ProcChance.ToString();
-            _tbCooldown.Text = (spell.RecoveryTime / 1000f).ToString(); // need correct value
+            _tbCooldown.Text = (spell.RecoveryTime / 1000f).ToString();
         }
 
         private void GetProcAttribute(SpellEntry spell)
@@ -348,9 +350,9 @@ namespace SpellWork
                 ProcInfo.SpellProc.ID, 
                 _clbSchools.GetFlagsValue(), 
                 _cbProcFitstSpellFamily.ValueMember.ToUInt32(), 
-                ProcInfo.SpellProc.SpellFamilyFlags1,//SpellFamilyMask0 need correct value
-                ProcInfo.SpellProc.SpellFamilyFlags2,//SpellFamilyMask1 need correct value 
-                ProcInfo.SpellProc.SpellFamilyFlags3,//SpellFamilyMask2 need correct value
+                ProcInfo.SpellProc.SpellFamilyFlags1,
+                ProcInfo.SpellProc.SpellFamilyFlags2,
+                ProcInfo.SpellProc.SpellFamilyFlags3,
                 _clbProcFlags.GetFlagsValue(), 
                 _clbProcFlagEx.GetFlagsValue(), 
                 _tbPPM.Text.Replace(',', '.'),
@@ -376,11 +378,30 @@ namespace SpellWork
 
         private void _bSelect_Click(object sender, EventArgs e)
         {
-            var query = String.Format("SELECT * FROM `spell_proc_event` ORDER BY entry"); // need more parametr
+            if (!MySQLConnenct.Connected)
+            {
+                MessageBox.Show("Can't connect to database!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            StringBuilder sb = new StringBuilder("WHERE  ");
+            //var subquery = " WHERE ";
+            if (_cbSqlSpellFamily.SelectedValue.ToInt32() != -1)
+                sb.AppendFormat(" SpellFamilyName = {0} &&", _cbSqlSpellFamily.SelectedValue.ToInt32());
+
+            sb.AppendFormatIfNotNull(" SchoolMask = {0} &&", _tbSqlSchool.Text.ToInt32());
+            sb.AppendFormatIfNotNull(" procFlags = {0} &&", _tbSqlProc.Text.ToInt32());
+            sb.AppendFormatIfNotNull(" procEx = {0} &&", _tbSqlProcEx.Text.ToInt32());
+            
+            var subquery = sb.ToString().Remove(sb.Length - 2, 2);
+            subquery = subquery == "WHERE" ? "" : subquery;
+
+            var query = String.Format("SELECT * FROM `spell_proc_event` {0} ORDER BY entry", subquery);
+
             var result = MySQLConnenct.SelectProc(query);
             _lvDataList.Items.Clear();
             _lvDataList.Items.AddRange(result.ToArray());
 
+            // check bad spell and drop
             foreach(var str in MySQLConnenct.Dropped)
                 _tbSqlLog.AppendText(str);
         }
@@ -399,31 +420,14 @@ namespace SpellWork
 
         private void _lvDataList_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            try
+            ProcParse(sender);
+        }
+
+        private void _lvDataList_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
             {
-                var str = ((ListView)sender).SelectedItems[0];
-                uint id = str.SubItems[0].Text.ToUInt32();
-                var spell = DBC.Spell[id];
-                tabControl1.SelectedIndex = 1;
-
-                SpellInfo.ViewSpellInfo(_rtbProcSpellInfo, spell);
-                
-                _clbSchools.SetCheckedItemFromFlag(str.SubItems[2].Text.ToUInt32());
-                _clbProcFlags.SetCheckedItemFromFlag(str.SubItems[7].Text.ToUInt32());
-                _clbProcFlagEx.SetCheckedItemFromFlag(str.SubItems[8].Text.ToUInt32());
-
-                _cbProcSpellFamilyTree.SelectedValue  = str.SubItems[3].Text.ToUInt32();
-                _cbProcFitstSpellFamily.SelectedValue = str.SubItems[3].Text.ToUInt32();
-
-                _tbPPM.Text      = str.SubItems[9].Text;
-                _tbChance.Text   = str.SubItems[10].Text;
-                _tbCooldown.Text = str.SubItems[11].Text;
-
-                ProcInfo.SpellProc = spell;
-            }
-            catch
-            {
-                MessageBox.Show("Error");
+                ProcParse(sender);
             }
         }
 
@@ -472,6 +476,70 @@ namespace SpellWork
             {
                 _dbConnect.Text = "No DB Connected";
                 _dbConnect.ForeColor = Color.Red;
+            }
+        }
+
+        private void ProcParse(object sender)
+        {
+            try
+            {
+                var str = ((ListView)sender).SelectedItems[0];
+                uint id = str.SubItems[0].Text.ToUInt32();
+                var spell = DBC.Spell[id];
+                tabControl1.SelectedIndex = 1;
+
+                SpellInfo.ViewSpellInfo(_rtbProcSpellInfo, spell);
+
+                _clbSchools.SetCheckedItemFromFlag(str.SubItems[2].Text.ToUInt32());
+                _clbProcFlags.SetCheckedItemFromFlag(str.SubItems[7].Text.ToUInt32());
+                _clbProcFlagEx.SetCheckedItemFromFlag(str.SubItems[8].Text.ToUInt32());
+
+                _cbProcSpellFamilyTree.SelectedValue = str.SubItems[3].Text.ToUInt32();
+                _cbProcFitstSpellFamily.SelectedValue = str.SubItems[3].Text.ToUInt32();
+
+                _tbPPM.Text = str.SubItems[9].Text;
+                _tbChance.Text = str.SubItems[10].Text;
+                _tbCooldown.Text = str.SubItems[11].Text;
+
+                ProcInfo.SpellProc = spell;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex);
+            }
+        }
+
+        private void _bCalcProcFlags_Click(object sender, EventArgs e)
+        {
+            switch (((Button)sender).Name)
+            {
+                case "_bSqlSchool":
+                    {
+                        uint val = _tbSqlSchool.Text.ToUInt32();
+                        FormCalculateFlags form = new FormCalculateFlags(typeof(SpellSchools), val, "");
+                        form.ShowDialog(this);
+                        if (form.DialogResult == DialogResult.OK)
+                            _tbSqlSchool.Text = form.Flags.ToString();
+                    }
+                    break;
+                case "_bSqlProc":
+                    {
+                        uint val = _tbSqlProc.Text.ToUInt32();
+                        FormCalculateFlags form = new FormCalculateFlags(typeof(ProcFlags), val, "PROC_FLAG_");
+                        form.ShowDialog(this);
+                        if (form.DialogResult == DialogResult.OK)
+                            _tbSqlProc.Text = form.Flags.ToString();
+                    }
+                    break;
+                case "_bSqlProcEx":
+                    {
+                        uint val = _tbSqlProcEx.Text.ToUInt32();
+                        FormCalculateFlags form = new FormCalculateFlags(typeof(ProcFlagsEx), val, "PROC_EX_");
+                        form.ShowDialog(this);
+                        if (form.DialogResult == DialogResult.OK)
+                            _tbSqlProcEx.Text = form.Flags.ToString();
+                    }
+                    break;
             }
         }
     }
