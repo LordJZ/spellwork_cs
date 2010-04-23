@@ -1098,6 +1098,7 @@
             // 
             // _cbSqlSpellFamily
             // 
+            this._cbSqlSpellFamily.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._cbSqlSpellFamily.FormattingEnabled = true;
             this._cbSqlSpellFamily.Location = new System.Drawing.Point(81, 17);
             this._cbSqlSpellFamily.Name = "_cbSqlSpellFamily";
