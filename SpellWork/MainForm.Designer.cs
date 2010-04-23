@@ -134,6 +134,7 @@
             this._tbSqlLog = new System.Windows.Forms.TextBox();
             this._cbProcFlag = new System.Windows.Forms.CheckBox();
             this._bWrite = new System.Windows.Forms.Button();
+            this._cbBinaryCompare = new System.Windows.Forms.CheckBox();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -954,6 +955,7 @@
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this._cbBinaryCompare);
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this._tbSqlManual);
             this.groupBox3.Controls.Add(this.label8);
@@ -1296,6 +1298,16 @@
             this._bWrite.Visible = false;
             this._bWrite.Click += new System.EventHandler(this._bWrite_Click);
             // 
+            // _cbBinaryCompare
+            // 
+            this._cbBinaryCompare.AutoSize = true;
+            this._cbBinaryCompare.Location = new System.Drawing.Point(752, 55);
+            this._cbBinaryCompare.Name = "_cbBinaryCompare";
+            this._cbBinaryCompare.Size = new System.Drawing.Size(100, 17);
+            this._cbBinaryCompare.TabIndex = 8;
+            this._cbBinaryCompare.Text = "Binary Compare";
+            this._cbBinaryCompare.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1463,5 +1475,6 @@
         private System.Windows.Forms.TextBox _tbSqlSchool;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox _tbSqlManual;
+        private System.Windows.Forms.CheckBox _cbBinaryCompare;
     }
 }

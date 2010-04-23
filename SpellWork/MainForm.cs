@@ -384,13 +384,14 @@ namespace SpellWork
                 return;
             }
             StringBuilder sb = new StringBuilder("WHERE  ");
-            //var subquery = " WHERE ";
+            string compare = _cbBinaryCompare.Checked ? "&" : "=";
+
             if (_cbSqlSpellFamily.SelectedValue.ToInt32() != -1)
                 sb.AppendFormat(" SpellFamilyName = {0} &&", _cbSqlSpellFamily.SelectedValue.ToInt32());
 
-            sb.AppendFormatIfNotNull(" SchoolMask = {0} &&", _tbSqlSchool.Text.ToInt32());
-            sb.AppendFormatIfNotNull(" procFlags = {0} &&", _tbSqlProc.Text.ToInt32());
-            sb.AppendFormatIfNotNull(" procEx = {0} &&", _tbSqlProcEx.Text.ToInt32());
+            sb.AppendFormatIfNotNull(" SchoolMask {1} {0} &&", _tbSqlSchool.Text.ToInt32(), compare);
+            sb.AppendFormatIfNotNull(" procFlags {1} {0} &&", _tbSqlProc.Text.ToInt32(), compare);
+            sb.AppendFormatIfNotNull(" procEx {1} {0} &&", _tbSqlProcEx.Text.ToInt32(), compare);
             
             var subquery = sb.ToString().Remove(sb.Length - 2, 2);
             subquery = subquery == "WHERE" ? "" : subquery;

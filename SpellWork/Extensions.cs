@@ -96,6 +96,16 @@ namespace SpellWork
             return builder;
         }
 
+        public static StringBuilder AppendFormatIfNotNull(this StringBuilder builder, string format, params object[] arg)
+        {
+            if (arg[0].ToUInt32() != 0)
+            {
+                return builder.AppendFormat(format, arg);
+            }
+
+            return builder;
+        }
+
         // Append Format Line
         public static StringBuilder AppendFormatLine(this StringBuilder builder, string format, params object[] arg0)
         {
