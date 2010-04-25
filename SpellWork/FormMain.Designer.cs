@@ -1,6 +1,6 @@
 ﻿namespace SpellWork
 {
-    partial class MainForm
+    partial class FormMain
     {
         /// <summary>
         /// Требуется переменная конструктора.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this._dbConnect = new System.Windows.Forms.ToolStripStatusLabel();
             this._status = new System.Windows.Forms.ToolStripStatusLabel();
@@ -41,7 +41,7 @@
             this._tsmHelp = new System.Windows.Forms.ToolStripMenuItem();
             this._tsmAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this._tpSpellInfo = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this._rtSpellInfo = new System.Windows.Forms.RichTextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -62,7 +62,7 @@
             this._lvSpellList = new System.Windows.Forms.ListView();
             this.chSpellID = new System.Windows.Forms.ColumnHeader();
             this.chSpellName = new System.Windows.Forms.ColumnHeader();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this._tpSpellProcInfo = new System.Windows.Forms.TabPage();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -96,8 +96,19 @@
             this._lvProcAdditionalInfo = new System.Windows.Forms.ListView();
             this._chID = new System.Windows.Forms.ColumnHeader();
             this._chName = new System.Windows.Forms.ColumnHeader();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this._tpCompare = new System.Windows.Forms.TabPage();
+            this._scCompareRoot = new System.Windows.Forms.SplitContainer();
+            this._bCompareSearch1 = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
+            this._tbCompareFilterSpell1 = new System.Windows.Forms.TextBox();
+            this._rtbCompareSpell1 = new System.Windows.Forms.RichTextBox();
+            this._bCompareSearch2 = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
+            this._rtbCompareSpell2 = new System.Windows.Forms.RichTextBox();
+            this._tbCompareFilterSpell2 = new System.Windows.Forms.TextBox();
+            this._tpSqlData = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this._cbBinaryCompare = new System.Windows.Forms.CheckBox();
             this.label9 = new System.Windows.Forms.Label();
             this._tbSqlManual = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -134,18 +145,22 @@
             this._tbSqlLog = new System.Windows.Forms.TextBox();
             this._cbProcFlag = new System.Windows.Forms.CheckBox();
             this._bWrite = new System.Windows.Forms.Button();
-            this._cbBinaryCompare = new System.Windows.Forms.CheckBox();
+            this.splitContainer7 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer8 = new System.Windows.Forms.SplitContainer();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this._tpSpellInfo.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this._gSpellFilter.SuspendLayout();
             this.groupBox7.SuspendLayout();
-            this.tabPage3.SuspendLayout();
+            this._tpSpellProcInfo.SuspendLayout();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
@@ -161,12 +176,21 @@
             this.splitContainer5.Panel1.SuspendLayout();
             this.splitContainer5.Panel2.SuspendLayout();
             this.splitContainer5.SuspendLayout();
-            this.tabPage4.SuspendLayout();
+            this._tpCompare.SuspendLayout();
+            this._scCompareRoot.Panel1.SuspendLayout();
+            this._scCompareRoot.Panel2.SuspendLayout();
+            this._scCompareRoot.SuspendLayout();
+            this._tpSqlData.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.splitContainer6.Panel1.SuspendLayout();
             this.splitContainer6.Panel2.SuspendLayout();
             this.splitContainer6.SuspendLayout();
+            this.splitContainer7.Panel1.SuspendLayout();
+            this.splitContainer7.Panel2.SuspendLayout();
+            this.splitContainer7.SuspendLayout();
+            this.splitContainer8.Panel1.SuspendLayout();
+            this.splitContainer8.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -255,9 +279,10 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this._tpSpellInfo);
+            this.tabControl1.Controls.Add(this._tpSpellProcInfo);
+            this.tabControl1.Controls.Add(this._tpCompare);
+            this.tabControl1.Controls.Add(this._tpSqlData);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 24);
             this.tabControl1.Name = "tabControl1";
@@ -266,16 +291,16 @@
             this.tabControl1.TabIndex = 2;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
-            // tabPage1
+            // _tpSpellInfo
             // 
-            this.tabPage1.Controls.Add(this.splitContainer1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(864, 557);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Spell Info";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this._tpSpellInfo.Controls.Add(this.splitContainer1);
+            this._tpSpellInfo.Location = new System.Drawing.Point(4, 22);
+            this._tpSpellInfo.Name = "_tpSpellInfo";
+            this._tpSpellInfo.Padding = new System.Windows.Forms.Padding(3);
+            this._tpSpellInfo.Size = new System.Drawing.Size(864, 557);
+            this._tpSpellInfo.TabIndex = 0;
+            this._tpSpellInfo.Text = "Spell Info";
+            this._tpSpellInfo.UseVisualStyleBackColor = true;
             // 
             // splitContainer1
             // 
@@ -522,15 +547,15 @@
             this.chSpellName.Text = "Name";
             this.chSpellName.Width = 250;
             // 
-            // tabPage3
+            // _tpSpellProcInfo
             // 
-            this.tabPage3.Controls.Add(this.splitContainer2);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(864, 557);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Spell Proc Event";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this._tpSpellProcInfo.Controls.Add(this.splitContainer2);
+            this._tpSpellProcInfo.Location = new System.Drawing.Point(4, 22);
+            this._tpSpellProcInfo.Name = "_tpSpellProcInfo";
+            this._tpSpellProcInfo.Size = new System.Drawing.Size(864, 557);
+            this._tpSpellProcInfo.TabIndex = 2;
+            this._tpSpellProcInfo.Text = "Spell Proc Event";
+            this._tpSpellProcInfo.UseVisualStyleBackColor = true;
             // 
             // splitContainer2
             // 
@@ -940,16 +965,127 @@
             this._chName.Text = "Name";
             this._chName.Width = 685;
             // 
-            // tabPage4
+            // _tpCompare
             // 
-            this.tabPage4.Controls.Add(this.groupBox3);
-            this.tabPage4.Controls.Add(this.groupBox2);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(864, 557);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Sql Data";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this._tpCompare.Controls.Add(this._scCompareRoot);
+            this._tpCompare.Location = new System.Drawing.Point(4, 22);
+            this._tpCompare.Name = "_tpCompare";
+            this._tpCompare.Padding = new System.Windows.Forms.Padding(3);
+            this._tpCompare.Size = new System.Drawing.Size(864, 557);
+            this._tpCompare.TabIndex = 4;
+            this._tpCompare.Text = "Compare Spells";
+            this._tpCompare.UseVisualStyleBackColor = true;
+            // 
+            // _scCompareRoot
+            // 
+            this._scCompareRoot.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._scCompareRoot.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this._scCompareRoot.Location = new System.Drawing.Point(3, 3);
+            this._scCompareRoot.Name = "_scCompareRoot";
+            // 
+            // _scCompareRoot.Panel1
+            // 
+            this._scCompareRoot.Panel1.Controls.Add(this._bCompareSearch1);
+            this._scCompareRoot.Panel1.Controls.Add(this.label13);
+            this._scCompareRoot.Panel1.Controls.Add(this._tbCompareFilterSpell1);
+            this._scCompareRoot.Panel1.Controls.Add(this._rtbCompareSpell1);
+            // 
+            // _scCompareRoot.Panel2
+            // 
+            this._scCompareRoot.Panel2.Controls.Add(this._bCompareSearch2);
+            this._scCompareRoot.Panel2.Controls.Add(this.label14);
+            this._scCompareRoot.Panel2.Controls.Add(this._rtbCompareSpell2);
+            this._scCompareRoot.Panel2.Controls.Add(this._tbCompareFilterSpell2);
+            this._scCompareRoot.Size = new System.Drawing.Size(858, 551);
+            this._scCompareRoot.SplitterDistance = 426;
+            this._scCompareRoot.TabIndex = 0;
+            // 
+            // _bCompareSearch1
+            // 
+            this._bCompareSearch1.Location = new System.Drawing.Point(238, 1);
+            this._bCompareSearch1.Name = "_bCompareSearch1";
+            this._bCompareSearch1.Size = new System.Drawing.Size(51, 23);
+            this._bCompareSearch1.TabIndex = 3;
+            this._bCompareSearch1.Text = "Search";
+            this._bCompareSearch1.UseVisualStyleBackColor = true;
+            this._bCompareSearch1.Click += new System.EventHandler(this._bCompareSearch1_Click);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(5, 6);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(61, 13);
+            this.label13.TabIndex = 2;
+            this.label13.Text = "ID or Name";
+            // 
+            // _tbCompareFilterSpell1
+            // 
+            this._tbCompareFilterSpell1.Location = new System.Drawing.Point(86, 3);
+            this._tbCompareFilterSpell1.Name = "_tbCompareFilterSpell1";
+            this._tbCompareFilterSpell1.Size = new System.Drawing.Size(146, 20);
+            this._tbCompareFilterSpell1.TabIndex = 1;
+            this._tbCompareFilterSpell1.TextChanged += new System.EventHandler(this._tbCompareFilterSpell2_TextChanged);
+            // 
+            // _rtbCompareSpell1
+            // 
+            this._rtbCompareSpell1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this._rtbCompareSpell1.Location = new System.Drawing.Point(0, 29);
+            this._rtbCompareSpell1.Name = "_rtbCompareSpell1";
+            this._rtbCompareSpell1.Size = new System.Drawing.Size(423, 522);
+            this._rtbCompareSpell1.TabIndex = 0;
+            this._rtbCompareSpell1.Text = "";
+            // 
+            // _bCompareSearch2
+            // 
+            this._bCompareSearch2.Location = new System.Drawing.Point(243, 1);
+            this._bCompareSearch2.Name = "_bCompareSearch2";
+            this._bCompareSearch2.Size = new System.Drawing.Size(51, 23);
+            this._bCompareSearch2.TabIndex = 3;
+            this._bCompareSearch2.Text = "Search";
+            this._bCompareSearch2.UseVisualStyleBackColor = true;
+            this._bCompareSearch2.Click += new System.EventHandler(this._bCompareSearch2_Click);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(10, 6);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(61, 13);
+            this.label14.TabIndex = 2;
+            this.label14.Text = "ID or Name";
+            // 
+            // _rtbCompareSpell2
+            // 
+            this._rtbCompareSpell2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this._rtbCompareSpell2.Location = new System.Drawing.Point(3, 29);
+            this._rtbCompareSpell2.Name = "_rtbCompareSpell2";
+            this._rtbCompareSpell2.Size = new System.Drawing.Size(425, 522);
+            this._rtbCompareSpell2.TabIndex = 0;
+            this._rtbCompareSpell2.Text = "";
+            // 
+            // _tbCompareFilterSpell2
+            // 
+            this._tbCompareFilterSpell2.Location = new System.Drawing.Point(91, 3);
+            this._tbCompareFilterSpell2.Name = "_tbCompareFilterSpell2";
+            this._tbCompareFilterSpell2.Size = new System.Drawing.Size(146, 20);
+            this._tbCompareFilterSpell2.TabIndex = 1;
+            this._tbCompareFilterSpell2.TextChanged += new System.EventHandler(this._tbCompareFilterSpell2_TextChanged);
+            // 
+            // _tpSqlData
+            // 
+            this._tpSqlData.Controls.Add(this.groupBox3);
+            this._tpSqlData.Controls.Add(this.groupBox2);
+            this._tpSqlData.Location = new System.Drawing.Point(4, 22);
+            this._tpSqlData.Name = "_tpSqlData";
+            this._tpSqlData.Size = new System.Drawing.Size(864, 557);
+            this._tpSqlData.TabIndex = 3;
+            this._tpSqlData.Text = "Sql Data";
+            this._tpSqlData.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
@@ -978,6 +1114,16 @@
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Filter";
+            // 
+            // _cbBinaryCompare
+            // 
+            this._cbBinaryCompare.AutoSize = true;
+            this._cbBinaryCompare.Location = new System.Drawing.Point(752, 55);
+            this._cbBinaryCompare.Name = "_cbBinaryCompare";
+            this._cbBinaryCompare.Size = new System.Drawing.Size(100, 17);
+            this._cbBinaryCompare.TabIndex = 8;
+            this._cbBinaryCompare.Text = "Binary Compare";
+            this._cbBinaryCompare.UseVisualStyleBackColor = true;
             // 
             // label9
             // 
@@ -1298,17 +1444,63 @@
             this._bWrite.Visible = false;
             this._bWrite.Click += new System.EventHandler(this._bWrite_Click);
             // 
-            // _cbBinaryCompare
+            // splitContainer7
             // 
-            this._cbBinaryCompare.AutoSize = true;
-            this._cbBinaryCompare.Location = new System.Drawing.Point(752, 55);
-            this._cbBinaryCompare.Name = "_cbBinaryCompare";
-            this._cbBinaryCompare.Size = new System.Drawing.Size(100, 17);
-            this._cbBinaryCompare.TabIndex = 8;
-            this._cbBinaryCompare.Text = "Binary Compare";
-            this._cbBinaryCompare.UseVisualStyleBackColor = true;
+            this.splitContainer7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer7.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer7.Name = "splitContainer7";
             // 
-            // MainForm
+            // splitContainer7.Panel1
+            // 
+            this.splitContainer7.Panel1.Controls.Add(this.splitContainer8);
+            this.splitContainer7.Panel1.Controls.Add(this.richTextBox1);
+            // 
+            // splitContainer7.Panel2
+            // 
+            this.splitContainer7.Panel2.Controls.Add(this.richTextBox2);
+            this.splitContainer7.Size = new System.Drawing.Size(858, 429);
+            this.splitContainer7.SplitterDistance = 424;
+            this.splitContainer7.TabIndex = 0;
+            // 
+            // splitContainer8
+            // 
+            this.splitContainer8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer8.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer8.Name = "splitContainer8";
+            // 
+            // splitContainer8.Panel1
+            // 
+            this.splitContainer8.Panel1.Controls.Add(this.textBox2);
+            this.splitContainer8.Size = new System.Drawing.Size(424, 429);
+            this.splitContainer8.SplitterDistance = 209;
+            this.splitContainer8.TabIndex = 0;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(19, 12);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.TabIndex = 0;
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBox1.Location = new System.Drawing.Point(0, 0);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(424, 429);
+            this.richTextBox1.TabIndex = 0;
+            this.richTextBox1.Text = "";
+            // 
+            // richTextBox2
+            // 
+            this.richTextBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBox2.Location = new System.Drawing.Point(0, 0);
+            this.richTextBox2.Name = "richTextBox2";
+            this.richTextBox2.Size = new System.Drawing.Size(430, 429);
+            this.richTextBox2.TabIndex = 0;
+            this.richTextBox2.Text = "";
+            // 
+            // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -1321,15 +1513,16 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(880, 585);
-            this.Name = "MainForm";
+            this.Name = "FormMain";
             this.Text = "Spell Work 3.3.3a (11723)";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Resize += new System.EventHandler(this.FormMain_Resize);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
+            this._tpSpellInfo.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
@@ -1337,7 +1530,7 @@
             this._gSpellFilter.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
+            this._tpSpellProcInfo.ResumeLayout(false);
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             this.splitContainer2.ResumeLayout(false);
@@ -1355,7 +1548,13 @@
             this.splitContainer5.Panel2.ResumeLayout(false);
             this.splitContainer5.Panel2.PerformLayout();
             this.splitContainer5.ResumeLayout(false);
-            this.tabPage4.ResumeLayout(false);
+            this._tpCompare.ResumeLayout(false);
+            this._scCompareRoot.Panel1.ResumeLayout(false);
+            this._scCompareRoot.Panel1.PerformLayout();
+            this._scCompareRoot.Panel2.ResumeLayout(false);
+            this._scCompareRoot.Panel2.PerformLayout();
+            this._scCompareRoot.ResumeLayout(false);
+            this._tpSqlData.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -1363,6 +1562,12 @@
             this.splitContainer6.Panel2.ResumeLayout(false);
             this.splitContainer6.Panel2.PerformLayout();
             this.splitContainer6.ResumeLayout(false);
+            this.splitContainer7.Panel1.ResumeLayout(false);
+            this.splitContainer7.Panel2.ResumeLayout(false);
+            this.splitContainer7.ResumeLayout(false);
+            this.splitContainer8.Panel1.ResumeLayout(false);
+            this.splitContainer8.Panel1.PerformLayout();
+            this.splitContainer8.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1373,7 +1578,7 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage _tpSpellInfo;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.RichTextBox _rtSpellInfo;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -1386,8 +1591,8 @@
         private System.Windows.Forms.ComboBox _cbTarget1;
         private System.Windows.Forms.ComboBox _cbSpellEffect;
         private System.Windows.Forms.ComboBox _cbSpellAura;
-        private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabPage _tpSpellProcInfo;
+        private System.Windows.Forms.TabPage _tpSqlData;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.SplitContainer splitContainer3;
@@ -1476,5 +1681,20 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox _tbSqlManual;
         private System.Windows.Forms.CheckBox _cbBinaryCompare;
+        private System.Windows.Forms.TabPage _tpCompare;
+        private System.Windows.Forms.SplitContainer splitContainer7;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox richTextBox2;
+        private System.Windows.Forms.SplitContainer splitContainer8;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.SplitContainer _scCompareRoot;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox _tbCompareFilterSpell1;
+        private System.Windows.Forms.RichTextBox _rtbCompareSpell1;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.RichTextBox _rtbCompareSpell2;
+        private System.Windows.Forms.TextBox _tbCompareFilterSpell2;
+        private System.Windows.Forms.Button _bCompareSearch1;
+        private System.Windows.Forms.Button _bCompareSearch2;
     }
 }

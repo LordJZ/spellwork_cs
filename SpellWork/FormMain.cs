@@ -8,9 +8,9 @@ using System.Text;
 
 namespace SpellWork
 {
-    public partial class MainForm : Form
+    public partial class FormMain : Form
     {
-        public MainForm()
+        public FormMain()
         {
             StartPosition = FormStartPosition.CenterScreen;
 
@@ -167,7 +167,7 @@ namespace SpellWork
 
         private void _tsmAbout_Click(object sender, EventArgs e)
         {
-            AboutBox ab = new AboutBox();
+            FormAboutBox ab = new FormAboutBox();
             ab.ShowDialog();
         }
 
@@ -221,7 +221,7 @@ namespace SpellWork
 
         private void _tsmSettings_Click(object sender, EventArgs e)
         {
-            SettingsForm frm = new SettingsForm();
+            FormSettings frm = new FormSettings();
             frm.ShowDialog(this);
             ConnStatus();
         }
@@ -541,6 +541,47 @@ namespace SpellWork
                             _tbSqlProcEx.Text = form.Flags.ToString();
                     }
                     break;
+            }
+        }
+
+        private void _bCompareSearch1_Click(object sender, EventArgs e)
+        {
+            FormSearch form = new FormSearch();
+            form.ShowDialog(this);
+            if(form.DialogResult == DialogResult.OK)
+            {
+                _tbCompareFilterSpell1.Text = form.Spell.ID.ToString();
+            }
+            form.Dispose();
+        }
+
+        private void _bCompareSearch2_Click(object sender, EventArgs e)
+        {
+            FormSearch form = new FormSearch();
+            form.ShowDialog(this);
+            if (form.DialogResult == DialogResult.OK)
+            {
+                _tbCompareFilterSpell2.Text = form.Spell.ID.ToString();
+                //SpellCompare.Compare(_rtbCompareSpell1, _rtbCompareSpell2, 
+            }
+            form.Dispose();
+        }
+
+        // Чтобы панели в сплит контейнере были одинаковы при изменении размера формы, сделаем так.
+        // Может можно как-то можно через привязки, но я пока незнаю как
+        private void FormMain_Resize(object sender, EventArgs e)
+        {
+            _scCompareRoot.SplitterDistance = (((Form)sender).Size.Width / 2) - 25;
+        }
+
+        private void _tbCompareFilterSpell2_TextChanged(object sender, EventArgs e)
+        {
+            uint spell1 = _tbCompareFilterSpell1.Text.ToUInt32();
+            uint spell2 = _tbCompareFilterSpell2.Text.ToUInt32();
+            
+            if (spell1 > 0 && spell2 > 0)
+            {
+                SpellCompare.Compare(_rtbCompareSpell1, _rtbCompareSpell2, DBC.Spell[spell1], DBC.Spell[spell2]);
             }
         }
     }

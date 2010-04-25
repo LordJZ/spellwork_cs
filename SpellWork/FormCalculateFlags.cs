@@ -26,7 +26,6 @@ namespace SpellWork
 
         private void _bNo_Click(object sender, EventArgs e)
         {
-            this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
     }

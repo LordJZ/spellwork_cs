@@ -294,5 +294,10 @@ namespace SpellWork
             cb.DisplayMember = "NAME";
             cb.ValueMember = "ID";
         }
+
+        public static bool ContainText(String text, String str)
+        {
+            return (text.ToUpper().IndexOf(str.ToUpper(), StringComparison.CurrentCultureIgnoreCase) != -1);
+        }
     }
 }

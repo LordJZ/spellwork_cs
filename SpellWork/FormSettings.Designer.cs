@@ -1,6 +1,6 @@
 ﻿namespace SpellWork
 {
-    partial class SettingsForm
+    partial class FormSettings
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SettingsForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormSettings));
             this._gbDbSetting = new System.Windows.Forms.GroupBox();
             this._tbBase = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();

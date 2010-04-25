@@ -10,9 +10,9 @@ using SpellWork.Properties;
 
 namespace SpellWork
 {
-    public partial class SettingsForm : Form
+    public partial class FormSettings : Form
     {
-        public SettingsForm()
+        public FormSettings()
         {
             InitializeComponent();
         }
