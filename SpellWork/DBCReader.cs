@@ -44,26 +44,22 @@ namespace SpellWork
 
             BinaryReader reader = new BinaryReader(new FileStream(fileName, FileMode.Open, FileAccess.Read), Encoding.UTF8);
 
-            // Sanity check
-            if (reader.BaseStream.Length < 20 || reader.ReadUInt32() != 0x43424457)
+            // read dbc header
+            DbcHeader header = reader.ReadStruct<DbcHeader>();
+            if (!header.TrueSignature)
                 throw new Exception(String.Format("Bad DBC file {0}", fileName));
-
-            int recordsCount    = reader.ReadInt32();
-            int fieldsCount     = reader.ReadInt32();
-            int recordSize      = reader.ReadInt32();
-            int stringTableSize = reader.ReadInt32();
 
             int size = Marshal.SizeOf(typeof(T));
 
-            if (recordSize != size)// TODO: необходимо как-то сообщить пользователю о том, что ДБЦ у него возможно не той версии
-                throw new Exception(String.Format("\n\nSize of row in DBC file ({0}) != size of DBC struct ({1})\nDBC: {2}\n\n", recordSize, size, fileName));
+            if (header.RecordSize != size)// TODO: необходимо как-то сообщить пользователю о том, что ДБЦ у него возможно не той версии
+                throw new Exception(String.Format("\n\nSize of row in DBC file ({0}) != size of DBC struct ({1})\nDBC: {2}\n\n", header.RecordSize, size, fileName));
 
-            BinaryReader dataReader    = new BinaryReader(new MemoryStream(reader.ReadBytes(recordsCount * recordSize)), Encoding.UTF8);
-            BinaryReader stringsReader = new BinaryReader(new MemoryStream(reader.ReadBytes(stringTableSize)), Encoding.UTF8);
+            BinaryReader dataReader = new BinaryReader(new MemoryStream(reader.ReadBytes(header.RecordsCount * header.RecordSize)), Encoding.UTF8);
+            BinaryReader stringsReader = new BinaryReader(new MemoryStream(reader.ReadBytes(header.StringTableSize)), Encoding.UTF8);
 
             reader.Close();
-
-            for (int r = 0; r < recordsCount; ++r)
+            // read dbc data
+            for (int r = 0; r < header.RecordsCount; ++r)
             {
                 uint key = dataReader.ReadUInt32();
                 dataReader.BaseStream.Position -= 4;

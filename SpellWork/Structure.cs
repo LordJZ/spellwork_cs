@@ -4,6 +4,19 @@ using System.Runtime.InteropServices;
 
 namespace SpellWork
 {
+    public struct DbcHeader
+    {
+        public int Signature;
+        public int RecordsCount;
+        public int FieldsCount;
+        public int RecordSize;
+        public int StringTableSize;
+        public bool TrueSignature
+        {
+            get { return Signature == 0x43424457; }
+        }
+    };
+
     [StructLayout(LayoutKind.Sequential)]
     public struct SpellEntry
     {
