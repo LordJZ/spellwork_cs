@@ -237,25 +237,37 @@ namespace SpellWork
             return val;
         }
 
-        public static void SetFlags(this CheckedListBox _clb, Type enums)
+        public static void SetFlags<T>(this CheckedListBox _clb) where T : struct
         {
             _clb.Items.Clear();
-            foreach (var elem in Enum.GetValues(enums))
+
+            foreach (var elem in Enum.GetValues(typeof(T)))
             {
                 _clb.Items.Add(elem.ToString().NormaliseString(String.Empty));
             }
         }
 
-        public static void SetFlags(this CheckedListBox _clb, Type enums, String remove)
+        public static void SetFlags<T>(this CheckedListBox _clb, String remove) where T : struct
         {
             _clb.Items.Clear();
-            foreach (var elem in Enum.GetValues(enums))
+
+            foreach (var elem in Enum.GetValues(typeof(T)))
             {
                 _clb.Items.Add(elem.ToString().NormaliseString(remove));
             }
         }
 
-        public static void SetEnumValues(this ComboBox cb, Type enums, string NoValue)
+        public static void SetFlags(this CheckedListBox _clb, Type type, String remove)
+        {
+            _clb.Items.Clear();
+
+            foreach (var elem in Enum.GetValues(type))
+            {
+                _clb.Items.Add(elem.ToString().NormaliseString(remove));
+            }
+        }
+
+        public static void SetEnumValues<T>(this ComboBox cb, string NoValue) where T : struct
         {
             DataTable dt = new DataTable();
             dt.Columns.Add("ID");
@@ -263,7 +275,7 @@ namespace SpellWork
 
             dt.Rows.Add(new Object[] { -1, NoValue });
 
-            foreach (var str in Enum.GetValues(enums))
+            foreach (var str in Enum.GetValues(typeof(T)))
             {
                 dt.Rows.Add(new Object[] { (int)str, "(" + ((int)str).ToString("000") + ") " + str });
             }
@@ -273,7 +285,7 @@ namespace SpellWork
             cb.ValueMember = "ID";
         }
 
-        public static void SetEnumValues(this ComboBox cb, Type enums, string NoValue, string remove)
+        public static void SetEnumValues<T>(this ComboBox cb, string NoValue, string remove) where T : struct
         {
             DataTable dt = new DataTable();
             dt.Columns.Add("ID");
@@ -281,7 +293,7 @@ namespace SpellWork
 
             dt.Rows.Add(new Object[] { -1, NoValue });
 
-            foreach (var str in Enum.GetValues(enums))
+            foreach (var str in Enum.GetValues(typeof(T)))
             {
                 dt.Rows.Add(new Object[] 
                 { 
@@ -293,6 +305,31 @@ namespace SpellWork
             cb.DataSource = dt;
             cb.DisplayMember = "NAME";
             cb.ValueMember = "ID";
+        }
+
+        public static void SetStructFields<T>(this ComboBox cb) where T : struct
+        {
+            cb.Items.Clear();
+
+            DataTable dt = new DataTable();
+            dt.Columns.Add("ID");
+            dt.Columns.Add("NAME");
+
+            var type = typeof(T).GetMembers();
+            int i = 0;
+            foreach (var str in type)
+            {
+                dt.Rows.Add(new object[] 
+                { 
+                    str, 
+                    String.Format("({0:000}) {1}", i, str.Name) 
+                });
+                i++;
+            }
+
+            cb.DataSource    = dt;
+            cb.DisplayMember = "NAME";
+            cb.ValueMember   = "ID";
         }
 
         public static bool ContainText(String text, String str)

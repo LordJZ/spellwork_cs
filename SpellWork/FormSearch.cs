@@ -15,11 +15,11 @@ namespace SpellWork
         {
             InitializeComponent();
             // load items to control's
-            _cbSpellFamily.SetEnumValues(typeof(SpellFamilyNames), "SpellFamilyName");
-            _cbSpellAura.SetEnumValues(typeof(AuraType), "Aura");
-            _cbSpellEffect.SetEnumValues(typeof(SpellEffects), "Effect");
-            _cbTarget1.SetEnumValues(typeof(Targets), "Target A");
-            _cbTarget2.SetEnumValues(typeof(Targets), "Target B");
+            _cbSpellFamily.SetEnumValues<SpellFamilyNames>("SpellFamilyName");
+            _cbSpellAura.SetEnumValues<AuraType>("Aura");
+            _cbSpellEffect.SetEnumValues<SpellEffects>("Effect");
+            _cbTarget1.SetEnumValues<Targets>("Target A");
+            _cbTarget2.SetEnumValues<Targets>("Target B");
         }
 
         public SpellEntry Spell { get; set; }
@@ -90,15 +90,19 @@ namespace SpellWork
 
                 var query = from spell in DBC.Spell
                             where (!bFamilyNames || spell.Value.SpellFamilyName             == fFamilyNames)
+
                                && (!bSpellAura   || spell.Value.EffectApplyAuraName[0]      == fSpellAura
                                                  || spell.Value.EffectApplyAuraName[1]      == fSpellAura
                                                  || spell.Value.EffectApplyAuraName[2]      == fSpellAura)
+
                                && (!bSpellEffect || spell.Value.Effect[0]                   == fSpellEffect
                                                  || spell.Value.Effect[1]                   == fSpellEffect
                                                  || spell.Value.Effect[2]                   == fSpellEffect)
+
                                && (!bTarget1     || spell.Value.EffectImplicitTargetA[0]    == fTarget1
                                                  || spell.Value.EffectImplicitTargetA[1]    == fTarget1
                                                  || spell.Value.EffectImplicitTargetA[2]    == fTarget1)
+
                                && (!bTarget2     || spell.Value.EffectImplicitTargetB[0]    == fTarget2
                                                  || spell.Value.EffectImplicitTargetB[1]    == fTarget2
                                                  || spell.Value.EffectImplicitTargetB[2]    == fTarget2)
@@ -138,6 +142,12 @@ namespace SpellWork
                 this.DialogResult = DialogResult.OK;
             }
             this.Close();
+        }
+
+        private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!((Char.IsDigit(e.KeyChar) || e.KeyChar == (char)Keys.Back)))
+                e.Handled = true;
         }
 
         private void _bCencel_Click(object sender, EventArgs e)
