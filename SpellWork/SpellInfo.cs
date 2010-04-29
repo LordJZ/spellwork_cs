@@ -372,7 +372,7 @@ namespace SpellWork
                 return;
 
             sb.AppendLine("=================================================");
-            sb.SetBold();
+            sb.SetStyle(Color.Blue, FontStyle.Bold);
             sb.AppendLine("Items used this spell:");
             sb.SetDefaultStyle();
             foreach (var item in items)
@@ -380,8 +380,8 @@ namespace SpellWork
                 var name = item.LocalesName == string.Empty ? item.Name : item.LocalesName;
                 var desc = item.LocalesDescription == string.Empty ? item.Description : item.LocalesDescription;
                 desc = desc == string.Empty ? "" : string.Format("({0})", desc);
-                
-                sb.AppendFormatLine(@"   {0} - {1} {2} ", item.Entry, item.Name, desc);
+
+                sb.AppendFormatLine(@"   {0} - {1} {2} ", item.Entry, name, desc);
             }
         }
     }
