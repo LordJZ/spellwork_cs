@@ -475,6 +475,7 @@ namespace SpellWork
             {
                 _dbConnect.Text = "Connection is successfully";
                 _dbConnect.ForeColor = Color.Green;
+                DBC.ItemTemplate = MySQLConnenct.SelectItems();
             }
             else
             {
@@ -604,15 +605,18 @@ namespace SpellWork
             LinkLabel ll = ((LinkLabel)sender);
             ll.Text = ll.Text == "=" ? "&" : "=";
         }
-
+        Type d;
         private void _tbAdvansedFilter1Val_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                //var query = from spell in DBC.Spell.Values.Any(
-                //            where spell.
-                //            select spell;
+                var query = from spell in DBC.Spell.Values
+                            //where spell.GetType().GetField("ID").FieldHandle.Value.ToUInt32() > 1 || spell.GetType().GetField("ID").Attributes < 10
+                            select spell;
+
+                d = query.First().GetType();
             }
+            sbyte s;
         }
     }
 }

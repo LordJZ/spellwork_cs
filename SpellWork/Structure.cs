@@ -11,9 +11,15 @@ namespace SpellWork
         public int FieldsCount;
         public int RecordSize;
         public int StringTableSize;
+        
         public bool TrueSignature
         {
             get { return Signature == 0x43424457; }
+        }
+        
+        public int DataSize
+        {
+            get { return RecordsCount * RecordSize; }
         }
     };
 
@@ -341,7 +347,7 @@ namespace SpellWork
     public struct SkillLineEntry
     {
         public uint ID;                                            // 0        m_ID
-        public int  CategoryId;                                     // 1        m_categoryID
+        public int  CategoryId;                                    // 1        m_categoryID
         public uint SkillCostID;                                   // 2        m_skillCostsID
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
         public uint[] _Name;                                       // 3-18     m_displayName_lang
@@ -492,5 +498,19 @@ namespace SpellWork
         public int FirstSpell;
         public int Rank;
         public int ReqSpell;
+    };
+
+    public struct Item
+    {
+        public uint     Entry;
+        public String   Name;
+        public String   Description;
+        public String   LocalesName;
+        public String   LocalesDescription;
+        public uint     SpellID1;
+        public uint     SpellID2;
+        public uint     SpellID3;
+        public uint     SpellID4;
+        public uint     SpellID5;
     };
 }

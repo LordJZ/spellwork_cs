@@ -17,13 +17,13 @@ namespace SpellWork
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            if (!File.Exists(DBCReader.DBC_PATH + "Spell.dbc") ||
-                !File.Exists(DBCReader.DBC_PATH + "SpellRadius.dbc") ||
-                !File.Exists(DBCReader.DBC_PATH + "SpellRange.dbc") ||
-                !File.Exists(DBCReader.DBC_PATH + "SpellDuration.dbc") ||
-                !File.Exists(DBCReader.DBC_PATH + "SkillLineAbility.dbc") ||
-                !File.Exists(DBCReader.DBC_PATH + "SkillLine.dbc") ||
-                !File.Exists(DBCReader.DBC_PATH + "SpellCastTimes.dbc"))
+            if (!File.Exists(DBC.DBC_PATH + "Spell.dbc") ||
+                !File.Exists(DBC.DBC_PATH + "SpellRadius.dbc") ||
+                !File.Exists(DBC.DBC_PATH + "SpellRange.dbc") ||
+                !File.Exists(DBC.DBC_PATH + "SpellDuration.dbc") ||
+                !File.Exists(DBC.DBC_PATH + "SkillLineAbility.dbc") ||
+                !File.Exists(DBC.DBC_PATH + "SkillLine.dbc") ||
+                !File.Exists(DBC.DBC_PATH + "SpellCastTimes.dbc"))
             {
                 MessageBox.Show(String.Format("Files not found:\r\n" 
                     + "{0}Spell.dbc\r\n"
@@ -33,7 +33,7 @@ namespace SpellWork
                     + "{0}SkillLineAbility.dbc\r\n"
                     + "{0}SkillLine.dbc\r\n"
                     + "{0}SpellCastTimes.dbc\r\n",
-                    DBCReader.DBC_PATH),
+                    DBC.DBC_PATH),
                 "SpellWork ERROR",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
@@ -41,7 +41,7 @@ namespace SpellWork
                 return;
             }
 
-            DBCReader.Run();
+            Loader.Run();
             Application.Run(new FormMain());
         }
     }

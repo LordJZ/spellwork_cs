@@ -99,6 +99,7 @@
     <Compile Include="FormSearch.Designer.cs">
       <DependentUpon>FormSearch.cs</DependentUpon>
     </Compile>
+    <Compile Include="Loader.cs" />
     <Compile Include="ProcInfo.cs">
     </Compile>
     <Compile Include="RichTextBoxExtensions.cs" />

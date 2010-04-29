@@ -12,5 +12,10 @@ namespace SpellWork
         {
             MessageBox.Show("Test");
         }
+
+        static void _compare(RichTextBox rtb1, RichTextBox rtb2, object param1, object param2)
+        {
+ 
+        }
     }
 }

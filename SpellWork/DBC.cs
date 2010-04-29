@@ -4,6 +4,9 @@ namespace SpellWork
 {
     static class DBC
     {
+        public const int MAX_DBC_LOCALE = 16;
+        public const string DBC_PATH = @"dbc\";
+
         public static Dictionary<uint, SpellEntry> Spell     = new Dictionary<uint, SpellEntry>();
         public static Dictionary<uint, string> _SpellStrings = new Dictionary<uint, string>();
 
@@ -19,6 +22,10 @@ namespace SpellWork
         public static Dictionary<uint, SkillLineEntry> SkillLine = new Dictionary<uint, SkillLineEntry>();
         public static Dictionary<uint, string> _SkillLineStrings = new Dictionary<uint, string>();
 
+        // DB 
+        public static List<Item> ItemTemplate = new List<Item>();
+
+        // Locale
         public static LocalesDBC Locale;
     }
 }

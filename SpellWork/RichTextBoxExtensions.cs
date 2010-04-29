@@ -81,7 +81,7 @@ namespace SpellWork
         {
             if (arg != 0)
             {
-                builder.AppendFormatLine(format, arg);
+                builder.AppendFormat(format, arg);
             }
         }
 

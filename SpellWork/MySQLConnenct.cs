@@ -84,6 +84,44 @@ namespace SpellWork
             _command.Connection.Close();
         }
 
+        public static List<Item> SelectItems()
+        {
+            List<Item> items = DBC.ItemTemplate;
+            // In order to reduce the search time, we make the first selection of all items that have spellid
+            var query = String.Format(
+                "SELECT t.entry, t.name, t.description, l.name_loc{0}, l.description_loc{0}, t.spellid_1, t.spellid_2, t.spellid_3, t.spellid_4, t.spellid_5 "+
+                "FROM `item_template` t LEFT JOIN `locales_item` l ON t.entry = l.entry "+
+                "WHERE (t.spellid_1 <> 0 || t.spellid_2 <> 0 || t.spellid_3 <> 0 || t.spellid_4 <> 0 || t.spellid_5 <> 0);", 
+                        (int)DBC.Locale);
+
+            _conn = new MySqlConnection(ConnectionString);
+            _command = new MySqlCommand(query, _conn);
+            _conn.Open();
+
+            var reader = _command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                items.Add(new Item 
+                {
+                    Entry               = reader[0].ToUInt32(),
+                    Name                = reader[1].ToString(),
+                    Description         = reader[2].ToString(),
+                    LocalesName         = reader[3].ToString(),
+                    LocalesDescription  = reader[4].ToString(),
+                    SpellID1            = reader[5].ToUInt32(),
+                    SpellID2            = reader[6].ToUInt32(),
+                    SpellID3            = reader[7].ToUInt32(),
+                    SpellID4            = reader[8].ToUInt32(),
+                    SpellID5            = reader[9].ToUInt32(),
+                });
+            }
+            reader.Close();
+            _conn.Close();
+
+            return items;
+        }
+
         public static void TestConnect()
         {
             try
