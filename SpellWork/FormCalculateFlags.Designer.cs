@@ -32,6 +32,7 @@
             this._bNo = new System.Windows.Forms.Button();
             this._bOk = new System.Windows.Forms.Button();
             this._clbCalcFlags = new System.Windows.Forms.CheckedListBox();
+            this._lFlagValue = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // _bNo
@@ -66,6 +67,18 @@
             this._clbCalcFlags.Name = "_clbCalcFlags";
             this._clbCalcFlags.Size = new System.Drawing.Size(291, 259);
             this._clbCalcFlags.TabIndex = 0;
+            this._clbCalcFlags.SelectedValueChanged += new System.EventHandler(this._clbCalcFlags_SelectedValueChanged);
+            // 
+            // _lFlagValue
+            // 
+            this._lFlagValue.AutoSize = true;
+            this._lFlagValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this._lFlagValue.ForeColor = System.Drawing.Color.Blue;
+            this._lFlagValue.Location = new System.Drawing.Point(93, 275);
+            this._lFlagValue.Name = "_lFlagValue";
+            this._lFlagValue.Size = new System.Drawing.Size(54, 13);
+            this._lFlagValue.TabIndex = 3;
+            this._lFlagValue.Text = "Value: 0";
             // 
             // FormCalculateFlags
             // 
@@ -74,6 +87,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this._bNo;
             this.ClientSize = new System.Drawing.Size(292, 297);
+            this.Controls.Add(this._lFlagValue);
             this.Controls.Add(this._clbCalcFlags);
             this.Controls.Add(this._bOk);
             this.Controls.Add(this._bNo);
@@ -87,6 +101,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "FormCalculateFlags";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -95,5 +110,6 @@
         private System.Windows.Forms.CheckedListBox _clbCalcFlags;
         private System.Windows.Forms.Button _bNo;
         private System.Windows.Forms.Button _bOk;
+        private System.Windows.Forms.Label _lFlagValue;
     }
 }

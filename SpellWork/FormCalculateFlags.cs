@@ -28,5 +28,11 @@ namespace SpellWork
         {
             this.Close();
         }
+
+        private void _clbCalcFlags_SelectedValueChanged(object sender, EventArgs e)
+        {
+            this.Flags = this._clbCalcFlags.GetFlagsValue();
+            _lFlagValue.Text = "Value: " + this.Flags;
+        }
     }
 }
