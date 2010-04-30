@@ -5,6 +5,7 @@ using SpellWork.Properties;
 using System.Drawing;
 using System.IO;
 using System.Text;
+using System.Linq.Expressions;
 
 namespace SpellWork
 {
@@ -12,8 +13,6 @@ namespace SpellWork
     {
         public FormMain()
         {
-            StartPosition = FormStartPosition.CenterScreen;
-
             InitializeComponent();
 
             _cbSpellFamilyName.SetEnumValues<SpellFamilyNames>("SpellFamilyName");
@@ -104,13 +103,13 @@ namespace SpellWork
             var fTarget2 = Target2.SelectedValue.ToInt32();
 
             var query = from spell in DBC.Spell
-                        where (!bFamilyNames || spell.Value.SpellFamilyName == fFamilyNames)
-                           && (!bSpellAura   || spell.Value.EffectApplyAuraName[0] == fSpellAura
-                                             || spell.Value.EffectApplyAuraName[1] == fSpellAura
-                                             || spell.Value.EffectApplyAuraName[2] == fSpellAura)
-                           && (!bSpellEffect || spell.Value.Effect[0] == fSpellEffect
-                                             || spell.Value.Effect[1] == fSpellEffect
-                                             || spell.Value.Effect[2] == fSpellEffect)
+                        where (!bFamilyNames || spell.Value.SpellFamilyName          == fFamilyNames)
+                           && (!bSpellAura   || spell.Value.EffectApplyAuraName[0]   == fSpellAura
+                                             || spell.Value.EffectApplyAuraName[1]   == fSpellAura
+                                             || spell.Value.EffectApplyAuraName[2]   == fSpellAura)
+                           && (!bSpellEffect || spell.Value.Effect[0]                == fSpellEffect
+                                             || spell.Value.Effect[1]                == fSpellEffect
+                                             || spell.Value.Effect[2]                == fSpellEffect)
                            && (!bTarget1     || spell.Value.EffectImplicitTargetA[0] == fTarget1
                                              || spell.Value.EffectImplicitTargetA[1] == fTarget1
                                              || spell.Value.EffectImplicitTargetA[2] == fTarget1)
@@ -319,7 +318,7 @@ namespace SpellWork
                                         || (spell.Value.AttributesEx6 & at) != 0
                                         || (spell.Value.AttributesExG & at) != 0))
 
-                            && ((id != 0 || ic != 0 && at != 0) || ContainText(spell.Value.SpellName, name))
+                           && ((id != 0 || ic != 0 && at != 0) || ContainText(spell.Value.SpellName, name))
 
                         select spell;
 
@@ -362,8 +361,8 @@ namespace SpellWork
                 _tbChance.Text.Replace(',', '.'), 
                 _tbCooldown.Text.Replace(',', '.'));
 
-            _tbSqlLog.AppendText(comment + "\r\n" + drop + "\r\n" + insert + "\r\n\r\n");
-            
+            _rtbSqlLog.AppendText(comment + "\r\n" + drop + "\r\n" + insert + "\r\n\r\n");
+            _rtbSqlLog.ColorizeCode();
             if(MySQLConnenct.Connected)
                 MySQLConnenct.Insert(drop + insert);
 
@@ -407,14 +406,14 @@ namespace SpellWork
 
             // check bad spell and drop
             foreach(var str in MySQLConnenct.Dropped)
-                _tbSqlLog.AppendText(str);
+                _rtbSqlLog.AppendText(str);
         }
 
         private void _bSqlToBase_Click(object sender, EventArgs e)
         {
             if (MySQLConnenct.Connected)
             {
-                MySQLConnenct.Insert(_tbSqlLog.Text);
+                MySQLConnenct.Insert(_rtbSqlLog.Text);
             }
             else
             {
@@ -437,17 +436,18 @@ namespace SpellWork
 
         private void _bSqlSave_Click(object sender, EventArgs e)
         {
-            if (_tbSqlLog.Text == String.Empty)
+            if (_rtbSqlLog.Text == String.Empty)
                 return;
 
-            SaveFileDialog sd = new SaveFileDialog();
-            sd.Filter = "SQL files|*.sql";
-            if (sd.ShowDialog() != DialogResult.OK)
+            SaveFileDialog _sd = new SaveFileDialog();
+            _sd.Filter = "SQL files|*.sql";
+            if (_sd.ShowDialog() != DialogResult.OK)
                 return;
 
-            StreamWriter sw = new StreamWriter(sd.FileName, false, Encoding.UTF8);
-            sw.Write(_tbSqlLog.Text);
-            sw.Close();
+            using (StreamWriter _sw = new StreamWriter(_sd.FileName, false, Encoding.UTF8))
+            {
+                _sw.Write(_rtbSqlLog.Text);
+            }
         }
 
         private void _Connected_Click(object sender, EventArgs e)
@@ -475,6 +475,7 @@ namespace SpellWork
             {
                 _dbConnect.Text = "Connection is successfully";
                 _dbConnect.ForeColor = Color.Green;
+                // read db data
                 DBC.ItemTemplate = MySQLConnenct.SelectItems();
             }
             else
@@ -605,18 +606,13 @@ namespace SpellWork
             LinkLabel ll = ((LinkLabel)sender);
             ll.Text = ll.Text == "=" ? "&" : "=";
         }
-        Type d;
+
         private void _tbAdvansedFilter1Val_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-            {
-                var query = from spell in DBC.Spell.Values
-                            //where spell.GetType().GetField("ID").FieldHandle.Value.ToUInt32() > 1 || spell.GetType().GetField("ID").Attributes < 10
-                            select spell;
-
-                d = query.First().GetType();
+            {    
+                // TODO: implement advansed filter
             }
-            sbyte s;
         }
     }
 }

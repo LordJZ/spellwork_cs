@@ -177,7 +177,7 @@
             this._bSaveSettings.UseVisualStyleBackColor = true;
             this._bSaveSettings.Click += new System.EventHandler(this._bSaveSettings_Click);
             // 
-            // SettingsForm
+            // FormSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -191,7 +191,8 @@
             this.MaximumSize = new System.Drawing.Size(250, 268);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(250, 268);
-            this.Name = "SettingsForm";
+            this.Name = "FormSettings";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "SpellWork Settings";
             this.Load += new System.EventHandler(this.SettingsForm_Load);

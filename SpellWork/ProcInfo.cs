@@ -12,6 +12,7 @@ namespace SpellWork
         public static void BuildFamilyTree(TreeView familyTree, SpellFamilyNames spellfamily)
         {
             familyTree.Nodes.Clear();
+
             var spells = from Spell in DBC.Spell
                          where Spell.Value.SpellFamilyName == (uint)spellfamily
                          join sk in DBC.SkillLineAbility on Spell.Key equals sk.Value.SpellId into temp

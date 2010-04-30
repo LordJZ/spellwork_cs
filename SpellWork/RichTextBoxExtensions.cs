@@ -6,8 +6,8 @@ namespace SpellWork
 {
     public static class RichTextBoxExtensions
     {
-        public const String DefaultFamily = "Arial Unicode MS";
-        public const float  DefaultSize   = 9f;
+        public const String DEFAULT_FAMILY = "Arial Unicode MS";
+        public const float  DEFAULT_SIZE   = 9f;
 
         public static void AppendFormatLine(this RichTextBox textbox, string format, params object[] arg0)
         {
@@ -112,29 +112,29 @@ namespace SpellWork
         public static void SetStyle(this RichTextBox textbox, Color color, FontStyle style)
         {
             textbox.SelectionColor = color;
-            textbox.SelectionFont = new Font(DefaultFamily, DefaultSize, style);
+            textbox.SelectionFont = new Font(DEFAULT_FAMILY, DEFAULT_SIZE, style);
         }
         
         public static void SetStyle(this RichTextBox textbox, FontStyle style)
         {
-            textbox.SelectionFont = new Font(DefaultFamily, DefaultSize, style);
+            textbox.SelectionFont = new Font(DEFAULT_FAMILY, DEFAULT_SIZE, style);
         }
 
         public static void SetBold(this RichTextBox textbox)
         {
-            textbox.SelectionFont = new Font(DefaultFamily, DefaultSize, FontStyle.Bold);
+            textbox.SelectionFont = new Font(DEFAULT_FAMILY, DEFAULT_SIZE, FontStyle.Bold);
         }
 
         public static void SetStyle(this RichTextBox textbox, FontStyle style, Color color)
         {
             textbox.SelectionColor = color;
-            textbox.SelectionFont = new Font(DefaultFamily, DefaultSize, style);
+            textbox.SelectionFont = new Font(DEFAULT_FAMILY, DEFAULT_SIZE, style);
         }
 
         public static void SetStyle(this RichTextBox textbox, FontStyle style, Color color, float size)
         {
             textbox.SelectionColor = color;
-            textbox.SelectionFont = new Font(DefaultFamily, size, style);
+            textbox.SelectionFont = new Font(DEFAULT_FAMILY, size, style);
         }
 
         public static void SetStyle(this RichTextBox textbox, FontStyle style, Color color, float size, String family)
@@ -145,8 +145,44 @@ namespace SpellWork
 
         public static void SetDefaultStyle(this RichTextBox textbox)
         {
-            textbox.SelectionFont = new Font(DefaultFamily, DefaultSize, FontStyle.Regular);
+            textbox.SelectionFont = new Font(DEFAULT_FAMILY, DEFAULT_SIZE, FontStyle.Regular);
             textbox.SelectionColor = Color.Black;
+        }
+
+
+        public static void ColorizeCode(this RichTextBox rtb)
+        {
+            string[] keywords = {"INSERT", "INTO", "DELETE", "FROM", "IN", "VALUES", "WHERE"};
+            string text = rtb.Text;
+
+            rtb.SelectAll();
+            rtb.SelectionColor = rtb.ForeColor;
+
+            foreach (String keyword in keywords)
+            {
+                int keywordPos = rtb.Find(keyword, RichTextBoxFinds.MatchCase | RichTextBoxFinds.WholeWord);
+                while (keywordPos != -1)
+                {
+                    int commentPos = text.LastIndexOf("-- ", keywordPos, StringComparison.OrdinalIgnoreCase);
+                    int newLinePos = text.LastIndexOf("\n", keywordPos, StringComparison.OrdinalIgnoreCase);
+                    int quoteCount = 0;
+                    int quotePos = text.IndexOf("\"", newLinePos + 1, keywordPos - newLinePos, StringComparison.OrdinalIgnoreCase);
+                    while (quotePos != -1)
+                    {
+                        quoteCount++;
+                        quotePos = text.IndexOf("\"", quotePos + 1, keywordPos - (quotePos + 1), StringComparison.OrdinalIgnoreCase);
+                    }
+
+                    if (newLinePos >= commentPos && quoteCount % 2 == 0)
+                        rtb.SelectionColor = Color.Blue;
+                    else if (newLinePos == commentPos)
+                        rtb.SelectionColor = Color.Green;
+
+                    keywordPos = rtb.Find(keyword, keywordPos + rtb.SelectionLength, RichTextBoxFinds.MatchCase | RichTextBoxFinds.WholeWord);
+                }
+            }
+
+            rtb.Select(0, 0);
         }
     }
 }

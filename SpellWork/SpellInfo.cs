@@ -142,7 +142,7 @@ namespace SpellWork
                 sb.AppendFormatLine("=================================================");
                 sb.AppendText(spell.ProcInfo);
             }
-            else // if(spell.procCharges)
+            else
             {
                 sb.AppendFormatLine("Chance = {0}, charges - {1}", spell.ProcChance, spell.ProcCharges);
             }
@@ -362,10 +362,10 @@ namespace SpellWork
             
             var items = from   i in DBC.ItemTemplate
                         where  i.SpellID1 == spell.ID
-                            || i.SpellID1 == spell.ID
-                            || i.SpellID1 == spell.ID
-                            || i.SpellID1 == spell.ID
-                            || i.SpellID1 == spell.ID
+                            || i.SpellID2 == spell.ID
+                            || i.SpellID3 == spell.ID
+                            || i.SpellID4 == spell.ID
+                            || i.SpellID5 == spell.ID
                         select i;
 
             if (items.Count() == 0)
@@ -379,7 +379,7 @@ namespace SpellWork
             {
                 var name = item.LocalesName == string.Empty ? item.Name : item.LocalesName;
                 var desc = item.LocalesDescription == string.Empty ? item.Description : item.LocalesDescription;
-                desc = desc == string.Empty ? "" : string.Format("({0})", desc);
+                desc = desc == string.Empty ? string.Empty : string.Format("({0})", desc);
 
                 sb.AppendFormatLine(@"   {0} - {1} {2} ", item.Entry, name, desc);
             }

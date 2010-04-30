@@ -8,10 +8,13 @@ namespace SpellWork
 {
     static class DBCReader
     {
-        public static unsafe Dictionary<uint, T> ReadDBC<T>(string fileName, Dictionary<uint, string> strDict) where T : struct
+        public static unsafe Dictionary<uint, T> ReadDBC<T>(Dictionary<uint, string> strDict) where T : struct
         {
             Dictionary<uint, T> dict = new Dictionary<uint, T>();
 
+            // fileName = Path + (Type.Name - "Entry") + ".dbc"
+            String fileName = String.Format(@"{0}\{1}.dbc", DBC.DBC_PATH, typeof(T).Name).Replace("Entry", String.Empty);
+            
             if (!File.Exists(fileName))
                 throw new Exception("File " + fileName + " not found");
 

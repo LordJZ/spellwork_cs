@@ -83,6 +83,7 @@
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(300, 331);
             this.Name = "FormCalculateFlags";
+            this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "FormCalculateFlags";
             this.ResumeLayout(false);
