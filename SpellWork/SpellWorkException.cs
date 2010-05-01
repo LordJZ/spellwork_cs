@@ -13,7 +13,7 @@ namespace SpellWork
             : base(String.Format(message, arg0))
         {
             MessageBox.Show(String.Format(message, arg0), 
-                String.Format("{0} ERROR", DBC.DBC_VERSION), 
+                String.Format("{0} ERROR", DBC.VERSION), 
                 MessageBoxButtons.OK, 
                 MessageBoxIcon.Error);
         }

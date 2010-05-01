@@ -15,7 +15,7 @@ namespace SpellWork
         {
             InitializeComponent();
 
-            Text = DBC.DBC_VERSION;
+            Text = DBC.VERSION;
 
             _cbSpellFamilyName.SetEnumValues<SpellFamilyNames>("SpellFamilyName");
             _cbSpellAura.SetEnumValues<AuraType>("Aura");
