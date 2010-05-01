@@ -15,6 +15,8 @@ namespace SpellWork
         {
             InitializeComponent();
 
+            Text = DBC.DBC_VERSION;
+
             _cbSpellFamilyName.SetEnumValues<SpellFamilyNames>("SpellFamilyName");
             _cbSpellAura.SetEnumValues<AuraType>("Aura");
             _cbSpellEffect.SetEnumValues<SpellEffects>("Effect");
@@ -213,10 +215,9 @@ namespace SpellWork
 
         private void _tvFamilyTree_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            TreeNode node = ((TreeView)sender).SelectedNode;
-            if (node.Level > 0)
+            if (e.Node.Level > 0)
             {
-                SpellEntry spell = DBC.Spell[node.Name.ToUInt32()];
+                SpellEntry spell = DBC.Spell[e.Node.Name.ToUInt32()];
                 SetProcAtribute(spell);
             }
         }
@@ -612,6 +613,7 @@ namespace SpellWork
             if (e.KeyCode == Keys.Enter)
             {    
                 // TODO: implement advansed filter
+                //var res = DBC.Spell.Where(Func, )
             }
         }
     }

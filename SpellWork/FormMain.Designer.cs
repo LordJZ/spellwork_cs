@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this._dbConnect = new System.Windows.Forms.ToolStripStatusLabel();
@@ -88,6 +89,7 @@
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this._cbProcSpellFamilyTree = new System.Windows.Forms.ComboBox();
             this._tvFamilyTree = new System.Windows.Forms.TreeView();
+            this._ilPro = new System.Windows.Forms.ImageList(this.components);
             this.splitContainer5 = new System.Windows.Forms.SplitContainer();
             this._rtbProcSpellInfo = new System.Windows.Forms.RichTextBox();
             this._lvProcSpellList = new System.Windows.Forms.ListView();
@@ -147,6 +149,7 @@
             this.ppmRate = new System.Windows.Forms.ColumnHeader();
             this.customchance = new System.Windows.Forms.ColumnHeader();
             this.cooldown = new System.Windows.Forms.ColumnHeader();
+            this._rtbSqlLog = new System.Windows.Forms.RichTextBox();
             this._bSqlToBase = new System.Windows.Forms.Button();
             this._bSqlSave = new System.Windows.Forms.Button();
             this._cbProcFlag = new System.Windows.Forms.CheckBox();
@@ -156,7 +159,6 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
-            this._rtbSqlLog = new System.Windows.Forms.RichTextBox();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -872,11 +874,25 @@
             this._tvFamilyTree.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this._tvFamilyTree.ImageIndex = 0;
+            this._tvFamilyTree.ImageList = this._ilPro;
             this._tvFamilyTree.Location = new System.Drawing.Point(1, 23);
             this._tvFamilyTree.Name = "_tvFamilyTree";
+            this._tvFamilyTree.SelectedImageIndex = 0;
             this._tvFamilyTree.Size = new System.Drawing.Size(258, 219);
             this._tvFamilyTree.TabIndex = 0;
             this._tvFamilyTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this._tvFamilyTree_AfterSelect);
+            // 
+            // _ilPro
+            // 
+            this._ilPro.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("_ilPro.ImageStream")));
+            this._ilPro.TransparentColor = System.Drawing.Color.Transparent;
+            this._ilPro.Images.SetKeyName(0, "info.ico");
+            this._ilPro.Images.SetKeyName(1, "ok.ico");
+            this._ilPro.Images.SetKeyName(2, "drop.ico");
+            this._ilPro.Images.SetKeyName(3, "plus.ico");
+            this._ilPro.Images.SetKeyName(4, "family.ico");
+            this._ilPro.Images.SetKeyName(5, "munus.ico");
             // 
             // splitContainer5
             // 
@@ -1470,6 +1486,17 @@
             // 
             this.cooldown.Text = "Colldown";
             // 
+            // _rtbSqlLog
+            // 
+            this._rtbSqlLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this._rtbSqlLog.Location = new System.Drawing.Point(0, 32);
+            this._rtbSqlLog.Name = "_rtbSqlLog";
+            this._rtbSqlLog.Size = new System.Drawing.Size(858, 182);
+            this._rtbSqlLog.TabIndex = 3;
+            this._rtbSqlLog.Text = "";
+            // 
             // _bSqlToBase
             // 
             this._bSqlToBase.Location = new System.Drawing.Point(84, 3);
@@ -1573,17 +1600,6 @@
             this.richTextBox2.TabIndex = 0;
             this.richTextBox2.Text = "";
             // 
-            // _rtbSqlLog
-            // 
-            this._rtbSqlLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this._rtbSqlLog.Location = new System.Drawing.Point(0, 32);
-            this._rtbSqlLog.Name = "_rtbSqlLog";
-            this._rtbSqlLog.Size = new System.Drawing.Size(858, 182);
-            this._rtbSqlLog.TabIndex = 3;
-            this._rtbSqlLog.Text = "";
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1599,7 +1615,7 @@
             this.MinimumSize = new System.Drawing.Size(880, 585);
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Spell Work 3.3.3a (11723)";
+            this.Text = "FormMain";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.FormMain_Resize);
             this.statusStrip1.ResumeLayout(false);
@@ -1789,5 +1805,6 @@
         private System.Windows.Forms.ComboBox _cbAdvansedFilter1;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.RichTextBox _rtbSqlLog;
+        private System.Windows.Forms.ImageList _ilPro;
     }
 }

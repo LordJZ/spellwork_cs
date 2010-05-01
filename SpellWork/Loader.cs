@@ -20,9 +20,9 @@ namespace SpellWork
             byte DetectedLocale = 0;
             while (DBC.Spell[1].GetName(DetectedLocale) == "")
             {
-                if (DetectedLocale >= DBC.MAX_DBC_LOCALE)// TODO: необходимо как-то сообщить пользователю о том, что ДБЦ у него неправильные
-                    throw new Exception("Detected unknown locale index " + DetectedLocale);
                 ++DetectedLocale;
+                if (DetectedLocale >= DBC.MAX_DBC_LOCALE)
+                    throw new SpellWorkException("Detected unknown locale index {0}", DetectedLocale);
             }
 
             DBC.Locale = (LocalesDBC)DetectedLocale;

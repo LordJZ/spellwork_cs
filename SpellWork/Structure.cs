@@ -12,14 +12,19 @@ namespace SpellWork
         public int RecordSize;
         public int StringTableSize;
         
-        public bool TrueSignature
+        public bool IsDBC
         {
             get { return Signature == 0x43424457; }
         }
         
-        public int DataSize
+        public long DataSize
         {
-            get { return RecordsCount * RecordSize; }
+            get { return (long)(RecordsCount * RecordSize); }
+        }
+
+        public long StartStringPosition
+        {
+            get { return DataSize + (long)Marshal.SizeOf(typeof(DbcHeader)); }
         }
     };
 

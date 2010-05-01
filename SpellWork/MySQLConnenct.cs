@@ -8,7 +8,7 @@ namespace SpellWork
 {
     public static class MySQLConnenct
     {
-        private static MySqlConnection  _conn;
+        private static MySqlConnection _conn;
         private static MySqlCommand _command;
 
         public static bool Connected { get; private set; }
@@ -45,32 +45,33 @@ namespace SpellWork
         {
             List<ListViewItem> list = new List<ListViewItem>();
 
-            _conn    = new MySqlConnection(ConnectionString);
-            _command = new MySqlCommand(query, _conn);
-            _conn.Open();
-
-            var reader = _command.ExecuteReader();
-
-            while (reader.Read())
+            using (_conn = new MySqlConnection(ConnectionString))
             {
-                list.Add(new ListViewItem(new[]
+                _command = new MySqlCommand(query, _conn);
+                _conn.Open();
+
+                using (var reader = _command.ExecuteReader())
                 {
-                    reader[0].ToString(),                   // 0  Entry 
-                    GetSpellName(reader[0]),                // 1  Name
-                    reader[1].ToString(),                   // 2  School Mask
-                    reader[2].ToString(),                   // 3  Spell Family Name
-                    reader[3].ToString(),                   // 4  Spell Family Mask 0
-                    reader[4].ToString(),                   // 5  Spell Family Mask 1
-                    reader[5].ToString(),                   // 6  Spell Family Mask 2
-                    reader[6].ToString(),                   // 7  Proc Flags
-                    reader[7].ToString(),                   // 8  Proc Ex
-                    reader[8].ToString(),                   // 9  PPM Rate
-                    reader[9].ToString(),                   // 10 Chance
-                    reader[10].ToString()                   // 11 Cooldown
-                }));
+                    while (reader.Read())
+                    {
+                        list.Add(new ListViewItem(new[]
+                        {
+                            reader[0].ToString(),                   // 0  Entry 
+                            GetSpellName(reader[0]),                // 1  Name
+                            reader[1].ToString(),                   // 2  School Mask
+                            reader[2].ToString(),                   // 3  Spell Family Name
+                            reader[3].ToString(),                   // 4  Spell Family Mask 0
+                            reader[4].ToString(),                   // 5  Spell Family Mask 1
+                            reader[5].ToString(),                   // 6  Spell Family Mask 2
+                            reader[6].ToString(),                   // 7  Proc Flags
+                            reader[7].ToString(),                   // 8  Proc Ex
+                            reader[8].ToString(),                   // 9  PPM Rate
+                            reader[9].ToString(),                   // 10 Chance
+                            reader[10].ToString()                   // 11 Cooldown
+                        }));
+                    }
+                }
             }
-            reader.Close();
-            _conn.Close();
 
             return list;
         }
@@ -91,34 +92,34 @@ namespace SpellWork
             var query = String.Format(
                 "SELECT t.entry, t.name, t.description, l.name_loc{0}, l.description_loc{0}, t.spellid_1, t.spellid_2, t.spellid_3, t.spellid_4, t.spellid_5 "+
                 "FROM `item_template` t LEFT JOIN `locales_item` l ON t.entry = l.entry "+
-                "WHERE (t.spellid_1 <> 0 || t.spellid_2 <> 0 || t.spellid_3 <> 0 || t.spellid_4 <> 0 || t.spellid_5 <> 0);", 
-                        (int)DBC.Locale);
+                "WHERE (t.spellid_1 <> 0 || t.spellid_2 <> 0 || t.spellid_3 <> 0 || t.spellid_4 <> 0 || t.spellid_5 <> 0);",
+                (int)DBC.Locale == 0 ? 1 : (int)DBC.Locale /* it's huck TODO: replase code*/);
 
-            _conn = new MySqlConnection(ConnectionString);
-            _command = new MySqlCommand(query, _conn);
-            _conn.Open();
-
-            var reader = _command.ExecuteReader();
-
-            while (reader.Read())
+            using (_conn = new MySqlConnection(ConnectionString))
             {
-                items.Add(new Item 
-                {
-                    Entry               = reader[0].ToUInt32(),
-                    Name                = reader[1].ToString(),
-                    Description         = reader[2].ToString(),
-                    LocalesName         = reader[3].ToString(),
-                    LocalesDescription  = reader[4].ToString(),
-                    SpellID1            = reader[5].ToUInt32(),
-                    SpellID2            = reader[6].ToUInt32(),
-                    SpellID3            = reader[7].ToUInt32(),
-                    SpellID4            = reader[8].ToUInt32(),
-                    SpellID5            = reader[9].ToUInt32(),
-                });
-            }
-            reader.Close();
-            _conn.Close();
+                _command = new MySqlCommand(query, _conn);
+                _conn.Open();
 
+                using (var reader = _command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        items.Add(new Item
+                        {
+                            Entry               = reader[0].ToUInt32(),
+                            Name                = reader[1].ToString(),
+                            Description         = reader[2].ToString(),
+                            LocalesName         = reader[3].ToString(),
+                            LocalesDescription  = reader[4].ToString(),
+                            SpellID1            = reader[5].ToUInt32(),
+                            SpellID2            = reader[6].ToUInt32(),
+                            SpellID3            = reader[7].ToUInt32(),
+                            SpellID4            = reader[8].ToUInt32(),
+                            SpellID5            = reader[9].ToUInt32(),
+                        });
+                    }
+                }
+             }
             return items;
         }
 

@@ -36,6 +36,7 @@ namespace SpellWork
 
                 TreeNode node = new TreeNode();
                 node.Text = String.Format("0x{0:X8} {1:X8} {2:X8}", mask_2, mask_1, mask_0);
+                node.ImageKey = "family.ico";
                 familyTree.Nodes.Add(node);
             }
 
@@ -65,6 +66,7 @@ namespace SpellWork
                         TreeNode child = new TreeNode();
                         child = node.Nodes.Add(name);
                         child.Name = spell.ID.ToString();
+                        child.ImageKey = IsSkill ? "plus.ico" : "munus.ico";
                         child.ForeColor = IsSkill ? Color.Blue : Color.Red;
                     }
                 }
