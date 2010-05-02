@@ -24,6 +24,6 @@ namespace SpellWork
         public static List<Item> ItemTemplate = new List<Item>();
 
         // Locale
-        public static LocalesDBC Locale;
+        public static LocalesDBC Locale { get; set; }
     }
 }

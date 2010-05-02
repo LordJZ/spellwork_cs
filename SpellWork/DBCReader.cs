@@ -3,7 +3,6 @@ using System.Text;
 using System.IO;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
 
 namespace SpellWork
 {
@@ -21,7 +20,7 @@ namespace SpellWork
                 int size = Marshal.SizeOf(typeof(T));
 
                 if (!header.IsDBC)
-                    throw new SpellWorkException("Bad DBC file {0}", fileName);
+                    throw new SpellWorkException("{0} is not DBC files", fileName);
                 if (header.RecordSize != size)
                     throw new SpellWorkException("Size of row in DBC file ({0}) != size of DBC struct ({1}) in DBC: {3}", header.RecordSize, size, fileName);
 
@@ -36,7 +35,7 @@ namespace SpellWork
                     dict.Add(key, T_entry);
                 }
 
-                // Now we read strings
+                // read dbc strings
                 if (strDict != null)
                 {
                     while (reader.BaseStream.Position != reader.BaseStream.Length)

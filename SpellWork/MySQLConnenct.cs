@@ -19,7 +19,7 @@ namespace SpellWork
         {
             get 
             {
-                return String.Format("Server={0};Port={1};Uid={2};Pwd={3};Database={4};Connection Timeout=10", 
+                return String.Format("Server={0};Port={1};Uid={2};Pwd={3};Database={4};character set=utf8;Connection Timeout=10", 
                     Settings.Default.Host, 
                     Settings.Default.Port, 
                     Settings.Default.User, 

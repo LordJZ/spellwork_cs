@@ -12,7 +12,7 @@ namespace SpellWork
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -40,8 +40,9 @@ namespace SpellWork
                 Application.Exit();
                 return;
             }
+           
+            new Loader(!(args.Count() > 0 && args[0].ToLower() == "nothread"));
 
-            Loader.Run();
             Application.Run(new FormMain());
         }
     }

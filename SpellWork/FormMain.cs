@@ -602,12 +602,6 @@ namespace SpellWork
             form.Dispose();
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            LinkLabel ll = ((LinkLabel)sender);
-            ll.Text = ll.Text == "=" ? "&" : "=";
-        }
-
         private void _tbAdvansedFilter1Val_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
