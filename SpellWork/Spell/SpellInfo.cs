@@ -289,7 +289,7 @@ namespace SpellWork
                     if (DBC.Spell.ContainsKey(tsId))
                     {
                         var trigger = DBC.Spell[tsId];
-                        sb.SetStyle(Color.DarkGreen, FontStyle.Bold);
+                        sb.SetStyle(Color.Blue, FontStyle.Bold);
                         sb.AppendFormatLine("   Trigger spell ({0}) {1}. Chance = {2}", tsId, trigger.SpellNameRank, spell.ProcChance);
                         sb.SetStyle(FontStyle.Italic);
                         sb.AppendFormatLineIfNotNull("   Description: {0}", trigger.Description);
@@ -384,5 +384,6 @@ namespace SpellWork
                 sb.AppendFormatLine(@"   {0} - {1} {2} ", item.Entry, name, desc);
             }
         }
+    
     }
 }

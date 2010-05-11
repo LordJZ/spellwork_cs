@@ -321,7 +321,7 @@ namespace SpellWork
             {
                 dt.Rows.Add(new object[] 
                 { 
-                    str, 
+                    str.Name, 
                     String.Format("({0:000}) {1}", i, str.Name) 
                 });
                 i++;

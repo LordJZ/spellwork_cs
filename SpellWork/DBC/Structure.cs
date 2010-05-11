@@ -294,11 +294,11 @@ namespace SpellWork
                 if (RangeIndex == 0 || !DBC.SpellRange.ContainsKey(RangeIndex))
                     return String.Empty;
 
-                var q = DBC.SpellRange[RangeIndex];
+                var range = DBC.SpellRange[RangeIndex];
                 StringBuilder sb = new StringBuilder();
-                sb.AppendFormatLine("SpellRange: (Id {0}) \"{1}\":", q.ID, q.Description1);
-                sb.AppendFormatLine("    MinRange = {0}, MinRangeFriendly = {1}", q.MinRange, q.MinRangeFriendly);
-                sb.AppendFormatLine("    MaxRange = {0}, MaxRangeFriendly = {1}", q.MaxRange, q.MaxRangeFriendly);
+                sb.AppendFormatLine("SpellRange: (Id {0}) \"{1}\":", range.ID, range.Description1);
+                sb.AppendFormatLine("    MinRange = {0}, MinRangeFriendly = {1}", range.MinRange, range.MinRangeFriendly);
+                sb.AppendFormatLine("    MaxRange = {0}, MaxRangeFriendly = {1}", range.MaxRange, range.MaxRangeFriendly);
 
                 return sb.ToString();
             }

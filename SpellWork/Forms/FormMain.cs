@@ -6,6 +6,9 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Linq.Expressions;
+using System.Collections;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace SpellWork
 {
@@ -601,13 +604,15 @@ namespace SpellWork
             }
             form.Dispose();
         }
-
+        IEnumerable spell;
+        object obj;
         private void _tbAdvansedFilter1Val_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-            {    
-                // TODO: implement advansed filter
-                //var res = DBC.Spell.Where(Func, )
+            {
+                spell = DBC.SpellDuration.Values.Where(n => n.GetType().GetField("ID").GetValue(n).ToUInt32() == 5);
+
+                obj = DBC.SpellDuration.Values.Select(n => n.GetType().GetField("ID").GetValue(n));
             }
         }
     }

@@ -3,6 +3,7 @@ using System.Text;
 using System.IO;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Reflection;
 
 namespace SpellWork
 {
@@ -22,7 +23,7 @@ namespace SpellWork
                 if (!header.IsDBC)
                     throw new SpellWorkException("{0} is not DBC files", fileName);
                 if (header.RecordSize != size)
-                    throw new SpellWorkException("Size of row in DBC file ({0}) != size of DBC struct ({1}) in DBC: {3}", header.RecordSize, size, fileName);
+                    throw new SpellWorkException("Size of row in DBC file ({0}) != size of DBC struct ({1}) in DBC: {2}", header.RecordSize, size, fileName);
 
                 // read dbc data
                 for (int r = 0; r < header.RecordsCount; ++r)

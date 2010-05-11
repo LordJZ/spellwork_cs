@@ -8,8 +8,6 @@ namespace SpellWork
 {
     class Loader
     {
-        static Dictionary<uint, string> nullStringDict = null;
-
         public Loader(bool thread)
         {
             DBC.Spell = DBCReader.ReadDBC<SpellEntry>(DBC._SpellStrings);
@@ -24,12 +22,13 @@ namespace SpellWork
 
         private void RunOther()
         {
-            DBC.SpellRadius      = DBCReader.ReadDBC<SpellRadiusEntry>(nullStringDict);
-            DBC.SpellRange       = DBCReader.ReadDBC<SpellRangeEntry>(DBC._SpellRangeStrings);
-            DBC.SpellDuration    = DBCReader.ReadDBC<SpellDurationEntry>(nullStringDict);
-            DBC.SkillLineAbility = DBCReader.ReadDBC<SkillLineAbilityEntry>(nullStringDict);
             DBC.SkillLine        = DBCReader.ReadDBC<SkillLineEntry>(DBC._SkillLineStrings);
-            DBC.SpellCastTimes   = DBCReader.ReadDBC<SpellCastTimesEntry>(nullStringDict);
+            DBC.SpellRange       = DBCReader.ReadDBC<SpellRangeEntry>(DBC._SpellRangeStrings);
+            
+            DBC.SpellDuration    = DBCReader.ReadDBC<SpellDurationEntry>(null);
+            DBC.SkillLineAbility = DBCReader.ReadDBC<SkillLineAbilityEntry>(null);
+            DBC.SpellRadius      = DBCReader.ReadDBC<SpellRadiusEntry>(null);
+            DBC.SpellCastTimes   = DBCReader.ReadDBC<SpellCastTimesEntry>(null);
         }
 
         private LocalesDBC DetectedLocale

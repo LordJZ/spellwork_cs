@@ -12,9 +12,9 @@ namespace SpellWork
         public SpellWorkException(string message, params object[] arg0)
             : base(String.Format(message, arg0))
         {
-            MessageBox.Show(String.Format(message, arg0), 
-                String.Format("{0} ERROR", DBC.VERSION), 
-                MessageBoxButtons.OK, 
+            MessageBox.Show(String.Format(message, arg0),
+                String.Format("{0} ERROR", DBC.VERSION),
+                MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
         }
     }
