@@ -1086,6 +1086,7 @@
             // 
             // _scCompareRoot.Panel1
             // 
+            this._scCompareRoot.Panel1.BackColor = System.Drawing.Color.WhiteSmoke;
             this._scCompareRoot.Panel1.Controls.Add(this._bCompareSearch1);
             this._scCompareRoot.Panel1.Controls.Add(this.label13);
             this._scCompareRoot.Panel1.Controls.Add(this._tbCompareFilterSpell1);
@@ -1093,6 +1094,7 @@
             // 
             // _scCompareRoot.Panel2
             // 
+            this._scCompareRoot.Panel2.BackColor = System.Drawing.Color.WhiteSmoke;
             this._scCompareRoot.Panel2.Controls.Add(this._bCompareSearch2);
             this._scCompareRoot.Panel2.Controls.Add(this.label14);
             this._scCompareRoot.Panel2.Controls.Add(this._rtbCompareSpell2);
@@ -1133,6 +1135,8 @@
             this._rtbCompareSpell1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this._rtbCompareSpell1.BackColor = System.Drawing.Color.Gainsboro;
+            this._rtbCompareSpell1.Font = new System.Drawing.Font("Arial Unicode MS", 9F);
             this._rtbCompareSpell1.Location = new System.Drawing.Point(0, 29);
             this._rtbCompareSpell1.Name = "_rtbCompareSpell1";
             this._rtbCompareSpell1.Size = new System.Drawing.Size(423, 522);
@@ -1163,6 +1167,8 @@
             this._rtbCompareSpell2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this._rtbCompareSpell2.BackColor = System.Drawing.Color.Gainsboro;
+            this._rtbCompareSpell2.Font = new System.Drawing.Font("Arial Unicode MS", 9F);
             this._rtbCompareSpell2.Location = new System.Drawing.Point(3, 29);
             this._rtbCompareSpell2.Name = "_rtbCompareSpell2";
             this._rtbCompareSpell2.Size = new System.Drawing.Size(425, 522);

@@ -72,9 +72,5 @@ namespace SpellWork
                 }
             }
         }
-
-        public static void SetProcData()
-        {
-        }
     }
 }

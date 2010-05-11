@@ -587,7 +587,7 @@ namespace SpellWork
             {
                 try
                 {
-                    SpellCompare.Compare(_rtbCompareSpell1, _rtbCompareSpell2, DBC.Spell[spell1], DBC.Spell[spell2]);
+                    new SpellCompare(_rtbCompareSpell1, _rtbCompareSpell2, DBC.Spell[spell1], DBC.Spell[spell2]);
                 }
                 catch { }
             }

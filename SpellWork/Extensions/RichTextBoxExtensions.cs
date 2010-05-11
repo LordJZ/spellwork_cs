@@ -177,15 +177,17 @@ namespace SpellWork
             foreach (String keyword in keywords)
             {
                 int keywordPos = rtb.Find(keyword, RichTextBoxFinds.MatchCase | RichTextBoxFinds.WholeWord);
+                
                 while (keywordPos != -1)
                 {
                     int commentPos = text.LastIndexOf("-- ", keywordPos, StringComparison.OrdinalIgnoreCase);
                     int newLinePos = text.LastIndexOf("\n", keywordPos, StringComparison.OrdinalIgnoreCase);
+
                     int quoteCount = 0;
                     int quotePos = text.IndexOf("\"", newLinePos + 1, keywordPos - newLinePos, StringComparison.OrdinalIgnoreCase);
-                    while (quotePos != -1)
+
+                    for (; quotePos != -1; quoteCount++)
                     {
-                        quoteCount++;
                         quotePos = text.IndexOf("\"", quotePos + 1, keywordPos - (quotePos + 1), StringComparison.OrdinalIgnoreCase);
                     }
 

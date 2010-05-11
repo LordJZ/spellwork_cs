@@ -41,10 +41,10 @@ namespace SpellWork
                     spell.TargetCreatureType, (CreatureTypeMask)spell.TargetCreatureType);
 
             if (spell.Stances != 0)
-                sb.AppendFormatLineIfNotNull("Stances: {0}", (ShapeshiftFormMask)spell.Stances);
+                sb.AppendFormatLine("Stances: {0}", (ShapeshiftFormMask)spell.Stances);
 
             if (spell.StancesNot != 0)
-                sb.AppendFormatLineIfNotNull("Stances Not: {0}", (ShapeshiftFormMask)spell.StancesNot);
+                sb.AppendFormatLine("Stances Not: {0}", (ShapeshiftFormMask)spell.StancesNot);
 
             AppendSkillLine(sb, spell.ID);
 
