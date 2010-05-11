@@ -17,12 +17,12 @@ namespace SpellWork
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            if (!File.Exists(DBC.DBC_PATH + "Spell.dbc") ||
-                !File.Exists(DBC.DBC_PATH + "SpellRadius.dbc") ||
-                !File.Exists(DBC.DBC_PATH + "SpellRange.dbc") ||
-                !File.Exists(DBC.DBC_PATH + "SpellDuration.dbc") ||
+            if (!File.Exists(DBC.DBC_PATH + "Spell.dbc")            ||
+                !File.Exists(DBC.DBC_PATH + "SpellRadius.dbc")      ||
+                !File.Exists(DBC.DBC_PATH + "SpellRange.dbc")       ||
+                !File.Exists(DBC.DBC_PATH + "SpellDuration.dbc")    ||
                 !File.Exists(DBC.DBC_PATH + "SkillLineAbility.dbc") ||
-                !File.Exists(DBC.DBC_PATH + "SkillLine.dbc") ||
+                !File.Exists(DBC.DBC_PATH + "SkillLine.dbc")        ||
                 !File.Exists(DBC.DBC_PATH + "SpellCastTimes.dbc"))
             {
                 MessageBox.Show(String.Format("Files not found:\r\n" 

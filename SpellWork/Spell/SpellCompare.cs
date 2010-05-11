@@ -10,12 +10,8 @@ namespace SpellWork
     {
         public static void Compare(RichTextBox rtb1, RichTextBox rtb2, SpellEntry spell1, SpellEntry spell2)
         {
-            MessageBox.Show("Test");
-        }
-
-        static void _compare(RichTextBox rtb1, RichTextBox rtb2, object param1, object param2)
-        {
- 
+            new SpellInfo(rtb1, spell1);
+            new SpellInfo(rtb2, spell2);
         }
     }
 }

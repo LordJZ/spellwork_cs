@@ -54,15 +54,9 @@ namespace SpellWork
             splitContainer3.SplitterDistance = 128;
         }
 
-        private bool ContainText(String text, String str)
-        {
-            return (text.ToUpper().IndexOf(str.ToUpper(), StringComparison.CurrentCultureIgnoreCase) != -1);
-        }
-
         private void _bSearch_Click(object sender, EventArgs e)
         {
-            var b = (Button)sender;
-            switch (b.Name)
+            switch (((Button)sender).Name)
             {
                 case "_bSearch":
                     Search(_lvSpellList, _tbSearchId);
@@ -139,11 +133,11 @@ namespace SpellWork
 
         private void _lvSpellList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var lv = (ListView)sender;
+            ListView lv = (ListView)sender;
             if (lv.SelectedItems.Count > 0)
             {
-                var id = lv.SelectedItems[0].SubItems[0].Text.ToUInt32();
-                SpellInfo.ViewSpellInfo(_rtSpellInfo, DBC.Spell[id]);
+                uint id = lv.SelectedItems[0].SubItems[0].Text.ToUInt32();
+                new SpellInfo(_rtSpellInfo, DBC.Spell[id]);
             }
         }
 
@@ -154,12 +148,13 @@ namespace SpellWork
 
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var sen = ((ComboBox)sender);
+            ComboBox sen = ((ComboBox)sender);
             if ((int)sen.SelectedIndex == 0)
                 return;
             _tvFamilyTree.Nodes.Clear();
-            var spellfamily = (SpellFamilyNames)int.Parse(sen.SelectedValue.ToString());
-            ProcInfo.BuildFamilyTree(_tvFamilyTree, spellfamily);
+            SpellFamilyNames spellfamily = (SpellFamilyNames)int.Parse(sen.SelectedValue.ToString());
+            
+            new ProcInfo(_tvFamilyTree, spellfamily);
         }
 
         private void _cbProcFlag_CheckedChanged(object sender, EventArgs e)
@@ -201,7 +196,7 @@ namespace SpellWork
             uint id = tb.Text.ToUInt32();
             var query = from spell in DBC.Spell
                         where (id == 0 || spell.Key == id) 
-                           && (id != 0 || ContainText(spell.Value.SpellName, tb.Text))
+                           && (id != 0 || spell.Value.SpellName.ContainText(tb.Text))
                         select spell;
 
             if (query.Count() == 0) return;
@@ -249,7 +244,7 @@ namespace SpellWork
 
         private void SetProcAtribute(SpellEntry spell)
         {
-            SpellInfo.ViewSpellInfo(_rtbProcSpellInfo, spell);
+            new SpellInfo(_rtbProcSpellInfo, spell);
 
             _cbProcSpellFamilyTree.SelectedValue = spell.SpellFamilyName;
             _clbProcFlags.SetCheckedItemFromFlag(spell.ProcFlags);
@@ -322,7 +317,7 @@ namespace SpellWork
                                         || (spell.Value.AttributesEx6 & at) != 0
                                         || (spell.Value.AttributesExG & at) != 0))
 
-                           && ((id != 0 || ic != 0 && at != 0) || ContainText(spell.Value.SpellName, name))
+                           && ((id != 0 || ic != 0 && at != 0) || spell.Value.SpellName.ContainText(name))
 
                         select spell;
 
@@ -498,7 +493,7 @@ namespace SpellWork
                 var spell = DBC.Spell[id];
                 tabControl1.SelectedIndex = 1;
 
-                SpellInfo.ViewSpellInfo(_rtbProcSpellInfo, spell);
+                new SpellInfo(_rtbProcSpellInfo, spell);
 
                 _clbSchools.SetCheckedItemFromFlag(str.SubItems[2].Text.ToUInt32());
                 _clbProcFlags.SetCheckedItemFromFlag(str.SubItems[7].Text.ToUInt32());
@@ -590,7 +585,11 @@ namespace SpellWork
             
             if (spell1 > 0 && spell2 > 0)
             {
-                SpellCompare.Compare(_rtbCompareSpell1, _rtbCompareSpell2, DBC.Spell[spell1], DBC.Spell[spell2]);
+                try
+                {
+                    SpellCompare.Compare(_rtbCompareSpell1, _rtbCompareSpell2, DBC.Spell[spell1], DBC.Spell[spell2]);
+                }
+                catch { }
             }
         }
 

@@ -5,11 +5,11 @@ using System.Drawing;
 
 namespace SpellWork
 {
-    public static class ProcInfo
+    public class ProcInfo
     {
         public static SpellEntry SpellProc { get; set; }
 
-        public static void BuildFamilyTree(TreeView familyTree, SpellFamilyNames spellfamily)
+        public ProcInfo(TreeView familyTree, SpellFamilyNames spellfamily)
         {
             familyTree.Nodes.Clear();
 

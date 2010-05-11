@@ -129,7 +129,7 @@ namespace SpellWork
             if (lv.SelectedItems.Count > 0)
             {
                 var id = lv.SelectedItems[0].SubItems[0].Text.ToUInt32();
-                SpellInfo.ViewSpellInfo(_rtbSpellInfo, DBC.Spell[id]);
+                new SpellInfo(_rtbSpellInfo, DBC.Spell[id]);
             }
         }
 

@@ -332,9 +332,15 @@ namespace SpellWork
             cb.ValueMember   = "ID";
         }
 
-        public static bool ContainText(String text, String str)
+        /// <summary>
+        /// Compares the text on the partial occurrence of a string and ignore case
+        /// </summary>
+        /// <param name="text">The original text, which will search entry</param>
+        /// <param name="compareText">String which will be matched with the original text</param>
+        /// <returns>Boolean(true or false)</returns>
+        public static bool ContainText(this string text, string compareText)
         {
-            return (text.ToUpper().IndexOf(str.ToUpper(), StringComparison.CurrentCultureIgnoreCase) != -1);
+            return (text.ToUpper().IndexOf(compareText.ToUpper(), StringComparison.CurrentCultureIgnoreCase) != -1);
         }
     }
 }

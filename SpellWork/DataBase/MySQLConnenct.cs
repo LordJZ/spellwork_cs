@@ -56,18 +56,18 @@ namespace SpellWork
                     {
                         list.Add(new ListViewItem(new[]
                         {
-                            reader[0].ToString(),                   // 0  Entry 
-                            GetSpellName(reader[0]),                // 1  Name
-                            reader[1].ToString(),                   // 2  School Mask
-                            reader[2].ToString(),                   // 3  Spell Family Name
-                            reader[3].ToString(),                   // 4  Spell Family Mask 0
-                            reader[4].ToString(),                   // 5  Spell Family Mask 1
-                            reader[5].ToString(),                   // 6  Spell Family Mask 2
-                            reader[6].ToString(),                   // 7  Proc Flags
-                            reader[7].ToString(),                   // 8  Proc Ex
-                            reader[8].ToString(),                   // 9  PPM Rate
-                            reader[9].ToString(),                   // 10 Chance
-                            reader[10].ToString()                   // 11 Cooldown
+                            reader[0].ToString(),       // 0  Entry 
+                            GetSpellName(reader[0]),    // 1  Name
+                            reader[1].ToString(),       // 2  School Mask
+                            reader[2].ToString(),       // 3  Spell Family Name
+                            reader[3].ToString(),       // 4  Spell Family Mask 0
+                            reader[4].ToString(),       // 5  Spell Family Mask 1
+                            reader[5].ToString(),       // 6  Spell Family Mask 2
+                            reader[6].ToString(),       // 7  Proc Flags
+                            reader[7].ToString(),       // 8  Proc Ex
+                            reader[8].ToString(),       // 9  PPM Rate
+                            reader[9].ToString(),       // 10 Chance
+                            reader[10].ToString()       // 11 Cooldown
                         }));
                     }
                 }
@@ -90,8 +90,9 @@ namespace SpellWork
             List<Item> items = DBC.ItemTemplate;
             // In order to reduce the search time, we make the first selection of all items that have spellid
             var query = String.Format(
-                "SELECT t.entry, t.name, t.description, l.name_loc{0}, l.description_loc{0}, t.spellid_1, t.spellid_2, t.spellid_3, t.spellid_4, t.spellid_5 "+
-                "FROM `item_template` t LEFT JOIN `locales_item` l ON t.entry = l.entry "+
+                "SELECT t.entry, t.name, t.description, l.name_loc{0}, l.description_loc{0}, " +
+                "t.spellid_1, t.spellid_2, t.spellid_3, t.spellid_4, t.spellid_5 " +
+                "FROM `item_template` t LEFT JOIN `locales_item` l ON t.entry = l.entry " +
                 "WHERE (t.spellid_1 <> 0 || t.spellid_2 <> 0 || t.spellid_3 <> 0 || t.spellid_4 <> 0 || t.spellid_5 <> 0);",
                 (int)DBC.Locale == 0 ? 1 : (int)DBC.Locale /* it's huck TODO: replase code*/);
 

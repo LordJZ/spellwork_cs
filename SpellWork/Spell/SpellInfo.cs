@@ -6,7 +6,7 @@ namespace SpellWork
 {
     class SpellInfo
     {
-        public static void ViewSpellInfo(RichTextBox sb, SpellEntry spell)
+        public SpellInfo(RichTextBox sb, SpellEntry spell)
         {
             ProcInfo.SpellProc = spell;
 
@@ -41,10 +41,10 @@ namespace SpellWork
                     spell.TargetCreatureType, (CreatureTypeMask)spell.TargetCreatureType);
 
             if (spell.Stances != 0)
-                sb.AppendFormatLine("Stances: {0}", (ShapeshiftFormMask)spell.Stances);
+                sb.AppendFormatLineIfNotNull("Stances: {0}", (ShapeshiftFormMask)spell.Stances);
 
             if (spell.StancesNot != 0)
-                sb.AppendFormatLine("Stances Not: {0}", (ShapeshiftFormMask)spell.StancesNot);
+                sb.AppendFormatLineIfNotNull("Stances Not: {0}", (ShapeshiftFormMask)spell.StancesNot);
 
             AppendSkillLine(sb, spell.ID);
 
