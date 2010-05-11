@@ -575,7 +575,11 @@ namespace SpellWork
         // Может можно как-то можно через привязки, но я пока незнаю как
         private void FormMain_Resize(object sender, EventArgs e)
         {
-            _scCompareRoot.SplitterDistance = (((Form)sender).Size.Width / 2) - 25;
+            try
+            {
+                _scCompareRoot.SplitterDistance = (((Form)sender).Size.Width / 2) - 25;
+            }
+            catch { }
         }
 
         private void _tbCompareFilterSpell2_TextChanged(object sender, EventArgs e)
