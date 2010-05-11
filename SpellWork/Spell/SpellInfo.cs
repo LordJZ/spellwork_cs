@@ -19,7 +19,8 @@ namespace SpellWork
             sb.AppendFormatLineIfNotNull("Description: {0}", spell.Description);
             sb.AppendFormatLineIfNotNull("ToolTip: {0}", spell.ToolTip);
             sb.AppendFormatLineIfNotNull("Modal Next Spell: {0}", spell.ModalNextSpell);
-            sb.AppendFormatLine("=================================================");
+            if(spell.Description != string.Empty && spell.ToolTip != string.Empty && spell.ModalNextSpell != 0)
+                sb.AppendFormatLine("=================================================");
 
             sb.AppendFormatLine("Category = {0}, SpellIconID = {1}, activeIconID = {2}, SpellVisual = ({3},{4})",
                 spell.Category, spell.SpellIconID, spell.ActiveIconID, spell.SpellVisual[0], spell.SpellVisual[1]);
