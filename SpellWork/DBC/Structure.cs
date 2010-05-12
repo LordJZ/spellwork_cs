@@ -260,7 +260,7 @@ namespace SpellWork
             {
                 int i = 0;
                 string str = String.Empty;
-                var proc = ProcFlags;
+                uint proc = ProcFlags;
                 while (proc != 0)
                 {
                     if ((proc & 1) != 0)
@@ -280,8 +280,9 @@ namespace SpellWork
             {
                 if (DBC.SpellDuration.ContainsKey(DurationIndex))
                 {
-                    var q = DBC.SpellDuration[DurationIndex];
-                    return String.Format("Duration: ID {0}  {1}, {2}, {3}", q.ID, q.Duration[0], q.Duration[1], q.Duration[2]);
+                    var duration = DBC.SpellDuration[DurationIndex];
+                    return String.Format("Duration: ID {0}  {1}, {2}, {3}", 
+                        duration.ID, duration.Duration[0], duration.Duration[1], duration.Duration[2]);
                 }
                 return String.Empty;
             }
@@ -319,8 +320,8 @@ namespace SpellWork
 
         public string GetAuraModTypeName(int index)
         {
-            var id = EffectApplyAuraName[index];
-            var mod = EffectMiscValue[index];
+            uint id = EffectApplyAuraName[index];
+            int mod = EffectMiscValue[index];
             if (id == 107 || id == 108 || mod < 29)
                 return ((SpellModOp)mod).ToString();
             return mod.ToString();
@@ -336,7 +337,8 @@ namespace SpellWork
                 if (!DBC.SpellCastTimes.ContainsKey(CastingTimeIndex))
                     return String.Format("CastingTime (Id {0}) = ????", CastingTimeIndex);
                 else
-                    return String.Format("CastingTime (Id {0}) = {1:F}", CastingTimeIndex, DBC.SpellCastTimes[CastingTimeIndex].CastTime / 1000.0f);
+                    return String.Format("CastingTime (Id {0}) = {1:F}", 
+                        CastingTimeIndex, DBC.SpellCastTimes[CastingTimeIndex].CastTime / 1000.0f);
             }
         }
 

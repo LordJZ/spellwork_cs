@@ -152,7 +152,7 @@ namespace SpellWork
             AppendItemInfo(sb, spell);
         }
 
-        static void AppendSkillLine(RichTextBox sb, uint entry)
+        private void AppendSkillLine(RichTextBox sb, uint entry)
         {
             var query = from skillLineAbility in DBC.SkillLineAbility
                         join skillLine in DBC.SkillLine
@@ -177,7 +177,7 @@ namespace SpellWork
             sb.AppendFormat(", CharacterPoints ({0}, {1})", skill.CharacterPoints[0], skill.CharacterPoints[1]);
         }
 
-        static void AppendSpellEffectInfo(RichTextBox sb, SpellEntry spell)
+        private void AppendSpellEffectInfo(RichTextBox sb, SpellEntry spell)
         {
             sb.AppendLine("=================================================");
 
@@ -289,7 +289,7 @@ namespace SpellWork
                 {
                     if (DBC.Spell.ContainsKey(tsId))
                     {
-                        var trigger = DBC.Spell[tsId];
+                        SpellEntry trigger = DBC.Spell[tsId];
                         sb.SetStyle(Color.Blue, FontStyle.Bold);
                         sb.AppendFormatLine("   Trigger spell ({0}) {1}. Chance = {2}", tsId, trigger.SpellNameRank, spell.ProcChance);
                         sb.SetStyle(FontStyle.Italic);
@@ -321,7 +321,7 @@ namespace SpellWork
             }
         }
 
-        static void AppendSpellAura(RichTextBox sb, SpellEntry spell)
+        private void AppendSpellAura(RichTextBox sb, SpellEntry spell)
         {
             if (spell.CasterAuraSpell != 0)
             {
@@ -356,7 +356,7 @@ namespace SpellWork
             }
         }
 
-        static void AppendItemInfo(RichTextBox sb, SpellEntry spell)
+        private void AppendItemInfo(RichTextBox sb, SpellEntry spell)
         {
             if (!MySQLConnenct.Connected)
                 return;
@@ -385,6 +385,5 @@ namespace SpellWork
                 sb.AppendFormatLine(@"   {0} - {1} {2} ", item.Entry, name, desc);
             }
         }
-    
     }
 }

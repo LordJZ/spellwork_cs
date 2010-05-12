@@ -34,15 +34,15 @@ namespace SpellWork
                 else
                     mask_2 = 1U << (i - 64);
 
-                TreeNode node = new TreeNode();
-                node.Text = String.Format("0x{0:X8} {1:X8} {2:X8}", mask_2, mask_1, mask_0);
-                node.ImageKey = "family.ico";
+                TreeNode node   = new TreeNode();
+                node.Text       = String.Format("0x{0:X8} {1:X8} {2:X8}", mask_2, mask_1, mask_0);
+                node.ImageKey   = "family.ico";
                 familyTree.Nodes.Add(node);
             }
 
             foreach (var elem in spells)
             {
-                var spell = elem.Spell.Value;
+                SpellEntry spell = elem.Spell.Value;
                 bool IsSkill = elem.SkillId != 0;
                 string name = IsSkill
                 ? String.Format("+{0} - {1} (Skill {2}) ({3})", spell.ID, spell.SpellNameRank, elem.SkillId, spell.School.ToString().NormaliseString("MASK_"))
@@ -64,9 +64,9 @@ namespace SpellWork
                         (spell.SpellFamilyFlags3 & mask_2) != 0)
                     {
                         TreeNode child = new TreeNode();
-                        child = node.Nodes.Add(name);
-                        child.Name = spell.ID.ToString();
-                        child.ImageKey = IsSkill ? "plus.ico" : "munus.ico";
+                        child           = node.Nodes.Add(name);
+                        child.Name      = spell.ID.ToString();
+                        child.ImageKey  = IsSkill ? "plus.ico" : "munus.ico";
                         child.ForeColor = IsSkill ? Color.Blue : Color.Red;
                     }
                 }

@@ -342,5 +342,25 @@ namespace SpellWork
         {
             return (text.ToUpper().IndexOf(compareText.ToUpper(), StringComparison.CurrentCultureIgnoreCase) != -1);
         }
+
+        /// <summary>
+        /// Compares the text on the partial occurrence of a string and ignore case
+        /// </summary>
+        /// <param name="text">The original text, which will search entry</param>
+        /// <param name="compareText">Array strings which will be matched with the original text</param>
+        /// <returns>Boolean(true or false)</returns>
+        public static bool ContainText(this string text, string[] compareText)
+        {
+            bool res = false;
+            foreach (string str in compareText)
+            {
+                if ((text.ToUpper().IndexOf(str.ToUpper(), StringComparison.CurrentCultureIgnoreCase) != -1))
+                {
+                    res = true;
+                    break;
+                }
+            }
+            return res;
+        }
     }
 }
