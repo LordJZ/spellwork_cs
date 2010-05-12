@@ -450,6 +450,7 @@
             this._tbAdvansedFilter2Val.Name = "_tbAdvansedFilter2Val";
             this._tbAdvansedFilter2Val.Size = new System.Drawing.Size(94, 20);
             this._tbAdvansedFilter2Val.TabIndex = 1;
+            this._tbAdvansedFilter2Val.TextChanged += new System.EventHandler(this._bAdditionalSearch_Click);
             // 
             // _tbAdvansedFilter1Val
             // 

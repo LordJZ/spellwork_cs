@@ -79,6 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\LinqExtensions.cs" />
     <Compile Include="Forms\FormAboutBox.cs">
       <SubType>Form</SubType>
     </Compile>

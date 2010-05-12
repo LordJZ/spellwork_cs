@@ -3,7 +3,6 @@ using System.Text;
 using System.IO;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Reflection;
 
 namespace SpellWork
 {
@@ -42,7 +41,7 @@ namespace SpellWork
                     while (reader.BaseStream.Position != reader.BaseStream.Length)
                     {
                         var offset = (uint)(reader.BaseStream.Position - header.StartStringPosition);
-                        var str = reader.ReadCString();
+                        var str    = reader.ReadCString();
                         strDict.Add(offset, str);
                     }
                 }

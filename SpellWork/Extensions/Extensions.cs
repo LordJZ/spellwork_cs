@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 using System.Data;
+using System.Reflection;
 
 namespace SpellWork
 {
@@ -182,6 +183,16 @@ namespace SpellWork
             return num;
         }
 
+        public static ulong ToUlong(this Object val)
+        {
+            if (val == null)
+                return 0U;
+
+            ulong num;
+            ulong.TryParse(val.ToString(), out num);
+            return num;
+        }
+
         // Time methods
         public static Int32 MsDiff(DateTime time1, DateTime time2)
         {
@@ -319,12 +330,15 @@ namespace SpellWork
             int i = 0;
             foreach (var str in type)
             {
-                dt.Rows.Add(new object[] 
-                { 
-                    str.Name, 
-                    String.Format("({0:000}) {1}", i, str.Name) 
-                });
-                i++;
+                if (str is FieldInfo)
+                {
+                    dt.Rows.Add(new object[] 
+                    { 
+                        str.Name, 
+                        String.Format("({0:000}) {1}", i, str.Name) 
+                    });
+                    i++;
+                }
             }
 
             cb.DataSource    = dt;
@@ -351,16 +365,12 @@ namespace SpellWork
         /// <returns>Boolean(true or false)</returns>
         public static bool ContainText(this string text, string[] compareText)
         {
-            bool res = false;
             foreach (string str in compareText)
             {
                 if ((text.ToUpper().IndexOf(str.ToUpper(), StringComparison.CurrentCultureIgnoreCase) != -1))
-                {
-                    res = true;
-                    break;
-                }
+                    return true;
             }
-            return res;
+            return false;
         }
     }
 }

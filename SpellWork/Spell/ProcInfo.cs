@@ -43,8 +43,8 @@ namespace SpellWork
             foreach (var elem in spells)
             {
                 SpellEntry spell = elem.Spell.Value;
-                bool IsSkill = elem.SkillId != 0;
-                string name = IsSkill
+                bool IsSkill     = elem.SkillId != 0;
+                string name      = IsSkill
                 ? String.Format("+{0} - {1} (Skill {2}) ({3})", spell.ID, spell.SpellNameRank, elem.SkillId, spell.School.ToString().NormaliseString("MASK_"))
                 : String.Format("-{0} - {1} ({2})", spell.ID, spell.SpellNameRank, spell.School.ToString().NormaliseString("MASK_"));
 
@@ -63,7 +63,7 @@ namespace SpellWork
                         (spell.SpellFamilyFlags2 & mask_1) != 0 ||
                         (spell.SpellFamilyFlags3 & mask_2) != 0)
                     {
-                        TreeNode child = new TreeNode();
+                        TreeNode child  = new TreeNode();
                         child           = node.Nodes.Add(name);
                         child.Name      = spell.ID.ToString();
                         child.ImageKey  = IsSkill ? "plus.ico" : "munus.ico";

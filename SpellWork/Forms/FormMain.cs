@@ -79,6 +79,7 @@ namespace SpellWork
         private void GetList(ListView lv)
         {
             lv.Items.Clear();
+
             var firstPage = tabControl1.SelectedIndex == 0;
 
             var SpellFamilyName = firstPage ? _cbSpellFamilyName : _cbProcSpellFamilyName;
@@ -101,33 +102,53 @@ namespace SpellWork
             var bTarget2 = Target2.SelectedIndex != 0;
             var fTarget2 = Target2.SelectedValue.ToInt32();
 
-            var query = from spell in DBC.Spell
-                        where (!bFamilyNames || spell.Value.SpellFamilyName          == fFamilyNames)
-                           && (!bSpellAura   || spell.Value.EffectApplyAuraName[0]   == fSpellAura
-                                             || spell.Value.EffectApplyAuraName[1]   == fSpellAura
-                                             || spell.Value.EffectApplyAuraName[2]   == fSpellAura)
-                           && (!bSpellEffect || spell.Value.Effect[0]                == fSpellEffect
-                                             || spell.Value.Effect[1]                == fSpellEffect
-                                             || spell.Value.Effect[2]                == fSpellEffect)
-                           && (!bTarget1     || spell.Value.EffectImplicitTargetA[0] == fTarget1
-                                             || spell.Value.EffectImplicitTargetA[1] == fTarget1
-                                             || spell.Value.EffectImplicitTargetA[2] == fTarget1)
-                           && (!bTarget2     || spell.Value.EffectImplicitTargetB[0] == fTarget2
-                                             || spell.Value.EffectImplicitTargetB[1] == fTarget2
-                                             || spell.Value.EffectImplicitTargetB[2] == fTarget2)
+            // additional filtert
+            var advVal1 = _tbAdvansedFilter1Val.Text;
+            var advVal2 = _tbAdvansedFilter2Val.Text;
 
-                        select spell;
+            var field1 = _cbAdvansedFilter1.SelectedValue.ToString();
+            var field2 = _cbAdvansedFilter2.SelectedValue.ToString();
 
-            if (query.Count() == 0)
-                return;
-            //_gSpellFilter.Text = "Spell Filter " + "count: " + query.Count();
-            foreach (var element in query)
+            bool use1val = advVal1 != string.Empty;
+            bool use2val = advVal2 != string.Empty;
+
+            try // temporary solution to the wrong fields
             {
-                lv.Items.Add(new ListViewItem(new String[] 
+                var query = from spell in DBC.Spell.Values
+                            where (!bFamilyNames || spell.SpellFamilyName           == fFamilyNames)
+                               && (!bSpellAura   || spell.EffectApplyAuraName[0]    == fSpellAura
+                                                 || spell.EffectApplyAuraName[1]    == fSpellAura
+                                                 || spell.EffectApplyAuraName[2]    == fSpellAura)
+                               && (!bSpellEffect || spell.Effect[0]                 == fSpellEffect
+                                                 || spell.Effect[1]                 == fSpellEffect
+                                                 || spell.Effect[2]                 == fSpellEffect)
+                               && (!bTarget1     || spell.EffectImplicitTargetA[0]  == fTarget1
+                                                 || spell.EffectImplicitTargetA[1]  == fTarget1
+                                                 || spell.EffectImplicitTargetA[2]  == fTarget1)
+                               && (!bTarget2     || spell.EffectImplicitTargetB[0]  == fTarget2
+                                                 || spell.EffectImplicitTargetB[1]  == fTarget2
+                                                 || spell.EffectImplicitTargetB[2]  == fTarget2)
+
+                               // Impement advansed filter
+                               && (!use1val || spell.GetType().GetField(field1).GetValue(spell).CompareValue(advVal1))
+                               && (!use2val || spell.GetType().GetField(field2).GetValue(spell).CompareValue(advVal2))
+                            select spell;
+
+                if (query.Count() == 0)
+                    return;
+                //_gSpellFilter.Text = "Spell Filter " + "count: " + query.Count();
+                foreach (var element in query)
+                {
+                    lv.Items.Add(new ListViewItem(new String[] 
                 { 
-                    element.Key.ToString(), 
-                    element.Value.SpellNameRank
+                    element.ID.ToString(), 
+                    element.SpellNameRank
                 }));
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Selected incorrect field in additional filter", "SpellWork ERROR", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -318,6 +339,7 @@ namespace SpellWork
                                         || (spell.Value.AttributesExG & at) != 0))
 
                            && ((id != 0 || ic != 0 && at != 0) || spell.Value.SpellName.ContainText(name))
+
 
                         select spell;
 
@@ -607,15 +629,12 @@ namespace SpellWork
             }
             form.Dispose();
         }
-        IEnumerable spell;
-        object obj;
+
         private void _tbAdvansedFilter1Val_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                spell = DBC.SpellDuration.Values.Where(n => n.GetType().GetField("ID").GetValue(n).ToUInt32() == 5);
-
-                obj = DBC.SpellDuration.Values.Select(n => n.GetType().GetField("ID").GetValue(n));
+                GetList(_lvSpellList);
             }
         }
     }
