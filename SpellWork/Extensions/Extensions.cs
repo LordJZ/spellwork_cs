@@ -332,7 +332,7 @@ namespace SpellWork
             {
                 if (str is FieldInfo)
                 {
-                    dt.Rows.Add(new object[] 
+                    dt.Rows.Add(new[] 
                     { 
                         str.Name, 
                         String.Format("({0:000}) {1}", i, str.Name) 

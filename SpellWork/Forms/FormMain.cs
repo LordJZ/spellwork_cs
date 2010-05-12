@@ -621,13 +621,7 @@ namespace SpellWork
 
         private void _bAdditionalSearch_Click(object sender, EventArgs e)
         {
-            FormSearch form = new FormSearch();
-            form.ShowDialog(this);
-            if (form.DialogResult == DialogResult.OK)
-            {
-                _tbSearchId.Text = form.Spell.ID.ToString();
-            }
-            form.Dispose();
+
         }
 
         private void _tbAdvansedFilter1Val_KeyDown(object sender, KeyEventArgs e)

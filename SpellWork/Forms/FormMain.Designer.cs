@@ -51,8 +51,6 @@
             this.chSpellName = new System.Windows.Forms.ColumnHeader();
             this._gSpellFilter = new System.Windows.Forms.GroupBox();
             this._gbAdvansedSearch = new System.Windows.Forms.GroupBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
             this._tbAdvansedFilter2Val = new System.Windows.Forms.TextBox();
             this._tbAdvansedFilter1Val = new System.Windows.Forms.TextBox();
             this._cbAdvansedFilter2 = new System.Windows.Forms.ComboBox();
@@ -410,8 +408,6 @@
             // 
             this._gbAdvansedSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this._gbAdvansedSearch.Controls.Add(this.label15);
-            this._gbAdvansedSearch.Controls.Add(this.label16);
             this._gbAdvansedSearch.Controls.Add(this._tbAdvansedFilter2Val);
             this._gbAdvansedSearch.Controls.Add(this._tbAdvansedFilter1Val);
             this._gbAdvansedSearch.Controls.Add(this._cbAdvansedFilter2);
@@ -423,26 +419,6 @@
             this._gbAdvansedSearch.TabStop = false;
             this._gbAdvansedSearch.Text = "Advansed Filter";
             // 
-            // label15
-            // 
-            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(188, 18);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(13, 13);
-            this.label15.TabIndex = 2;
-            this.label15.Text = "=";
-            // 
-            // label16
-            // 
-            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(188, 45);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(13, 13);
-            this.label16.TabIndex = 2;
-            this.label16.Text = "=";
-            // 
             // _tbAdvansedFilter2Val
             // 
             this._tbAdvansedFilter2Val.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -450,7 +426,7 @@
             this._tbAdvansedFilter2Val.Name = "_tbAdvansedFilter2Val";
             this._tbAdvansedFilter2Val.Size = new System.Drawing.Size(94, 20);
             this._tbAdvansedFilter2Val.TabIndex = 1;
-            this._tbAdvansedFilter2Val.TextChanged += new System.EventHandler(this._bAdditionalSearch_Click);
+            this._tbAdvansedFilter2Val.KeyDown += new System.Windows.Forms.KeyEventHandler(this._tbAdvansedFilter1Val_KeyDown);
             // 
             // _tbAdvansedFilter1Val
             // 
@@ -469,7 +445,7 @@
             this._cbAdvansedFilter2.FormattingEnabled = true;
             this._cbAdvansedFilter2.Location = new System.Drawing.Point(1, 42);
             this._cbAdvansedFilter2.Name = "_cbAdvansedFilter2";
-            this._cbAdvansedFilter2.Size = new System.Drawing.Size(181, 21);
+            this._cbAdvansedFilter2.Size = new System.Drawing.Size(202, 21);
             this._cbAdvansedFilter2.TabIndex = 0;
             // 
             // _cbAdvansedFilter1
@@ -480,7 +456,7 @@
             this._cbAdvansedFilter1.FormattingEnabled = true;
             this._cbAdvansedFilter1.Location = new System.Drawing.Point(1, 15);
             this._cbAdvansedFilter1.Name = "_cbAdvansedFilter1";
-            this._cbAdvansedFilter1.Size = new System.Drawing.Size(181, 21);
+            this._cbAdvansedFilter1.Size = new System.Drawing.Size(202, 21);
             this._cbAdvansedFilter1.TabIndex = 0;
             // 
             // _cbTarget2
@@ -1810,12 +1786,10 @@
         private System.Windows.Forms.Button _bCompareSearch1;
         private System.Windows.Forms.Button _bCompareSearch2;
         private System.Windows.Forms.GroupBox _gbAdvansedSearch;
-        private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox _tbAdvansedFilter2Val;
         private System.Windows.Forms.TextBox _tbAdvansedFilter1Val;
         private System.Windows.Forms.ComboBox _cbAdvansedFilter2;
         private System.Windows.Forms.ComboBox _cbAdvansedFilter1;
-        private System.Windows.Forms.Label label15;
         private System.Windows.Forms.RichTextBox _rtbSqlLog;
         private System.Windows.Forms.ImageList _ilPro;
     }
