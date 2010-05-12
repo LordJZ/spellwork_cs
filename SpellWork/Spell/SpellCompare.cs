@@ -34,7 +34,7 @@ namespace SpellWork
                 pos += str.Length + 1;
                 rtb1.Select(pos - str.Length - 1, pos - 1);
 
-                if (rtb2.Find(str) != -1)
+                if (rtb2.Find(str, RichTextBoxFinds.WholeWord) != -1)
                 {
                     if (str.ContainText(words))
                     {
@@ -57,7 +57,7 @@ namespace SpellWork
                 pos += str.Length + 1;
                 rtb2.Select(pos - str.Length - 1, pos - 1);
 
-                if (rtb1.Find(str) != -1)
+                if (rtb1.Find(str, RichTextBoxFinds.WholeWord) != -1)
                 {
                     if (str.ContainText(words))
                     {
