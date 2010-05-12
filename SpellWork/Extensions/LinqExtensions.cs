@@ -13,8 +13,10 @@ namespace SpellWork
         /// <param name="basicValue"></param>
         /// <param name="val"></param>
         /// <returns></returns>
-        public static bool CompareValue(this object basicValue, object val)
+        public static bool CreateFilter<T>(this T T_entry, string field, object val)
         {
+            object basicValue = T_entry.GetType().GetField(field).GetValue(T_entry);
+            
             switch (basicValue.GetType().Name)
             {
                 case "UInt32": return basicValue.ToUInt32() == val.ToUInt32();
@@ -39,7 +41,7 @@ namespace SpellWork
                         }
                         return false;
                     }
-                case @"Single[]": 
+                case @"Single[]":
                 case @"Float[]":
                     {
                         foreach (float el in (float[])basicValue)
@@ -58,7 +60,7 @@ namespace SpellWork
                         }
                         return false;
                     }
-                    // todo: more
+                // todo: more
                 default: return false;
             }
         }

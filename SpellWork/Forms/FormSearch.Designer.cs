@@ -232,8 +232,10 @@
             // _cbTarget2
             // 
             this._cbTarget2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this._cbTarget2.DropDownHeight = 500;
             this._cbTarget2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._cbTarget2.FormattingEnabled = true;
+            this._cbTarget2.IntegralHeight = false;
             this._cbTarget2.Location = new System.Drawing.Point(9, 113);
             this._cbTarget2.Name = "_cbTarget2";
             this._cbTarget2.Size = new System.Drawing.Size(263, 21);
@@ -243,8 +245,10 @@
             // _cbTarget1
             // 
             this._cbTarget1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this._cbTarget1.DropDownHeight = 500;
             this._cbTarget1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._cbTarget1.FormattingEnabled = true;
+            this._cbTarget1.IntegralHeight = false;
             this._cbTarget1.Location = new System.Drawing.Point(9, 88);
             this._cbTarget1.Name = "_cbTarget1";
             this._cbTarget1.Size = new System.Drawing.Size(263, 21);
@@ -254,8 +258,10 @@
             // _cbSpellEffect
             // 
             this._cbSpellEffect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this._cbSpellEffect.DropDownHeight = 500;
             this._cbSpellEffect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._cbSpellEffect.FormattingEnabled = true;
+            this._cbSpellEffect.IntegralHeight = false;
             this._cbSpellEffect.Location = new System.Drawing.Point(9, 63);
             this._cbSpellEffect.Name = "_cbSpellEffect";
             this._cbSpellEffect.Size = new System.Drawing.Size(263, 21);
@@ -265,8 +271,10 @@
             // _cbSpellAura
             // 
             this._cbSpellAura.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this._cbSpellAura.DropDownHeight = 500;
             this._cbSpellAura.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._cbSpellAura.FormattingEnabled = true;
+            this._cbSpellAura.IntegralHeight = false;
             this._cbSpellAura.Location = new System.Drawing.Point(9, 39);
             this._cbSpellAura.Name = "_cbSpellAura";
             this._cbSpellAura.Size = new System.Drawing.Size(263, 21);
@@ -276,8 +284,10 @@
             // _cbSpellFamily
             // 
             this._cbSpellFamily.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this._cbSpellFamily.DropDownHeight = 500;
             this._cbSpellFamily.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._cbSpellFamily.FormattingEnabled = true;
+            this._cbSpellFamily.IntegralHeight = false;
             this._cbSpellFamily.Location = new System.Drawing.Point(9, 15);
             this._cbSpellFamily.Name = "_cbSpellFamily";
             this._cbSpellFamily.Size = new System.Drawing.Size(263, 21);
