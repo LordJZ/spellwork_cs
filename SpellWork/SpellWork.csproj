@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\LinqExtensions.cs" />
+    <Compile Include="Extensions\TreeViewExtensions.cs" />
     <Compile Include="Forms\FormAboutBox.cs">
       <SubType>Form</SubType>
     </Compile>

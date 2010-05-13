@@ -45,8 +45,8 @@ namespace SpellWork
                 SpellEntry spell = elem.Spell.Value;
                 bool IsSkill     = elem.SkillId != 0;
                 string name      = IsSkill
-                ? String.Format("+{0} - {1} (Skill {2}) ({3})", spell.ID, spell.SpellNameRank, elem.SkillId, spell.School.ToString().NormaliseString("MASK_"))
-                : String.Format("-{0} - {1} ({2})", spell.ID, spell.SpellNameRank, spell.School.ToString().NormaliseString("MASK_"));
+                ? String.Format("{0} - {1} (Skill {2}) ({3})", spell.ID, spell.SpellNameRank, elem.SkillId, spell.School.ToString().NormaliseString("MASK_"))
+                : String.Format("{0} - {1} ({2})", spell.ID, spell.SpellNameRank, spell.School.ToString().NormaliseString("MASK_"));
 
                 foreach (TreeNode node in familyTree.Nodes)
                 {

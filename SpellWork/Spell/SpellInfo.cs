@@ -35,16 +35,30 @@ namespace SpellWork
             sb.AppendFormatLine("SpellSchoolMask = {0} ({1})", spell.SchoolMask, spell.School);
             sb.AppendFormatLine("DamageClass = {0} ({1})", spell.DmgClass, (SpellDmgClass)spell.DmgClass);
             sb.AppendFormatLine("PreventionType = {0} ({1})", spell.PreventionType, (SpellPreventionType)spell.PreventionType);
+
+            if (spell.Attributes != 0 || spell.AttributesEx != 0 || spell.AttributesEx2 != 0 || spell.AttributesEx3 != 0 
+                || spell.AttributesEx4 != 0 || spell.AttributesEx5 != 0 || spell.AttributesEx6 != 0 || spell.AttributesExG != 0)
+                sb.AppendLine("=================================================");
+
+            if (spell.Attributes != 0)
+                sb.AppendFormatLine("Attributes: 0x{0:X8} ({1})", spell.Attributes, (SpellAtribute)spell.Attributes);
+            if (spell.AttributesEx != 0)
+                sb.AppendFormatLine("AttributesEx1: 0x{0:X8} ({1})", spell.AttributesEx, (SpellAtributeEx)spell.AttributesEx);
+            if (spell.AttributesEx2 != 0)
+                sb.AppendFormatLine("AttributesEx2: 0x{0:X8} ({1})", spell.AttributesEx2, (SpellAtributeEx2)spell.AttributesEx2);
+            if (spell.AttributesEx3 != 0)
+                sb.AppendFormatLine("AttributesEx3: 0x{0:X8} ({1})", spell.AttributesEx3, (SpellAtributeEx3)spell.AttributesEx3);
+            if (spell.AttributesEx4 != 0)
+                sb.AppendFormatLine("AttributesEx4: 0x{0:X8} ({1})", spell.AttributesEx4, (SpellAtributeEx4)spell.AttributesEx4);
+            if (spell.AttributesEx5 != 0)
+                sb.AppendFormatLine("AttributesEx5: 0x{0:X8} ({1})", spell.AttributesEx5, (SpellAtributeEx5)spell.AttributesEx5);
+            if (spell.AttributesEx6 != 0)
+                sb.AppendFormatLine("AttributesEx6: 0x{0:X8} ({1})", spell.AttributesEx6, (SpellAtributeEx6)spell.AttributesEx6);
+            if (spell.AttributesExG != 0)
+                sb.AppendFormatLine("AttributesExG: 0x{0:X8} ({1})", spell.AttributesExG, (SpellAtributeExG)spell.AttributesExG);
+            
             sb.AppendLine("=================================================");
-            sb.AppendFormatLine("Attributes:    0x{0:X8} ({1})", spell.Attributes,    (SpellAtribute)   spell.Attributes   );
-            sb.AppendFormatLine("AttributesEx1: 0x{0:X8} ({1})", spell.AttributesEx,  (SpellAtributeEx) spell.AttributesEx );
-            sb.AppendFormatLine("AttributesEx2: 0x{0:X8} ({1})", spell.AttributesEx2, (SpellAtributeEx2)spell.AttributesEx2);
-            sb.AppendFormatLine("AttributesEx3: 0x{0:X8} ({1})", spell.AttributesEx3, (SpellAtributeEx3)spell.AttributesEx3);
-            sb.AppendFormatLine("AttributesEx4: 0x{0:X8} ({1})", spell.AttributesEx4, (SpellAtributeEx4)spell.AttributesEx4);
-            sb.AppendFormatLine("AttributesEx5: 0x{0:X8} ({1})", spell.AttributesEx5, (SpellAtributeEx5)spell.AttributesEx5);
-            sb.AppendFormatLine("AttributesEx6: 0x{0:X8} ({1})", spell.AttributesEx6, (SpellAtributeEx6)spell.AttributesEx6);
-            sb.AppendFormatLine("AttributesExG: 0x{0:X8} ({1})", spell.AttributesExG, (SpellAtributeExG)spell.AttributesExG);
-            sb.AppendLine("=================================================");
+            
             if (spell.Targets != 0)
                 sb.AppendFormatLine("Targets Mask = 0x{0:X8} ({1})", spell.Targets, (SpellCastTargetFlags)spell.Targets);
 
@@ -239,39 +253,33 @@ namespace SpellWork
                 {
                     sb.AppendFormatLine("SpellClassMask = {0:X8} {1:X8} {2:X8}", ClassMask[2], ClassMask[1], ClassMask[0]);
 
-                    uint mask_0 = ClassMask[0];
-                    uint mask_1 = ClassMask[1];
-                    uint mask_2 = ClassMask[2];
-
-                    var query = from Spell in DBC.Spell
-                                where Spell.Value.SpellFamilyName == spell.SpellFamilyName
-                                join sk in DBC.SkillLineAbility on Spell.Key equals sk.Value.SpellId into temp
+                    var query = from Spell in DBC.Spell.Values
+                                where Spell.SpellFamilyName == spell.SpellFamilyName
+                                && (   (Spell.SpellFamilyFlags1 & ClassMask[0]) != 0
+                                    || (Spell.SpellFamilyFlags2 & ClassMask[1]) != 0
+                                    || (Spell.SpellFamilyFlags3 & ClassMask[2]) != 0)
+                                join sk in DBC.SkillLineAbility on Spell.ID equals sk.Value.SpellId into temp
                                 from Skill in temp.DefaultIfEmpty()
                                 select new
                                 {
-                                    Spell,
-                                    SkillId = (Skill.Value.SkillId)
+                                    SpellID   = Spell.ID,
+                                    SpellName = Spell.SpellNameRank,
+                                    SkillId   = Skill.Value.SkillId
                                 };
 
                     foreach (var row in query)
                     {
-                        var s = row.Spell.Value;
-                        if ((s.SpellFamilyFlags1 & mask_0) != 0 ||
-                            (s.SpellFamilyFlags2 & mask_1) != 0 ||
-                            (s.SpellFamilyFlags3 & mask_2) != 0)
+                        if (row.SkillId > 0)
                         {
-                            if (row.SkillId > 0)
-                            {
-                                sb.SelectionColor = Color.Blue;
-                                sb.AppendFormatLine("\t+ {0} - {1}",  s.ID, s.SpellNameRank);
-                            }
-                            else
-                            {
-                                sb.SelectionColor = Color.Red;
-                                sb.AppendFormatLine("\t- {0} - {1}", s.ID, s.SpellNameRank);
-                            }
-                            sb.SelectionColor = Color.Black;
+                            sb.SelectionColor = Color.Blue;
+                            sb.AppendFormatLine("\t+ {0} - {1}",  row.SpellID, row.SpellName);
                         }
+                        else
+                        {
+                            sb.SelectionColor = Color.Red;
+                            sb.AppendFormatLine("\t- {0} - {1}", row.SpellID, row.SpellName);
+                        }
+                        sb.SelectionColor = Color.Black;
                     }
                 }
 

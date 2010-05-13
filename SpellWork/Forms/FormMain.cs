@@ -261,6 +261,9 @@ namespace SpellWork
                 var id = lv.SelectedItems[0].SubItems[0].Text.ToUInt32();
                 SetProcAtribute(DBC.Spell[id]);
             }
+
+            if (lv.Name != "_lvProcAdditionalInfo")
+                _lvProcAdditionalInfo.Items.Clear();
         }
 
         private void SetProcAtribute(SpellEntry spell)
@@ -364,6 +367,7 @@ namespace SpellWork
 
         private void _bWrite_Click(object sender, EventArgs e)
         {
+            uint[] SpellFamilyFlags = _tvFamilyTree.GetMask();
             // spell comment
             var comment = String.Format("-- ({0}) {1}", ProcInfo.SpellProc.ID, ProcInfo.SpellProc.SpellNameRank);
             // drop query
@@ -373,9 +377,9 @@ namespace SpellWork
                 ProcInfo.SpellProc.ID, 
                 _clbSchools.GetFlagsValue(), 
                 _cbProcFitstSpellFamily.ValueMember.ToUInt32(), 
-                ProcInfo.SpellProc.SpellFamilyFlags1,
-                ProcInfo.SpellProc.SpellFamilyFlags2,
-                ProcInfo.SpellProc.SpellFamilyFlags3,
+                SpellFamilyFlags[0],
+                SpellFamilyFlags[1],
+                SpellFamilyFlags[2],
                 _clbProcFlags.GetFlagsValue(), 
                 _clbProcFlagEx.GetFlagsValue(), 
                 _tbPPM.Text.Replace(',', '.'),
@@ -600,6 +604,7 @@ namespace SpellWork
             try
             {
                 _scCompareRoot.SplitterDistance = (((Form)sender).Size.Width / 2) - 25;
+                _chName.Width = (((Form)sender).Size.Width - 140);
             }
             catch { }
         }
@@ -629,6 +634,38 @@ namespace SpellWork
             if (e.KeyCode == Keys.Enter)
             {
                 GetList(_lvSpellList);
+            }
+        }
+
+        private void _tvFamilyTree_AfterCheck(object sender, TreeViewEventArgs e)
+        {
+            _bWrite.Enabled = true;
+            _lvProcAdditionalInfo.Items.Clear();
+
+            uint[] mask = ((TreeView)sender).GetMask();
+
+            var query = from Spell in DBC.Spell.Values
+                        where Spell.SpellFamilyName == ProcInfo.SpellProc.SpellFamilyName 
+                        && (   (Spell.SpellFamilyFlags1 & mask[0]) != 0
+                            || (Spell.SpellFamilyFlags2 & mask[1]) != 0
+                            || (Spell.SpellFamilyFlags3 & mask[2]) != 0)
+                        join sk in DBC.SkillLineAbility on Spell.ID equals sk.Value.SpellId into temp1
+                        from Skill in temp1.DefaultIfEmpty()
+                        //join skl in DBC.SkillLine on Skill.Key equals skl.Value.ID into temp2
+                        //from SkillLine in temp2.DefaultIfEmpty()
+                        orderby Skill.Key descending
+                        select new
+                        {
+                            SpellID = Spell.ID,
+                            SpellName = Spell.SpellNameRank +" "+ Spell.Description,
+                            SkillId = Skill.Value.SkillId
+                        };
+
+            foreach (var str in query)
+            {
+                ListViewItem lvi = new ListViewItem(new string[] { str.SpellID.ToString(), str.SpellName });
+                lvi.ImageKey = str.SkillId != 0 ? "plus.ico" : "munus.ico";
+                _lvProcAdditionalInfo.Items.Add(lvi);
             }
         }
     }

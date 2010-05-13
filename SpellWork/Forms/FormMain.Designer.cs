@@ -873,6 +873,7 @@
             this._tvFamilyTree.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this._tvFamilyTree.CheckBoxes = true;
             this._tvFamilyTree.ImageIndex = 0;
             this._tvFamilyTree.ImageList = this._ilPro;
             this._tvFamilyTree.Location = new System.Drawing.Point(1, 23);
@@ -880,6 +881,7 @@
             this._tvFamilyTree.SelectedImageIndex = 0;
             this._tvFamilyTree.Size = new System.Drawing.Size(258, 219);
             this._tvFamilyTree.TabIndex = 0;
+            this._tvFamilyTree.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this._tvFamilyTree_AfterCheck);
             this._tvFamilyTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this._tvFamilyTree_AfterSelect);
             // 
             // _ilPro
@@ -1058,12 +1060,16 @@
             this._chID,
             this._chName});
             this._lvProcAdditionalInfo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._lvProcAdditionalInfo.FullRowSelect = true;
+            this._lvProcAdditionalInfo.GridLines = true;
             this._lvProcAdditionalInfo.Location = new System.Drawing.Point(0, 0);
             this._lvProcAdditionalInfo.Name = "_lvProcAdditionalInfo";
             this._lvProcAdditionalInfo.Size = new System.Drawing.Size(864, 64);
+            this._lvProcAdditionalInfo.SmallImageList = this._ilPro;
             this._lvProcAdditionalInfo.TabIndex = 0;
             this._lvProcAdditionalInfo.UseCompatibleStateImageBehavior = false;
             this._lvProcAdditionalInfo.View = System.Windows.Forms.View.Details;
+            this._lvProcAdditionalInfo.SelectedIndexChanged += new System.EventHandler(this._lvProcSpellList_SelectedIndexChanged);
             // 
             // _chID
             // 
