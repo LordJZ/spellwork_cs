@@ -10,7 +10,9 @@ namespace SpellWork
         /// <summary>
         /// Compares two values object
         /// </summary>
-        /// <param name="basicValue"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="T_entry"></param>
+        /// <param name="field"></param>
         /// <param name="val"></param>
         /// <returns></returns>
         public static bool CreateFilter<T>(this T T_entry, string field, object val)

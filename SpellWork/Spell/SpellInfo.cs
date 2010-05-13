@@ -33,7 +33,16 @@ namespace SpellWork
             sb.AppendFormatLine("SpellSchoolMask = {0} ({1})", spell.SchoolMask, spell.School);
             sb.AppendFormatLine("DamageClass = {0} ({1})", spell.DmgClass, (SpellDmgClass)spell.DmgClass);
             sb.AppendFormatLine("PreventionType = {0} ({1})", spell.PreventionType, (SpellPreventionType)spell.PreventionType);
-
+            sb.AppendLine("=================================================");
+            sb.AppendFormatLine("Attributes:    0x{0:X8} ({1})", spell.Attributes,    (SpellAtribute)   spell.Attributes   );
+            sb.AppendFormatLine("AttributesEx1: 0x{0:X8} ({1})", spell.AttributesEx,  (SpellAtributeEx) spell.AttributesEx );
+            sb.AppendFormatLine("AttributesEx2: 0x{0:X8} ({1})", spell.AttributesEx2, (SpellAtributeEx2)spell.AttributesEx2);
+            sb.AppendFormatLine("AttributesEx3: 0x{0:X8} ({1})", spell.AttributesEx3, (SpellAtributeEx3)spell.AttributesEx3);
+            sb.AppendFormatLine("AttributesEx4: 0x{0:X8} ({1})", spell.AttributesEx4, (SpellAtributeEx4)spell.AttributesEx4);
+            sb.AppendFormatLine("AttributesEx5: 0x{0:X8} ({1})", spell.AttributesEx5, (SpellAtributeEx5)spell.AttributesEx5);
+            sb.AppendFormatLine("AttributesEx6: 0x{0:X8} ({1})", spell.AttributesEx6, (SpellAtributeEx6)spell.AttributesEx6);
+            sb.AppendFormatLine("AttributesExG: 0x{0:X8} ({1})", spell.AttributesExG, (SpellAtributeExG)spell.AttributesExG);
+            sb.AppendLine("=================================================");
             if (spell.Targets != 0)
                 sb.AppendFormatLine("Targets Mask = 0x{0:X8} ({1})", spell.Targets, (SpellCastTargetFlags)spell.Targets);
 
@@ -84,17 +93,12 @@ namespace SpellWork
             sb.AppendFormatLine("Category = {0}", spell.Category);
             sb.AppendFormatLine("DispelType = {0} ({1})", spell.Dispel, (DispelType)spell.Dispel);
             sb.AppendFormatLine("Mechanic = {0} ({1})", spell.Mechanic, (Mechanics)spell.Mechanic);
+            
             sb.AppendLine(spell.Range);
 
             sb.AppendFormatLineIfNotNull("Speed {0:F}", spell.Speed);
-
-            sb.SetBold();
-            sb.AppendFormatLine("Attributes 0x{0:X8}, Ex 0x{1:X8}, Ex2 0x{2:X8}, Ex3 0x{3:X8}, Ex4 0x{4:X8}, Ex5 0x{5:X8}, Ex6 0x{6:X8}, ExG 0x{7:X8}",
-                     spell.Attributes, spell.AttributesEx, spell.AttributesEx2, spell.AttributesEx3, spell.AttributesEx4,
-                     spell.AttributesEx5, spell.AttributesEx6, spell.AttributesExG);
-            sb.SetDefaultStyle();
-
             sb.AppendFormatLineIfNotNull("Stackable up to {0}", spell.StackAmount);
+           
             sb.AppendLine(spell.CastTime);
 
             if (spell.RecoveryTime != 0 || spell.CategoryRecoveryTime != 0 || spell.StartRecoveryCategory != 0)
@@ -229,8 +233,8 @@ namespace SpellWork
                 else
                 {
                     sb.AppendFormatLineIfNotNull("EffectMiscValueA = {0}",  spell.EffectMiscValue[i]);
-                    sb.AppendFormatLineIfNotNull("EffectMiscValueB = {0}", spell.EffectMiscValueB[i]);
-                    sb.AppendFormatLineIfNotNull("EffectAmplitude = {0}",  spell.EffectAmplitude[i]);
+                    sb.AppendFormatLineIfNotNull("EffectMiscValueB = {0}",  spell.EffectMiscValueB[i]);
+                    sb.AppendFormatLineIfNotNull("EffectAmplitude = {0}",   spell.EffectAmplitude[i]);
                 }
 
                 uint[] ClassMask = new uint[3];

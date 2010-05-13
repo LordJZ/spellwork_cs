@@ -130,8 +130,8 @@ namespace SpellWork
                                                  || spell.EffectImplicitTargetB[2]  == fTarget2)
 
                                // Impement advansed filter
-                               && (!use1val || spell.CreateFilter(field1, advVal1))
-                               && (!use2val || spell.CreateFilter(field2, advVal2))
+                               && (!use1val      || spell.CreateFilter(field1, advVal1))
+                               && (!use2val      || spell.CreateFilter(field2, advVal2))
                             select spell;
 
                 if (query.Count() == 0)

@@ -1123,6 +1123,318 @@ namespace SpellWork
         NON_COMBAT_PET  = 1 << 11,
         GAS_CLOUD       = 1 << 12
     };
+	
+	[Flags]
+	public enum SpellAtribute 
+	{
+        SPELL_ATTR_ALL                            =        -1,
+        SPELL_ATTR_NONE                           =      0x00,  
+		SPELL_ATTR_UNK0                           = 1 << 0x00,            // 0
+		SPELL_ATTR_RANGED                         = 1 << 0x01,            // 1 All ranged abilites have this flag
+		SPELL_ATTR_ON_NEXT_SWING_1                = 1 << 0x02,            // 2 on next swing
+		SPELL_ATTR_UNK3                           = 1 << 0x03,            // 3 not set in 3.0.3
+		SPELL_ATTR_UNK4                           = 1 << 0x04,            // 4 isAbility
+		SPELL_ATTR_TRADESPELL                     = 1 << 0x05,            // 5 trade spells, will be added by client to a sublist of profession spell
+		SPELL_ATTR_PASSIVE                        = 1 << 0x06,            // 6 Passive spell
+		SPELL_ATTR_UNK7                           = 1 << 0x07,            // 7 can't be linked in chat?
+		SPELL_ATTR_UNK8                           = 1 << 0x08,            // 8 hide created item in tooltip (for effect=24)
+		SPELL_ATTR_UNK9                           = 1 << 0x09,            // 9
+		SPELL_ATTR_ON_NEXT_SWING_2                = 1 << 0x0A,            // 10 on next swing 2
+		SPELL_ATTR_UNK11                          = 1 << 0x0B,            // 11
+		SPELL_ATTR_DAYTIME_ONLY                   = 1 << 0x0C,            // 12 only useable at daytime, not set in 2.4.2
+		SPELL_ATTR_NIGHT_ONLY                     = 1 << 0x0D,            // 13 only useable at night, not set in 2.4.2
+		SPELL_ATTR_INDOORS_ONLY                   = 1 << 0x0E,            // 14 only useable indoors, not set in 2.4.2
+		SPELL_ATTR_OUTDOORS_ONLY                  = 1 << 0x0F,            // 15 Only useable outdoors.
+		SPELL_ATTR_NOT_SHAPESHIFT                 = 1 << 0x10,            // 16 Not while shapeshifted
+		SPELL_ATTR_ONLY_STEALTHED                 = 1 << 0x11,            // 17 Must be in stealth
+		SPELL_ATTR_UNK18                          = 1 << 0x12,            // 18
+		SPELL_ATTR_LEVEL_DAMAGE_CALCULATION       = 1 << 0x13,            // 19 spelldamage depends on caster level
+		SPELL_ATTR_STOP_ATTACK_TARGET             = 1 << 0x14,            // 20 Stop attack after use this spell (and not begin attack if use)
+		SPELL_ATTR_IMPOSSIBLE_DODGE_PARRY_BLOCK   = 1 << 0x15,            // 21 Cannot be dodged/parried/blocked
+		SPELL_ATTR_UNK22                          = 1 << 0x16,            // 22
+		SPELL_ATTR_UNK23                          = 1 << 0x17,            // 23 castable while dead?
+		SPELL_ATTR_CASTABLE_WHILE_MOUNTED         = 1 << 0x18,            // 24 castable while mounted
+		SPELL_ATTR_DISABLED_WHILE_ACTIVE          = 1 << 0x19,            // 25 Activate and start cooldown after aura fade or remove summoned creature or go
+		SPELL_ATTR_UNK26                          = 1 << 0x1A,            // 26
+		SPELL_ATTR_CASTABLE_WHILE_SITTING         = 1 << 0x1B,            // 27 castable while sitting
+		SPELL_ATTR_CANT_USED_IN_COMBAT            = 1 << 0x1C,            // 28 Cannot be used in combat
+		SPELL_ATTR_UNAFFECTED_BY_INVULNERABILITY  = 1 << 0x1D,            // 29 unaffected by invulnerability (hmm possible not...)
+		SPELL_ATTR_UNK30                          = 1 << 0x1E,            // 30 breakable by damage?
+		SPELL_ATTR_CANT_CANCEL                    = 1 << 0x1F,            // 31 positive aura can't be canceled
+	};
+
+	[Flags]
+    public enum SpellAtributeEx
+	{
+        SPELL_ATTR_EX_ALL 						  =        -1,
+        SPELL_ATTR_EX_NONE                        =      0x00,
+		SPELL_ATTR_EX_UNK0                        = 1 << 0x00,            // 0
+		SPELL_ATTR_EX_DRAIN_ALL_POWER             = 1 << 0x01,            // 1 use all power (Only paladin Lay of Hands and Bunyanize)
+		SPELL_ATTR_EX_CHANNELED_1                 = 1 << 0x02,            // 2 channeled 1
+		SPELL_ATTR_EX_UNK3                        = 1 << 0x03,            // 3
+		SPELL_ATTR_EX_UNK4                        = 1 << 0x04,            // 4
+		SPELL_ATTR_EX_NOT_BREAK_STEALTH           = 1 << 0x05,            // 5 Not break stealth
+		SPELL_ATTR_EX_CHANNELED_2                 = 1 << 0x06,            // 6 channeled 2
+		SPELL_ATTR_EX_NEGATIVE                    = 1 << 0x07,            // 7
+		SPELL_ATTR_EX_NOT_IN_COMBAT_TARGET        = 1 << 0x08,            // 8 Spell req target not to be in combat state
+		SPELL_ATTR_EX_UNK9                        = 1 << 0x09,            // 9
+		SPELL_ATTR_EX_NO_INITIAL_AGGRO            = 1 << 0x0A,            // 10 no generates threat on cast 100%
+		SPELL_ATTR_EX_UNK11                       = 1 << 0x0B,            // 11
+		SPELL_ATTR_EX_UNK12                       = 1 << 0x0C,            // 12
+		SPELL_ATTR_EX_UNK13                       = 1 << 0x0D,            // 13
+		SPELL_ATTR_EX_UNK14                       = 1 << 0x0E,            // 14
+		SPELL_ATTR_EX_DISPEL_AURAS_ON_IMMUNITY    = 1 << 0x0F,            // 15 remove auras on immunity
+		SPELL_ATTR_EX_UNAFFECTED_BY_SCHOOL_IMMUNE = 1 << 0x10,            // 16 unaffected by school immunity
+		SPELL_ATTR_EX_UNK17                       = 1 << 0x11,            // 17
+		SPELL_ATTR_EX_UNK18                       = 1 << 0x12,            // 18
+		SPELL_ATTR_EX_UNK19                       = 1 << 0x13,            // 19
+		SPELL_ATTR_EX_REQ_COMBO_POINTS1           = 1 << 0x14,            // 20 Req combo points on target
+		SPELL_ATTR_EX_UNK21                       = 1 << 0x15,            // 21
+		SPELL_ATTR_EX_REQ_COMBO_POINTS2           = 1 << 0x16,            // 22 Req combo points on target
+		SPELL_ATTR_EX_UNK23                       = 1 << 0x17,            // 23
+		SPELL_ATTR_EX_UNK24                       = 1 << 0x18,            // 24 Req fishing pole??
+		SPELL_ATTR_EX_UNK25                       = 1 << 0x19,            // 25
+		SPELL_ATTR_EX_UNK26                       = 1 << 0x1A,            // 26
+		SPELL_ATTR_EX_UNK27                       = 1 << 0x1B,            // 27
+		SPELL_ATTR_EX_UNK28                       = 1 << 0x1C,            // 28
+		SPELL_ATTR_EX_UNK29                       = 1 << 0x1D,            // 29
+		SPELL_ATTR_EX_UNK30                       = 1 << 0x1E,            // 30 overpower
+		SPELL_ATTR_EX_UNK31                       = 1 << 0x1F,            // 31
+	};
+
+	[Flags]
+    public enum SpellAtributeEx2
+	{
+        SPELL_ATTR_EX2_ALL                        =        -1,
+        SPELL_ATTR_EX2_NONE                       =      0x00,
+		SPELL_ATTR_EX2_UNK0                       = 1 << 0x00,            // 0
+		SPELL_ATTR_EX2_UNK1                       = 1 << 0x01,            // 1
+		SPELL_ATTR_EX2_CANT_REFLECTED             = 1 << 0x02,            // 2 ? used for detect can or not spell reflected // do not need LOS (e.g. 18220 since 3.3.3)
+		SPELL_ATTR_EX2_UNK3                       = 1 << 0x03,            // 3 auto targeting? (e.g. fishing skill enhancement items since 3.3.3)
+		SPELL_ATTR_EX2_UNK4                       = 1 << 0x04,            // 4
+		SPELL_ATTR_EX2_AUTOREPEAT_FLAG            = 1 << 0x05,            // 5
+		SPELL_ATTR_EX2_UNK6                       = 1 << 0x06,            // 6 only usable on tabbed by yourself
+		SPELL_ATTR_EX2_UNK7                       = 1 << 0x07,            // 7
+		SPELL_ATTR_EX2_UNK8                       = 1 << 0x08,            // 8 not set in 3.0.3
+		SPELL_ATTR_EX2_UNK9                       = 1 << 0x09,            // 9
+		SPELL_ATTR_EX2_UNK10                      = 1 << 0x0A,            // 10
+		SPELL_ATTR_EX2_HEALTH_FUNNEL              = 1 << 0x0B,            // 11
+		SPELL_ATTR_EX2_UNK12                      = 1 << 0x0C,            // 12
+		SPELL_ATTR_EX2_UNK13                      = 1 << 0x0D,            // 13
+		SPELL_ATTR_EX2_UNK14                      = 1 << 0x0E,            // 14
+		SPELL_ATTR_EX2_UNK15                      = 1 << 0x0F,            // 15 not set in 3.0.3
+		SPELL_ATTR_EX2_UNK16                      = 1 << 0x10,            // 16
+		SPELL_ATTR_EX2_UNK17                      = 1 << 0x11,            // 17 suspend weapon timer instead of resetting it, (?Hunters Shot and Stings only have this flag?)
+		SPELL_ATTR_EX2_UNK18                      = 1 << 0x12,            // 18 Only Revive pet - possible req dead pet
+		SPELL_ATTR_EX2_NOT_NEED_SHAPESHIFT        = 1 << 0x13,            // 19 does not necessarly need shapeshift
+		SPELL_ATTR_EX2_UNK20                      = 1 << 0x14,            // 20
+		SPELL_ATTR_EX2_DAMAGE_REDUCED_SHIELD      = 1 << 0x15,            // 21 for ice blocks, pala immunity buffs, priest absorb shields, but used also for other spells -> not sure!
+		SPELL_ATTR_EX2_UNK22                      = 1 << 0x16,            // 22
+		SPELL_ATTR_EX2_UNK23                      = 1 << 0x17,            // 23 Only mage Arcane Concentration have this flag
+		SPELL_ATTR_EX2_UNK24                      = 1 << 0x18,            // 24
+		SPELL_ATTR_EX2_UNK25                      = 1 << 0x19,            // 25
+		SPELL_ATTR_EX2_UNK26                      = 1 << 0x1A,            // 26 unaffected by school immunity
+		SPELL_ATTR_EX2_UNK27                      = 1 << 0x1B,            // 27
+		SPELL_ATTR_EX2_UNK28                      = 1 << 0x1C,            // 28 no breaks stealth if it fails??
+		SPELL_ATTR_EX2_CANT_CRIT                  = 1 << 0x1D,            // 29 Spell can't crit
+		SPELL_ATTR_EX2_UNK30                      = 1 << 0x1E,            // 30
+		SPELL_ATTR_EX2_FOOD_BUFF                  = 1 << 0x1F,            // 31 Food or Drink Buff (like Well Fed)
+	};
+
+	[Flags]
+    public enum SpellAtributeEx3
+	{
+        SPELL_ATTR_EX3_ALL                        =        -1,
+        SPELL_ATTR_EX3_NONE                       =      0x00,
+		SPELL_ATTR_EX3_UNK0                       = 1 << 0x00,            // 0
+		SPELL_ATTR_EX3_UNK1                       = 1 << 0x01,            // 1
+		SPELL_ATTR_EX3_UNK2                       = 1 << 0x02,            // 2
+		SPELL_ATTR_EX3_UNK3                       = 1 << 0x03,            // 3
+		SPELL_ATTR_EX3_UNK4                       = 1 << 0x04,            // 4 Druid Rebirth only this spell have this flag
+		SPELL_ATTR_EX3_UNK5                       = 1 << 0x05,            // 5
+		SPELL_ATTR_EX3_UNK6                       = 1 << 0x06,            // 6
+		SPELL_ATTR_EX3_UNK7                       = 1 << 0x07,            // 7 create a separate (de)buff stack for each caster
+		SPELL_ATTR_EX3_UNK8                       = 1 << 0x08,            // 8
+		SPELL_ATTR_EX3_UNK9                       = 1 << 0x09,            // 9
+		SPELL_ATTR_EX3_MAIN_HAND                  = 1 << 0x0A,            // 10 Main hand weapon required
+		SPELL_ATTR_EX3_BATTLEGROUND               = 1 << 0x0B,            // 11 Can casted only on battleground
+		SPELL_ATTR_EX3_CAST_ON_DEAD               = 1 << 0x0C,            // 12 target is a dead player (not every spell has this flag)
+		SPELL_ATTR_EX3_UNK13                      = 1 << 0x0D,            // 13
+		SPELL_ATTR_EX3_UNK14                      = 1 << 0x0E,            // 14 "Honorless Target" only this spells have this flag
+		SPELL_ATTR_EX3_UNK15                      = 1 << 0x0F,            // 15 Auto Shoot, Shoot, Throw,  - this is autoshot flag
+		SPELL_ATTR_EX3_UNK16                      = 1 << 0x10,            // 16 no triggers effects that trigger on casting a spell??
+		SPELL_ATTR_EX3_UNK17                      = 1 << 0x11,            // 17 no triggers effects that trigger on casting a spell??
+		SPELL_ATTR_EX3_UNK18                      = 1 << 0x12,            // 18
+		SPELL_ATTR_EX3_UNK19                      = 1 << 0x13,            // 19
+		SPELL_ATTR_EX3_DEATH_PERSISTENT           = 1 << 0x14,            // 20 Death persistent spells
+		SPELL_ATTR_EX3_UNK21                      = 1 << 0x15,            // 21
+		SPELL_ATTR_EX3_REQ_WAND                   = 1 << 0x16,            // 22 Req wand
+		SPELL_ATTR_EX3_UNK23                      = 1 << 0x17,            // 23
+		SPELL_ATTR_EX3_REQ_OFFHAND                = 1 << 0x18,            // 24 Req offhand weapon
+		SPELL_ATTR_EX3_UNK25                      = 1 << 0x19,            // 25 no cause spell pushback ?
+		SPELL_ATTR_EX3_UNK26                      = 1 << 0x1A,            // 26
+		SPELL_ATTR_EX3_UNK27                      = 1 << 0x1B,            // 27
+		SPELL_ATTR_EX3_UNK28                      = 1 << 0x1C,            // 28
+		SPELL_ATTR_EX3_UNK29                      = 1 << 0x1D,            // 29
+		SPELL_ATTR_EX3_UNK30                      = 1 << 0x1E,            // 30
+		SPELL_ATTR_EX3_UNK31                      = 1 << 0x1F,            // 31
+	};
+
+	[Flags]
+    public enum SpellAtributeEx4
+	{
+        SPELL_ATTR_EX4_ALL                        =        -1,
+        SPELL_ATTR_EX4_NONE                       =      0x00,
+		SPELL_ATTR_EX4_UNK0                       = 1 << 0x00,            // 0
+		SPELL_ATTR_EX4_UNK1                       = 1 << 0x01,            // 1 proc on finishing move?
+		SPELL_ATTR_EX4_UNK2                       = 1 << 0x02,            // 2
+		SPELL_ATTR_EX4_UNK3                       = 1 << 0x03,            // 3
+		SPELL_ATTR_EX4_UNK4                       = 1 << 0x04,            // 4 This will no longer cause guards to attack on use??
+		SPELL_ATTR_EX4_UNK5                       = 1 << 0x05,            // 5
+		SPELL_ATTR_EX4_NOT_STEALABLE              = 1 << 0x06,            // 6 although such auras might be dispellable, they cannot be stolen
+		SPELL_ATTR_EX4_UNK7                       = 1 << 0x07,            // 7
+		SPELL_ATTR_EX4_STACK_DOT_MODIFIER         = 1 << 0x08,            // 8 no effect on non DoTs?
+		SPELL_ATTR_EX4_UNK9                       = 1 << 0x09,            // 9
+		SPELL_ATTR_EX4_SPELL_VS_EXTEND_COST       = 1 << 0x0A,            // 10 Rogue Shiv have this flag
+		SPELL_ATTR_EX4_UNK11                      = 1 << 0x0B,            // 11
+		SPELL_ATTR_EX4_UNK12                      = 1 << 0x0C,            // 12
+		SPELL_ATTR_EX4_UNK13                      = 1 << 0x0D,            // 13
+		SPELL_ATTR_EX4_UNK14                      = 1 << 0x0E,            // 14
+		SPELL_ATTR_EX4_UNK15                      = 1 << 0x0F,            // 15
+		SPELL_ATTR_EX4_NOT_USABLE_IN_ARENA        = 1 << 0x10,            // 16 not usable in arena
+		SPELL_ATTR_EX4_USABLE_IN_ARENA            = 1 << 0x11,            // 17 usable in arena
+		SPELL_ATTR_EX4_UNK18                      = 1 << 0x12,            // 18
+		SPELL_ATTR_EX4_UNK19                      = 1 << 0x13,            // 19
+		SPELL_ATTR_EX4_UNK20                      = 1 << 0x14,            // 20 do not give "more powerful spell" error message
+		SPELL_ATTR_EX4_UNK21                      = 1 << 0x15,            // 21
+		SPELL_ATTR_EX4_UNK22                      = 1 << 0x16,            // 22
+		SPELL_ATTR_EX4_UNK23                      = 1 << 0x17,            // 23
+		SPELL_ATTR_EX4_UNK24                      = 1 << 0x18,            // 24
+		SPELL_ATTR_EX4_UNK25                      = 1 << 0x19,            // 25 pet scaling auras
+		SPELL_ATTR_EX4_CAST_ONLY_IN_OUTLAND       = 1 << 0x1A,            // 26 Can only be used in Outland.
+		SPELL_ATTR_EX4_UNK27                      = 1 << 0x1B,            // 27
+		SPELL_ATTR_EX4_UNK28                      = 1 << 0x1C,            // 28
+		SPELL_ATTR_EX4_UNK29                      = 1 << 0x1D,            // 29
+		SPELL_ATTR_EX4_UNK30                      = 1 << 0x1E,            // 30
+		SPELL_ATTR_EX4_UNK31                      = 1 << 0x1F,            // 31
+	};
+
+	[Flags]
+    public enum SpellAtributeEx5
+	{
+        SPELL_ATTR_EX5_ALL                        =        -1,
+        SPELL_ATTR_EX5_NONE                       =      0x00,
+		SPELL_ATTR_EX5_UNK0                       = 1 << 0x00,            // 0
+		SPELL_ATTR_EX5_NO_REAGENT_WHILE_PREP      = 1 << 0x01,            // 1 not need reagents if UNIT_FLAG_PREPARATION
+		SPELL_ATTR_EX5_UNK2                       = 1 << 0x02,            // 2 removed at enter arena (e.g. 31850 since 3.3.3)
+		SPELL_ATTR_EX5_USABLE_WHILE_STUNNED       = 1 << 0x03,            // 3 usable while stunned
+		SPELL_ATTR_EX5_UNK4                       = 1 << 0x04,            // 4
+		SPELL_ATTR_EX5_SINGLE_TARGET_SPELL        = 1 << 0x05,            // 5 Only one target can be apply at a time
+		SPELL_ATTR_EX5_UNK6                       = 1 << 0x06,            // 6
+		SPELL_ATTR_EX5_UNK7                       = 1 << 0x07,            // 7
+		SPELL_ATTR_EX5_UNK8                       = 1 << 0x08,            // 8
+		SPELL_ATTR_EX5_START_PERIODIC_AT_APPLY    = 1 << 0x09,            // 9  begin periodic tick at aura apply
+		SPELL_ATTR_EX5_UNK10                      = 1 << 0x0A,            // 10
+		SPELL_ATTR_EX5_UNK11                      = 1 << 0x0B,            // 11
+		SPELL_ATTR_EX5_UNK12                      = 1 << 0x0C,            // 12
+		SPELL_ATTR_EX5_UNK13                      = 1 << 0x0D,            // 13 haste affects duration (e.g. 8050 since 3.3.3)
+		SPELL_ATTR_EX5_UNK14                      = 1 << 0x0E,            // 14
+		SPELL_ATTR_EX5_UNK15                      = 1 << 0x0F,            // 15
+		SPELL_ATTR_EX5_UNK16                      = 1 << 0x10,            // 16
+		SPELL_ATTR_EX5_USABLE_WHILE_FEARED        = 1 << 0x11,            // 17 usable while feared
+		SPELL_ATTR_EX5_USABLE_WHILE_CONFUSED      = 1 << 0x12,            // 18 usable while confused
+		SPELL_ATTR_EX5_UNK19                      = 1 << 0x13,            // 19
+		SPELL_ATTR_EX5_UNK20                      = 1 << 0x14,            // 20
+		SPELL_ATTR_EX5_UNK21                      = 1 << 0x15,            // 21
+		SPELL_ATTR_EX5_UNK22                      = 1 << 0x16,            // 22
+		SPELL_ATTR_EX5_UNK23                      = 1 << 0x17,            // 23
+		SPELL_ATTR_EX5_UNK24                      = 1 << 0x18,            // 24
+		SPELL_ATTR_EX5_UNK25                      = 1 << 0x19,            // 25
+		SPELL_ATTR_EX5_UNK26                      = 1 << 0x1A,            // 26
+		SPELL_ATTR_EX5_UNK27                      = 1 << 0x1B,            // 27
+		SPELL_ATTR_EX5_UNK28                      = 1 << 0x1C,            // 28
+		SPELL_ATTR_EX5_UNK29                      = 1 << 0x1D,            // 29
+		SPELL_ATTR_EX5_UNK30                      = 1 << 0x1E,            // 30
+		SPELL_ATTR_EX5_UNK31                      = 1 << 0x1F,            // 31 Forces all nearby enemies to focus attacks caster
+	};
+
+	[Flags]
+    public enum SpellAtributeEx6
+	{
+        SPELL_ATTR_EX6_ALL                        =        -1,
+        SPELL_ATTR_EX6_NONE                       =      0x00,
+		SPELL_ATTR_EX6_UNK0                       = 1 << 0x00,            // 0 Only Move spell have this flag
+		SPELL_ATTR_EX6_ONLY_IN_ARENA              = 1 << 0x01,            // 1 only usable in arena, not used in 3.2.0a and early
+		SPELL_ATTR_EX6_UNK2                       = 1 << 0x02,            // 2
+		SPELL_ATTR_EX6_UNK3                       = 1 << 0x03,            // 3
+		SPELL_ATTR_EX6_UNK4                       = 1 << 0x04,            // 4
+		SPELL_ATTR_EX6_UNK5                       = 1 << 0x05,            // 5
+		SPELL_ATTR_EX6_UNK6                       = 1 << 0x06,            // 6
+		SPELL_ATTR_EX6_UNK7                       = 1 << 0x07,            // 7
+		SPELL_ATTR_EX6_UNK8                       = 1 << 0x08,            // 8
+		SPELL_ATTR_EX6_UNK9                       = 1 << 0x09,            // 9
+		SPELL_ATTR_EX6_UNK10                      = 1 << 0x0A,            // 10
+		SPELL_ATTR_EX6_NOT_IN_RAID_INSTANCE       = 1 << 0x0B,            // 11 not usable in raid instance
+		SPELL_ATTR_EX6_UNK12                      = 1 << 0x0C,            // 12
+		SPELL_ATTR_EX6_UNK13                      = 1 << 0x0D,            // 13
+		SPELL_ATTR_EX6_UNK14                      = 1 << 0x0E,            // 14
+		SPELL_ATTR_EX6_UNK15                      = 1 << 0x0F,            // 15 not set in 3.0.3
+		SPELL_ATTR_EX6_UNK16                      = 1 << 0x10,            // 16
+		SPELL_ATTR_EX6_UNK17                      = 1 << 0x11,            // 17
+		SPELL_ATTR_EX6_UNK18                      = 1 << 0x12,            // 18
+		SPELL_ATTR_EX6_UNK19                      = 1 << 0x13,            // 19
+		SPELL_ATTR_EX6_UNK20                      = 1 << 0x14,            // 20
+		SPELL_ATTR_EX6_UNK21                      = 1 << 0x15,            // 21
+		SPELL_ATTR_EX6_UNK22                      = 1 << 0x16,            // 22
+		SPELL_ATTR_EX6_UNK23                      = 1 << 0x17,            // 23 not set in 3.0.3
+		SPELL_ATTR_EX6_UNK24                      = 1 << 0x18,            // 24 not set in 3.0.3
+		SPELL_ATTR_EX6_UNK25                      = 1 << 0x19,            // 25 not set in 3.0.3
+		SPELL_ATTR_EX6_UNK26                      = 1 << 0x1A,            // 26 not set in 3.0.3
+		SPELL_ATTR_EX6_UNK27                      = 1 << 0x1B,            // 27 not set in 3.0.3
+		SPELL_ATTR_EX6_UNK28                      = 1 << 0x1C,            // 28 not set in 3.0.3
+		SPELL_ATTR_EX6_NO_DMG_PERCENT_MODS        = 1 << 0x1D,            // 29 do not apply damage percent mods (usually in cases where it has already been applied)
+		SPELL_ATTR_EX6_UNK30                      = 1 << 0x1E,            // 30 not set in 3.0.3
+		SPELL_ATTR_EX6_UNK31                      = 1 << 0x1F,            // 31 not set in 3.0.3
+	};
+	
+		[Flags]
+    public enum SpellAtributeExG
+	{
+        SPELL_ATTR_EXG_ALL                        =        -1,
+        SPELL_ATTR_EXG_NONE                       =      0x00,
+		SPELL_ATTR_EXG_UNK0                       = 1 << 0x00,            // 0 
+		SPELL_ATTR_EXG_UNK1                       = 1 << 0x01,            // 1 
+		SPELL_ATTR_EXG_UNK2                       = 1 << 0x02,            // 2
+		SPELL_ATTR_EXG_UNK3                       = 1 << 0x03,            // 3
+		SPELL_ATTR_EXG_UNK4                       = 1 << 0x04,            // 4
+		SPELL_ATTR_EXG_UNK5                       = 1 << 0x05,            // 5
+		SPELL_ATTR_EXG_UNK6                       = 1 << 0x06,            // 6
+		SPELL_ATTR_EXG_UNK7                       = 1 << 0x07,            // 7
+		SPELL_ATTR_EXG_UNK8                       = 1 << 0x08,            // 8
+		SPELL_ATTR_EXG_UNK9                       = 1 << 0x09,            // 9
+		SPELL_ATTR_EXG_UNK10                      = 1 << 0x0A,            // 10
+		SPELL_ATTR_EXG_UNK11                      = 1 << 0x0B,            // 11 
+		SPELL_ATTR_EXG_UNK12                      = 1 << 0x0C,            // 12
+		SPELL_ATTR_EXG_UNK13                      = 1 << 0x0D,            // 13
+		SPELL_ATTR_EXG_UNK14                      = 1 << 0x0E,            // 14
+		SPELL_ATTR_EXG_UNK15                      = 1 << 0x0F,            // 15 
+		SPELL_ATTR_EXG_UNK16                      = 1 << 0x10,            // 16
+		SPELL_ATTR_EXG_UNK17                      = 1 << 0x11,            // 17
+		SPELL_ATTR_EXG_UNK18                      = 1 << 0x12,            // 18
+		SPELL_ATTR_EXG_UNK19                      = 1 << 0x13,            // 19
+		SPELL_ATTR_EXG_UNK20                      = 1 << 0x14,            // 20
+		SPELL_ATTR_EXG_UNK21                      = 1 << 0x15,            // 21
+		SPELL_ATTR_EXG_UNK22                      = 1 << 0x16,            // 22
+		SPELL_ATTR_EXG_UNK23                      = 1 << 0x17,            // 23 
+		SPELL_ATTR_EXG_UNK24                      = 1 << 0x18,            // 24 
+		SPELL_ATTR_EXG_UNK25                      = 1 << 0x19,            // 25 
+		SPELL_ATTR_EXG_UNK26                      = 1 << 0x1A,            // 26 
+		SPELL_ATTR_EXG_UNK27                      = 1 << 0x1B,            // 27
+		SPELL_ATTR_EXG_UNK28                      = 1 << 0x1C,            // 28
+		SPELL_ATTR_EXG_UNK29                      = 1 << 0x1D,            // 29
+		SPELL_ATTR_EXG_UNK30                      = 1 << 0x1E,            // 30
+		SPELL_ATTR_EXG_UNK31                      = 1 << 0x1F,            // 31
+	};
 
     public class SpellEnums
     {
