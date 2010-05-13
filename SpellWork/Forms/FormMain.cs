@@ -533,6 +533,14 @@ namespace SpellWork
                 _tbCooldown.Text = str.SubItems[11].Text;
 
                 ProcInfo.SpellProc = spell;
+
+                uint[] mask = new uint[3];
+
+                mask[0] = str.SubItems[4].Text.ToUInt32();
+                mask[1] = str.SubItems[5].Text.ToUInt32();
+                mask[2] = str.SubItems[6].Text.ToUInt32();
+
+                _tvFamilyTree.SetMask(mask);
             }
             catch (Exception ex)
             {
