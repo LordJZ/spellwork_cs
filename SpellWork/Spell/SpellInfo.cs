@@ -1,6 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Text;
 
 namespace SpellWork
 {
@@ -222,22 +224,10 @@ namespace SpellWork
                     spell.EffectImplicitTargetA[i], spell.EffectImplicitTargetB[i],
                     (Targets)spell.EffectImplicitTargetA[i], (Targets)spell.EffectImplicitTargetB[i]);
 
-                if (spell.EffectApplyAuraName[i] != 0)
-                {
-                    sb.AppendFormatLine("Aura Id {0} ({1}), value = {2}, misc = {3}, miscB = {4}, periodic = {5}",
-                        spell.EffectApplyAuraName[i],
-                        (AuraType)spell.EffectApplyAuraName[i],
-                        spell.EffectBasePoints[i] + 1, spell.GetAuraModTypeName(i),
-                        spell.EffectMiscValueB[i], spell.EffectAmplitude[i]);
-                }
-                else
-                {
-                    sb.AppendFormatLineIfNotNull("EffectMiscValueA = {0}",  spell.EffectMiscValue[i]);
-                    sb.AppendFormatLineIfNotNull("EffectMiscValueB = {0}",  spell.EffectMiscValueB[i]);
-                    sb.AppendFormatLineIfNotNull("EffectAmplitude = {0}",   spell.EffectAmplitude[i]);
-                }
+                sb.AppendText(AuraModTypeName(spell, i));
 
                 uint[] ClassMask = new uint[3];
+               
                 switch (i)
                 {
                     case 0: ClassMask[0] = spell.EffectSpellClassMaskA[i]; break;
@@ -358,6 +348,42 @@ namespace SpellWork
                 else
                     sb.AppendFormatLine("  Ex Target Aura Spell ({0}) ?????", spell.ExcludeTargetAuraSpell);
             }
+        }
+
+        private string AuraModTypeName(SpellEntry spell, int index)
+        {
+            AuraType aura    = (AuraType)spell.EffectApplyAuraName[index];
+            int mod          = spell.EffectMiscValue[index];
+            StringBuilder sb = new StringBuilder();
+
+            if (spell.EffectApplyAuraName[index] == 0)
+            {
+                sb.AppendFormatLineIfNotNull("EffectMiscValueA = {0}", spell.EffectMiscValue[index]);
+                sb.AppendFormatLineIfNotNull("EffectMiscValueB = {0}", spell.EffectMiscValueB[index]);
+                sb.AppendFormatLineIfNotNull("EffectAmplitude = {0}",  spell.EffectAmplitude[index]);
+                
+                return sb.ToString();
+            }
+
+            sb.AppendFormat("Aura Id {0:D} ({0})", aura);
+            sb.AppendFormat(", value = {0}", spell.EffectBasePoints[index] + 1);
+            sb.AppendFormat(", misc = {0} (", mod);
+          
+            switch (aura)
+            {
+                case AuraType.SPELL_AURA_MOD_STAT:   sb.Append((UnitMods)mod); break;
+                case AuraType.SPELL_AURA_MOD_RATING: sb.Append((CombatRating)mod); break;
+                case AuraType.SPELL_AURA_ADD_FLAT_MODIFIER:
+                case AuraType.SPELL_AURA_ADD_PCT_MODIFIER: sb.Append((SpellModOp)mod); break;
+                
+                // todo: more case
+                default: sb.Append(mod); break;
+            }
+
+            sb.AppendFormat("), miscB = {0}", spell.EffectMiscValueB[index]);
+            sb.AppendFormatLine(", periodic = {0}", spell.EffectAmplitude[index]);
+
+            return sb.ToString();
         }
 
         private void AppendItemInfo(RichTextBox sb, SpellEntry spell)

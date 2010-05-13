@@ -1397,7 +1397,7 @@ namespace SpellWork
         SPELL_ATTR_EX6_UNK31                      = 1 << 0x1F,            // 31 not set in 3.0.3
     };
     
-        [Flags]
+    [Flags]
     public enum SpellAtributeExG
     {
         SPELL_ATTR_EXG_ALL                        =        -1,
@@ -1434,6 +1434,73 @@ namespace SpellWork
         SPELL_ATTR_EXG_UNK29                      = 1 << 0x1D,            // 29
         SPELL_ATTR_EXG_UNK30                      = 1 << 0x1E,            // 30
         SPELL_ATTR_EXG_UNK31                      = 1 << 0x1F,            // 31
+    };
+
+    [Flags]
+    public enum CombatRating
+    {
+        CR_WEAPON_SKILL             =      0x00,
+        CR_DEFENSE_SKILL            = 1 << 0x00,
+        CR_DODGE                    = 1 << 0x01,
+        CR_PARRY                    = 1 << 0x02,
+        CR_BLOCK                    = 1 << 0x03,
+        CR_HIT_MELEE                = 1 << 0x04,
+        CR_HIT_RANGED               = 1 << 0x05,
+        CR_HIT_SPELL                = 1 << 0x06,
+        CR_CRIT_MELEE               = 1 << 0x07,
+        CR_CRIT_RANGED              = 1 << 0x08,
+        CR_CRIT_SPELL               = 1 << 0x09,
+        CR_HIT_TAKEN_MELEE          = 1 << 0x0A,
+        CR_HIT_TAKEN_RANGED         = 1 << 0x0B,
+        CR_HIT_TAKEN_SPELL          = 1 << 0x0C,
+        CR_CRIT_TAKEN_MELEE         = 1 << 0x0D,
+        CR_CRIT_TAKEN_RANGED        = 1 << 0x0E,
+        CR_CRIT_TAKEN_SPELL         = 1 << 0x0F,
+        CR_HASTE_MELEE              = 1 << 0x10,
+        CR_HASTE_RANGED             = 1 << 0x11,
+        CR_HASTE_SPELL              = 1 << 0x12,
+        CR_WEAPON_SKILL_MAINHAND    = 1 << 0x13,
+        CR_WEAPON_SKILL_OFFHAND     = 1 << 0x14,
+        CR_WEAPON_SKILL_RANGED      = 1 << 0x15,
+        CR_EXPERTISE                = 1 << 0x16,
+        CR_ARMOR_PENETRATION        = 1 << 0x17,
+    };
+
+    public enum UnitMods
+    {
+        UNIT_MOD_STAT_STRENGTH          = 0,                  // UNIT_MOD_STAT_STRENGTH..UNIT_MOD_STAT_SPIRIT must be in existed order, it's accessed by index values of Stats enum.
+        UNIT_MOD_STAT_AGILITY           = 1,
+        UNIT_MOD_STAT_STAMINA           = 2,
+        UNIT_MOD_STAT_INTELLECT         = 3,
+        UNIT_MOD_STAT_SPIRIT            = 4,
+        UNIT_MOD_HEALTH                 = 5,
+        UNIT_MOD_MANA                   = 6,                  // UNIT_MOD_MANA..UNIT_MOD_RUNIC_POWER must be in existed order, it's accessed by index values of Powers enum.
+        UNIT_MOD_RAGE                   = 7,
+        UNIT_MOD_FOCUS                  = 8,
+        UNIT_MOD_ENERGY                 = 9,
+        UNIT_MOD_HAPPINESS              = 10,
+        UNIT_MOD_RUNE                   = 11,
+        UNIT_MOD_RUNIC_POWER            = 12,
+        UNIT_MOD_ARMOR                  = 13,                 // UNIT_MOD_ARMOR..UNIT_MOD_RESISTANCE_ARCANE must be in existed order, it's accessed by index values of SpellSchools enum.
+        UNIT_MOD_RESISTANCE_HOLY        = 14,
+        UNIT_MOD_RESISTANCE_FIRE        = 15,
+        UNIT_MOD_RESISTANCE_NATURE      = 16,
+        UNIT_MOD_RESISTANCE_FROST       = 17,
+        UNIT_MOD_RESISTANCE_SHADOW      = 18,
+        UNIT_MOD_RESISTANCE_ARCANE      = 19,
+        UNIT_MOD_ATTACK_POWER           = 20,
+        UNIT_MOD_ATTACK_POWER_RANGED    = 21,
+        UNIT_MOD_DAMAGE_MAINHAND        = 22,
+        UNIT_MOD_DAMAGE_OFFHAND         = 23,
+        UNIT_MOD_DAMAGE_RANGED          = 24,
+        UNIT_MOD_END                    = 25,
+        // synonyms
+        UNIT_MOD_STAT_START             = UNIT_MOD_STAT_STRENGTH,
+        UNIT_MOD_STAT_END               = UNIT_MOD_STAT_SPIRIT       + 1,
+        UNIT_MOD_RESISTANCE_START       = UNIT_MOD_ARMOR,
+        UNIT_MOD_RESISTANCE_END         = UNIT_MOD_RESISTANCE_ARCANE + 1,
+        UNIT_MOD_POWER_START            = UNIT_MOD_MANA,
+        UNIT_MOD_POWER_END              = UNIT_MOD_RUNIC_POWER       + 1,
     };
 
     public class SpellEnums

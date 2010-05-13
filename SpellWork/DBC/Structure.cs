@@ -318,15 +318,6 @@ namespace SpellWork
             return String.Empty;
         }
 
-        public string GetAuraModTypeName(int index)
-        {
-            uint id = EffectApplyAuraName[index];
-            int mod = EffectMiscValue[index];
-            if (id == 107 || id == 108 || mod < 29)
-                return ((SpellModOp)mod).ToString();
-            return mod.ToString();
-        }
-
         public string CastTime
         {
             get
