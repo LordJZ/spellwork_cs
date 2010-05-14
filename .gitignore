@@ -1,5 +1,6 @@
 
 *.suo
+*.sln
 *.user
 SpellWork/obj/*
 *.orig
