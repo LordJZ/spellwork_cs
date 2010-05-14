@@ -31,23 +31,11 @@ namespace SpellWork
             for (int i = 0; i < tv.Nodes.Count; ++i)
             {
                 if (i < 32)
-                {
-                    double pow = Math.Pow(2, i);
-                    uint x = (uint)Math.Truncate(mask[0] / pow);
-                    tv.Nodes[i].Checked = (x % 2) != 0;
-                }
+                    tv.Nodes[i].Checked = ((mask[0] / (1 << i)) % 2) != 0;
                 else if (i < 64)
-                {
-                    double pow = Math.Pow(2, i);
-                    uint x = (uint)Math.Truncate(mask[1] / pow);
-                    tv.Nodes[i].Checked = (x % 2) != 0;
-                }
+                    tv.Nodes[i].Checked = ((mask[1] / (1 << (i - 32))) % 2) != 0;
                 else
-                {
-                    double pow = Math.Pow(2, i);
-                    uint x = (uint)Math.Truncate(mask[2] / pow);
-                    tv.Nodes[i].Checked = (x % 2) != 0;
-                }
+                    tv.Nodes[i].Checked = ((mask[2] / (1 << (i - 64))) % 2) != 0;
             }
         }
     }
