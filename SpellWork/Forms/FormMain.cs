@@ -9,6 +9,7 @@ using System.Linq.Expressions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Diagnostics;
 
 namespace SpellWork
 {
@@ -281,19 +282,19 @@ namespace SpellWork
 
         private void GetProcAttribute(SpellEntry spell)
         {
-            // test
+            uint[] SpellFamilyFlags = _tvFamilyTree.GetMask();
             var statusproc = String.Format("Spell ({0}) {1}. Proc Event ==> SchoolMask 0x{2:X2}, SpellFamily {3}, 0x{4:X8} {5:X8} {6:X8}, procFlag {7:X8}, PPMRate {8}",
                 spell.ID, 
                 spell.SpellNameRank, 
                 _clbSchools.GetFlagsValue(),
                 _cbProcFitstSpellFamily.ValueMember,
-                spell.SpellFamilyFlags1,
-                spell.SpellFamilyFlags2,
-                spell.SpellFamilyFlags3,
+                SpellFamilyFlags[0],
+                SpellFamilyFlags[1],
+                SpellFamilyFlags[2],
                 spell.ProcFlags,
                 _tbPPM.Text.ToFloat());
 
-            _gSpellProcEvent.Text = "Spell Proc Event       " + statusproc;
+            _gSpellProcEvent.Text = "Spell Proc Event    " + statusproc;
         }
 
         private void _clbSchools_SelectedIndexChanged(object sender, EventArgs e)
@@ -517,6 +518,7 @@ namespace SpellWork
                 var str = ((ListView)sender).SelectedItems[0];
                 uint id = str.SubItems[0].Text.ToUInt32();
                 var spell = DBC.Spell[id];
+                ProcInfo.SpellProc = spell; 
                 tabControl1.SelectedIndex = 1;
 
                 new SpellInfo(_rtbProcSpellInfo, spell);
@@ -526,13 +528,12 @@ namespace SpellWork
                 _clbProcFlagEx.SetCheckedItemFromFlag(str.SubItems[8].Text.ToUInt32());
 
                 _cbProcSpellFamilyTree.SelectedValue = str.SubItems[3].Text.ToUInt32();
+
                 _cbProcFitstSpellFamily.SelectedValue = str.SubItems[3].Text.ToUInt32();
 
                 _tbPPM.Text = str.SubItems[9].Text;
                 _tbChance.Text = str.SubItems[10].Text;
                 _tbCooldown.Text = str.SubItems[11].Text;
-
-                ProcInfo.SpellProc = spell;
 
                 uint[] mask = new uint[3];
 
@@ -632,11 +633,6 @@ namespace SpellWork
             }
         }
 
-        private void _bAdditionalSearch_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void _tbAdvansedFilter1Val_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -647,6 +643,8 @@ namespace SpellWork
 
         private void _tvFamilyTree_AfterCheck(object sender, TreeViewEventArgs e)
         {
+            if (!ProcInfo.Update) return;
+
             _bWrite.Enabled = true;
             _lvProcAdditionalInfo.Items.Clear();
 

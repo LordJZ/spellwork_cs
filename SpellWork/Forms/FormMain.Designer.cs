@@ -879,6 +879,7 @@
             this._tvFamilyTree.Location = new System.Drawing.Point(1, 23);
             this._tvFamilyTree.Name = "_tvFamilyTree";
             this._tvFamilyTree.SelectedImageIndex = 0;
+            this._tvFamilyTree.ShowNodeToolTips = true;
             this._tvFamilyTree.Size = new System.Drawing.Size(258, 219);
             this._tvFamilyTree.TabIndex = 0;
             this._tvFamilyTree.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this._tvFamilyTree_AfterCheck);
