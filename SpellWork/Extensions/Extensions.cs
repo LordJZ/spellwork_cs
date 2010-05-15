@@ -323,20 +323,19 @@ namespace SpellWork
             cb.Items.Clear();
 
             DataTable dt = new DataTable();
-            dt.Columns.Add("ID");
-            dt.Columns.Add("NAME");
+            dt.Columns.Add("ID", typeof(MemberInfo));
+            dt.Columns.Add("NAME", typeof(String));
 
             var type = typeof(T).GetMembers();
             int i = 0;
-            foreach (var str in type)
+            foreach (MemberInfo str in type)
             {
-                if (str is FieldInfo)
+                if (str is FieldInfo || str is PropertyInfo)
                 {
-                    dt.Rows.Add(new[] 
-                    { 
-                        str.Name, 
-                        String.Format("({0:000}) {1}", i, str.Name) 
-                    });
+                    DataRow dr = dt.NewRow();
+                    dr["ID"] = str;
+                    dr["NAME"] = String.Format("({0:000}) {1}", i, str.Name);
+                    dt.Rows.Add(dr);
                     i++;
                 }
             }

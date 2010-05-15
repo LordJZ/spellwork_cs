@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace SpellWork
 {
@@ -210,8 +211,8 @@ namespace SpellWork
             var advVal1 = _tbAdvansedFilter1Val.Text;
             var advVal2 = _tbAdvansedFilter2Val.Text;
 
-            var field1 = _cbAdvansedFilter1.SelectedValue.ToString();
-            var field2 = _cbAdvansedFilter2.SelectedValue.ToString();
+            var field1 = (MemberInfo)_cbAdvansedFilter1.SelectedValue;
+            var field2 = (MemberInfo)_cbAdvansedFilter2.SelectedValue;
 
             bool use1val = advVal1 != string.Empty;
             bool use2val = advVal2 != string.Empty;
@@ -586,6 +587,7 @@ namespace SpellWork
                 MessageBox.Show("Can't connect to database!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
             StringBuilder sb = new StringBuilder("WHERE  ");
             string compare = _cbBinaryCompare.Checked ? "&" : "=";
 
@@ -630,9 +632,7 @@ namespace SpellWork
         private void _lvDataList_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-            {
                 ProcParse(sender);
-            }
         }
 
         private void _bSqlSave_Click(object sender, EventArgs e)
@@ -660,12 +660,7 @@ namespace SpellWork
 
         private void _lvSpellList_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
         {
-            e.Item = CreateSpellItem(e.ItemIndex);
-        }
-
-        private ListViewItem CreateSpellItem(int index)
-        {
-            return new ListViewItem(new[] { _spellList[index].ID.ToString(), _spellList[index].SpellNameRank });
+            e.Item = new ListViewItem(new[] { _spellList[e.ItemIndex].ID.ToString(), _spellList[e.ItemIndex].SpellNameRank });
         }
 
         // page 2
@@ -673,12 +668,7 @@ namespace SpellWork
 
         private void _lvProcSpellList_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
         {
-            e.Item = CreateProcSpellItem(e.ItemIndex);
-        }
-
-        private ListViewItem CreateProcSpellItem(int index)
-        {
-            return new ListViewItem(new[] { _spellProcList[index].ID.ToString(), _spellProcList[index].SpellNameRank });
+            e.Item = new ListViewItem(new[] { _spellProcList[e.ItemIndex].ID.ToString(), _spellProcList[e.ItemIndex].SpellNameRank });
         }
 
         #endregion

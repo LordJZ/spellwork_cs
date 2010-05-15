@@ -136,12 +136,7 @@ namespace SpellWork
 
         private void _lvSpellList_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
         {
-            e.Item = CreateSpellItem(e.ItemIndex);
-        }
-
-        private ListViewItem CreateSpellItem(int index)
-        {
-            return new ListViewItem(new[] { _spellList[index].ID.ToString(), _spellList[index].SpellNameRank });
+            e.Item = new ListViewItem(new[] { _spellList[e.ItemIndex].ID.ToString(), _spellList[e.ItemIndex].SpellNameRank });
         }
 
         #endregion
