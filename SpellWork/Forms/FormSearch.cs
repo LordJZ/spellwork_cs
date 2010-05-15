@@ -28,42 +28,32 @@ namespace SpellWork
         {
             if (e.KeyCode == Keys.Enter)
             {
-                _lvSpellList.Items.Clear();
+                _spellCachedList1.Clear();
 
                 string name = _tbIdName.Text;
                 uint id = name.ToUInt32();
                 uint ic = _tbIcon.Text.ToUInt32();
                 uint at = _tbAttribute.Text.ToUInt32();
 
-                var query = from spell in DBC.Spell
-                            where ((id == 0 || spell.Key == id)
+                _spellList1 = (from spell in DBC.Spell.Values
+                            where ((id == 0 || spell.ID == id)
 
-                                && (ic == 0 || spell.Value.SpellIconID == ic)
+                                && (ic == 0 || spell.SpellIconID == ic)
 
-                                && (at == 0 || (spell.Value.Attributes & at)    != 0
-                                            || (spell.Value.AttributesEx & at)  != 0
-                                            || (spell.Value.AttributesEx2 & at) != 0
-                                            || (spell.Value.AttributesEx3 & at) != 0
-                                            || (spell.Value.AttributesEx4 & at) != 0
-                                            || (spell.Value.AttributesEx5 & at) != 0
-                                            || (spell.Value.AttributesEx6 & at) != 0
-                                            || (spell.Value.AttributesExG & at) != 0))
+                                && (at == 0 || (spell.Attributes & at)    != 0
+                                            || (spell.AttributesEx & at)  != 0
+                                            || (spell.AttributesEx2 & at) != 0
+                                            || (spell.AttributesEx3 & at) != 0
+                                            || (spell.AttributesEx4 & at) != 0
+                                            || (spell.AttributesEx5 & at) != 0
+                                            || (spell.AttributesEx6 & at) != 0
+                                            || (spell.AttributesExG & at) != 0))
 
-                                && ((id != 0 || ic != 0 && at != 0) || Extensions.ContainText(spell.Value.SpellName, name))
+                                && ((id != 0 || ic != 0 && at != 0) || Extensions.ContainText(spell.SpellName, name))
 
-                            select spell;
-
-                if (query.Count() == 0) return;
-                groupBox1.Text = "Spell Search " + "count: " + query.Count();
-
-                foreach (var element in query)
-                {
-                    _lvSpellList.Items.Add(new ListViewItem(new String[] 
-                    { 
-                        element.Key.ToString(), 
-                        element.Value.SpellNameRank 
-                    }));
-                }
+                            select spell).ToList();
+                _lvSpellList.VirtualListSize = _spellList1.Count();
+                groupBox1.Text = "Spell Search " + "count: " + _spellList1.Count();
             }
         }
 
@@ -71,7 +61,7 @@ namespace SpellWork
         {
             if (((ComboBox)sender).SelectedIndex != 0)
             {
-                _lvSpellList.Items.Clear();
+                _spellCachedList1.Clear();
 
                 var bFamilyNames = _cbSpellFamily.SelectedIndex != 0;
                 var fFamilyNames = _cbSpellFamily.SelectedValue.ToInt32();
@@ -88,57 +78,43 @@ namespace SpellWork
                 var bTarget2 = _cbTarget2.SelectedIndex != 0;
                 var fTarget2 = _cbTarget2.SelectedValue.ToInt32();
 
-                var query = from spell in DBC.Spell
-                            where (!bFamilyNames || spell.Value.SpellFamilyName             == fFamilyNames)
+                _spellList1 = (from spell in DBC.Spell.Values
+                            where (!bFamilyNames || spell.SpellFamilyName             == fFamilyNames)
 
-                               && (!bSpellAura   || spell.Value.EffectApplyAuraName[0]      == fSpellAura
-                                                 || spell.Value.EffectApplyAuraName[1]      == fSpellAura
-                                                 || spell.Value.EffectApplyAuraName[2]      == fSpellAura)
+                               && (!bSpellAura   || spell.EffectApplyAuraName[0]      == fSpellAura
+                                                 || spell.EffectApplyAuraName[1]      == fSpellAura
+                                                 || spell.EffectApplyAuraName[2]      == fSpellAura)
 
-                               && (!bSpellEffect || spell.Value.Effect[0]                   == fSpellEffect
-                                                 || spell.Value.Effect[1]                   == fSpellEffect
-                                                 || spell.Value.Effect[2]                   == fSpellEffect)
+                               && (!bSpellEffect || spell.Effect[0]                   == fSpellEffect
+                                                 || spell.Effect[1]                   == fSpellEffect
+                                                 || spell.Effect[2]                   == fSpellEffect)
 
-                               && (!bTarget1     || spell.Value.EffectImplicitTargetA[0]    == fTarget1
-                                                 || spell.Value.EffectImplicitTargetA[1]    == fTarget1
-                                                 || spell.Value.EffectImplicitTargetA[2]    == fTarget1)
+                               && (!bTarget1     || spell.EffectImplicitTargetA[0]    == fTarget1
+                                                 || spell.EffectImplicitTargetA[1]    == fTarget1
+                                                 || spell.EffectImplicitTargetA[2]    == fTarget1)
 
-                               && (!bTarget2     || spell.Value.EffectImplicitTargetB[0]    == fTarget2
-                                                 || spell.Value.EffectImplicitTargetB[1]    == fTarget2
-                                                 || spell.Value.EffectImplicitTargetB[2]    == fTarget2)
+                               && (!bTarget2     || spell.EffectImplicitTargetB[0]    == fTarget2
+                                                 || spell.EffectImplicitTargetB[1]    == fTarget2
+                                                 || spell.EffectImplicitTargetB[2]    == fTarget2)
 
-                            select spell;
+                            select spell).ToList();
 
-                if (query.Count() == 0)
-                    return;
-                groupBox2.Text = "Spell Filter " + "count: " + query.Count();
-                foreach (var element in query)
-                {
-                    _lvSpellList.Items.Add(new ListViewItem(new String[] 
-                { 
-                    element.Key.ToString(), 
-                    element.Value.SpellNameRank
-                }));
-                }
+                _lvSpellList.VirtualListSize = _spellList1.Count();
+                groupBox2.Text = "Spell Filter " + "count: " + _spellList1.Count();
             }
         }
 
         private void _lvSpellList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var lv = (ListView)sender;
-            if (lv.SelectedItems.Count > 0)
-            {
-                var id = lv.SelectedItems[0].SubItems[0].Text.ToUInt32();
-                new SpellInfo(_rtbSpellInfo, DBC.Spell[id]);
-            }
+            if (_lvSpellList.SelectedIndices.Count > 0)
+                new SpellInfo(_rtbSpellInfo, _spellList1[_lvSpellList.SelectedIndices[0]]);
         }
 
         private void _bOk_Click(object sender, EventArgs e)
         {
-            if (_lvSpellList.SelectedItems.Count > 0)
+            if (_lvSpellList.SelectedIndices.Count > 0)
             {
-                uint index = _lvSpellList.SelectedItems[0].SubItems[0].Text.ToUInt32();
-                Spell = DBC.Spell[index];
+                Spell = _spellList1[_lvSpellList.SelectedIndices[0]];
                 this.DialogResult = DialogResult.OK;
             }
             this.Close();
@@ -154,5 +130,33 @@ namespace SpellWork
         {
             this.Close();
         }
+
+        #region VIRTUAL MODE
+
+        private List<SpellEntry> _spellList1 = new List<SpellEntry>();
+        private Dictionary<int, ListViewItem> _spellCachedList1 = new Dictionary<int, ListViewItem>();
+
+        private void _lvSpellList_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
+        {
+            e.Item = _spellCachedList1.ContainsKey(e.ItemIndex) ? _spellCachedList1[e.ItemIndex] : CreateSpellItem(e.ItemIndex);
+        }
+
+        private void _lvSpellList_CacheVirtualItems(object sender, CacheVirtualItemsEventArgs e)
+        {
+            if (_spellCachedList1.ContainsKey(e.StartIndex) && _spellCachedList1.ContainsKey(e.EndIndex)) return;
+
+            for (int i = 0; i < (e.EndIndex - e.StartIndex + 1); ++i)
+            {
+                if (_spellCachedList1.ContainsKey(e.StartIndex + i)) continue;
+                _spellCachedList1.Add(e.StartIndex + i, CreateSpellItem(e.StartIndex + i));
+            }
+        }
+
+        private ListViewItem CreateSpellItem(int index)
+        {
+            return new ListViewItem(new[] { _spellList1[index].ID.ToString(), _spellList1[index].SpellNameRank });
+        }
+
+        #endregion
     }
 }

@@ -374,7 +374,10 @@
             this._lvSpellList.TabIndex = 7;
             this._lvSpellList.UseCompatibleStateImageBehavior = false;
             this._lvSpellList.View = System.Windows.Forms.View.Details;
+            this._lvSpellList.VirtualMode = true;
             this._lvSpellList.SelectedIndexChanged += new System.EventHandler(this._lvSpellList_SelectedIndexChanged);
+            this._lvSpellList.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this._lvSpellList_RetrieveVirtualItem);
+            this._lvSpellList.CacheVirtualItems += new System.Windows.Forms.CacheVirtualItemsEventHandler(this._lvSpellList_CacheVirtualItems);
             // 
             // chSpellID
             // 
@@ -953,7 +956,10 @@
             this._lvProcSpellList.TabIndex = 0;
             this._lvProcSpellList.UseCompatibleStateImageBehavior = false;
             this._lvProcSpellList.View = System.Windows.Forms.View.Details;
+            this._lvProcSpellList.VirtualMode = true;
             this._lvProcSpellList.SelectedIndexChanged += new System.EventHandler(this._lvProcSpellList_SelectedIndexChanged);
+            this._lvProcSpellList.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this._lvProcSpellList_RetrieveVirtualItem);
+            this._lvProcSpellList.CacheVirtualItems += new System.Windows.Forms.CacheVirtualItemsEventHandler(this._lvProcSpellList_CacheVirtualItems);
             // 
             // _chProcID
             // 
@@ -974,7 +980,7 @@
             this._bProcSearch.TabIndex = 5;
             this._bProcSearch.Text = "Seach";
             this._bProcSearch.UseVisualStyleBackColor = true;
-            this._bProcSearch.Click += new System.EventHandler(this._bSearch_Click);
+            this._bProcSearch.Click += new System.EventHandler(this._bProcSearch_Click);
             // 
             // _tbProcSeach
             // 
@@ -997,7 +1003,7 @@
             this._cbProcTarget2.Name = "_cbProcTarget2";
             this._cbProcTarget2.Size = new System.Drawing.Size(119, 21);
             this._cbProcTarget2.TabIndex = 3;
-            this._cbProcTarget2.SelectedIndexChanged += new System.EventHandler(this._cbSpellFamilyNames_SelectedIndexChanged);
+            this._cbProcTarget2.SelectedIndexChanged += new System.EventHandler(this._cbProcSpellFamilyName_SelectedIndexChanged);
             // 
             // _cbProcTarget1
             // 
@@ -1011,7 +1017,7 @@
             this._cbProcTarget1.Name = "_cbProcTarget1";
             this._cbProcTarget1.Size = new System.Drawing.Size(122, 21);
             this._cbProcTarget1.TabIndex = 3;
-            this._cbProcTarget1.SelectedIndexChanged += new System.EventHandler(this._cbSpellFamilyNames_SelectedIndexChanged);
+            this._cbProcTarget1.SelectedIndexChanged += new System.EventHandler(this._cbProcSpellFamilyName_SelectedIndexChanged);
             // 
             // _cbProcSpellEffect
             // 
@@ -1025,7 +1031,7 @@
             this._cbProcSpellEffect.Name = "_cbProcSpellEffect";
             this._cbProcSpellEffect.Size = new System.Drawing.Size(260, 21);
             this._cbProcSpellEffect.TabIndex = 3;
-            this._cbProcSpellEffect.SelectedIndexChanged += new System.EventHandler(this._cbSpellFamilyNames_SelectedIndexChanged);
+            this._cbProcSpellEffect.SelectedIndexChanged += new System.EventHandler(this._cbProcSpellFamilyName_SelectedIndexChanged);
             // 
             // _cbProcSpellAura
             // 
@@ -1039,7 +1045,7 @@
             this._cbProcSpellAura.Name = "_cbProcSpellAura";
             this._cbProcSpellAura.Size = new System.Drawing.Size(260, 21);
             this._cbProcSpellAura.TabIndex = 2;
-            this._cbProcSpellAura.SelectedIndexChanged += new System.EventHandler(this._cbSpellFamilyNames_SelectedIndexChanged);
+            this._cbProcSpellAura.SelectedIndexChanged += new System.EventHandler(this._cbProcSpellFamilyName_SelectedIndexChanged);
             // 
             // _cbProcSpellFamilyName
             // 
@@ -1053,7 +1059,7 @@
             this._cbProcSpellFamilyName.Name = "_cbProcSpellFamilyName";
             this._cbProcSpellFamilyName.Size = new System.Drawing.Size(260, 21);
             this._cbProcSpellFamilyName.TabIndex = 1;
-            this._cbProcSpellFamilyName.SelectedIndexChanged += new System.EventHandler(this._cbSpellFamilyNames_SelectedIndexChanged);
+            this._cbProcSpellFamilyName.SelectedIndexChanged += new System.EventHandler(this._cbProcSpellFamilyName_SelectedIndexChanged);
             // 
             // _lvProcAdditionalInfo
             // 
@@ -1070,7 +1076,7 @@
             this._lvProcAdditionalInfo.TabIndex = 0;
             this._lvProcAdditionalInfo.UseCompatibleStateImageBehavior = false;
             this._lvProcAdditionalInfo.View = System.Windows.Forms.View.Details;
-            this._lvProcAdditionalInfo.SelectedIndexChanged += new System.EventHandler(this._lvProcSpellList_SelectedIndexChanged);
+            this._lvProcAdditionalInfo.SelectedIndexChanged += new System.EventHandler(this._lvProcAdditionalInfo_SelectedIndexChanged);
             // 
             // _chID
             // 

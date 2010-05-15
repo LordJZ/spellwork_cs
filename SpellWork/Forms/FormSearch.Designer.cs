@@ -201,8 +201,11 @@
             this._lvSpellList.TabIndex = 8;
             this._lvSpellList.UseCompatibleStateImageBehavior = false;
             this._lvSpellList.View = System.Windows.Forms.View.Details;
+            this._lvSpellList.VirtualMode = true;
             this._lvSpellList.SelectedIndexChanged += new System.EventHandler(this._lvSpellList_SelectedIndexChanged);
             this._lvSpellList.DoubleClick += new System.EventHandler(this._bOk_Click);
+            this._lvSpellList.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this._lvSpellList_RetrieveVirtualItem);
+            this._lvSpellList.CacheVirtualItems += new System.Windows.Forms.CacheVirtualItemsEventHandler(this._lvSpellList_CacheVirtualItems);
             // 
             // _chID
             // 
