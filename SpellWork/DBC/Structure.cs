@@ -89,61 +89,61 @@ namespace SpellWork
         public int EquippedItemClass;                             // 68       m_equippedItemClass (value)
         public int EquippedItemSubClassMask;                      // 69       m_equippedItemSubclass (mask)
         public int EquippedItemInventoryTypeMask;                 // 70       m_equippedItemInvTypes (mask)
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
         public uint[] Effect;                     				  // 71-73    m_effect
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
         public int[] EffectDieSides;                              // 74-76    m_effectDieSides
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
         public float[] EffectRealPointsPerLevel;                  // 77-79    m_effectRealPointsPerLevel
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
         public int[] EffectBasePoints;                            // 80-82    m_effectBasePoints (don't must be used in spell/auras explicitly, must be used cached Spell::m_currentBasePoints)
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
         public uint[] EffectMechanic;                             // 83-85    m_effectMechanic
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
         public uint[] EffectImplicitTargetA;                      // 86-88    m_implicitTargetA
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
         public uint[] EffectImplicitTargetB;                      // 89-91    m_implicitTargetB
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
         public uint[] EffectRadiusIndex;                          // 92-94    m_effectRadiusIndex - spellradius.dbc
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
         public uint[] EffectApplyAuraName;                        // 95-97    m_effectAura
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
         public uint[] EffectAmplitude;                            // 98-100   m_effectAuraPeriod
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
         public float[] EffectMultipleValue;                       // 101-103  m_effectAmplitude
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
         public uint[] EffectChainTarget;                          // 104-106  m_effectChainTargets
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
         public uint[] EffectItemType;                             // 107-109  m_effectItemType
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
         public int[] EffectMiscValue;                             // 110-112  m_effectMiscValue
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
         public int[] EffectMiscValueB;                            // 113-115  m_effectMiscValueB
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
         public uint[] EffectTriggerSpell;                         // 116-118  m_effectTriggerSpell
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
         public float[] EffectPointsPerComboPoint;                 // 119-121  m_effectPointsPerCombo
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
         public uint[] EffectSpellClassMaskA;                      // 122-124  m_effectSpellClassMaskA, effect 0
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
         public uint[] EffectSpellClassMaskB;                      // 125-127  m_effectSpellClassMaskB, effect 1
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
         public uint[] EffectSpellClassMaskC;                      // 128-130  m_effectSpellClassMaskC, effect 2
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
         public uint[] SpellVisual;                                // 131-132  m_spellVisualID
         public uint SpellIconID;                                  // 133      m_spellIconID
         public uint ActiveIconID;                                 // 134      m_activeIconID
         public uint SpellPriority;                                // 135      m_spellPriority not used
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_DBC_LOCALE)]
         private uint[] _SpellName;                                // 136-151  m_name_lang
         public uint SpellNameFlag;                                // 152      not used
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_DBC_LOCALE)]
         private uint[] _Rank;                                     // 153-168  m_nameSubtext_lang
         public uint RankFlags;                                    // 169      not used
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_DBC_LOCALE)]
         private uint[] _Description;                              // 170-185  m_description_lang not used
         public uint DescriptionFlags;                             // 186      not used
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_DBC_LOCALE)]
         private uint[] _ToolTip;                                  // 187-202  m_auraDescription_lang not used
         public uint ToolTipFlags;                                 // 203      not used
         public uint ManaCostPercentage;                           // 204      m_manaCostPct
@@ -193,7 +193,7 @@ namespace SpellWork
 
         public string SpellNameRank
         {
-            get { return Rank == String.Empty ? SpellName : String.Format("{0} ({1})", SpellName, Rank); }
+            get { return Rank.IsEmpty() ? SpellName : String.Format("{0} ({1})", SpellName, Rank); }
         }
 
         /// <summary>
@@ -222,18 +222,16 @@ namespace SpellWork
             get
             {
                 int i = 0;
-                string str = String.Empty;
+                StringBuilder sb = new StringBuilder();
                 uint proc = ProcFlags;
                 while (proc != 0)
                 {
                     if ((proc & 1) != 0)
-                    {
-                        str += String.Format("  {0}{1}", SpellEnums.ProcFlagDesc[i], Environment.NewLine);
-                    }
+                        sb.AppendFormatLine("  {0}", SpellEnums.ProcFlagDesc[i]);
                     i++;
                     proc >>= 1;
                 }
-                return str;
+                return sb.ToString();
             }
         }
 

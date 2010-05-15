@@ -360,35 +360,6 @@ namespace SpellWork
             }
         }
 
-        private void _bWrite_Click(object sender, EventArgs e)
-        {
-            uint[] SpellFamilyFlags = _tvFamilyTree.GetMask();
-            // spell comment
-            var comment = String.Format("-- ({0}) {1}", ProcInfo.SpellProc.ID, ProcInfo.SpellProc.SpellNameRank);
-            // drop query
-            var drop = String.Format("DELETE FROM `spell_proc_event` WHERE `entry` IN ({0});", ProcInfo.SpellProc.ID);
-            // insert query
-            var insert = String.Format("INSERT INTO `spell_proc_event` VALUES ({0}, 0x{1:X2}, {2}, 0x{3:X8}, 0x{4:X8}, 0x{5:X8}, 0x{6:X8}, 0x{7:X8}, {8}, {9}, {10});",
-                ProcInfo.SpellProc.ID,
-                _clbSchools.GetFlagsValue(),
-                _cbProcFitstSpellFamily.ValueMember.ToUInt32(),
-                SpellFamilyFlags[0],
-                SpellFamilyFlags[1],
-                SpellFamilyFlags[2],
-                _clbProcFlags.GetFlagsValue(),
-                _clbProcFlagEx.GetFlagsValue(),
-                _tbPPM.Text.Replace(',', '.'),
-                _tbChance.Text.Replace(',', '.'),
-                _tbCooldown.Text.Replace(',', '.'));
-
-            _rtbSqlLog.AppendText(comment + "\r\n" + drop + "\r\n" + insert + "\r\n\r\n");
-            _rtbSqlLog.ColorizeCode();
-            if (MySQLConnenct.Connected)
-                MySQLConnenct.Insert(drop + insert);
-
-            ((Button)sender).Enabled = false;
-        }
-
         private void _tvFamilyTree_AfterCheck(object sender, TreeViewEventArgs e)
         {
             if (!ProcInfo.Update) return;
@@ -649,6 +620,35 @@ namespace SpellWork
             {
                 _sw.Write(_rtbSqlLog.Text);
             }
+        }
+
+        private void _bWrite_Click(object sender, EventArgs e)
+        {
+            uint[] SpellFamilyFlags = _tvFamilyTree.GetMask();
+            // spell comment
+            var comment = String.Format("-- ({0}) {1}", ProcInfo.SpellProc.ID, ProcInfo.SpellProc.SpellNameRank);
+            // drop query
+            var drop = String.Format("DELETE FROM `spell_proc_event` WHERE `entry` IN ({0});", ProcInfo.SpellProc.ID);
+            // insert query
+            var insert = String.Format("INSERT INTO `spell_proc_event` VALUES ({0}, 0x{1:X2}, 0x{2:X2}, 0x{3:X8}, 0x{4:X8}, 0x{5:X8}, 0x{6:X8}, 0x{7:X8}, {8}, {9}, {10});",
+                ProcInfo.SpellProc.ID,
+                _clbSchools.GetFlagsValue(),
+                _cbProcFitstSpellFamily.SelectedValue.ToUInt32(),
+                SpellFamilyFlags[0],
+                SpellFamilyFlags[1],
+                SpellFamilyFlags[2],
+                _clbProcFlags.GetFlagsValue(),
+                _clbProcFlagEx.GetFlagsValue(),
+                _tbPPM.Text.Replace(',', '.'),
+                _tbChance.Text.Replace(',', '.'),
+                _tbCooldown.Text.Replace(',', '.'));
+
+            _rtbSqlLog.AppendText(comment + "\r\n" + drop + "\r\n" + insert + "\r\n\r\n");
+            _rtbSqlLog.ColorizeCode();
+            if (MySQLConnenct.Connected)
+                MySQLConnenct.Insert(drop + insert);
+
+            ((Button)sender).Enabled = false;
         }
 
         #endregion

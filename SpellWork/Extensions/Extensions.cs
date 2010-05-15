@@ -378,5 +378,10 @@ namespace SpellWork
             dictionary.TryGetValue(key, out value);
             return value;
         }
+
+        public static bool IsEmpty(this String str)
+        {
+            return str == String.Empty;
+        }
     }
 }

@@ -126,6 +126,12 @@ namespace SpellWork
 
         public static void TestConnect()
         {
+            if (!Settings.Default.UseDbConnect)
+            {
+                Connected = false;
+                return;
+            }
+
             try
             {
                 _conn = new MySqlConnection(ConnectionString);
