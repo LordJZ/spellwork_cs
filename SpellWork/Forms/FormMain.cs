@@ -14,7 +14,8 @@ namespace SpellWork
         public FormMain()
         {
             InitializeComponent();
-
+            splitContainer3.SplitterDistance = 128;
+            
             Text = DBC.VERSION;
 
             _cbSpellFamilyName.SetEnumValues<SpellFamilyNames>("SpellFamilyName");
@@ -48,17 +49,12 @@ namespace SpellWork
 
         #region FORM
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            splitContainer3.SplitterDistance = 128;
-        }
-
-        private void _tsmExit_Click(object sender, EventArgs e)
+        private void Exit_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void _tsmAbout_Click(object sender, EventArgs e)
+        private void About_Click(object sender, EventArgs e)
         {
             FormAboutBox ab = new FormAboutBox();
             ab.ShowDialog();
@@ -69,19 +65,19 @@ namespace SpellWork
             _cbProcFlag.Visible = _bWrite.Visible = ((TabControl)sender).SelectedIndex == 1;
         }
 
-        private void _tsmSettings_Click(object sender, EventArgs e)
+        private void Settings_Click(object sender, EventArgs e)
         {
             FormSettings frm = new FormSettings();
             frm.ShowDialog(this);
             ConnStatus();
         }
 
-        // Чтобы панели в сплит контейнере были одинаковы при изменении размера формы, сделаем так.
-        // Может можно как-то можно через привязки, но я пока незнаю как
         private void FormMain_Resize(object sender, EventArgs e)
         {
             try
             {
+                // Чтобы панели в сплит контейнере были одинаковы при изменении размера формы, сделаем так.
+                // Может можно как-то можно через привязки, но я пока незнаю как
                 _scCompareRoot.SplitterDistance = (((Form)sender).Size.Width / 2) - 25;
                 _chName.Width = (((Form)sender).Size.Width - 140);
             }
@@ -111,15 +107,10 @@ namespace SpellWork
             MySQLConnenct.TestConnect();
 
             if (MySQLConnenct.Connected)
-            {
-                MessageBox.Show("Connection is successfully!", "MySQL Connections!",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+                MessageBox.Show("Connection is successfully!", "MySQL Connections!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
-            {
-                MessageBox.Show("Connection is failed!", "ERROR!",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                MessageBox.Show("Connection is failed!", "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             ConnStatus();
         }
 
@@ -145,37 +136,9 @@ namespace SpellWork
                 AdvancedSearch();
         }
 
-        private void _bSearch_Click_1(object sender, EventArgs e)
+        private void _bSearch_Click(object sender, EventArgs e)
         {
             AdvancedSearch();
-        }
-
-        private void AdvancedSearch()
-        {
-            string name = _tbSearchId.Text;
-            uint id = _tbSearchId.Text.ToUInt32();
-            uint ic = _tbSearchIcon.Text.ToUInt32();
-            uint at = _tbSearchAttributes.Text.ToUInt32();
-
-            _spellList = (from spell in DBC.Spell.Values
-                           where ((id == 0 || spell.ID == id)
-
-                               && (ic == 0 || spell.SpellIconID == ic)
-
-                               && (at == 0 || (spell.Attributes & at) != 0
-                                           || (spell.AttributesEx & at) != 0
-                                           || (spell.AttributesEx2 & at) != 0
-                                           || (spell.AttributesEx3 & at) != 0
-                                           || (spell.AttributesEx4 & at) != 0
-                                           || (spell.AttributesEx5 & at) != 0
-                                           || (spell.AttributesEx6 & at) != 0
-                                           || (spell.AttributesExG & at) != 0))
-
-                              && ((id != 0 || ic != 0 && at != 0) || spell.SpellName.ContainText(name))
-                           select spell).ToList();
-            _lvSpellList.VirtualListSize = _spellList.Count();
-            if (_lvSpellList.SelectedIndices.Count > 0)
-                _lvSpellList.Items[_lvSpellList.SelectedIndices[0]].Selected = false;
         }
 
         private void _cbSpellFamilyNames_SelectedIndexChanged(object sender, EventArgs e)
@@ -184,57 +147,64 @@ namespace SpellWork
                 AdvansedFilter();
         }
 
-        private void _tbAdvansedFilter1Val_KeyDown(object sender, KeyEventArgs e)
+        private void _tbAdvansedFilterVal_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
                 AdvansedFilter();
         }
 
-        private void AdvansedFilter()
+        private void AdvancedSearch()
         {
-            var bFamilyNames = _cbSpellFamilyName.SelectedIndex != 0;
-            var fFamilyNames = _cbSpellFamilyName.SelectedValue.ToInt32();
-
-            var bSpellAura = _cbSpellAura.SelectedIndex != 0;
-            var fSpellAura = _cbSpellAura.SelectedValue.ToInt32();
-
-            var bSpellEffect = _cbSpellEffect.SelectedIndex != 0;
-            var fSpellEffect = _cbSpellEffect.SelectedValue.ToInt32();
-
-            var bTarget1 = _cbTarget1.SelectedIndex != 0;
-            var fTarget1 = _cbTarget1.SelectedValue.ToInt32();
-
-            var bTarget2 = _cbTarget2.SelectedIndex != 0;
-            var fTarget2 = _cbTarget2.SelectedValue.ToInt32();
-
-            // additional filtert
-            var advVal1 = _tbAdvansedFilter1Val.Text;
-            var advVal2 = _tbAdvansedFilter2Val.Text;
-
-            var field1 = (MemberInfo)_cbAdvansedFilter1.SelectedValue;
-            var field2 = (MemberInfo)_cbAdvansedFilter2.SelectedValue;
-
-            bool use1val = advVal1 != string.Empty;
-            bool use2val = advVal2 != string.Empty;
+            string name = _tbSearchId.Text;
+            uint id = name.ToUInt32();
+            uint ic = _tbSearchIcon.Text.ToUInt32();
+            uint at = _tbSearchAttributes.Text.ToUInt32();
 
             _spellList = (from spell in DBC.Spell.Values
-                           where (!bFamilyNames || spell.SpellFamilyName == fFamilyNames)
-                              && (!bSpellAura || spell.EffectApplyAuraName[0] == fSpellAura
-                                                || spell.EffectApplyAuraName[1] == fSpellAura
-                                                || spell.EffectApplyAuraName[2] == fSpellAura)
-                              && (!bSpellEffect || spell.Effect[0] == fSpellEffect
-                                                || spell.Effect[1] == fSpellEffect
-                                                || spell.Effect[2] == fSpellEffect)
-                              && (!bTarget1 || spell.EffectImplicitTargetA[0] == fTarget1
-                                                || spell.EffectImplicitTargetA[1] == fTarget1
-                                                || spell.EffectImplicitTargetA[2] == fTarget1)
-                              && (!bTarget2 || spell.EffectImplicitTargetB[0] == fTarget2
-                                                || spell.EffectImplicitTargetB[1] == fTarget2
-                                                || spell.EffectImplicitTargetB[2] == fTarget2)
-                               // Impement advansed filter
-                              && (!use1val || spell.CreateFilter(field1, advVal1))
-                              && (!use2val || spell.CreateFilter(field2, advVal2))
-                           select spell).ToList();
+                          where ((id == 0 || spell.ID          == id)
+
+                              && (ic == 0 || spell.SpellIconID == ic)
+
+                              && (at == 0 || (spell.Attributes    & at) != 0
+                                          || (spell.AttributesEx  & at) != 0
+                                          || (spell.AttributesEx2 & at) != 0
+                                          || (spell.AttributesEx3 & at) != 0
+                                          || (spell.AttributesEx4 & at) != 0
+                                          || (spell.AttributesEx5 & at) != 0
+                                          || (spell.AttributesEx6 & at) != 0
+                                          || (spell.AttributesExG & at) != 0))
+
+                             && ((id != 0 || ic != 0 && at != 0) || spell.SpellName.ContainText(name))
+                          select spell).ToList();
+            _lvSpellList.VirtualListSize = _spellList.Count();
+            if (_lvSpellList.SelectedIndices.Count > 0)
+                _lvSpellList.Items[_lvSpellList.SelectedIndices[0]].Selected = false;
+        }
+
+        private void AdvansedFilter()
+        {
+            _spellList = 
+                (from spell in DBC.Spell.Values
+                  where (
+                  _cbSpellFamilyName.IsZero() || spell.SpellFamilyName          == _cbSpellFamilyName.IntVal())
+                  && (_cbSpellAura.IsZero()   || spell.EffectApplyAuraName[0]   == _cbSpellAura.IntVal()
+                                              || spell.EffectApplyAuraName[1]   == _cbSpellAura.IntVal()
+                                              || spell.EffectApplyAuraName[2]   == _cbSpellAura.IntVal())
+                  && (_cbSpellEffect.IsZero() || spell.Effect[0]                == _cbSpellEffect.IntVal()
+                                              || spell.Effect[1]                == _cbSpellEffect.IntVal()
+                                              || spell.Effect[2]                == _cbSpellEffect.IntVal())
+                  && (_cbTarget1.IsZero()     || spell.EffectImplicitTargetA[0] == _cbTarget1.IntVal()
+                                              || spell.EffectImplicitTargetA[1] == _cbTarget1.IntVal()
+                                              || spell.EffectImplicitTargetA[2] == _cbTarget1.IntVal())
+                  && (_cbTarget2.IsZero()     || spell.EffectImplicitTargetB[0] == _cbTarget2.IntVal()
+                                              || spell.EffectImplicitTargetB[1] == _cbTarget2.IntVal()
+                                              || spell.EffectImplicitTargetB[2] == _cbTarget2.IntVal())
+                   // Impement advansed filter
+                  && (_tbAdvansedFilter1Val.Text.IsEmpty() 
+                        || spell.CreateFilter(_cbAdvansedFilter1.SelectedValue, _tbAdvansedFilter1Val.Text))
+                  && (_tbAdvansedFilter1Val.Text.IsEmpty() 
+                        || spell.CreateFilter(_cbAdvansedFilter1.SelectedValue, _tbAdvansedFilter1Val.Text))
+                  select spell).ToList();
             _lvSpellList.VirtualListSize = _spellList.Count();
             if (_lvSpellList.SelectedIndices.Count > 0)
                 _lvSpellList.Items[_lvSpellList.SelectedIndices[0]].Selected = false;
@@ -249,44 +219,6 @@ namespace SpellWork
         {
             if (((ComboBox)sender).SelectedIndex > 0)
                 ProcFilter();
-        }
-
-        private void ProcFilter()
-        {
-            var bFamilyNames = _cbProcSpellFamilyName.SelectedIndex != 0;
-            var fFamilyNames = _cbProcSpellFamilyName.SelectedValue.ToInt32();
-
-            var bSpellAura = _cbProcSpellAura.SelectedIndex != 0;
-            var fSpellAura = _cbProcSpellAura.SelectedValue.ToInt32();
-
-            var bSpellEffect = _cbProcSpellEffect.SelectedIndex != 0;
-            var fSpellEffect = _cbProcSpellEffect.SelectedValue.ToInt32();
-
-            var bTarget1 = _cbProcTarget1.SelectedIndex != 0;
-            var fTarget1 = _cbProcTarget1.SelectedValue.ToInt32();
-
-            var bTarget2 = _cbProcTarget2.SelectedIndex != 0;
-            var fTarget2 = _cbProcTarget2.SelectedValue.ToInt32();
-
-            _spellProcList = (from spell in DBC.Spell.Values
-                           where (!bFamilyNames || spell.SpellFamilyName == fFamilyNames)
-                              && (!bSpellAura || spell.EffectApplyAuraName[0] == fSpellAura
-                                                || spell.EffectApplyAuraName[1] == fSpellAura
-                                                || spell.EffectApplyAuraName[2] == fSpellAura)
-                              && (!bSpellEffect || spell.Effect[0] == fSpellEffect
-                                                || spell.Effect[1] == fSpellEffect
-                                                || spell.Effect[2] == fSpellEffect)
-                              && (!bTarget1 || spell.EffectImplicitTargetA[0] == fTarget1
-                                                || spell.EffectImplicitTargetA[1] == fTarget1
-                                                || spell.EffectImplicitTargetA[2] == fTarget1)
-                              && (!bTarget2 || spell.EffectImplicitTargetB[0] == fTarget2
-                                                || spell.EffectImplicitTargetB[1] == fTarget2
-                                                || spell.EffectImplicitTargetB[2] == fTarget2)
-
-                           select spell).ToList();
-            _lvProcSpellList.VirtualListSize = _spellProcList.Count();
-            if (_lvProcSpellList.SelectedIndices.Count > 0)
-                _lvProcSpellList.Items[_lvProcSpellList.SelectedIndices[0]].Selected = false;
         }
 
         private void _bSpellInfo_Click(object sender, EventArgs e)
@@ -320,6 +252,45 @@ namespace SpellWork
             if (_lvProcAdditionalInfo.SelectedIndices.Count > 0)
                 SetProcAtribute(DBC.Spell[_lvProcAdditionalInfo.SelectedItems[0].SubItems[0].Text.ToUInt32()]);
         }
+        
+        private void _clbSchools_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ProcInfo.SpellProc.ID != 0)
+            {
+                _bWrite.Enabled = true;
+                GetProcAttribute(ProcInfo.SpellProc);
+            }
+        }
+
+        private void _tbCooldown_TextChanged(object sender, EventArgs e)
+        {
+            if (ProcInfo.SpellProc.ID != 0)
+            {
+                _bWrite.Enabled = true;
+                GetProcAttribute(ProcInfo.SpellProc);
+            }
+        }
+
+        private void _bProcSearch_Click(object sender, EventArgs e)
+        {
+            Search();
+        }
+
+        private void _tbSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                Search();
+        }
+
+        private void _tvFamilyTree_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if ((int)((ComboBox)sender).SelectedIndex == 0)
+                return;
+            _tvFamilyTree.Nodes.Clear();
+            SpellFamilyNames spellfamily = (SpellFamilyNames)(((ComboBox)sender).SelectedValue.ToInt32());
+
+            new ProcInfo(_tvFamilyTree, spellfamily);
+        }
 
         private void SetProcAtribute(SpellEntry spell)
         {
@@ -351,16 +322,46 @@ namespace SpellWork
             _gSpellProcEvent.Text = "Spell Proc Event    " + statusproc;
         }
 
-        private void _clbSchools_SelectedIndexChanged(object sender, EventArgs e)
+        private void Search()
         {
-            if (ProcInfo.SpellProc.ID != 0)
-            {
-                _bWrite.Enabled = true;
-                GetProcAttribute(ProcInfo.SpellProc);
-            }
+            uint id = _tbProcSeach.Text.ToUInt32();
+            
+            _spellProcList = (from spell in DBC.Spell.Values
+                           where (id == 0 || spell.ID == id)
+                              && (id != 0 || spell.SpellName.ContainText(_tbProcSeach.Text))
+                           select spell).ToList();
+            
+            _lvProcSpellList.VirtualListSize = _spellProcList.Count;
+            if (_lvProcSpellList.SelectedIndices.Count > 0)
+                _lvProcSpellList.Items[_lvProcSpellList.SelectedIndices[0]].Selected = false;
         }
-
-        private void _tvFamilyTree_AfterCheck(object sender, TreeViewEventArgs e)
+       
+        private void ProcFilter()
+        {
+            _spellProcList = 
+                (from spell in DBC.Spell.Values
+                 where (
+                 _cbProcSpellFamilyName.IsZero() || spell.SpellFamilyName          == _cbProcSpellFamilyName.IntVal())
+                  && (_cbProcSpellAura.IsZero()  || spell.EffectApplyAuraName[0]   == _cbProcSpellAura.IntVal()
+                                                 || spell.EffectApplyAuraName[1]   == _cbProcSpellAura.IntVal()
+                                                 || spell.EffectApplyAuraName[2]   == _cbProcSpellAura.IntVal())
+                  && (_cbProcSpellEffect.IsZero()|| spell.Effect[0]                == _cbProcSpellEffect.IntVal()
+                                                 || spell.Effect[1]                == _cbProcSpellEffect.IntVal()
+                                                 || spell.Effect[2]                == _cbProcSpellEffect.IntVal())
+                  && (_cbProcTarget1.IsZero()    || spell.EffectImplicitTargetA[0] == _cbProcTarget1.IntVal()
+                                                 || spell.EffectImplicitTargetA[1] == _cbProcTarget1.IntVal()
+                                                 || spell.EffectImplicitTargetA[2] == _cbProcTarget1.IntVal())
+                  && (_cbProcTarget2.IsZero()    || spell.EffectImplicitTargetB[0] == _cbProcTarget2.IntVal()
+                                                 || spell.EffectImplicitTargetB[1] == _cbProcTarget2.IntVal()
+                                                 || spell.EffectImplicitTargetB[2] == _cbProcTarget2.IntVal()
+                       ) select spell).ToList();
+            
+            _lvProcSpellList.VirtualListSize = _spellProcList.Count();
+            if (_lvProcSpellList.SelectedIndices.Count > 0)
+                _lvProcSpellList.Items[_lvProcSpellList.SelectedIndices[0]].Selected = false;
+        }
+       
+        private void FamilyTree_AfterCheck(object sender, TreeViewEventArgs e)
         {
             if (!ProcInfo.Update) return;
 
@@ -371,7 +372,7 @@ namespace SpellWork
 
             var query = from Spell in DBC.Spell.Values
                         where Spell.SpellFamilyName == ProcInfo.SpellProc.SpellFamilyName
-                        && ((Spell.SpellFamilyFlags1 & mask[0]) != 0
+                        && (   (Spell.SpellFamilyFlags1 & mask[0]) != 0
                             || (Spell.SpellFamilyFlags2 & mask[1]) != 0
                             || (Spell.SpellFamilyFlags3 & mask[2]) != 0)
                         join sk in DBC.SkillLineAbility on Spell.ID equals sk.Value.SpellId into temp1
@@ -394,70 +395,21 @@ namespace SpellWork
             }
         }
 
-        private void _bProcSearch_Click(object sender, EventArgs e)
-        {
-            Search();
-        }
-        
-        private void _tbSearch_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-                Search();
-        }
-
-        private void Search()
-        {
-            uint id = _tbProcSeach.Text.ToUInt32();
-            
-            _spellProcList = (from spell in DBC.Spell.Values
-                           where (id == 0 || spell.ID == id)
-                              && (id != 0 || spell.SpellName.ContainText(_tbProcSeach.Text))
-                           select spell).ToList();
-            
-            _lvProcSpellList.VirtualListSize = _spellProcList.Count;
-            if (_lvProcSpellList.SelectedIndices.Count > 0)
-                _lvProcSpellList.Items[_lvProcSpellList.SelectedIndices[0]].Selected = false;
-        }
-
-        private void _tbCooldown_TextChanged(object sender, EventArgs e)
-        {
-            if (ProcInfo.SpellProc.ID != 0)
-            {
-                _bWrite.Enabled = true;
-                GetProcAttribute(ProcInfo.SpellProc);
-            }
-        }
-
-        private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if ((int)((ComboBox)sender).SelectedIndex == 0)
-                return;
-            _tvFamilyTree.Nodes.Clear();
-            SpellFamilyNames spellfamily = (SpellFamilyNames)(((ComboBox)sender).SelectedValue.ToInt32());
-
-            new ProcInfo(_tvFamilyTree, spellfamily);
-        }
-
         #endregion
 
         #region COMPARE PAGE
 
-        private void _tbCompareFilterSpell2_TextChanged(object sender, EventArgs e)
+        private void CompareFilterSpell_TextChanged(object sender, EventArgs e)
         {
             uint spell1 = _tbCompareFilterSpell1.Text.ToUInt32();
             uint spell2 = _tbCompareFilterSpell2.Text.ToUInt32();
 
-            if (spell1 > 0 && spell2 > 0)
-            {
-                try
-                {
-                    new SpellCompare(_rtbCompareSpell1, _rtbCompareSpell2, DBC.Spell[spell1], DBC.Spell[spell2]);
-                }
-                catch { }
-            }
+            if (DBC.Spell.ContainsKey(spell1) && DBC.Spell.ContainsKey(spell2))
+                new SpellCompare(_rtbCompareSpell1, _rtbCompareSpell2, DBC.Spell[spell1], DBC.Spell[spell2]);
+
         }
 
-        private void _bCompareSearch1_Click(object sender, EventArgs e)
+        private void CompareSearch1_Click(object sender, EventArgs e)
         {
             FormSearch form = new FormSearch();
             form.ShowDialog(this);
@@ -466,7 +418,7 @@ namespace SpellWork
             form.Dispose();
         }
 
-        private void _bCompareSearch2_Click(object sender, EventArgs e)
+        private void CompareSearch2_Click(object sender, EventArgs e)
         {
             FormSearch form = new FormSearch();
             form.ShowDialog(this);
@@ -479,45 +431,38 @@ namespace SpellWork
 
         #region SQL PAGE
 
-        private void ProcParse(object sender)
+        private void Sql_DataList_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            try
+            ProcParse(sender);
+        }
+
+        private void Sql_DataList_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                ProcParse(sender);
+        }
+
+        private void SqlToBase_Click(object sender, EventArgs e)
+        {
+            if (MySQLConnenct.Connected)
+                MySQLConnenct.Insert(_rtbSqlLog.Text);
+            else
+                MessageBox.Show("Can't connect to database!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        private void SqlSave_Click(object sender, EventArgs e)
+        {
+            if (_rtbSqlLog.Text != String.Empty)
             {
-                var str = ((ListView)sender).SelectedItems[0];
-                uint id = str.SubItems[0].Text.ToUInt32();
-                var spell = DBC.Spell[id];
-                ProcInfo.SpellProc = spell;
-                tabControl1.SelectedIndex = 1;
-
-                new SpellInfo(_rtbProcSpellInfo, spell);
-
-                _clbSchools.SetCheckedItemFromFlag(str.SubItems[2].Text.ToUInt32());
-                _clbProcFlags.SetCheckedItemFromFlag(str.SubItems[7].Text.ToUInt32());
-                _clbProcFlagEx.SetCheckedItemFromFlag(str.SubItems[8].Text.ToUInt32());
-
-                _cbProcSpellFamilyTree.SelectedValue = str.SubItems[3].Text.ToUInt32();
-
-                _cbProcFitstSpellFamily.SelectedValue = str.SubItems[3].Text.ToUInt32();
-
-                _tbPPM.Text = str.SubItems[9].Text;
-                _tbChance.Text = str.SubItems[10].Text;
-                _tbCooldown.Text = str.SubItems[11].Text;
-
-                uint[] mask = new uint[3];
-
-                mask[0] = str.SubItems[4].Text.ToUInt32();
-                mask[1] = str.SubItems[5].Text.ToUInt32();
-                mask[2] = str.SubItems[6].Text.ToUInt32();
-
-                _tvFamilyTree.SetMask(mask);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex);
+                SaveFileDialog _sd = new SaveFileDialog();
+                _sd.Filter = "SQL files|*.sql";
+                if (_sd.ShowDialog() == DialogResult.OK)
+                    using (StreamWriter _sw = new StreamWriter(_sd.FileName, false, Encoding.UTF8))
+                        _sw.Write(_rtbSqlLog.Text);
             }
         }
 
-        private void _bCalcProcFlags_Click(object sender, EventArgs e)
+        private void CalcProcFlags_Click(object sender, EventArgs e)
         {
             switch (((Button)sender).Name)
             {
@@ -551,7 +496,7 @@ namespace SpellWork
             }
         }
 
-        private void _bSelect_Click(object sender, EventArgs e)
+        private void Select_Click(object sender, EventArgs e)
         {
             if (!MySQLConnenct.Connected)
             {
@@ -569,60 +514,21 @@ namespace SpellWork
             sb.AppendFormatIfNotNull(" procFlags {1} {0} &&", _tbSqlProc.Text.ToInt32(), compare);
             sb.AppendFormatIfNotNull(" procEx {1} {0} &&", _tbSqlProcEx.Text.ToInt32(), compare);
 
-            var subquery = sb.ToString().Remove(sb.Length - 2, 2);
+            String subquery = sb.ToString().Remove(sb.Length - 2, 2);
             subquery = subquery == "WHERE" ? "" : subquery;
 
-            var query = String.Format("SELECT * FROM `spell_proc_event` {0} ORDER BY entry", subquery);
+            String query = String.Format("SELECT * FROM `spell_proc_event` {0} ORDER BY entry", subquery);
 
             var result = MySQLConnenct.SelectProc(query);
             _lvDataList.Items.Clear();
             _lvDataList.Items.AddRange(result.ToArray());
 
             // check bad spell and drop
-            foreach (var str in MySQLConnenct.Dropped)
+            foreach (String str in MySQLConnenct.Dropped)
                 _rtbSqlLog.AppendText(str);
         }
 
-        private void _bSqlToBase_Click(object sender, EventArgs e)
-        {
-            if (MySQLConnenct.Connected)
-            {
-                MySQLConnenct.Insert(_rtbSqlLog.Text);
-            }
-            else
-            {
-                MessageBox.Show("Can't connect to database!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void _lvDataList_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            ProcParse(sender);
-        }
-
-        private void _lvDataList_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-                ProcParse(sender);
-        }
-
-        private void _bSqlSave_Click(object sender, EventArgs e)
-        {
-            if (_rtbSqlLog.Text == String.Empty)
-                return;
-
-            SaveFileDialog _sd = new SaveFileDialog();
-            _sd.Filter = "SQL files|*.sql";
-            if (_sd.ShowDialog() != DialogResult.OK)
-                return;
-
-            using (StreamWriter _sw = new StreamWriter(_sd.FileName, false, Encoding.UTF8))
-            {
-                _sw.Write(_rtbSqlLog.Text);
-            }
-        }
-
-        private void _bWrite_Click(object sender, EventArgs e)
+        private void Write_Click(object sender, EventArgs e)
         {
             uint[] SpellFamilyFlags = _tvFamilyTree.GetMask();
             // spell comment
@@ -650,20 +556,47 @@ namespace SpellWork
 
             ((Button)sender).Enabled = false;
         }
+        
+        private void ProcParse(object sender)
+        {
+            var str = ((ListView)sender).SelectedItems[0];
+            uint id = str.SubItems[0].Text.ToUInt32();
+            SpellEntry spell = DBC.Spell[id];
+            ProcInfo.SpellProc = spell;
+            tabControl1.SelectedIndex = 1;
+
+            new SpellInfo(_rtbProcSpellInfo, spell);
+
+            _clbSchools.SetCheckedItemFromFlag(str.SubItems[2].Text.ToUInt32());
+            _clbProcFlags.SetCheckedItemFromFlag(str.SubItems[7].Text.ToUInt32());
+            _clbProcFlagEx.SetCheckedItemFromFlag(str.SubItems[8].Text.ToUInt32());
+
+            _cbProcSpellFamilyTree.SelectedValue = str.SubItems[3].Text.ToUInt32();
+
+            _cbProcFitstSpellFamily.SelectedValue = str.SubItems[3].Text.ToUInt32();
+
+            _tbPPM.Text = str.SubItems[9].Text;
+            _tbChance.Text = str.SubItems[10].Text;
+            _tbCooldown.Text = str.SubItems[11].Text;
+
+            uint[] mask = new uint[3];
+            mask[0] = str.SubItems[4].Text.ToUInt32();
+            mask[1] = str.SubItems[5].Text.ToUInt32();
+            mask[2] = str.SubItems[6].Text.ToUInt32();
+            _tvFamilyTree.SetMask(mask);
+        }
 
         #endregion
 
         #region VIRTUAL MODE
 
-        // page 1
         private List<SpellEntry> _spellList = new List<SpellEntry>();
-
+ 
         private void _lvSpellList_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
         {
             e.Item = new ListViewItem(new[] { _spellList[e.ItemIndex].ID.ToString(), _spellList[e.ItemIndex].SpellNameRank });
         }
 
-        // page 2
         private List<SpellEntry> _spellProcList = new List<SpellEntry>();
 
         private void _lvProcSpellList_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)

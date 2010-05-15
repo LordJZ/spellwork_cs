@@ -13,12 +13,12 @@ namespace SpellWork
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="T_entry"></param>
-        /// <param name="field"></param>
+        /// <param name="field">Value Type is MemberInfo</param>
         /// <param name="val"></param>
         /// <returns></returns>
-        public static bool CreateFilter<T>(this T T_entry, MemberInfo field, object val)
+        public static bool CreateFilter<T>(this T T_entry, object field, object val)
         {
-            object basicValue = GetValue<T>(T_entry, field);
+            object basicValue = GetValue<T>(T_entry, (MemberInfo)field);
             
             switch (basicValue.GetType().Name)
             {

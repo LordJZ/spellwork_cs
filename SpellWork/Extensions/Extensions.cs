@@ -383,5 +383,25 @@ namespace SpellWork
         {
             return str == String.Empty;
         }
+
+        public static bool IsZero(this ComboBox cb)
+        {
+            return cb.SelectedIndex == 0;
+        }
+
+        public static int IntVal(this ComboBox cb)
+        {
+            return cb.SelectedValue.ToInt32();
+        }
+
+        public static uint UIntVal(this ComboBox cb)
+        {
+            return cb.SelectedValue.ToUInt32();
+        }
+
+        public static float FloatVal(this ComboBox cb)
+        {
+            return cb.SelectedValue.ToFloat();
+        }
     }
 }

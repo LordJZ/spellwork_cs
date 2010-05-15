@@ -24,7 +24,9 @@ namespace SpellWork
 
         public SpellEntry Spell { get; set; }
 
-        private void _tbIdName_KeyDown(object sender, KeyEventArgs e)
+        private List<SpellEntry> _spellList = new List<SpellEntry>();
+
+        private void IdName_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
@@ -56,7 +58,7 @@ namespace SpellWork
             }
         }
 
-        private void _cbSpellFamily_SelectedIndexChanged(object sender, EventArgs e)
+        private void SpellFamily_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (((ComboBox)sender).SelectedIndex != 0)
             {
@@ -103,13 +105,13 @@ namespace SpellWork
             }
         }
 
-        private void _lvSpellList_SelectedIndexChanged(object sender, EventArgs e)
+        private void SpellList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_lvSpellList.SelectedIndices.Count > 0)
                 new SpellInfo(_rtbSpellInfo, _spellList[_lvSpellList.SelectedIndices[0]]);
         }
 
-        private void _bOk_Click(object sender, EventArgs e)
+        private void Ok_Click(object sender, EventArgs e)
         {
             if (_lvSpellList.SelectedIndices.Count > 0)
             {
@@ -125,20 +127,14 @@ namespace SpellWork
                 e.Handled = true;
         }
 
-        private void _bCencel_Click(object sender, EventArgs e)
+        private void Cencel_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        #region VIRTUAL MODE
-
-        private List<SpellEntry> _spellList = new List<SpellEntry>();
-
-        private void _lvSpellList_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
+        private void SpellList_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
         {
             e.Item = new ListViewItem(new[] { _spellList[e.ItemIndex].ID.ToString(), _spellList[e.ItemIndex].SpellNameRank });
         }
-
-        #endregion
     }
 }

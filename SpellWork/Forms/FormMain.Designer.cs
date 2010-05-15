@@ -261,14 +261,14 @@
             this._tsmSettings.Name = "_tsmSettings";
             this._tsmSettings.Size = new System.Drawing.Size(137, 22);
             this._tsmSettings.Text = "Setting";
-            this._tsmSettings.Click += new System.EventHandler(this._tsmSettings_Click);
+            this._tsmSettings.Click += new System.EventHandler(this.Settings_Click);
             // 
             // _tsmExit
             // 
             this._tsmExit.Name = "_tsmExit";
             this._tsmExit.Size = new System.Drawing.Size(137, 22);
             this._tsmExit.Text = "Exit";
-            this._tsmExit.Click += new System.EventHandler(this._tsmExit_Click);
+            this._tsmExit.Click += new System.EventHandler(this.Exit_Click);
             // 
             // _tsmHelp
             // 
@@ -283,7 +283,7 @@
             this._tsmAbout.Name = "_tsmAbout";
             this._tsmAbout.Size = new System.Drawing.Size(122, 22);
             this._tsmAbout.Text = "About..";
-            this._tsmAbout.Click += new System.EventHandler(this._tsmAbout_Click);
+            this._tsmAbout.Click += new System.EventHandler(this.About_Click);
             // 
             // tabControl1
             // 
@@ -428,7 +428,7 @@
             this._tbAdvansedFilter2Val.Name = "_tbAdvansedFilter2Val";
             this._tbAdvansedFilter2Val.Size = new System.Drawing.Size(94, 20);
             this._tbAdvansedFilter2Val.TabIndex = 1;
-            this._tbAdvansedFilter2Val.KeyDown += new System.Windows.Forms.KeyEventHandler(this._tbAdvansedFilter1Val_KeyDown);
+            this._tbAdvansedFilter2Val.KeyDown += new System.Windows.Forms.KeyEventHandler(this._tbAdvansedFilterVal_KeyDown);
             // 
             // _tbAdvansedFilter1Val
             // 
@@ -437,7 +437,7 @@
             this._tbAdvansedFilter1Val.Name = "_tbAdvansedFilter1Val";
             this._tbAdvansedFilter1Val.Size = new System.Drawing.Size(94, 20);
             this._tbAdvansedFilter1Val.TabIndex = 1;
-            this._tbAdvansedFilter1Val.KeyDown += new System.Windows.Forms.KeyEventHandler(this._tbAdvansedFilter1Val_KeyDown);
+            this._tbAdvansedFilter1Val.KeyDown += new System.Windows.Forms.KeyEventHandler(this._tbAdvansedFilterVal_KeyDown);
             // 
             // _cbAdvansedFilter2
             // 
@@ -596,7 +596,7 @@
             this._bSearch.TabIndex = 1;
             this._bSearch.Text = "Seach";
             this._bSearch.UseVisualStyleBackColor = true;
-            this._bSearch.Click += new System.EventHandler(this._bSearch_Click_1);
+            this._bSearch.Click += new System.EventHandler(this._bSearch_Click);
             // 
             // _tbSearchAttributes
             // 
@@ -868,7 +868,7 @@
             this._cbProcSpellFamilyTree.Name = "_cbProcSpellFamilyTree";
             this._cbProcSpellFamilyTree.Size = new System.Drawing.Size(258, 21);
             this._cbProcSpellFamilyTree.TabIndex = 1;
-            this._cbProcSpellFamilyTree.SelectedIndexChanged += new System.EventHandler(this.comboBox4_SelectedIndexChanged);
+            this._cbProcSpellFamilyTree.SelectedIndexChanged += new System.EventHandler(this._tvFamilyTree_SelectedIndexChanged);
             // 
             // _tvFamilyTree
             // 
@@ -884,7 +884,7 @@
             this._tvFamilyTree.ShowNodeToolTips = true;
             this._tvFamilyTree.Size = new System.Drawing.Size(258, 219);
             this._tvFamilyTree.TabIndex = 0;
-            this._tvFamilyTree.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this._tvFamilyTree_AfterCheck);
+            this._tvFamilyTree.AfterCheck += new System.Windows.Forms.TreeViewEventHandler(this.FamilyTree_AfterCheck);
             this._tvFamilyTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this._tvFamilyTree_AfterSelect);
             // 
             // _ilPro
@@ -1131,7 +1131,7 @@
             this._bCompareSearch1.TabIndex = 3;
             this._bCompareSearch1.Text = "Search";
             this._bCompareSearch1.UseVisualStyleBackColor = true;
-            this._bCompareSearch1.Click += new System.EventHandler(this._bCompareSearch1_Click);
+            this._bCompareSearch1.Click += new System.EventHandler(this.CompareSearch1_Click);
             // 
             // label13
             // 
@@ -1148,7 +1148,7 @@
             this._tbCompareFilterSpell1.Name = "_tbCompareFilterSpell1";
             this._tbCompareFilterSpell1.Size = new System.Drawing.Size(146, 20);
             this._tbCompareFilterSpell1.TabIndex = 1;
-            this._tbCompareFilterSpell1.TextChanged += new System.EventHandler(this._tbCompareFilterSpell2_TextChanged);
+            this._tbCompareFilterSpell1.TextChanged += new System.EventHandler(this.CompareFilterSpell_TextChanged);
             // 
             // _rtbCompareSpell1
             // 
@@ -1171,7 +1171,7 @@
             this._bCompareSearch2.TabIndex = 3;
             this._bCompareSearch2.Text = "Search";
             this._bCompareSearch2.UseVisualStyleBackColor = true;
-            this._bCompareSearch2.Click += new System.EventHandler(this._bCompareSearch2_Click);
+            this._bCompareSearch2.Click += new System.EventHandler(this.CompareSearch2_Click);
             // 
             // label14
             // 
@@ -1201,7 +1201,7 @@
             this._tbCompareFilterSpell2.Name = "_tbCompareFilterSpell2";
             this._tbCompareFilterSpell2.Size = new System.Drawing.Size(146, 20);
             this._tbCompareFilterSpell2.TabIndex = 1;
-            this._tbCompareFilterSpell2.TextChanged += new System.EventHandler(this._tbCompareFilterSpell2_TextChanged);
+            this._tbCompareFilterSpell2.TextChanged += new System.EventHandler(this.CompareFilterSpell_TextChanged);
             // 
             // _tpSqlData
             // 
@@ -1322,7 +1322,7 @@
             this._bSqlProcEx.TabIndex = 4;
             this._bSqlProcEx.Text = "...";
             this._bSqlProcEx.UseVisualStyleBackColor = true;
-            this._bSqlProcEx.Click += new System.EventHandler(this._bCalcProcFlags_Click);
+            this._bSqlProcEx.Click += new System.EventHandler(this.CalcProcFlags_Click);
             // 
             // _bSqlProc
             // 
@@ -1332,7 +1332,7 @@
             this._bSqlProc.TabIndex = 4;
             this._bSqlProc.Text = "...";
             this._bSqlProc.UseVisualStyleBackColor = true;
-            this._bSqlProc.Click += new System.EventHandler(this._bCalcProcFlags_Click);
+            this._bSqlProc.Click += new System.EventHandler(this.CalcProcFlags_Click);
             // 
             // _bSqlSchool
             // 
@@ -1342,7 +1342,7 @@
             this._bSqlSchool.TabIndex = 4;
             this._bSqlSchool.Text = "...";
             this._bSqlSchool.UseVisualStyleBackColor = true;
-            this._bSqlSchool.Click += new System.EventHandler(this._bCalcProcFlags_Click);
+            this._bSqlSchool.Click += new System.EventHandler(this.CalcProcFlags_Click);
             // 
             // _tbSqlProcEx
             // 
@@ -1392,7 +1392,7 @@
             this._bSelect.TabIndex = 0;
             this._bSelect.Text = "Select";
             this._bSelect.UseVisualStyleBackColor = true;
-            this._bSelect.Click += new System.EventHandler(this._bSelect_Click);
+            this._bSelect.Click += new System.EventHandler(this.Select_Click);
             // 
             // groupBox2
             // 
@@ -1454,8 +1454,8 @@
             this._lvDataList.TabIndex = 0;
             this._lvDataList.UseCompatibleStateImageBehavior = false;
             this._lvDataList.View = System.Windows.Forms.View.Details;
-            this._lvDataList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this._lvDataList_MouseDoubleClick);
-            this._lvDataList.KeyDown += new System.Windows.Forms.KeyEventHandler(this._lvDataList_KeyDown);
+            this._lvDataList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Sql_DataList_MouseDoubleClick);
+            this._lvDataList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Sql_DataList_KeyDown);
             // 
             // entry
             // 
@@ -1535,7 +1535,7 @@
             this._bSqlToBase.TabIndex = 2;
             this._bSqlToBase.Text = "To Base";
             this._bSqlToBase.UseVisualStyleBackColor = true;
-            this._bSqlToBase.Click += new System.EventHandler(this._bSqlToBase_Click);
+            this._bSqlToBase.Click += new System.EventHandler(this.SqlToBase_Click);
             // 
             // _bSqlSave
             // 
@@ -1545,7 +1545,7 @@
             this._bSqlSave.TabIndex = 1;
             this._bSqlSave.Text = "Save";
             this._bSqlSave.UseVisualStyleBackColor = true;
-            this._bSqlSave.Click += new System.EventHandler(this._bSqlSave_Click);
+            this._bSqlSave.Click += new System.EventHandler(this.SqlSave_Click);
             // 
             // _cbProcFlag
             // 
@@ -1572,7 +1572,7 @@
             this._bWrite.Text = "Write";
             this._bWrite.UseVisualStyleBackColor = true;
             this._bWrite.Visible = false;
-            this._bWrite.Click += new System.EventHandler(this._bWrite_Click);
+            this._bWrite.Click += new System.EventHandler(this.Write_Click);
             // 
             // splitContainer7
             // 
@@ -1646,7 +1646,6 @@
             this.Name = "FormMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormMain";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.FormMain_Resize);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
