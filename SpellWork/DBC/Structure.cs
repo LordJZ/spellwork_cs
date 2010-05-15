@@ -180,13 +180,7 @@ namespace SpellWork
         /// </summary>
         public string SpellName
         {
-            get
-            {
-                string s;
-                uint offset = _SpellName[(uint)DBC.Locale];
-                DBC._SpellStrings.TryGetValue(offset, out s);
-                return s;
-            }
+            get { return DBC._SpellStrings.GetValue(_SpellName[(uint)DBC.Locale]); }
         }
 
         /// <summary>
@@ -194,29 +188,12 @@ namespace SpellWork
         /// </summary>
         public string Rank
         {
-            get
-            {
-                string s;
-                uint offset = _Rank[(uint)DBC.Locale];
-                DBC._SpellStrings.TryGetValue(offset, out s);
-                return s;
-            }
+            get { return DBC._SpellStrings.GetValue(_Rank[(uint)DBC.Locale]); }
         }
 
         public string SpellNameRank
         {
-            get
-            {
-                string name, rank;
-
-                uint offsetname = _SpellName[(uint)DBC.Locale];
-                uint offsetrank = _Rank[(uint)DBC.Locale];
-
-                DBC._SpellStrings.TryGetValue(offsetname, out name);
-                DBC._SpellStrings.TryGetValue(offsetrank, out rank);
-                
-                return rank == String.Empty ? name : String.Format("{0} ({1})", name, rank);
-            }
+            get { return Rank == String.Empty ? SpellName : String.Format("{0} ({1})", SpellName, Rank); }
         }
 
         /// <summary>
@@ -224,13 +201,7 @@ namespace SpellWork
         /// </summary>
         public string Description
         {
-            get
-            {
-                string s;
-                uint offset = _Description[(uint)DBC.Locale];
-                DBC._SpellStrings.TryGetValue(offset, out s);
-                return s;
-            }
+            get { return DBC._SpellStrings.GetValue(_Description[(uint)DBC.Locale]); }
         }
 
         /// <summary>
@@ -238,21 +209,12 @@ namespace SpellWork
         /// </summary>
         public string ToolTip
         {
-            get
-            {
-                string s;
-                uint offset = _ToolTip[(uint)DBC.Locale];
-                DBC._SpellStrings.TryGetValue(offset, out s);
-                return s;
-            }
+            get { return DBC._SpellStrings.GetValue(_ToolTip[(uint)DBC.Locale]); }
         }
 
         public string GetName(byte loc)
         {
-            string s;
-            uint offset = _SpellName[loc];
-            DBC._SpellStrings.TryGetValue(offset, out s);
-            return s;
+            return DBC._SpellStrings.GetValue(_SpellName[loc]);
         }
 
         public string ProcInfo
@@ -362,35 +324,17 @@ namespace SpellWork
 
         public string Name
         {
-            get
-            {
-                string s;
-                uint offset = _Name[(uint)DBC.Locale];
-                DBC._SkillLineStrings.TryGetValue(offset, out s);
-                return s;
-            }
+            get { return DBC._SkillLineStrings.GetValue(_Name[(uint)DBC.Locale]); }
         }
 
         public string Description
         {
-            get
-            {
-                string s;
-                uint offset = _Description[(uint)DBC.Locale];
-                DBC._SkillLineStrings.TryGetValue(offset, out s);
-                return s;
-            }
+            get { return DBC._SkillLineStrings.GetValue(_Description[(uint)DBC.Locale]); }
         }
 
         public string AlternateVerb
         {
-            get
-            {
-                string s;
-                uint offset = _AlternateVerb[(uint)DBC.Locale];
-                DBC._SkillLineStrings.TryGetValue(offset, out s);
-                return s;
-            }
+            get { return DBC._SkillLineStrings.GetValue(_AlternateVerb[(uint)DBC.Locale]); }
         }
     };
 
@@ -437,24 +381,12 @@ namespace SpellWork
 
         public string Description1
         {
-            get
-            {
-                string s;
-                uint offset = _Desc1[(uint)DBC.Locale];
-                DBC._SpellRangeStrings.TryGetValue(offset, out s);
-                return s;
-            }
+            get { return DBC._SpellRangeStrings.GetValue(_Desc1[(uint)DBC.Locale]); }
         }
 
         public string Description2
         {
-            get
-            {
-                string s;
-                uint offset = _Desc2[(uint)DBC.Locale];
-                DBC._SpellRangeStrings.TryGetValue(offset, out s);
-                return s;
-            }
+            get { return DBC._SpellRangeStrings.GetValue(_Desc2[(uint)DBC.Locale]); }
         }
     };
 

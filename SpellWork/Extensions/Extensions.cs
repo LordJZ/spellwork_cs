@@ -371,5 +371,12 @@ namespace SpellWork
             }
             return false;
         }
+
+        public static T GetValue<T>(this Dictionary<uint, T> dictionary, uint key)
+        {
+            T value;
+            dictionary.TryGetValue(key, out value);
+            return value;
+        }
     }
 }
