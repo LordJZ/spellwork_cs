@@ -377,7 +377,6 @@
             this._lvSpellList.VirtualMode = true;
             this._lvSpellList.SelectedIndexChanged += new System.EventHandler(this._lvSpellList_SelectedIndexChanged);
             this._lvSpellList.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this._lvSpellList_RetrieveVirtualItem);
-            this._lvSpellList.CacheVirtualItems += new System.Windows.Forms.CacheVirtualItemsEventHandler(this._lvSpellList_CacheVirtualItems);
             // 
             // chSpellID
             // 
@@ -959,7 +958,6 @@
             this._lvProcSpellList.VirtualMode = true;
             this._lvProcSpellList.SelectedIndexChanged += new System.EventHandler(this._lvProcSpellList_SelectedIndexChanged);
             this._lvProcSpellList.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this._lvProcSpellList_RetrieveVirtualItem);
-            this._lvProcSpellList.CacheVirtualItems += new System.Windows.Forms.CacheVirtualItemsEventHandler(this._lvProcSpellList_CacheVirtualItems);
             // 
             // _chProcID
             // 

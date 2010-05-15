@@ -205,7 +205,6 @@
             this._lvSpellList.SelectedIndexChanged += new System.EventHandler(this._lvSpellList_SelectedIndexChanged);
             this._lvSpellList.DoubleClick += new System.EventHandler(this._bOk_Click);
             this._lvSpellList.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this._lvSpellList_RetrieveVirtualItem);
-            this._lvSpellList.CacheVirtualItems += new System.Windows.Forms.CacheVirtualItemsEventHandler(this._lvSpellList_CacheVirtualItems);
             // 
             // _chID
             // 

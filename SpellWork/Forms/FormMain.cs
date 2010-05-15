@@ -135,7 +135,7 @@ namespace SpellWork
         private void _lvSpellList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_lvSpellList.SelectedIndices.Count > 0)
-                new SpellInfo(_rtSpellInfo, _spellList1[_lvSpellList.SelectedIndices[0]]);
+                new SpellInfo(_rtSpellInfo, _spellList[_lvSpellList.SelectedIndices[0]]);
         }
 
         private void _tbSearchId_KeyDown(object sender, KeyEventArgs e)
@@ -151,14 +151,12 @@ namespace SpellWork
 
         private void AdvancedSearch()
         {
-            _spellCachedList1.Clear();
-
             string name = _tbSearchId.Text;
             uint id = _tbSearchId.Text.ToUInt32();
             uint ic = _tbSearchIcon.Text.ToUInt32();
             uint at = _tbSearchAttributes.Text.ToUInt32();
 
-            _spellList1 = (from spell in DBC.Spell.Values
+            _spellList = (from spell in DBC.Spell.Values
                            where ((id == 0 || spell.ID == id)
 
                                && (ic == 0 || spell.SpellIconID == ic)
@@ -173,10 +171,10 @@ namespace SpellWork
                                            || (spell.AttributesExG & at) != 0))
 
                               && ((id != 0 || ic != 0 && at != 0) || spell.SpellName.ContainText(name))
-
-
                            select spell).ToList();
-            _lvSpellList.VirtualListSize = _spellList1.Count();
+            _lvSpellList.VirtualListSize = _spellList.Count();
+            if (_lvSpellList.SelectedIndices.Count > 0)
+                _lvSpellList.Items[_lvSpellList.SelectedIndices[0]].Selected = false;
         }
 
         private void _cbSpellFamilyNames_SelectedIndexChanged(object sender, EventArgs e)
@@ -193,8 +191,6 @@ namespace SpellWork
 
         private void AdvansedFilter()
         {
-            _spellCachedList1.Clear();
-
             var bFamilyNames = _cbSpellFamilyName.SelectedIndex != 0;
             var fFamilyNames = _cbSpellFamilyName.SelectedValue.ToInt32();
 
@@ -220,32 +216,28 @@ namespace SpellWork
             bool use1val = advVal1 != string.Empty;
             bool use2val = advVal2 != string.Empty;
 
-            //try // temporary solution to the wrong fields
-            //{
-                _spellList1 = (from spell in DBC.Spell.Values
-                               where (!bFamilyNames || spell.SpellFamilyName == fFamilyNames)
-                                  && (!bSpellAura || spell.EffectApplyAuraName[0] == fSpellAura
-                                                    || spell.EffectApplyAuraName[1] == fSpellAura
-                                                    || spell.EffectApplyAuraName[2] == fSpellAura)
-                                  && (!bSpellEffect || spell.Effect[0] == fSpellEffect
-                                                    || spell.Effect[1] == fSpellEffect
-                                                    || spell.Effect[2] == fSpellEffect)
-                                  && (!bTarget1 || spell.EffectImplicitTargetA[0] == fTarget1
-                                                    || spell.EffectImplicitTargetA[1] == fTarget1
-                                                    || spell.EffectImplicitTargetA[2] == fTarget1)
-                                  && (!bTarget2 || spell.EffectImplicitTargetB[0] == fTarget2
-                                                    || spell.EffectImplicitTargetB[1] == fTarget2
-                                                    || spell.EffectImplicitTargetB[2] == fTarget2)
-                                   // Impement advansed filter
-                                  && (!use1val || spell.CreateFilter(field1, advVal1))
-                                  && (!use2val || spell.CreateFilter(field2, advVal2))
-                               select spell).ToList();
-                _lvSpellList.VirtualListSize = _spellList1.Count();
-            //}
-            //catch
-            //{
-            //    MessageBox.Show("Selected incorrect field in additional filter", "SpellWork ERROR", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //}
+            _spellList = (from spell in DBC.Spell.Values
+                           where (!bFamilyNames || spell.SpellFamilyName == fFamilyNames)
+                              && (!bSpellAura || spell.EffectApplyAuraName[0] == fSpellAura
+                                                || spell.EffectApplyAuraName[1] == fSpellAura
+                                                || spell.EffectApplyAuraName[2] == fSpellAura)
+                              && (!bSpellEffect || spell.Effect[0] == fSpellEffect
+                                                || spell.Effect[1] == fSpellEffect
+                                                || spell.Effect[2] == fSpellEffect)
+                              && (!bTarget1 || spell.EffectImplicitTargetA[0] == fTarget1
+                                                || spell.EffectImplicitTargetA[1] == fTarget1
+                                                || spell.EffectImplicitTargetA[2] == fTarget1)
+                              && (!bTarget2 || spell.EffectImplicitTargetB[0] == fTarget2
+                                                || spell.EffectImplicitTargetB[1] == fTarget2
+                                                || spell.EffectImplicitTargetB[2] == fTarget2)
+                               // Impement advansed filter
+                              && (!use1val || spell.CreateFilter(field1, advVal1))
+                              && (!use2val || spell.CreateFilter(field2, advVal2))
+                           select spell).ToList();
+            _lvSpellList.VirtualListSize = _spellList.Count();
+            if (_lvSpellList.SelectedIndices.Count > 0)
+                _lvSpellList.Items[_lvSpellList.SelectedIndices[0]].Selected = false;
+
         }
 
         #endregion
@@ -260,8 +252,6 @@ namespace SpellWork
 
         private void ProcFilter()
         {
-            _spellCachedList2.Clear();
-
             var bFamilyNames = _cbProcSpellFamilyName.SelectedIndex != 0;
             var fFamilyNames = _cbProcSpellFamilyName.SelectedValue.ToInt32();
 
@@ -277,7 +267,7 @@ namespace SpellWork
             var bTarget2 = _cbProcTarget2.SelectedIndex != 0;
             var fTarget2 = _cbProcTarget2.SelectedValue.ToInt32();
 
-            _spellList2 = (from spell in DBC.Spell.Values
+            _spellProcList = (from spell in DBC.Spell.Values
                            where (!bFamilyNames || spell.SpellFamilyName == fFamilyNames)
                               && (!bSpellAura || spell.EffectApplyAuraName[0] == fSpellAura
                                                 || spell.EffectApplyAuraName[1] == fSpellAura
@@ -293,7 +283,9 @@ namespace SpellWork
                                                 || spell.EffectImplicitTargetB[2] == fTarget2)
 
                            select spell).ToList();
-            _lvProcSpellList.VirtualListSize = _spellList2.Count();
+            _lvProcSpellList.VirtualListSize = _spellProcList.Count();
+            if (_lvProcSpellList.SelectedIndices.Count > 0)
+                _lvProcSpellList.Items[_lvProcSpellList.SelectedIndices[0]].Selected = false;
         }
 
         private void _bSpellInfo_Click(object sender, EventArgs e)
@@ -317,7 +309,7 @@ namespace SpellWork
             var lv = (ListView)sender;
             if (lv.SelectedIndices.Count > 0)
             {
-                SetProcAtribute(_spellList2[lv.SelectedIndices[0]]);
+                SetProcAtribute(_spellProcList[lv.SelectedIndices[0]]);
                 _lvProcAdditionalInfo.Items.Clear();
             }
         }
@@ -443,16 +435,16 @@ namespace SpellWork
 
         private void Search()
         {
-            _spellCachedList2.Clear();
-            
             uint id = _tbProcSeach.Text.ToUInt32();
             
-            _spellList2 = (from spell in DBC.Spell.Values
+            _spellProcList = (from spell in DBC.Spell.Values
                            where (id == 0 || spell.ID == id)
                               && (id != 0 || spell.SpellName.ContainText(_tbProcSeach.Text))
                            select spell).ToList();
             
-            _lvProcSpellList.VirtualListSize = _spellList2.Count;
+            _lvProcSpellList.VirtualListSize = _spellProcList.Count;
+            if (_lvProcSpellList.SelectedIndices.Count > 0)
+                _lvProcSpellList.Items[_lvProcSpellList.SelectedIndices[0]].Selected = false;
         }
 
         private void _tbCooldown_TextChanged(object sender, EventArgs e)
@@ -664,53 +656,29 @@ namespace SpellWork
         #region VIRTUAL MODE
 
         // page 1
-        private List<SpellEntry> _spellList1 = new List<SpellEntry>();
-        private Dictionary<int, ListViewItem> _spellCachedList1 = new Dictionary<int, ListViewItem>();
+        private List<SpellEntry> _spellList = new List<SpellEntry>();
 
         private void _lvSpellList_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
         {
-            e.Item = _spellCachedList1.ContainsKey(e.ItemIndex) ? _spellCachedList1[e.ItemIndex] : CreateSpellItem(e.ItemIndex);
-        }
-
-        private void _lvSpellList_CacheVirtualItems(object sender, CacheVirtualItemsEventArgs e)
-        {
-            if (_spellCachedList1.ContainsKey(e.StartIndex) && _spellCachedList1.ContainsKey(e.EndIndex)) return;
-
-            for (int i = 0; i < (e.EndIndex - e.StartIndex + 1); ++i)
-            {
-                if (_spellCachedList1.ContainsKey(e.StartIndex + i)) continue;
-                _spellCachedList1.Add(e.StartIndex + i, CreateSpellItem(e.StartIndex + i));
-            }
+            e.Item = CreateSpellItem(e.ItemIndex);
         }
 
         private ListViewItem CreateSpellItem(int index)
         {
-            return new ListViewItem(new[] { _spellList1[index].ID.ToString(), _spellList1[index].SpellNameRank });
+            return new ListViewItem(new[] { _spellList[index].ID.ToString(), _spellList[index].SpellNameRank });
         }
 
         // page 2
-        private List<SpellEntry> _spellList2 = new List<SpellEntry>();
-        private Dictionary<int, ListViewItem> _spellCachedList2 = new Dictionary<int, ListViewItem>();
+        private List<SpellEntry> _spellProcList = new List<SpellEntry>();
 
         private void _lvProcSpellList_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
         {
-            e.Item = _spellCachedList2.ContainsKey(e.ItemIndex) ? _spellCachedList2[e.ItemIndex] : CreateProcSpellItem(e.ItemIndex);
-        }
-
-        private void _lvProcSpellList_CacheVirtualItems(object sender, CacheVirtualItemsEventArgs e)
-        {
-            if (_spellCachedList2.ContainsKey(e.StartIndex) && _spellCachedList2.ContainsKey(e.EndIndex)) return;
-
-            for (int i = 0; i < (e.EndIndex - e.StartIndex + 1); ++i)
-            {
-                if (_spellCachedList2.ContainsKey(e.StartIndex + i)) continue;
-                _spellCachedList2.Add(e.StartIndex + i, CreateProcSpellItem(e.StartIndex + i));
-            }
+            e.Item = CreateProcSpellItem(e.ItemIndex);
         }
 
         private ListViewItem CreateProcSpellItem(int index)
         {
-            return new ListViewItem(new[] { _spellList2[index].ID.ToString(), _spellList2[index].SpellNameRank });
+            return new ListViewItem(new[] { _spellProcList[index].ID.ToString(), _spellProcList[index].SpellNameRank });
         }
 
         #endregion
