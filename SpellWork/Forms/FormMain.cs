@@ -183,28 +183,49 @@ namespace SpellWork
 
         private void AdvansedFilter()
         {
-            _spellList = 
-                (from spell in DBC.Spell.Values
-                  where (
-                  _cbSpellFamilyName.IsZero() || spell.SpellFamilyName          == _cbSpellFamilyName.IntVal())
-                  && (_cbSpellAura.IsZero()   || spell.EffectApplyAuraName[0]   == _cbSpellAura.IntVal()
-                                              || spell.EffectApplyAuraName[1]   == _cbSpellAura.IntVal()
-                                              || spell.EffectApplyAuraName[2]   == _cbSpellAura.IntVal())
-                  && (_cbSpellEffect.IsZero() || spell.Effect[0]                == _cbSpellEffect.IntVal()
-                                              || spell.Effect[1]                == _cbSpellEffect.IntVal()
-                                              || spell.Effect[2]                == _cbSpellEffect.IntVal())
-                  && (_cbTarget1.IsZero()     || spell.EffectImplicitTargetA[0] == _cbTarget1.IntVal()
-                                              || spell.EffectImplicitTargetA[1] == _cbTarget1.IntVal()
-                                              || spell.EffectImplicitTargetA[2] == _cbTarget1.IntVal())
-                  && (_cbTarget2.IsZero()     || spell.EffectImplicitTargetB[0] == _cbTarget2.IntVal()
-                                              || spell.EffectImplicitTargetB[1] == _cbTarget2.IntVal()
-                                              || spell.EffectImplicitTargetB[2] == _cbTarget2.IntVal())
-                   // Impement advansed filter
-                  && (_tbAdvansedFilter1Val.Text.IsEmpty() 
-                        || spell.CreateFilter(_cbAdvansedFilter1.SelectedValue, _tbAdvansedFilter1Val.Text))
-                  && (_tbAdvansedFilter1Val.Text.IsEmpty() 
-                        || spell.CreateFilter(_cbAdvansedFilter1.SelectedValue, _tbAdvansedFilter1Val.Text))
-                  select spell).ToList();
+            var bFamilyNames = _cbSpellFamilyName.SelectedIndex != 0;
+            var fFamilyNames = _cbSpellFamilyName.SelectedValue.ToInt32();
+
+            var bSpellAura = _cbSpellAura.SelectedIndex != 0;
+            var fSpellAura = _cbSpellAura.SelectedValue.ToInt32();
+
+            var bSpellEffect = _cbSpellEffect.SelectedIndex != 0;
+            var fSpellEffect = _cbSpellEffect.SelectedValue.ToInt32();
+
+            var bTarget1 = _cbTarget1.SelectedIndex != 0;
+            var fTarget1 = _cbTarget1.SelectedValue.ToInt32();
+
+            var bTarget2 = _cbTarget2.SelectedIndex != 0;
+            var fTarget2 = _cbTarget2.SelectedValue.ToInt32();
+
+            // additional filtert
+            var advVal1 = _tbAdvansedFilter1Val.Text;
+            var advVal2 = _tbAdvansedFilter2Val.Text;
+
+            var field1 = (MemberInfo)_cbAdvansedFilter1.SelectedValue;
+            var field2 = (MemberInfo)_cbAdvansedFilter2.SelectedValue;
+
+            bool use1val = advVal1 != string.Empty;
+            bool use2val = advVal2 != string.Empty;
+
+            _spellList = (from spell in DBC.Spell.Values
+                           where (!bFamilyNames || spell.SpellFamilyName          == fFamilyNames)
+                              && (!bSpellAura   || spell.EffectApplyAuraName[0]   == fSpellAura
+                                                || spell.EffectApplyAuraName[1]   == fSpellAura
+                                                || spell.EffectApplyAuraName[2]   == fSpellAura)
+                              && (!bSpellEffect || spell.Effect[0]                == fSpellEffect
+                                                || spell.Effect[1]                == fSpellEffect
+                                                || spell.Effect[2]                == fSpellEffect)
+                              && (!bTarget1     || spell.EffectImplicitTargetA[0] == fTarget1
+                                                || spell.EffectImplicitTargetA[1] == fTarget1
+                                                || spell.EffectImplicitTargetA[2] == fTarget1)
+                              && (!bTarget2     || spell.EffectImplicitTargetB[0] == fTarget2
+                                                || spell.EffectImplicitTargetB[1] == fTarget2
+                                                || spell.EffectImplicitTargetB[2] == fTarget2)
+                               // Impement advansed filter
+                              && (!use1val      || spell.CreateFilter(field1, advVal1))
+                              && (!use2val      || spell.CreateFilter(field2, advVal2))
+                           select spell).ToList();
             _lvSpellList.VirtualListSize = _spellList.Count();
             if (_lvSpellList.SelectedIndices.Count > 0)
                 _lvSpellList.Items[_lvSpellList.SelectedIndices[0]].Selected = false;
@@ -335,27 +356,40 @@ namespace SpellWork
             if (_lvProcSpellList.SelectedIndices.Count > 0)
                 _lvProcSpellList.Items[_lvProcSpellList.SelectedIndices[0]].Selected = false;
         }
-       
+
         private void ProcFilter()
         {
-            _spellProcList = 
-                (from spell in DBC.Spell.Values
-                 where (
-                 _cbProcSpellFamilyName.IsZero() || spell.SpellFamilyName          == _cbProcSpellFamilyName.IntVal())
-                  && (_cbProcSpellAura.IsZero()  || spell.EffectApplyAuraName[0]   == _cbProcSpellAura.IntVal()
-                                                 || spell.EffectApplyAuraName[1]   == _cbProcSpellAura.IntVal()
-                                                 || spell.EffectApplyAuraName[2]   == _cbProcSpellAura.IntVal())
-                  && (_cbProcSpellEffect.IsZero()|| spell.Effect[0]                == _cbProcSpellEffect.IntVal()
-                                                 || spell.Effect[1]                == _cbProcSpellEffect.IntVal()
-                                                 || spell.Effect[2]                == _cbProcSpellEffect.IntVal())
-                  && (_cbProcTarget1.IsZero()    || spell.EffectImplicitTargetA[0] == _cbProcTarget1.IntVal()
-                                                 || spell.EffectImplicitTargetA[1] == _cbProcTarget1.IntVal()
-                                                 || spell.EffectImplicitTargetA[2] == _cbProcTarget1.IntVal())
-                  && (_cbProcTarget2.IsZero()    || spell.EffectImplicitTargetB[0] == _cbProcTarget2.IntVal()
-                                                 || spell.EffectImplicitTargetB[1] == _cbProcTarget2.IntVal()
-                                                 || spell.EffectImplicitTargetB[2] == _cbProcTarget2.IntVal()
-                       ) select spell).ToList();
-            
+            var bFamilyNames = _cbProcSpellFamilyName.SelectedIndex != 0;
+            var fFamilyNames = _cbProcSpellFamilyName.SelectedValue.ToInt32();
+
+            var bSpellAura = _cbProcSpellAura.SelectedIndex != 0;
+            var fSpellAura = _cbProcSpellAura.SelectedValue.ToInt32();
+
+            var bSpellEffect = _cbProcSpellEffect.SelectedIndex != 0;
+            var fSpellEffect = _cbProcSpellEffect.SelectedValue.ToInt32();
+
+            var bTarget1 = _cbProcTarget1.SelectedIndex != 0;
+            var fTarget1 = _cbProcTarget1.SelectedValue.ToInt32();
+
+            var bTarget2 = _cbProcTarget2.SelectedIndex != 0;
+            var fTarget2 = _cbProcTarget2.SelectedValue.ToInt32();
+
+            _spellProcList = (from spell in DBC.Spell.Values
+                              where (!bFamilyNames || spell.SpellFamilyName          == fFamilyNames)
+                                 && (!bSpellAura   || spell.EffectApplyAuraName[0]   == fSpellAura
+                                                   || spell.EffectApplyAuraName[1]   == fSpellAura
+                                                   || spell.EffectApplyAuraName[2]   == fSpellAura)
+                                 && (!bSpellEffect || spell.Effect[0]                == fSpellEffect
+                                                   || spell.Effect[1]                == fSpellEffect
+                                                   || spell.Effect[2]                == fSpellEffect)
+                                 && (!bTarget1     || spell.EffectImplicitTargetA[0] == fTarget1
+                                                   || spell.EffectImplicitTargetA[1] == fTarget1
+                                                   || spell.EffectImplicitTargetA[2] == fTarget1)
+                                 && (!bTarget2     || spell.EffectImplicitTargetB[0] == fTarget2
+                                                   || spell.EffectImplicitTargetB[1] == fTarget2
+                                                   || spell.EffectImplicitTargetB[2] == fTarget2)
+
+                              select spell).ToList();
             _lvProcSpellList.VirtualListSize = _spellProcList.Count();
             if (_lvProcSpellList.SelectedIndices.Count > 0)
                 _lvProcSpellList.Items[_lvProcSpellList.SelectedIndices[0]].Selected = false;

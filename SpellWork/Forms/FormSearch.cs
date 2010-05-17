@@ -40,8 +40,8 @@ namespace SpellWork
 
                                 && (ic == 0 || spell.SpellIconID == ic)
 
-                                && (at == 0 || (spell.Attributes & at)    != 0
-                                            || (spell.AttributesEx & at)  != 0
+                                && (at == 0 || (spell.Attributes    & at) != 0
+                                            || (spell.AttributesEx  & at) != 0
                                             || (spell.AttributesEx2 & at) != 0
                                             || (spell.AttributesEx3 & at) != 0
                                             || (spell.AttributesEx4 & at) != 0
@@ -49,10 +49,10 @@ namespace SpellWork
                                             || (spell.AttributesEx6 & at) != 0
                                             || (spell.AttributesExG & at) != 0))
 
-                                && ((id != 0 || ic != 0 && at != 0) || Extensions.ContainText(spell.SpellName, name))
+                                && (id != 0 || ic != 0 && at != 0) || spell.SpellName.ContainText(name)
                             select spell).ToList();
                 _lvSpellList.VirtualListSize = _spellList.Count();
-                groupBox1.Text = "Spell Search " + "count: " + _spellList.Count();
+                groupBox1.Text = "Spell Search count: " + _spellList.Count();
                 if (_lvSpellList.SelectedIndices.Count > 0)
                     _lvSpellList.Items[_lvSpellList.SelectedIndices[0]].Selected = false;
             }
