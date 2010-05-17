@@ -12,8 +12,8 @@ namespace SpellWork
         private static MySqlCommand _command;
 
         public static bool Connected { get; private set; }
-
         public static List<string> Dropped = new List<string>();
+        public static List<SpellProcEventEntry> SpellProcEvent = new List<SpellProcEventEntry>();
 
         private static String ConnectionString
         {
@@ -28,52 +28,50 @@ namespace SpellWork
             }
         }
 
-        private static String GetSpellName(Object id)
+        private static String GetSpellName(uint id)
         {
-            try
+            if (DBC.Spell.ContainsKey(id))
             {
-                return DBC.Spell[id.ToUInt32()].SpellNameRank;
+                return DBC.Spell[id].SpellNameRank;
             }
-            catch
+            else
             {
                 Dropped.Add(String.Format("DELETE FROM `spell_proc_event` WHERE `entry` IN ({0});\r\n", id.ToUInt32()));
                 return String.Empty;
             }
         }
 
-        public static List<ListViewItem> SelectProc(string query)
+        public static void SelectProc(string query)
         {
-            List<ListViewItem> list = new List<ListViewItem>();
-
             using (_conn = new MySqlConnection(ConnectionString))
             {
                 _command = new MySqlCommand(query, _conn);
                 _conn.Open();
+                SpellProcEvent.Clear();
 
                 using (var reader = _command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        list.Add(new ListViewItem(new[]
-                        {
-                            reader[0].ToString(),       // 0  Entry 
-                            GetSpellName(reader[0]),    // 1  Name
-                            reader[1].ToString(),       // 2  School Mask
-                            reader[2].ToString(),       // 3  Spell Family Name
-                            reader[3].ToString(),       // 4  Spell Family Mask 0
-                            reader[4].ToString(),       // 5  Spell Family Mask 1
-                            reader[5].ToString(),       // 6  Spell Family Mask 2
-                            reader[6].ToString(),       // 7  Proc Flags
-                            reader[7].ToString(),       // 8  Proc Ex
-                            reader[8].ToString(),       // 9  PPM Rate
-                            reader[9].ToString(),       // 10 Chance
-                            reader[10].ToString()       // 11 Cooldown
-                        }));
+                        SpellProcEventEntry str;
+                        
+                        str.ID                  = reader[0].ToUInt32();
+                        str.SpellName           = GetSpellName(str.ID);
+                        str.SchoolMask          = reader[1].ToUInt32();
+                        str.SpellFamilyName     = reader[2].ToUInt32();
+                        str.SpellFamilyMask0    = reader[3].ToUInt32();
+                        str.SpellFamilyMask1    = reader[4].ToUInt32();
+                        str.SpellFamilyMask2    = reader[5].ToUInt32();
+                        str.ProcFlags           = reader[6].ToUInt32();
+                        str.ProcEx              = reader[7].ToUInt32();
+                        str.PpmRate             = reader[8].ToUInt32();
+                        str.CustomChance        = reader[9].ToUInt32();
+                        str.Cooldown            = reader[10].ToUInt32();
+                        
+                        SpellProcEvent.Add(str);
                     }
                 }
             }
-
-            return list;
         }
 
         public static void Insert(string query)

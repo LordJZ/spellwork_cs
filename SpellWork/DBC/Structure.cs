@@ -405,10 +405,11 @@ namespace SpellWork
 
     //=============== DateBase =================\\
 
-    public struct SpellProcEvent
+    public struct SpellProcEventEntry
     {
         public uint     ID;
-        public ushort   SchoolMask;
+        public string   SpellName;
+        public uint     SchoolMask;
         public uint     SpellFamilyName;
         public uint     SpellFamilyMask0;
         public uint     SpellFamilyMask1;

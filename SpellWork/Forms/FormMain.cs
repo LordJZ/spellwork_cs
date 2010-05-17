@@ -552,10 +552,11 @@ namespace SpellWork
             subquery = subquery == "WHERE" ? "" : subquery;
 
             String query = String.Format("SELECT * FROM `spell_proc_event` {0} ORDER BY entry", subquery);
+            MySQLConnenct.SelectProc(query);
 
-            var result = MySQLConnenct.SelectProc(query);
-            _lvDataList.Items.Clear();
-            _lvDataList.Items.AddRange(result.ToArray());
+            _lvDataList.VirtualListSize = MySQLConnenct.SpellProcEvent.Count;
+            if (_lvDataList.SelectedIndices.Count > 0)
+                _lvDataList.Items[_lvDataList.SelectedIndices[0]].Selected = false;
 
             // check bad spell and drop
             foreach (String str in MySQLConnenct.Dropped)
@@ -593,31 +594,25 @@ namespace SpellWork
         
         private void ProcParse(object sender)
         {
-            var str = ((ListView)sender).SelectedItems[0];
-            uint id = str.SubItems[0].Text.ToUInt32();
-            SpellEntry spell = DBC.Spell[id];
+            SpellProcEventEntry proc = MySQLConnenct.SpellProcEvent[((ListView)sender).SelectedIndices[0]];
+            SpellEntry spell = DBC.Spell[proc.ID];
             ProcInfo.SpellProc = spell;
             tabControl1.SelectedIndex = 1;
 
             new SpellInfo(_rtbProcSpellInfo, spell);
 
-            _clbSchools.SetCheckedItemFromFlag(str.SubItems[2].Text.ToUInt32());
-            _clbProcFlags.SetCheckedItemFromFlag(str.SubItems[7].Text.ToUInt32());
-            _clbProcFlagEx.SetCheckedItemFromFlag(str.SubItems[8].Text.ToUInt32());
+            _clbSchools.SetCheckedItemFromFlag(proc.SchoolMask);
+            _clbProcFlags.SetCheckedItemFromFlag(proc.ProcFlags);
+            _clbProcFlagEx.SetCheckedItemFromFlag(proc.ProcEx);
 
-            _cbProcSpellFamilyTree.SelectedValue = str.SubItems[3].Text.ToUInt32();
+            _cbProcSpellFamilyTree.SelectedValue = proc.SpellFamilyName;
+            _cbProcFitstSpellFamily.SelectedValue = proc.SpellFamilyName;
 
-            _cbProcFitstSpellFamily.SelectedValue = str.SubItems[3].Text.ToUInt32();
+            _tbPPM.Text = proc.PpmRate.ToString();
+            _tbChance.Text = proc.CustomChance.ToString();
+            _tbCooldown.Text = proc.Cooldown.ToString();
 
-            _tbPPM.Text = str.SubItems[9].Text;
-            _tbChance.Text = str.SubItems[10].Text;
-            _tbCooldown.Text = str.SubItems[11].Text;
-
-            uint[] mask = new uint[3];
-            mask[0] = str.SubItems[4].Text.ToUInt32();
-            mask[1] = str.SubItems[5].Text.ToUInt32();
-            mask[2] = str.SubItems[6].Text.ToUInt32();
-            _tvFamilyTree.SetMask(mask);
+            _tvFamilyTree.SetMask(new[] { proc.SpellFamilyMask0, proc.SpellFamilyMask1, proc.SpellFamilyMask2 });
         }
 
         #endregion
@@ -636,6 +631,27 @@ namespace SpellWork
         private void _lvProcSpellList_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
         {
             e.Item = new ListViewItem(new[] { _spellProcList[e.ItemIndex].ID.ToString(), _spellProcList[e.ItemIndex].SpellNameRank });
+        }
+
+        // Sql Page
+        private void _lvSqlData_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
+        {
+            SpellProcEventEntry str = MySQLConnenct.SpellProcEvent[e.ItemIndex];
+            e.Item = new ListViewItem(new string[] 
+            { 
+                str.ID.ToString(),
+                str.SpellName,
+                str.SchoolMask.ToString(),
+                str.SpellFamilyName.ToString(),
+                str.SpellFamilyMask0.ToString(),
+                str.SpellFamilyMask1.ToString(),
+                str.SpellFamilyMask2.ToString(),
+                str.ProcFlags.ToString(),
+                str.ProcEx.ToString(),
+                str.PpmRate.ToString(),
+                str.CustomChance.ToString(),
+                str.Cooldown.ToString()
+            });
         }
 
         #endregion
