@@ -242,7 +242,7 @@ namespace SpellWork
             uint val = 0;
             for (int i = 0; i < _name.CheckedIndices.Count; i++)
             {
-                val += (uint)(Math.Pow(2, _name.CheckedIndices[i]));
+                val += (uint)(Math.Pow(2, _name.CheckedIndices[i] - 1));
             }
 
             return val;
