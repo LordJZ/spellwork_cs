@@ -68,9 +68,9 @@ namespace SpellWork
                     else
                         mask_2 = 1U << (node.Index - 64);
 
-                    if ((spell.SpellFamilyFlags1 & mask_0) != 0 ||
-                        (spell.SpellFamilyFlags2 & mask_1) != 0 ||
-                        (spell.SpellFamilyFlags3 & mask_2) != 0)
+                    if ((spell.SpellFamilyFlags[0] & mask_0) != 0 ||
+                        (spell.SpellFamilyFlags[1] & mask_1) != 0 ||
+                        (spell.SpellFamilyFlags[2] & mask_2) != 0)
                     {
                         TreeNode child  = new TreeNode();
                         child           = node.Nodes.Add(name);

@@ -151,9 +151,8 @@ namespace SpellWork
         public uint StartRecoveryTime;                            // 206      m_startRecoveryTime
         public uint MaxTargetLevel;                               // 207      m_maxTargetLevel
         public uint SpellFamilyName;                              // 208      m_spellClassSet
-        public uint SpellFamilyFlags1;                            // 209-210  m_spellClassMask NOTE: size is 12 bytes!!!
-        public uint SpellFamilyFlags2;
-        public uint SpellFamilyFlags3;                            // 211      addition to m_spellClassMask
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+        public uint[] SpellFamilyFlags;                           // 209-211  m_spellClassMask NOTE: size is 12 bytes!!!
         public uint MaxAffectedTargets;                           // 212      m_maxTargets
         public uint DmgClass;                                     // 213      m_defenseType
         public uint PreventionType;                               // 214      m_preventionType

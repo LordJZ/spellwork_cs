@@ -19,7 +19,7 @@ namespace SpellWork
         public static string ReadCString(this BinaryReader reader)
         {
             byte num;
-            var temp = new List<byte>();
+            List<byte> temp = new List<byte>();
 
             while ((num = reader.ReadByte()) != 0)
             {
@@ -37,7 +37,7 @@ namespace SpellWork
         /// <returns>Resulting struct.</returns>
         public static unsafe T ReadStruct<T>(this BinaryReader reader) where T : struct
         {
-            var rawData = reader.ReadBytes(Marshal.SizeOf(typeof(T)));
+            byte[] rawData = reader.ReadBytes(Marshal.SizeOf(typeof(T)));
             
             GCHandle handle = GCHandle.Alloc(rawData, GCHandleType.Pinned);
             T returnObject = (T)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(T));

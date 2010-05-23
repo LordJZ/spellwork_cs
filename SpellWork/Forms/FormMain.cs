@@ -407,9 +407,9 @@ namespace SpellWork
 
             var query = from Spell in DBC.Spell.Values
                         where Spell.SpellFamilyName == ProcInfo.SpellProc.SpellFamilyName
-                        && (   (Spell.SpellFamilyFlags1 & mask[0]) != 0
-                            || (Spell.SpellFamilyFlags2 & mask[1]) != 0
-                            || (Spell.SpellFamilyFlags3 & mask[2]) != 0)
+                        && (   (Spell.SpellFamilyFlags[0] & mask[0]) != 0
+                            || (Spell.SpellFamilyFlags[1] & mask[1]) != 0
+                            || (Spell.SpellFamilyFlags[2] & mask[2]) != 0)
                         join sk in DBC.SkillLineAbility on Spell.ID equals sk.Value.SpellId into temp1
                         from Skill in temp1.DefaultIfEmpty()
                         //join skl in DBC.SkillLine on Skill.Value.SkillId equals skl.Value.ID into temp2

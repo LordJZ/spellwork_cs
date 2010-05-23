@@ -28,7 +28,7 @@ namespace SpellWork
                 spell.Category, spell.SpellIconID, spell.ActiveIconID, spell.SpellVisual[0], spell.SpellVisual[1]);
 
             sb.AppendFormatLine("Family {0}, flag 0x{1:X8} {2:X8} {3:X8}",
-                (SpellFamilyNames)spell.SpellFamilyName, spell.SpellFamilyFlags3, spell.SpellFamilyFlags2, spell.SpellFamilyFlags1);
+                (SpellFamilyNames)spell.SpellFamilyName, spell.SpellFamilyFlags[2], spell.SpellFamilyFlags[1], spell.SpellFamilyFlags[0]);
 
             sb.AppendLine();
 
@@ -255,9 +255,9 @@ namespace SpellWork
 
                     var query = from Spell in DBC.Spell.Values
                                 where Spell.SpellFamilyName == spell.SpellFamilyName
-                                && (   (Spell.SpellFamilyFlags1 & ClassMask[0]) != 0
-                                    || (Spell.SpellFamilyFlags2 & ClassMask[1]) != 0
-                                    || (Spell.SpellFamilyFlags3 & ClassMask[2]) != 0)
+                                && (   (Spell.SpellFamilyFlags[0] & ClassMask[0]) != 0
+                                    || (Spell.SpellFamilyFlags[1] & ClassMask[1]) != 0
+                                    || (Spell.SpellFamilyFlags[2] & ClassMask[2]) != 0)
                                 join sk in DBC.SkillLineAbility on Spell.ID equals sk.Value.SpellId into temp
                                 from Skill in temp.DefaultIfEmpty()
                                 select new
