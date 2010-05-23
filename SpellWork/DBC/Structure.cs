@@ -419,6 +419,14 @@ namespace SpellWork
         public float    PpmRate;
         public float    CustomChance;
         public uint     Cooldown;
+
+        public override string ToString()
+        {
+            return String.Format("{0}^{1}^{2}^{3}^{4}^{5}^{6}^{7}^{8}^{9}^{10}^{11}",
+                ID, SpellName, 
+                SchoolMask, SpellFamilyName, SpellFamilyMask0, SpellFamilyMask1, SpellFamilyMask2, ProcFlags, ProcEx, 
+                PpmRate, CustomChance, Cooldown);
+        }
     };
 
     public struct SpellChain

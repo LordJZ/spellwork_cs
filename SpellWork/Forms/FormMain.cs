@@ -329,7 +329,7 @@ namespace SpellWork
         private void GetProcAttribute(SpellEntry spell)
         {
             uint[] SpellFamilyFlags = _tvFamilyTree.GetMask();
-            var statusproc = String.Format("Spell ({0}) {1}. Proc Event ==> SchoolMask 0x{2:X2}, SpellFamily {3}, 0x{4:X8} {5:X8} {6:X8}, procFlag {7:X8}, PPMRate {8}",
+            var statusproc = String.Format("Spell ({0}) {1}. Proc Event ==> SchoolMask 0x{2:X2}, SpellFamily {3}, 0x{4:X8} {5:X8} {6:X8}, procFlag 0x{7:X8}, procEx 0x{8:X8}, PPMRate {9}",
                 spell.ID,
                 spell.SpellNameRank,
                 _clbSchools.GetFlagsValue(),
@@ -337,7 +337,8 @@ namespace SpellWork
                 SpellFamilyFlags[0],
                 SpellFamilyFlags[1],
                 SpellFamilyFlags[2],
-                spell.ProcFlags,
+                _clbProcFlags.GetFlagsValue(),
+                _clbProcFlagEx.GetFlagsValue(),
                 _tbPPM.Text.ToFloat());
 
             _gSpellProcEvent.Text = "Spell Proc Event    " + statusproc;
@@ -427,6 +428,8 @@ namespace SpellWork
                 lvi.ImageKey = str.SkillId != 0 ? "plus.ico" : "munus.ico";
                 _lvProcAdditionalInfo.Items.Add(lvi);
             }
+
+            GetProcAttribute(ProcInfo.SpellProc);
         }
 
         #endregion
@@ -597,7 +600,6 @@ namespace SpellWork
             SpellProcEventEntry proc = MySQLConnenct.SpellProcEvent[((ListView)sender).SelectedIndices[0]];
             SpellEntry spell = DBC.Spell[proc.ID];
             ProcInfo.SpellProc = spell;
-            tabControl1.SelectedIndex = 1;
 
             new SpellInfo(_rtbProcSpellInfo, spell);
 
@@ -613,6 +615,8 @@ namespace SpellWork
             _tbCooldown.Text = proc.Cooldown.ToString();
 
             _tvFamilyTree.SetMask(new[] { proc.SpellFamilyMask0, proc.SpellFamilyMask1, proc.SpellFamilyMask2 });
+            
+            tabControl1.SelectedIndex = 1;
         }
 
         #endregion
@@ -636,22 +640,7 @@ namespace SpellWork
         // Sql Page
         private void _lvSqlData_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
         {
-            SpellProcEventEntry str = MySQLConnenct.SpellProcEvent[e.ItemIndex];
-            e.Item = new ListViewItem(new string[] 
-            { 
-                str.ID.ToString(),
-                str.SpellName,
-                str.SchoolMask.ToString(),
-                str.SpellFamilyName.ToString(),
-                str.SpellFamilyMask0.ToString(),
-                str.SpellFamilyMask1.ToString(),
-                str.SpellFamilyMask2.ToString(),
-                str.ProcFlags.ToString(),
-                str.ProcEx.ToString(),
-                str.PpmRate.ToString(),
-                str.CustomChance.ToString(),
-                str.Cooldown.ToString()
-            });
+            e.Item = new ListViewItem(MySQLConnenct.SpellProcEvent[e.ItemIndex].ToString().Split('^'));
         }
 
         #endregion

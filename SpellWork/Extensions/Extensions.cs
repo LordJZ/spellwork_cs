@@ -230,10 +230,7 @@ namespace SpellWork
         {
             for (int i = 0; i < _name.Items.Count; ++i)
             {
-                double pow = Math.Pow(2, i);
-                int x = (int)Math.Truncate(_value / pow);
-                bool check = (x % 2) != 0;
-                _name.SetItemChecked(i, check);
+                _name.SetItemChecked(i, ((_value / (1U << (i - 1))) % 2) != 0);
             }
         }
 
@@ -242,13 +239,13 @@ namespace SpellWork
             uint val = 0;
             for (int i = 0; i < _name.CheckedIndices.Count; i++)
             {
-                val += (uint)(Math.Pow(2, _name.CheckedIndices[i] - 1));
+                val += 1U << (_name.CheckedIndices[i] - 1);
             }
 
             return val;
         }
 
-        public static void SetFlags<T>(this CheckedListBox _clb) where T : struct
+        public static void SetFlags<T>(this CheckedListBox _clb)
         {
             _clb.Items.Clear();
 
@@ -258,7 +255,7 @@ namespace SpellWork
             }
         }
 
-        public static void SetFlags<T>(this CheckedListBox _clb, String remove) where T : struct
+        public static void SetFlags<T>(this CheckedListBox _clb, String remove)
         {
             _clb.Items.Clear();
 
@@ -278,7 +275,7 @@ namespace SpellWork
             }
         }
 
-        public static void SetEnumValues<T>(this ComboBox cb, string NoValue) where T : struct
+        public static void SetEnumValues<T>(this ComboBox cb, string NoValue)
         {
             DataTable dt = new DataTable();
             dt.Columns.Add("ID");
@@ -296,7 +293,7 @@ namespace SpellWork
             cb.ValueMember = "ID";
         }
 
-        public static void SetEnumValues<T>(this ComboBox cb, string NoValue, string remove) where T : struct
+        public static void SetEnumValues<T>(this ComboBox cb, string NoValue, string remove)
         {
             DataTable dt = new DataTable();
             dt.Columns.Add("ID");
@@ -318,7 +315,7 @@ namespace SpellWork
             cb.ValueMember = "ID";
         }
 
-        public static void SetStructFields<T>(this ComboBox cb) where T : struct
+        public static void SetStructFields<T>(this ComboBox cb)
         {
             cb.Items.Clear();
 

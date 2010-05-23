@@ -25,6 +25,7 @@ namespace SpellWork
         public static void SetMask(this TreeView tv, uint[] mask)
         {
             ProcInfo.Update = false;
+            
             for (int i = 0; i < tv.Nodes.Count; ++i)
             {
                 if (i < 32)
@@ -34,6 +35,7 @@ namespace SpellWork
                 else
                     tv.Nodes[i].Checked = ((mask[2] / (1 << (i - 64))) % 2) != 0;
             }
+
             ProcInfo.Update = true;
         }
     }
