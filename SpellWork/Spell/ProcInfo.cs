@@ -29,17 +29,17 @@ namespace SpellWork
 
             for (int i = 0; i < 96; i++)
             {
-                uint mask_0 = 0, mask_1 = 0, mask_2 = 0;
+                uint[] mask = new uint[3];
 
                 if (i < 32)
-                    mask_0 = 1U << i;
+                    mask[0] = 1U << i;
                 else if (i < 64)
-                    mask_1 = 1U << (i - 32);
+                    mask[1] = 1U << (i - 32);
                 else
-                    mask_2 = 1U << (i - 64);
+                    mask[2] = 1U << (i - 64);
 
                 TreeNode node   = new TreeNode();
-                node.Text       = String.Format("0x{0:X8} {1:X8} {2:X8}", mask_2, mask_1, mask_0);
+                node.Text       = String.Format("0x{0:X8} {1:X8} {2:X8}", mask[2], mask[1], mask[0]);
                 node.ImageKey   = "family.ico";
                 familyTree.Nodes.Add(node);
             }
@@ -59,18 +59,16 @@ namespace SpellWork
 
                 foreach (TreeNode node in familyTree.Nodes)
                 {
-                    uint mask_0 = 0, mask_1 = 0, mask_2 = 0;
+                    uint[] mask = new uint[3];
 
                     if (node.Index < 32)
-                        mask_0 = 1U << node.Index;
+                        mask[0] = 1U << node.Index;
                     else if (node.Index < 64)
-                        mask_1 = 1U << (node.Index - 32);
+                        mask[1] = 1U << (node.Index - 32);
                     else
-                        mask_2 = 1U << (node.Index - 64);
+                        mask[2] = 1U << (node.Index - 64);
 
-                    if ((spell.SpellFamilyFlags[0] & mask_0) != 0 ||
-                        (spell.SpellFamilyFlags[1] & mask_1) != 0 ||
-                        (spell.SpellFamilyFlags[2] & mask_2) != 0)
+                    if ((spell.SpellFamilyFlags.Contain(mask)))
                     {
                         TreeNode child  = new TreeNode();
                         child           = node.Nodes.Add(name);

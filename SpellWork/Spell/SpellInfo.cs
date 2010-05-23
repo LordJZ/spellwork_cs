@@ -255,9 +255,7 @@ namespace SpellWork
 
                     var query = from Spell in DBC.Spell.Values
                                 where Spell.SpellFamilyName == spell.SpellFamilyName
-                                && (   (Spell.SpellFamilyFlags[0] & ClassMask[0]) != 0
-                                    || (Spell.SpellFamilyFlags[1] & ClassMask[1]) != 0
-                                    || (Spell.SpellFamilyFlags[2] & ClassMask[2]) != 0)
+                                && Spell.SpellFamilyFlags.Contain(ClassMask)
                                 join sk in DBC.SkillLineAbility on Spell.ID equals sk.Value.SpellId into temp
                                 from Skill in temp.DefaultIfEmpty()
                                 select new

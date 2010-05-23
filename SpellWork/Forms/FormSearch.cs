@@ -36,6 +36,7 @@ namespace SpellWork
                 uint at = _tbAttribute.Text.ToUInt32();
 
                 _spellList = (from spell in DBC.Spell.Values
+
                             where ((id == 0 || spell.ID == id)
 
                                 && (ic == 0 || spell.SpellIconID == ic)
@@ -50,7 +51,9 @@ namespace SpellWork
                                             || (spell.AttributesExG & at) != 0))
 
                                 && (id != 0 || ic != 0 && at != 0) || spell.SpellName.ContainText(name)
+
                             select spell).ToList();
+
                 _lvSpellList.VirtualListSize = _spellList.Count();
                 groupBox1.Text = "Spell Search count: " + _spellList.Count();
                 if (_lvSpellList.SelectedIndices.Count > 0)
@@ -78,23 +81,12 @@ namespace SpellWork
                 var fTarget2 = _cbTarget2.SelectedValue.ToInt32();
 
                 _spellList = (from spell in DBC.Spell.Values
-                            where (!bFamilyNames || spell.SpellFamilyName             == fFamilyNames)
 
-                               && (!bSpellAura   || spell.EffectApplyAuraName[0]      == fSpellAura
-                                                 || spell.EffectApplyAuraName[1]      == fSpellAura
-                                                 || spell.EffectApplyAuraName[2]      == fSpellAura)
-
-                               && (!bSpellEffect || spell.Effect[0]                   == fSpellEffect
-                                                 || spell.Effect[1]                   == fSpellEffect
-                                                 || spell.Effect[2]                   == fSpellEffect)
-
-                               && (!bTarget1     || spell.EffectImplicitTargetA[0]    == fTarget1
-                                                 || spell.EffectImplicitTargetA[1]    == fTarget1
-                                                 || spell.EffectImplicitTargetA[2]    == fTarget1)
-
-                               && (!bTarget2     || spell.EffectImplicitTargetB[0]    == fTarget2
-                                                 || spell.EffectImplicitTargetB[1]    == fTarget2
-                                                 || spell.EffectImplicitTargetB[2]    == fTarget2)
+                            where (!bFamilyNames || spell.SpellFamilyName == fFamilyNames)
+                               && (!bSpellEffect || spell.Effect.Contain((uint)fSpellEffect))
+                               && (!bSpellAura   || spell.EffectApplyAuraName.Contain((uint)fSpellAura))
+                               && (!bTarget1     || spell.EffectImplicitTargetA.Contain((uint)fTarget1))
+                               && (!bTarget2     || spell.EffectImplicitTargetB.Contain((uint)fTarget2))
 
                             select spell).ToList();
 

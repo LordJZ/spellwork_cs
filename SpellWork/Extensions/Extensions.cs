@@ -369,6 +369,33 @@ namespace SpellWork
             return false;
         }
 
+        public static bool Contain(this uint[] array, uint[] value)
+        {
+            if (array.Length != value.Length)
+                throw new SpellWorkException("The arrays are different lengths, array1 = {0} and array2 = {1}", array.Length, value.Length); 
+
+            for(int i = 0; i < array.Length; i++)
+            {
+                if ((array[i] & value[i]) != 0)
+                    return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Checks if the specified value in a given array
+        /// </summary>
+        /// <param name="array">Array in which to search</param>
+        /// <param name="value">Meaning Search</param>
+        /// <returns>true or false</returns>
+        public static bool Contain(this uint[] array, uint value)
+        {
+            foreach (uint i in array)
+                if (i == value) return true;
+            return false;
+        }
+
         public static T GetValue<T>(this Dictionary<uint, T> dictionary, uint key)
         {
             T value;
