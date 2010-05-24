@@ -255,7 +255,7 @@ namespace SpellWork
                 if (RangeIndex == 0 || !DBC.SpellRange.ContainsKey(RangeIndex))
                     return String.Empty;
 
-                var range = DBC.SpellRange[RangeIndex];
+                SpellRangeEntry range = DBC.SpellRange[RangeIndex];
                 StringBuilder sb = new StringBuilder();
                 sb.AppendFormatLine("SpellRange: (Id {0}) \"{1}\":", range.ID, range.Description1);
                 sb.AppendFormatLine("    MinRange = {0}, MinRangeFriendly = {1}", range.MinRange, range.MinRangeFriendly);
