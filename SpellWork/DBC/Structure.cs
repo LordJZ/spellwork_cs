@@ -187,7 +187,7 @@ namespace SpellWork
         /// </summary>
         public string Rank
         {
-            get { return DBC._SpellStrings.GetValue(_Rank[(uint)DBC.Locale]); }
+            get { return _Rank[(uint)DBC.Locale] != null ? DBC._SpellStrings[_Rank[(uint)DBC.Locale]] : ""; }
         }
 
         public string SpellNameRank
@@ -236,16 +236,7 @@ namespace SpellWork
 
         public string Duration
         {
-            get
-            {
-                if (DBC.SpellDuration.ContainsKey(DurationIndex))
-                {
-                    var duration = DBC.SpellDuration[DurationIndex];
-                    return String.Format("Duration: ID {0}  {1}, {2}, {3}", 
-                        duration.ID, duration.Duration[0], duration.Duration[1], duration.Duration[2]);
-                }
-                return String.Empty;
-            }
+            get { return DBC.SpellDuration.ContainsKey(DurationIndex) ? DBC.SpellDuration[DurationIndex].ToString() : String.Empty; }
         }
 
         public string Range
@@ -267,7 +258,7 @@ namespace SpellWork
 
         public string GetRadius(int index)
         {
-            var rIndex = EffectRadiusIndex[index];
+            uint rIndex = EffectRadiusIndex[index];
             if (rIndex != 0)
             {
                 if (DBC.SpellRadius.ContainsKey(rIndex))
@@ -392,6 +383,11 @@ namespace SpellWork
         public uint ID;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
         public int[] Duration;
+
+        public override string ToString()
+        {
+            return String.Format("Duration: ID ({0})  {1}, {2}, {3}", ID, Duration[0], Duration[1], Duration[2]);
+        }
     };
 
     public struct SpellCastTimesEntry

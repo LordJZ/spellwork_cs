@@ -29,14 +29,6 @@ namespace SpellWork
             textbox.AppendText(text + Environment.NewLine);
         }
 
-        public static void AppendFormatLineIfNotNull(this RichTextBox builder, string format, int arg)
-        {
-            if (arg != 0)
-            {
-                builder.AppendFormatLine(format, arg);
-            }
-        }
-
         public static void AppendFormatLineIfNotNull(this RichTextBox builder, string format, uint arg)
         {
             if (arg != 0)
@@ -53,35 +45,11 @@ namespace SpellWork
             }
         }
 
-        public static void AppendFormatLineIfNotNull(this RichTextBox builder, string format, object arg)
-        {
-            if (arg.ToInt32() != 0)
-            {
-                builder.AppendFormatLine(format, arg);
-            }
-        }
-
         public static void AppendFormatLineIfNotNull(this RichTextBox builder, string format, string arg)
         {
             if (arg != String.Empty)
             {
                 builder.AppendFormatLine(format, arg);
-            }
-        }
-
-        public static void AppendFormatLineIfNotNull(this RichTextBox builder, string format, params object[] arg)
-        {
-            if (arg[0].ToInt32() != 0)
-            {
-                builder.AppendFormatLine(format, arg);
-            }
-        }
-
-        public static void AppendFormatIfNotNull(this RichTextBox builder, string format, int arg)
-        {
-            if (arg != 0)
-            {
-                builder.AppendFormat(format, arg);
             }
         }
 
@@ -96,30 +64,6 @@ namespace SpellWork
         public static void AppendFormatIfNotNull(this RichTextBox builder, string format, float arg)
         {
             if (arg != 0.0f)
-            {
-                builder.AppendFormat(format, arg);
-            }
-        }
-
-        public static void AppendFormatIfNotNull(this RichTextBox builder, string format, object arg)
-        {
-            if (arg.ToInt32() != 0)
-            {
-                builder.AppendFormat(format, arg);
-            }
-        }
-
-        public static void AppendFormatIfNotNull(this RichTextBox builder, string format, string arg)
-        {
-            if (arg != String.Empty)
-            {
-                builder.AppendFormat(format, arg);
-            }
-        }
-
-        public static void AppendFormatIfNotNull(this RichTextBox builder, string format, params object[] arg)
-        {
-            if (arg[0].ToInt32() != 0)
             {
                 builder.AppendFormat(format, arg);
             }
@@ -164,7 +108,6 @@ namespace SpellWork
             textbox.SelectionFont = new Font(DEFAULT_FAMILY, DEFAULT_SIZE, FontStyle.Regular);
             textbox.SelectionColor = Color.Black;
         }
-
 
         public static void ColorizeCode(this RichTextBox rtb)
         {

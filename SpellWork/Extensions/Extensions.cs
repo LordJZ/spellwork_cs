@@ -47,56 +47,6 @@ namespace SpellWork
             return returnObject;
         }
 
-        // Append Line
-        public static StringBuilder AppendLineIfNotNull(this StringBuilder builder, string line)
-        {
-            if (!String.IsNullOrEmpty(line))
-                return builder.AppendLine(line);
-
-            return builder;
-        }
-
-        // Append Format
-        public static StringBuilder AppendFormatIfNotNull(this StringBuilder builder, string format, string arg)
-        {
-            if (!String.IsNullOrEmpty(arg))
-            {
-                return builder.AppendFormat(format, arg);
-            }
-
-            return builder;
-        }
-
-        public static StringBuilder AppendFormatIfNotNull(this StringBuilder builder, string format, uint arg)
-        {
-            if (arg != 0)
-            {
-                return builder.AppendFormat(format, arg);
-            }
-
-            return builder;
-        }
-
-        public static StringBuilder AppendFormatIfNotNull(this StringBuilder builder, string format, int arg)
-        {
-            if (arg != 0)
-            {
-                return builder.AppendFormat(format, arg);
-            }
-
-            return builder;
-        }
-
-        public static StringBuilder AppendFormatIfNotNull(this StringBuilder builder, string format, float arg)
-        {
-            if (arg != 0.0f)
-            {
-                return builder.AppendFormat(format, arg);
-            }
-
-            return builder;
-        }
-
         public static StringBuilder AppendFormatIfNotNull(this StringBuilder builder, string format, params object[] arg)
         {
             if (arg[0].ToUInt32() != 0)
@@ -113,16 +63,6 @@ namespace SpellWork
             return builder.AppendFormat(format, arg0).AppendLine();
         }
 
-        public static StringBuilder AppendFormatLineIfNotNull(this StringBuilder builder, string format, string arg)
-        {
-            if (!String.IsNullOrEmpty(arg))
-            {
-                return builder.AppendFormat(format, arg).AppendLine();
-            }
-
-            return builder;
-        }
-
         public static StringBuilder AppendFormatLineIfNotNull(this StringBuilder builder, string format, int arg)
         {
             if (arg != 0)
@@ -136,16 +76,6 @@ namespace SpellWork
         public static StringBuilder AppendFormatLineIfNotNull(this StringBuilder builder, string format, uint arg)
         {
             if (arg != 0)
-            {
-                return builder.AppendFormat(format, arg).AppendLine();
-            }
-
-            return builder;
-        }
-
-        public static StringBuilder AppendFormatLineIfNotNull(this StringBuilder builder, string format, float arg)
-        {
-            if (arg != 0.0f)
             {
                 return builder.AppendFormat(format, arg).AppendLine();
             }
@@ -191,17 +121,6 @@ namespace SpellWork
             ulong num;
             ulong.TryParse(val.ToString(), out num);
             return num;
-        }
-
-        // Time methods
-        public static Int32 MsDiff(DateTime time1, DateTime time2)
-        {
-            return (Int32)(time2 - time1).TotalMilliseconds;
-        }
-
-        public static UInt32 UnixTime()
-        {
-            return (UInt32)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds;
         }
 
         public static String NormaliseString(this String text, String remove)
@@ -406,26 +325,6 @@ namespace SpellWork
         public static bool IsEmpty(this String str)
         {
             return str == String.Empty;
-        }
-
-        public static bool IsZero(this ComboBox cb)
-        {
-            return cb.SelectedIndex == 0;
-        }
-
-        public static int IntVal(this ComboBox cb)
-        {
-            return cb.SelectedValue.ToInt32();
-        }
-
-        public static uint UIntVal(this ComboBox cb)
-        {
-            return cb.SelectedValue.ToUInt32();
-        }
-
-        public static float FloatVal(this ComboBox cb)
-        {
-            return cb.SelectedValue.ToFloat();
         }
     }
 }
