@@ -255,9 +255,9 @@ namespace SpellWork
                
                 switch (i)
                 {
-                    case 0: ClassMask[0] = spell.EffectSpellClassMaskA[i]; break;
-                    case 1: ClassMask[1] = spell.EffectSpellClassMaskB[i]; break;
-                    case 2: ClassMask[2] = spell.EffectSpellClassMaskC[i]; break;
+                    case 0: ClassMask = spell.EffectSpellClassMaskA; break;
+                    case 1: ClassMask = spell.EffectSpellClassMaskB; break;
+                    case 2: ClassMask = spell.EffectSpellClassMaskC; break;
                 }
 
                 if (ClassMask[0] != 0 || ClassMask[1] != 0 || ClassMask[2] != 0)
