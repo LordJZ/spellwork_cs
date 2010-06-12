@@ -11,6 +11,8 @@ namespace SpellWork
         private RichTextBox  rtb;
         private SpellEntry spell;
 
+        private string _line = "=================================================";
+
         public SpellInfo(RichTextBox rtb, SpellEntry spell)
         {
             this.rtb = rtb;
@@ -28,12 +30,12 @@ namespace SpellWork
             rtb.AppendFormatLine("ID - {0} {1}", spell.ID, spell.SpellNameRank);
             rtb.SetDefaultStyle();
 
-            rtb.AppendFormatLine("=================================================");
+            rtb.AppendFormatLine(_line);
             rtb.AppendFormatLineIfNotNull("Description: {0}", spell.Description);
             rtb.AppendFormatLineIfNotNull("ToolTip: {0}", spell.ToolTip);
             rtb.AppendFormatLineIfNotNull("Modal Next Spell: {0}", spell.ModalNextSpell);
             if(spell.Description != string.Empty && spell.ToolTip != string.Empty && spell.ModalNextSpell != 0)
-                rtb.AppendFormatLine("=================================================");
+                rtb.AppendFormatLine(_line);
 
             rtb.AppendFormatLine("Category = {0}, SpellIconID = {1}, activeIconID = {2}, SpellVisual = ({3},{4})",
                 spell.Category, spell.SpellIconID, spell.ActiveIconID, spell.SpellVisual[0], spell.SpellVisual[1]);
@@ -49,7 +51,7 @@ namespace SpellWork
 
             if (spell.Attributes != 0 || spell.AttributesEx != 0 || spell.AttributesEx2 != 0 || spell.AttributesEx3 != 0 
                 || spell.AttributesEx4 != 0 || spell.AttributesEx5 != 0 || spell.AttributesEx6 != 0 || spell.AttributesExG != 0)
-                rtb.AppendLine("=================================================");
+                rtb.AppendLine(_line);
 
             if (spell.Attributes != 0)
                 rtb.AppendFormatLine("Attributes: 0x{0:X8} ({1})",    spell.Attributes,    (SpellAtribute)spell.Attributes);
@@ -67,8 +69,8 @@ namespace SpellWork
                 rtb.AppendFormatLine("AttributesEx6: 0x{0:X8} ({1})", spell.AttributesEx6, (SpellAtributeEx6)spell.AttributesEx6);
             if (spell.AttributesExG != 0)
                 rtb.AppendFormatLine("AttributesExG: 0x{0:X8} ({1})", spell.AttributesExG, (SpellAtributeExG)spell.AttributesExG);
-            
-            rtb.AppendLine("=================================================");
+
+            rtb.AppendLine(_line);
             
             if (spell.Targets != 0)
                 rtb.AppendFormatLine("Targets Mask = 0x{0:X8} ({1})", spell.Targets, (SpellCastTargetFlags)spell.Targets);
@@ -171,7 +173,7 @@ namespace SpellWork
                 rtb.AppendFormatLine("Proc flag 0x{0:X8}, chance = {1}, charges - {2}",
                 spell.ProcFlags, spell.ProcChance, spell.ProcCharges);
                 rtb.SetDefaultStyle();
-                rtb.AppendFormatLine("=================================================");
+                rtb.AppendFormatLine(_line);
                 rtb.AppendText(spell.ProcInfo);
             }
             else
@@ -210,50 +212,51 @@ namespace SpellWork
 
         private void AppendSpellEffectInfo()
         {
-            rtb.AppendLine("=================================================");
+            rtb.AppendLine(_line);
 
-            for (int i = 0; i < DBC.MAX_EFFECT_INDEX; i++)
+            for (int EFFECT_INDEX = 0; EFFECT_INDEX < DBC.MAX_EFFECT_INDEX; EFFECT_INDEX++)
             {
                 rtb.SetBold();
-                if ((SpellEffects)spell.Effect[i] == SpellEffects.NO_SPELL_EFFECT)
+                if ((SpellEffects)spell.Effect[EFFECT_INDEX] == SpellEffects.NO_SPELL_EFFECT)
                 {
-                    rtb.AppendFormatLine("Effect {0}:  NO EFFECT", i);
+                    rtb.AppendFormatLine("Effect {0}:  NO EFFECT", EFFECT_INDEX);
                     return;
                 }
 
-                rtb.AppendFormatLine("Effect {0}: Id {1} ({2})", i, spell.Effect[i], (SpellEffects)spell.Effect[i]);
+                rtb.AppendFormatLine("Effect {0}: Id {1} ({2})", EFFECT_INDEX, spell.Effect[EFFECT_INDEX], (SpellEffects)spell.Effect[EFFECT_INDEX]);
                 rtb.SetDefaultStyle();
-                rtb.AppendFormat("BasePoints = {0}", spell.EffectBasePoints[i] + 1);
-                if (spell.EffectRealPointsPerLevel[i] != 0)
-                    rtb.AppendFormat(" + Level * {0:F}", spell.EffectRealPointsPerLevel[i]);
+                rtb.AppendFormat("BasePoints = {0}", spell.EffectBasePoints[EFFECT_INDEX] + 1);
+                
+                if (spell.EffectRealPointsPerLevel[EFFECT_INDEX] != 0)
+                    rtb.AppendFormat(" + Level * {0:F}", spell.EffectRealPointsPerLevel[EFFECT_INDEX]);
 
                 // WTF ? 1 = spell.EffectBaseDice[i]
-                if (1 < spell.EffectDieSides[i])
+                if (1 < spell.EffectDieSides[EFFECT_INDEX])
                 {
-                    if (spell.EffectRealPointsPerLevel[i] != 0)
+                    if (spell.EffectRealPointsPerLevel[EFFECT_INDEX] != 0)
                         rtb.AppendFormat(" to {0} + lvl * {1:F}",
-                            spell.EffectBasePoints[i] + 1 + spell.EffectDieSides[i], spell.EffectRealPointsPerLevel[i]);
+                            spell.EffectBasePoints[EFFECT_INDEX] + 1 + spell.EffectDieSides[EFFECT_INDEX], spell.EffectRealPointsPerLevel[EFFECT_INDEX]);
                     else
-                        rtb.AppendFormat(" to {0}", spell.EffectBasePoints[i] + 1 + spell.EffectDieSides[i]);
+                        rtb.AppendFormat(" to {0}", spell.EffectBasePoints[EFFECT_INDEX] + 1 + spell.EffectDieSides[EFFECT_INDEX]);
                 }
 
-                rtb.AppendFormatIfNotNull(" + combo * {0:F}", spell.EffectPointsPerComboPoint[i]);
+                rtb.AppendFormatIfNotNull(" + combo * {0:F}", spell.EffectPointsPerComboPoint[EFFECT_INDEX]);
 
-                if (spell.DmgMultiplier[i] != 1.0f)
-                    rtb.AppendFormat(" x {0:F}", spell.DmgMultiplier[i]);
+                if (spell.DmgMultiplier[EFFECT_INDEX] != 1.0f)
+                    rtb.AppendFormat(" x {0:F}", spell.DmgMultiplier[EFFECT_INDEX]);
 
-                rtb.AppendFormatIfNotNull("  Multiple = {0:F}", spell.EffectMultipleValue[i]);
+                rtb.AppendFormatIfNotNull("  Multiple = {0:F}", spell.EffectMultipleValue[EFFECT_INDEX]);
                 rtb.AppendLine();
 
                 rtb.AppendFormatLine("Targets ({0}, {1}) ({2}, {3})",
-                    spell.EffectImplicitTargetA[i], spell.EffectImplicitTargetB[i],
-                    (Targets)spell.EffectImplicitTargetA[i], (Targets)spell.EffectImplicitTargetB[i]);
+                    spell.EffectImplicitTargetA[EFFECT_INDEX], spell.EffectImplicitTargetB[EFFECT_INDEX],
+                    (Targets)spell.EffectImplicitTargetA[EFFECT_INDEX], (Targets)spell.EffectImplicitTargetB[EFFECT_INDEX]);
 
-                rtb.AppendText(AuraModTypeName(i));
+                rtb.AppendText(AuraModTypeName(EFFECT_INDEX));
 
                 uint[] ClassMask = new uint[3];
                
-                switch (i)
+                switch (EFFECT_INDEX)
                 {
                     case 0: ClassMask = spell.EffectSpellClassMaskA; break;
                     case 1: ClassMask = spell.EffectSpellClassMaskB; break;
@@ -265,8 +268,7 @@ namespace SpellWork
                     rtb.AppendFormatLine("SpellClassMask = {0:X8} {1:X8} {2:X8}", ClassMask[2], ClassMask[1], ClassMask[0]);
 
                     var query = from Spell in DBC.Spell.Values
-                                where Spell.SpellFamilyName == spell.SpellFamilyName
-                                && Spell.SpellFamilyFlags.Contain(ClassMask)
+                                where Spell.SpellFamilyName == spell.SpellFamilyName && Spell.SpellFamilyFlags.ContainElement(ClassMask)
                                 join sk in DBC.SkillLineAbility on Spell.ID equals sk.Value.SpellId into temp
                                 from Skill in temp.DefaultIfEmpty()
                                 select new
@@ -292,41 +294,39 @@ namespace SpellWork
                     }
                 }
 
-                rtb.AppendFormatLineIfNotNull("{0}", spell.GetRadius(i));
+                rtb.AppendFormatLineIfNotNull("{0}", spell.GetRadius(EFFECT_INDEX));
                 
                 // append trigger spell
-                uint tsId = spell.EffectTriggerSpell[i];
-                if (tsId != 0)
+                uint trigger = spell.EffectTriggerSpell[EFFECT_INDEX];
+                if (trigger != 0)
                 {
-                    if (DBC.Spell.ContainsKey(tsId))
+                    if (DBC.Spell.ContainsKey(trigger))
                     {
-                        SpellEntry trigger = DBC.Spell[tsId];
+                        SpellEntry triggerSpell = DBC.Spell[trigger];
                         rtb.SetStyle(Color.Blue, FontStyle.Bold);
-                        rtb.AppendFormatLine("   Trigger spell ({0}) {1}. Chance = {2}", tsId, trigger.SpellNameRank, spell.ProcChance);
-                        rtb.SetStyle(FontStyle.Italic);
-                        rtb.AppendFormatLineIfNotNull("   Description: {0}", trigger.Description);
-                        rtb.SetStyle(FontStyle.Italic);
-                        rtb.AppendFormatLineIfNotNull("   ToolTip: {0}", trigger.ToolTip);
+                        rtb.AppendFormatLine("   Trigger spell ({0}) {1}. Chance = {2}", trigger, triggerSpell.SpellNameRank, spell.ProcChance);
+                        rtb.AppendFormatLineIfNotNull("   Description: {0}", triggerSpell.Description);
+                        rtb.AppendFormatLineIfNotNull("   ToolTip: {0}", triggerSpell.ToolTip);
                         rtb.SetDefaultStyle();
-                        if (trigger.ProcFlags != 0)
+                        if (triggerSpell.ProcFlags != 0)
                         {
-                            rtb.AppendFormatLine("Charges - {0}", trigger.ProcCharges);
-                            rtb.AppendLine("=================================================");
-                            rtb.AppendLine(trigger.ProcInfo);
-                            rtb.AppendLine("=================================================");
+                            rtb.AppendFormatLine("Charges - {0}", triggerSpell.ProcCharges);
+                            rtb.AppendLine(_line);
+                            rtb.AppendLine(triggerSpell.ProcInfo);
+                            rtb.AppendLine(_line);
                         }
                     }
                     else
                     {
-                        rtb.AppendFormatLine("Trigger spell ({0}) Not found, Chance = {1}", tsId, spell.ProcChance);
+                        rtb.AppendFormatLine("Trigger spell ({0}) Not found, Chance = {1}", trigger, spell.ProcChance);
                     }
                 }
 
-                rtb.AppendFormatLineIfNotNull("EffectChainTarget = {0}", spell.EffectChainTarget[i]);
-                rtb.AppendFormatLineIfNotNull("EffectItemType = {0}", spell.EffectItemType[i]);
+                rtb.AppendFormatLineIfNotNull("EffectChainTarget = {0}", spell.EffectChainTarget[EFFECT_INDEX]);
+                rtb.AppendFormatLineIfNotNull("EffectItemType = {0}", spell.EffectItemType[EFFECT_INDEX]);
 
-                if((Mechanics)spell.EffectMechanic[i] != Mechanics.MECHANIC_NONE)
-                    rtb.AppendFormatLine("Effect Mechanic = {0} ({1})", spell.EffectMechanic[i], (Mechanics)spell.EffectMechanic[i]);
+                if((Mechanics)spell.EffectMechanic[EFFECT_INDEX] != Mechanics.MECHANIC_NONE)
+                    rtb.AppendFormatLine("Effect Mechanic = {0} ({1})", spell.EffectMechanic[EFFECT_INDEX], (Mechanics)spell.EffectMechanic[EFFECT_INDEX]);
 
                 rtb.AppendLine();
             }
@@ -408,25 +408,23 @@ namespace SpellWork
             if (!MySQLConnenct.Connected)
                 return;
             
-            var items = from   i in DBC.ItemTemplate
-                        where  i.SpellID1 == spell.ID
-                            || i.SpellID2 == spell.ID
-                            || i.SpellID3 == spell.ID
-                            || i.SpellID4 == spell.ID
-                            || i.SpellID5 == spell.ID
-                        select i;
+            var items = from   item in DBC.ItemTemplate
+                        where  item.SpellID.ContainElement(spell.ID)
+                        select item;
 
             if (items.Count() == 0)
                 return;
 
-            rtb.AppendLine("=================================================");
+            rtb.AppendLine(_line);
             rtb.SetStyle(Color.Blue, FontStyle.Bold);
             rtb.AppendLine("Items used this spell:");
             rtb.SetDefaultStyle();
+
             foreach (Item item in items)
             {
                 string name = item.LocalesName == string.Empty ? item.Name : item.LocalesName;
                 string desc = item.LocalesDescription == string.Empty ? item.Description : item.LocalesDescription;
+                
                 desc = desc == string.Empty ? string.Empty : string.Format("({0})", desc);
 
                 rtb.AppendFormatLine(@"   {0} - {1} {2} ", item.Entry, name, desc);

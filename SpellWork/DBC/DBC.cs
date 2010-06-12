@@ -4,11 +4,12 @@ namespace SpellWork
 {
     public static class DBC
     {
-        public const string VERSION = "SpellWork 3.3.3a (11723)";
+        public const string VERSION  = "SpellWork 3.3.3a (11723)";
         public const string DBC_PATH = @"dbc\";
 
-        public const int MAX_DBC_LOCALE = 16;
-        public const int MAX_EFFECT_INDEX = 3;
+        public const int MAX_DBC_LOCALE                 = 16;
+        public const int MAX_EFFECT_INDEX               = 3;
+        public const int SPELL_ENTRY_FOR_DETECT_LOCALE  = 1;
 
         public static Dictionary<uint, SpellEntry>            Spell;
         public static Dictionary<uint, SpellRadiusEntry>      SpellRadius;

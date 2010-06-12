@@ -36,7 +36,7 @@ namespace SpellWork
             get
             {
                 byte locale = 0;
-                while (DBC.Spell[1].GetName(locale) == String.Empty)
+                while (DBC.Spell[DBC.SPELL_ENTRY_FOR_DETECT_LOCALE].GetName(locale) == String.Empty)
                 {
                     ++locale;
 

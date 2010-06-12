@@ -6,6 +6,7 @@ using System.IO;
 using System.Text;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading;
 
 namespace SpellWork
 {
@@ -214,10 +215,10 @@ namespace SpellWork
             _spellList = (from spell in DBC.Spell.Values
                            
                           where ( !bFamilyNames || spell.SpellFamilyName == fFamilyNames)
-                              && (!bSpellEffect || spell.Effect.Contain((uint)fSpellEffect))
-                              && (!bSpellAura   || spell.EffectApplyAuraName.Contain((uint)fSpellAura))
-                              && (!bTarget1     || spell.EffectImplicitTargetA.Contain((uint)fTarget1))
-                              && (!bTarget2     || spell.EffectImplicitTargetB.Contain((uint)fTarget2))
+                              && (!bSpellEffect || spell.Effect.ContainElement((uint)fSpellEffect))
+                              && (!bSpellAura   || spell.EffectApplyAuraName.ContainElement((uint)fSpellAura))
+                              && (!bTarget1     || spell.EffectImplicitTargetA.ContainElement((uint)fTarget1))
+                              && (!bTarget2     || spell.EffectImplicitTargetB.ContainElement((uint)fTarget2))
                               && (!use1val      || spell.CreateFilter(field1, advVal1))
                               && (!use2val      || spell.CreateFilter(field2, advVal2))
                            
@@ -375,10 +376,10 @@ namespace SpellWork
             _spellProcList = (from spell in DBC.Spell.Values
 
                               where (!bFamilyNames || spell.SpellFamilyName == fFamilyNames)
-                                 && (!bSpellEffect || spell.Effect.Contain((uint)fSpellEffect))
+                                 && (!bSpellEffect || spell.Effect.ContainElement((uint)fSpellEffect))
                                  && (!bSpellAura   || spell.EffectApplyAuraName.Contains((uint)fSpellAura))
-                                 && (!bTarget1     || spell.EffectImplicitTargetA.Contain((uint)fTarget1))
-                                 && (!bTarget2     || spell.EffectImplicitTargetB.Contain((uint)fTarget2))
+                                 && (!bTarget1     || spell.EffectImplicitTargetA.ContainElement((uint)fTarget1))
+                                 && (!bTarget2     || spell.EffectImplicitTargetB.ContainElement((uint)fTarget2))
                               
                               select spell).ToList();
 
@@ -398,7 +399,7 @@ namespace SpellWork
 
             var query = from Spell in DBC.Spell.Values
                         where Spell.SpellFamilyName == ProcInfo.SpellProc.SpellFamilyName
-                        && Spell.SpellFamilyFlags.Contain(mask)
+                        && Spell.SpellFamilyFlags.ContainElement(mask)
                         join sk in DBC.SkillLineAbility on Spell.ID equals sk.Value.SpellId into temp1
                         from Skill in temp1.DefaultIfEmpty()
                         //join skl in DBC.SkillLine on Skill.Value.SkillId equals skl.Value.ID into temp2
@@ -603,7 +604,7 @@ namespace SpellWork
             _tbChance.Text = proc.CustomChance.ToString();
             _tbCooldown.Text = proc.Cooldown.ToString();
 
-            _tvFamilyTree.SetMask(new[] { proc.SpellFamilyMask0, proc.SpellFamilyMask1, proc.SpellFamilyMask2 });
+            _tvFamilyTree.SetMask(proc.SpellFamilyMask);
             
             tabControl1.SelectedIndex = 1;
         }
@@ -626,10 +627,9 @@ namespace SpellWork
             e.Item = new ListViewItem(new[] { _spellProcList[e.ItemIndex].ID.ToString(), _spellProcList[e.ItemIndex].SpellNameRank });
         }
 
-        // Sql Page
         private void _lvSqlData_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
         {
-            e.Item = new ListViewItem(MySQLConnenct.SpellProcEvent[e.ItemIndex].ToString().Split('^'));
+            e.Item = new ListViewItem(MySQLConnenct.SpellProcEvent[e.ItemIndex].ToArray());
         }
 
         #endregion

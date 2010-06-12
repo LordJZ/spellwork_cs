@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace SpellWork
@@ -22,7 +18,7 @@ namespace SpellWork
             _cbTarget2.SetEnumValues<Targets>("Target B");
         }
 
-        public SpellEntry Spell { get; set; }
+        public SpellEntry Spell { get; private set; }
 
         private List<SpellEntry> _spellList = new List<SpellEntry>();
 
@@ -56,6 +52,7 @@ namespace SpellWork
 
                 _lvSpellList.VirtualListSize = _spellList.Count();
                 groupBox1.Text = "Spell Search count: " + _spellList.Count();
+                
                 if (_lvSpellList.SelectedIndices.Count > 0)
                     _lvSpellList.Items[_lvSpellList.SelectedIndices[0]].Selected = false;
             }
@@ -83,15 +80,16 @@ namespace SpellWork
                 _spellList = (from spell in DBC.Spell.Values
 
                             where (!bFamilyNames || spell.SpellFamilyName == fFamilyNames)
-                               && (!bSpellEffect || spell.Effect.Contain((uint)fSpellEffect))
-                               && (!bSpellAura   || spell.EffectApplyAuraName.Contain((uint)fSpellAura))
-                               && (!bTarget1     || spell.EffectImplicitTargetA.Contain((uint)fTarget1))
-                               && (!bTarget2     || spell.EffectImplicitTargetB.Contain((uint)fTarget2))
+                               && (!bSpellEffect || spell.Effect.ContainElement((uint)fSpellEffect))
+                               && (!bSpellAura   || spell.EffectApplyAuraName.ContainElement((uint)fSpellAura))
+                               && (!bTarget1     || spell.EffectImplicitTargetA.ContainElement((uint)fTarget1))
+                               && (!bTarget2     || spell.EffectImplicitTargetB.ContainElement((uint)fTarget2))
 
                             select spell).ToList();
 
                 _lvSpellList.VirtualListSize = _spellList.Count();
                 groupBox2.Text = "Spell Filter " + "count: " + _spellList.Count();
+                
                 if (_lvSpellList.SelectedIndices.Count > 0)
                     _lvSpellList.Items[_lvSpellList.SelectedIndices[0]].Selected = false;
             }
@@ -109,8 +107,8 @@ namespace SpellWork
             {
                 Spell = _spellList[_lvSpellList.SelectedIndices[0]];
                 this.DialogResult = DialogResult.OK;
+                this.Close();
             }
-            this.Close();
         }
 
         private void TextBox_KeyPress(object sender, KeyPressEventArgs e)

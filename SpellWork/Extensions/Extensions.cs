@@ -212,28 +212,6 @@ namespace SpellWork
             cb.ValueMember = "ID";
         }
 
-        public static void SetEnumValues<T>(this ComboBox cb, string NoValue, string remove)
-        {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("ID");
-            dt.Columns.Add("NAME");
-
-            dt.Rows.Add(new Object[] { -1, NoValue });
-
-            foreach (var str in Enum.GetValues(typeof(T)))
-            {
-                dt.Rows.Add(new Object[] 
-                { 
-                    (int)str, 
-                    "(" + ((int)str).ToString("000") + ") " + str.ToString().NormaliseString(remove) 
-                });
-            }
-
-            cb.DataSource = dt;
-            cb.DisplayMember = "NAME";
-            cb.ValueMember = "ID";
-        }
-
         public static void SetStructFields<T>(this ComboBox cb)
         {
             cb.Items.Clear();
@@ -288,10 +266,10 @@ namespace SpellWork
             return false;
         }
 
-        public static bool Contain(this uint[] array, uint[] value)
+        public static bool ContainElement(this uint[] array, uint[] value)
         {
             if (array.Length != value.Length)
-                throw new SpellWorkException("The arrays are different lengths, array1 = {0} and array2 = {1}", array.Length, value.Length); 
+                return false; 
 
             for(int i = 0; i < array.Length; i++)
             {
@@ -308,7 +286,7 @@ namespace SpellWork
         /// <param name="array">Array in which to search</param>
         /// <param name="value">Meaning Search</param>
         /// <returns>true or false</returns>
-        public static bool Contain(this uint[] array, uint value)
+        public static bool ContainElement(this uint[] array, uint value)
         {
             foreach (uint i in array)
                 if (i == value) return true;

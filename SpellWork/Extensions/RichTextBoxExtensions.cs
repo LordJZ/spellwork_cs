@@ -75,32 +75,9 @@ namespace SpellWork
             textbox.SelectionFont = new Font(DEFAULT_FAMILY, DEFAULT_SIZE, style);
         }
         
-        public static void SetStyle(this RichTextBox textbox, FontStyle style)
-        {
-            textbox.SelectionFont = new Font(DEFAULT_FAMILY, DEFAULT_SIZE, style);
-        }
-
         public static void SetBold(this RichTextBox textbox)
         {
             textbox.SelectionFont = new Font(DEFAULT_FAMILY, DEFAULT_SIZE, FontStyle.Bold);
-        }
-
-        public static void SetStyle(this RichTextBox textbox, FontStyle style, Color color)
-        {
-            textbox.SelectionColor = color;
-            textbox.SelectionFont = new Font(DEFAULT_FAMILY, DEFAULT_SIZE, style);
-        }
-
-        public static void SetStyle(this RichTextBox textbox, FontStyle style, Color color, float size)
-        {
-            textbox.SelectionColor = color;
-            textbox.SelectionFont = new Font(DEFAULT_FAMILY, size, style);
-        }
-
-        public static void SetStyle(this RichTextBox textbox, FontStyle style, Color color, float size, String family)
-        {
-            textbox.SelectionColor = color;
-            textbox.SelectionFont = new Font(family, size, style);
         }
 
         public static void SetDefaultStyle(this RichTextBox textbox)

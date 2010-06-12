@@ -21,6 +21,7 @@ namespace SpellWork
 
                 if (!header.IsDBC)
                     throw new SpellWorkException("{0} is not DBC files", fileName);
+                
                 if (header.RecordSize != size)
                     throw new SpellWorkException("Size of row in DBC file ({0}) != size of DBC struct ({1}) in DBC: {2}", header.RecordSize, size, fileName);
 

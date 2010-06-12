@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 using System.Drawing;
 
@@ -48,15 +49,27 @@ namespace SpellWork
             {
                 SpellEntry spell = elem.Spell.Value;
                 bool IsSkill     = elem.SkillId != 0;
-                string name      = IsSkill
-                ? String.Format("{0} - {1} (Skill {2}) ({3})", spell.ID, spell.SpellNameRank, elem.SkillId, spell.School.ToString().NormaliseString("MASK_"))
-                : String.Format("{0} - {1} ({2})", spell.ID, spell.SpellNameRank, spell.School.ToString().NormaliseString("MASK_"));
 
-                string toolTip = IsSkill
-                ? String.Format("Spell Name: {0}\r\nDescription: {1}\r\nToolTip: {2}\r\nSkill Name: {3}\r\nDescription: {4}",
-                                spell.SpellNameRank, spell.Description, spell.ToolTip, elem.Value.Name, elem.Value.Description)
-                : String.Format("Spell Name: {0}\r\nDescription: {1}\r\nToolTip: {2}", spell.SpellNameRank, spell.Description, spell.ToolTip);
+                StringBuilder name    = new StringBuilder();
+                StringBuilder toolTip = new StringBuilder();
 
+                name.AppendFormat("{0} - {1} ", spell.ID, spell.SpellNameRank);
+                
+                toolTip.AppendFormatLine("Spell Name: {0}",  spell.SpellNameRank);
+                toolTip.AppendFormatLine("Description: {0}", spell.Description);
+                toolTip.AppendFormatLine("ToolTip: {0}",     spell.ToolTip);
+
+                if (IsSkill)
+                {
+                    name.AppendFormat("(Skill: ({0}) {1}) ", elem.SkillId, elem.Value.Name);
+
+                    toolTip.AppendLine();
+                    toolTip.AppendFormatLine("Skill Name: {0}",  elem.Value.Name);
+                    toolTip.AppendFormatLine("Description: {0}", elem.Value.Description);
+                }
+
+                name.AppendFormat("({0})", spell.School.ToString().NormaliseString("MASK_"));
+                
                 foreach (TreeNode node in familyTree.Nodes)
                 {
                     uint[] mask = new uint[3];
@@ -68,14 +81,14 @@ namespace SpellWork
                     else
                         mask[2] = 1U << (node.Index - 64);
 
-                    if ((spell.SpellFamilyFlags.Contain(mask)))
+                    if ((spell.SpellFamilyFlags.ContainElement(mask)))
                     {
                         TreeNode child  = new TreeNode();
-                        child           = node.Nodes.Add(name);
+                        child           = node.Nodes.Add(name.ToString());
                         child.Name      = spell.ID.ToString();
                         child.ImageKey  = IsSkill ? "plus.ico" : "munus.ico";
                         child.ForeColor = IsSkill ? Color.Blue : Color.Red;
-                        child.ToolTipText = toolTip;
+                        child.ToolTipText = toolTip.ToString();
                     }
                 }
             }

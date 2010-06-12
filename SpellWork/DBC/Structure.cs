@@ -187,7 +187,7 @@ namespace SpellWork
         /// </summary>
         public string Rank
         {
-            get { return _Rank[(uint)DBC.Locale] != null ? DBC._SpellStrings[_Rank[(uint)DBC.Locale]] : ""; }
+            get { return _Rank[(uint)DBC.Locale] != 0 ? DBC._SpellStrings[_Rank[(uint)DBC.Locale]] : ""; }
         }
 
         public string SpellNameRank
@@ -406,21 +406,30 @@ namespace SpellWork
         public string   SpellName;
         public uint     SchoolMask;
         public uint     SpellFamilyName;
-        public uint     SpellFamilyMask0;
-        public uint     SpellFamilyMask1;
-        public uint     SpellFamilyMask2;
+        public uint[]   SpellFamilyMask;
         public uint     ProcFlags;
         public uint     ProcEx;
         public float    PpmRate;
         public float    CustomChance;
         public uint     Cooldown;
 
-        public override string ToString()
-        {
-            return String.Format("{0}^{1}^{2}^{3}^{4}^{5}^{6}^{7}^{8}^{9}^{10}^{11}",
-                ID, SpellName, 
-                SchoolMask, SpellFamilyName, SpellFamilyMask0, SpellFamilyMask1, SpellFamilyMask2, ProcFlags, ProcEx, 
-                PpmRate, CustomChance, Cooldown);
+        public string[] ToArray()
+        {  
+            return new[]
+            {
+                ID.ToString(), 
+                SpellName, 
+                SchoolMask.ToString(), 
+                SpellFamilyName.ToString(), 
+                SpellFamilyMask[0].ToString(), 
+                SpellFamilyMask[1].ToString(), 
+                SpellFamilyMask[2].ToString(), 
+                ProcFlags.ToString(), 
+                ProcEx.ToString(), 
+                PpmRate.ToString(), 
+                CustomChance.ToString(), 
+                Cooldown.ToString()
+            };
         }
     };
 
@@ -436,14 +445,10 @@ namespace SpellWork
     public struct Item
     {
         public uint     Entry;
-        public String   Name;
-        public String   Description;
-        public String   LocalesName;
-        public String   LocalesDescription;
-        public uint     SpellID1;
-        public uint     SpellID2;
-        public uint     SpellID3;
-        public uint     SpellID4;
-        public uint     SpellID5;
+        public string   Name;
+        public string   Description;
+        public string   LocalesName;
+        public string   LocalesDescription;
+        public uint[]   SpellID;
     };
 }

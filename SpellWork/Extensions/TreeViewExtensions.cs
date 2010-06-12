@@ -4,6 +4,11 @@ namespace SpellWork
 {
     public static class TreeViewExtensions
     {
+        /// <summary>
+        /// Returns the value of the collection of selected items
+        /// </summary>
+        /// <param name="tv"></param>
+        /// <returns></returns>
         public static uint[] GetMask(this TreeView tv)
         {
             uint[] val = new uint[3];
@@ -22,6 +27,11 @@ namespace SpellWork
             return val;
         }
 
+        /// <summary>
+        /// Check items of the collection...
+        /// </summary>
+        /// <param name="tv"></param>
+        /// <param name="mask"></param>
         public static void SetMask(this TreeView tv, uint[] mask)
         {
             ProcInfo.Update = false;

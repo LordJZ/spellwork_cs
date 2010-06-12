@@ -59,9 +59,12 @@ namespace SpellWork
                         str.SpellName           = GetSpellName(str.ID);
                         str.SchoolMask          = reader[1].ToUInt32();
                         str.SpellFamilyName     = reader[2].ToUInt32();
-                        str.SpellFamilyMask0    = reader[3].ToUInt32();
-                        str.SpellFamilyMask1    = reader[4].ToUInt32();
-                        str.SpellFamilyMask2    = reader[5].ToUInt32();
+                        str.SpellFamilyMask     = new[] 
+                        { 
+                            (uint)reader[3], 
+                            (uint)reader[4], 
+                            (uint)reader[5] 
+                        };
                         str.ProcFlags           = reader[6].ToUInt32();
                         str.ProcEx              = reader[7].ToUInt32();
                         str.PpmRate             = reader[8].ToUInt32();
@@ -76,7 +79,7 @@ namespace SpellWork
 
         public static void Insert(string query)
         {
-            _conn = new MySqlConnection(ConnectionString);
+            _conn    = new MySqlConnection(ConnectionString);
             _command = new MySqlCommand(query, _conn);
             _conn.Open();
             _command.ExecuteNonQuery();
@@ -87,11 +90,29 @@ namespace SpellWork
         {
             List<Item> items = DBC.ItemTemplate;
             // In order to reduce the search time, we make the first selection of all items that have spellid
-            var query = String.Format(
-                "SELECT t.entry, t.name, t.description, l.name_loc{0}, l.description_loc{0}, " +
-                "t.spellid_1, t.spellid_2, t.spellid_3, t.spellid_4, t.spellid_5 " +
-                "FROM `item_template` t LEFT JOIN `locales_item` l ON t.entry = l.entry " +
-                "WHERE (t.spellid_1 <> 0 || t.spellid_2 <> 0 || t.spellid_3 <> 0 || t.spellid_4 <> 0 || t.spellid_5 <> 0);",
+            string query = String.Format(
+                @"SELECT    t.entry, 
+                            t.name, 
+                            t.description, 
+                            l.name_loc{0}, 
+                            l.description_loc{0}, 
+                            t.spellid_1, 
+                            t.spellid_2, 
+                            t.spellid_3, 
+                            t.spellid_4, 
+                            t.spellid_5 
+                FROM 
+                    `item_template` t 
+                LEFT JOIN 
+                    `locales_item` l 
+                ON 
+                    t.entry = l.entry 
+                WHERE 
+                    t.spellid_1 <> 0 || 
+                    t.spellid_2 <> 0 || 
+                    t.spellid_3 <> 0 || 
+                    t.spellid_4 <> 0 || 
+                    t.spellid_5 <> 0;",
                 (int)DBC.Locale == 0 ? 1 : (int)DBC.Locale /* it's huck TODO: replase code*/);
 
             using (_conn = new MySqlConnection(ConnectionString))
@@ -99,7 +120,7 @@ namespace SpellWork
                 _command = new MySqlCommand(query, _conn);
                 _conn.Open();
 
-                using (var reader = _command.ExecuteReader())
+                using (MySqlDataReader reader = _command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
@@ -110,11 +131,14 @@ namespace SpellWork
                             Description         = reader[2].ToString(),
                             LocalesName         = reader[3].ToString(),
                             LocalesDescription  = reader[4].ToString(),
-                            SpellID1            = reader[5].ToUInt32(),
-                            SpellID2            = reader[6].ToUInt32(),
-                            SpellID3            = reader[7].ToUInt32(),
-                            SpellID4            = reader[8].ToUInt32(),
-                            SpellID5            = reader[9].ToUInt32(),
+                            SpellID             = new uint[] 
+                            { 
+                                (uint)reader[5], 
+                                (uint)reader[6], 
+                                (uint)reader[7], 
+                                (uint)reader[8], 
+                                (uint)reader[9] 
+                            }
                         });
                     }
                 }
