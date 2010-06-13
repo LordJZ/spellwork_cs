@@ -87,14 +87,14 @@ namespace SpellWork
 
         private void ConnStatus()
         {
-            MySQLConnenct.TestConnect();
+            MySQLConnect.TestConnect();
 
-            if (MySQLConnenct.Connected)
+            if (MySQLConnect.Connected)
             {
                 _dbConnect.Text = "Connection is successfully";
                 _dbConnect.ForeColor = Color.Green;
                 // read db data
-                DBC.ItemTemplate = MySQLConnenct.SelectItems();
+                DBC.ItemTemplate = MySQLConnect.SelectItems();
             }
             else
             {
@@ -105,9 +105,9 @@ namespace SpellWork
 
         private void _Connected_Click(object sender, EventArgs e)
         {
-            MySQLConnenct.TestConnect();
+            MySQLConnect.TestConnect();
 
-            if (MySQLConnenct.Connected)
+            if (MySQLConnect.Connected)
                 MessageBox.Show("Connection is successfully!", "MySQL Connections!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
                 MessageBox.Show("Connection is failed!", "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -471,8 +471,8 @@ namespace SpellWork
 
         private void SqlToBase_Click(object sender, EventArgs e)
         {
-            if (MySQLConnenct.Connected)
-                MySQLConnenct.Insert(_rtbSqlLog.Text);
+            if (MySQLConnect.Connected)
+                MySQLConnect.Insert(_rtbSqlLog.Text);
             else
                 MessageBox.Show("Can't connect to database!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
@@ -525,7 +525,7 @@ namespace SpellWork
 
         private void Select_Click(object sender, EventArgs e)
         {
-            if (!MySQLConnenct.Connected)
+            if (!MySQLConnect.Connected)
             {
                 MessageBox.Show("Can't connect to database!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -545,14 +545,14 @@ namespace SpellWork
             subquery = subquery == "WHERE" ? "" : subquery;
 
             String query = String.Format("SELECT * FROM `spell_proc_event` {0} ORDER BY entry", subquery);
-            MySQLConnenct.SelectProc(query);
+            MySQLConnect.SelectProc(query);
 
-            _lvDataList.VirtualListSize = MySQLConnenct.SpellProcEvent.Count;
+            _lvDataList.VirtualListSize = MySQLConnect.SpellProcEvent.Count;
             if (_lvDataList.SelectedIndices.Count > 0)
                 _lvDataList.Items[_lvDataList.SelectedIndices[0]].Selected = false;
 
             // check bad spell and drop
-            foreach (String str in MySQLConnenct.Dropped)
+            foreach (String str in MySQLConnect.Dropped)
                 _rtbSqlLog.AppendText(str);
         }
 
@@ -579,15 +579,15 @@ namespace SpellWork
 
             _rtbSqlLog.AppendText(comment + "\r\n" + drop + "\r\n" + insert + "\r\n\r\n");
             _rtbSqlLog.ColorizeCode();
-            if (MySQLConnenct.Connected)
-                MySQLConnenct.Insert(drop + insert);
+            if (MySQLConnect.Connected)
+                MySQLConnect.Insert(drop + insert);
 
             ((Button)sender).Enabled = false;
         }
         
         private void ProcParse(object sender)
         {
-            SpellProcEventEntry proc = MySQLConnenct.SpellProcEvent[((ListView)sender).SelectedIndices[0]];
+            SpellProcEventEntry proc = MySQLConnect.SpellProcEvent[((ListView)sender).SelectedIndices[0]];
             SpellEntry spell = DBC.Spell[proc.ID];
             ProcInfo.SpellProc = spell;
 
@@ -629,7 +629,7 @@ namespace SpellWork
 
         private void _lvSqlData_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
         {
-            e.Item = new ListViewItem(MySQLConnenct.SpellProcEvent[e.ItemIndex].ToArray());
+            e.Item = new ListViewItem(MySQLConnect.SpellProcEvent[e.ItemIndex].ToArray());
         }
 
         #endregion

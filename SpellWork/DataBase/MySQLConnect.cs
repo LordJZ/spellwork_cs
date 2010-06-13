@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace SpellWork
 {
-    public static class MySQLConnenct
+    public static class MySQLConnect
     {
         private static MySqlConnection _conn;
         private static MySqlCommand _command;

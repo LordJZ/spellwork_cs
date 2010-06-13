@@ -405,7 +405,7 @@ namespace SpellWork
 
         private void AppendItemInfo()
         {
-            if (!MySQLConnenct.Connected)
+            if (!MySQLConnect.Connected)
                 return;
             
             var items = from   item in DBC.ItemTemplate

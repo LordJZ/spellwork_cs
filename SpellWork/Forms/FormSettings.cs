@@ -31,11 +31,11 @@ namespace SpellWork
             Settings.Default.Db_mangos = _tbBase.Text;
             Settings.Default.UseDbConnect = _cbUseDBConnect.Checked;
 
-            MySQLConnenct.TestConnect();
+            MySQLConnect.TestConnect();
             
             if (((Button)sender).Text != "Save")
             {
-                if (MySQLConnenct.Connected)
+                if (MySQLConnect.Connected)
                 {
                     MessageBox.Show("Connection is successfully!", "MySQL Connections!",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
