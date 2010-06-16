@@ -419,7 +419,7 @@
             this._gbAdvansedSearch.Size = new System.Drawing.Size(300, 70);
             this._gbAdvansedSearch.TabIndex = 6;
             this._gbAdvansedSearch.TabStop = false;
-            this._gbAdvansedSearch.Text = "Advansed Filter";
+            this._gbAdvansedSearch.Text = "Advanced Filter";
             // 
             // _tbAdvansedFilter2Val
             // 
@@ -565,7 +565,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(6, 60);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(67, 13);
+            this.label6.Size = new System.Drawing.Size(72, 13);
             this.label6.TabIndex = 2;
             this.label6.Text = "Attributes&&X:";
             // 
@@ -574,7 +574,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(6, 38);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(45, 13);
+            this.label5.Size = new System.Drawing.Size(46, 13);
             this.label5.TabIndex = 2;
             this.label5.Text = "Icon ID:";
             // 
@@ -583,7 +583,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(6, 16);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(64, 13);
+            this.label4.Size = new System.Drawing.Size(65, 13);
             this.label4.TabIndex = 2;
             this.label4.Text = "ID or Name:";
             // 
@@ -594,7 +594,7 @@
             this._bSearch.Name = "_bSearch";
             this._bSearch.Size = new System.Drawing.Size(50, 23);
             this._bSearch.TabIndex = 1;
-            this._bSearch.Text = "Seach";
+            this._bSearch.Text = "Search";
             this._bSearch.UseVisualStyleBackColor = true;
             this._bSearch.Click += new System.EventHandler(this._bSearch_Click);
             // 
@@ -783,7 +783,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(3, 41);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(30, 13);
+            this.label1.Size = new System.Drawing.Size(27, 13);
             this.label1.TabIndex = 6;
             this.label1.Text = "PPM";
             // 
@@ -802,7 +802,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(105, 41);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(44, 13);
+            this.label2.Size = new System.Drawing.Size(43, 13);
             this.label2.TabIndex = 6;
             this.label2.Text = "Chance";
             // 
@@ -972,11 +972,11 @@
             // _bProcSearch
             // 
             this._bProcSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this._bProcSearch.Location = new System.Drawing.Point(217, 3);
+            this._bProcSearch.Location = new System.Drawing.Point(215, 3);
             this._bProcSearch.Name = "_bProcSearch";
-            this._bProcSearch.Size = new System.Drawing.Size(46, 20);
+            this._bProcSearch.Size = new System.Drawing.Size(48, 20);
             this._bProcSearch.TabIndex = 5;
-            this._bProcSearch.Text = "Seach";
+            this._bProcSearch.Text = "Search";
             this._bProcSearch.UseVisualStyleBackColor = true;
             this._bProcSearch.Click += new System.EventHandler(this._bProcSearch_Click);
             // 
@@ -986,7 +986,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this._tbProcSeach.Location = new System.Drawing.Point(3, 3);
             this._tbProcSeach.Name = "_tbProcSeach";
-            this._tbProcSeach.Size = new System.Drawing.Size(211, 20);
+            this._tbProcSeach.Size = new System.Drawing.Size(207, 20);
             this._tbProcSeach.TabIndex = 4;
             this._tbProcSeach.KeyDown += new System.Windows.Forms.KeyEventHandler(this._tbSearch_KeyDown);
             // 
@@ -1248,7 +1248,7 @@
             this._cbBinaryCompare.AutoSize = true;
             this._cbBinaryCompare.Location = new System.Drawing.Point(752, 55);
             this._cbBinaryCompare.Name = "_cbBinaryCompare";
-            this._cbBinaryCompare.Size = new System.Drawing.Size(100, 17);
+            this._cbBinaryCompare.Size = new System.Drawing.Size(102, 17);
             this._cbBinaryCompare.TabIndex = 8;
             this._cbBinaryCompare.Text = "Binary Compare";
             this._cbBinaryCompare.UseVisualStyleBackColor = true;
@@ -1274,7 +1274,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(6, 20);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(70, 13);
+            this.label8.Size = new System.Drawing.Size(71, 13);
             this.label8.TabIndex = 5;
             this.label8.Text = "Family Name:";
             // 
@@ -1301,7 +1301,7 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(571, 20);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(43, 13);
+            this.label10.Size = new System.Drawing.Size(42, 13);
             this.label10.TabIndex = 5;
             this.label10.Text = "School:";
             // 
@@ -1318,7 +1318,7 @@
             // 
             this._bSqlProcEx.Location = new System.Drawing.Point(718, 51);
             this._bSqlProcEx.Name = "_bSqlProcEx";
-            this._bSqlProcEx.Size = new System.Drawing.Size(24, 23);
+            this._bSqlProcEx.Size = new System.Drawing.Size(28, 23);
             this._bSqlProcEx.TabIndex = 4;
             this._bSqlProcEx.Text = "...";
             this._bSqlProcEx.UseVisualStyleBackColor = true;
@@ -1328,7 +1328,7 @@
             // 
             this._bSqlProc.Location = new System.Drawing.Point(535, 51);
             this._bSqlProc.Name = "_bSqlProc";
-            this._bSqlProc.Size = new System.Drawing.Size(24, 23);
+            this._bSqlProc.Size = new System.Drawing.Size(28, 23);
             this._bSqlProc.TabIndex = 4;
             this._bSqlProc.Text = "...";
             this._bSqlProc.UseVisualStyleBackColor = true;
@@ -1338,7 +1338,7 @@
             // 
             this._bSqlSchool.Location = new System.Drawing.Point(718, 15);
             this._bSqlSchool.Name = "_bSqlSchool";
-            this._bSqlSchool.Size = new System.Drawing.Size(24, 23);
+            this._bSqlSchool.Size = new System.Drawing.Size(28, 23);
             this._bSqlSchool.TabIndex = 4;
             this._bSqlSchool.Text = "...";
             this._bSqlSchool.UseVisualStyleBackColor = true;
@@ -1535,7 +1535,7 @@
             this._bSqlToBase.Name = "_bSqlToBase";
             this._bSqlToBase.Size = new System.Drawing.Size(75, 23);
             this._bSqlToBase.TabIndex = 2;
-            this._bSqlToBase.Text = "To Base";
+            this._bSqlToBase.Text = "To DB";
             this._bSqlToBase.UseVisualStyleBackColor = true;
             this._bSqlToBase.Click += new System.EventHandler(this.SqlToBase_Click);
             // 
@@ -1554,9 +1554,9 @@
             this._cbProcFlag.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this._cbProcFlag.Appearance = System.Windows.Forms.Appearance.Button;
             this._cbProcFlag.AutoSize = true;
-            this._cbProcFlag.Location = new System.Drawing.Point(809, 1);
+            this._cbProcFlag.Location = new System.Drawing.Point(810, 1);
             this._cbProcFlag.Name = "_cbProcFlag";
-            this._cbProcFlag.Size = new System.Drawing.Size(59, 23);
+            this._cbProcFlag.Size = new System.Drawing.Size(58, 23);
             this._cbProcFlag.TabIndex = 2;
             this._cbProcFlag.Text = "ProcFlag";
             this._cbProcFlag.UseVisualStyleBackColor = true;
