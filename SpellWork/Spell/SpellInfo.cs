@@ -411,7 +411,7 @@ namespace SpellWork
             {
                 case AuraType.SPELL_AURA_OVERRIDE_SPELLS:
                     if (!DBC.OverrideSpellData.ContainsKey((uint)misc))
-                        sb.AppendFormatLine("Cannot find key {0} in OverrideSpellData.dbc");
+                        sb.AppendFormatLine("Cannot find key {0} in OverrideSpellData.dbc", (uint)misc);
                     else
                     {
                         sb.AppendLine("Overriding Spells:");
