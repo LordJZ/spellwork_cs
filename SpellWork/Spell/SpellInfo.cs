@@ -370,7 +370,7 @@ namespace SpellWork
         private string AuraModTypeName(int index)
         {
             AuraType aura    = (AuraType)spell.EffectApplyAuraName[index];
-            int mod          = spell.EffectMiscValue[index];
+            int misc          = spell.EffectMiscValue[index];
             StringBuilder sb = new StringBuilder();
 
             if (spell.EffectApplyAuraName[index] == 0)
@@ -384,21 +384,55 @@ namespace SpellWork
 
             sb.AppendFormat("Aura Id {0:D} ({0})", aura);
             sb.AppendFormat(", value = {0}", spell.EffectBasePoints[index] + 1);
-            sb.AppendFormat(", misc = {0} (", mod);
+            sb.AppendFormat(", misc = {0} (", misc);
           
             switch (aura)
             {
-                case AuraType.SPELL_AURA_MOD_STAT:   sb.Append((UnitMods)mod); break;
-                case AuraType.SPELL_AURA_MOD_RATING: sb.Append((CombatRating)mod); break;
+                case AuraType.SPELL_AURA_MOD_STAT:
+                    sb.Append((UnitMods)misc);
+                    break;
+                case AuraType.SPELL_AURA_MOD_RATING:
+                    sb.Append((CombatRating)misc);
+                    break;
                 case AuraType.SPELL_AURA_ADD_FLAT_MODIFIER:
-                case AuraType.SPELL_AURA_ADD_PCT_MODIFIER: sb.Append((SpellModOp)mod); break;
-                
+                case AuraType.SPELL_AURA_ADD_PCT_MODIFIER:
+                    sb.Append((SpellModOp)misc);
+                    break;
                 // todo: more case
-                default: sb.Append(mod); break;
+                default:
+                    sb.Append(misc);
+                    break;
             }
 
             sb.AppendFormat("), miscB = {0}", spell.EffectMiscValueB[index]);
             sb.AppendFormatLine(", periodic = {0}", spell.EffectAmplitude[index]);
+
+            switch (aura)
+            {
+                case AuraType.SPELL_AURA_OVERRIDE_SPELLS:
+                    if (!DBC.OverrideSpellData.ContainsKey((uint)misc))
+                        sb.AppendFormatLine("Cannot find key {0} in OverrideSpellData.dbc");
+                    else
+                    {
+                        sb.AppendLine("Overriding Spells:");
+                        OverrideSpellDataEntry Override = DBC.OverrideSpellData[(uint)misc];
+                        for (int i = 0; i < 10; ++i)
+                        {
+                            if (Override.Spells[i] == 0)
+                                continue;
+
+                            sb.AppendFormatLine(" - #{0} ({1}) {2}", i, Override.Spells[i],
+                                DBC.Spell.ContainsKey(Override.Spells[i]) ? DBC.Spell[Override.Spells[i]].SpellName : "?????");
+                        }
+                    }
+                    break;
+                case AuraType.SPELL_AURA_SCREEN_EFFECT:
+                    sb.AppendFormatLine("ScreenEffect: {0}",
+                        DBC.ScreenEffect.ContainsKey((uint)misc) ? DBC.ScreenEffect[(uint)misc].Name : "?????");
+                    break;
+                default:
+                    break;
+            }
 
             return sb.ToString();
         }

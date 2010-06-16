@@ -18,10 +18,13 @@ namespace SpellWork
         public static Dictionary<uint, SpellDurationEntry>    SpellDuration;
         public static Dictionary<uint, SkillLineAbilityEntry> SkillLineAbility;
         public static Dictionary<uint, SkillLineEntry>        SkillLine;
+        public static Dictionary<uint, ScreenEffectEntry>     ScreenEffect;
+        public static Dictionary<uint, OverrideSpellDataEntry> OverrideSpellData;
 
         public static Dictionary<uint, string> _SpellStrings      = new Dictionary<uint, string>();
         public static Dictionary<uint, string> _SkillLineStrings  = new Dictionary<uint, string>();
         public static Dictionary<uint, string> _SpellRangeStrings = new Dictionary<uint, string>();
+        public static Dictionary<uint, string> _ScreenEffectStrings = new Dictionary<uint, string>();
 
         // DB 
         public static List<Item> ItemTemplate = new List<Item>();

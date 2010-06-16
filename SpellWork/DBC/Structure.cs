@@ -398,6 +398,34 @@ namespace SpellWork
         public int   MinCastTime;
     };
 
+    public struct ScreenEffectEntry
+    {
+        public uint Id;
+        public uint _Name;
+        public uint Unk0;
+        public float Unk1;
+        public uint Unk2;
+        public uint Unk3;           // % of smth?
+        public uint Unk4;           // all 0
+        public int Unk5;
+        public uint Unk6;
+        public uint Unk7;
+
+        public string Name
+        {
+            get { return DBC._ScreenEffectStrings.GetValue(_Name); }
+        }
+    };
+
+    public struct OverrideSpellDataEntry
+    {
+        public uint Id;
+        // Value 10 also used in SpellInfo.AuraModTypeName
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 10)]
+        public uint[] Spells;
+        public uint unk;
+    };
+
     //=============== DateBase =================\\
 
     public struct SpellProcEventEntry

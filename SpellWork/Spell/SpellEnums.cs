@@ -534,35 +534,35 @@ namespace SpellWork
         SPELL_AURA_MOD_ATTACK_POWER_OF_ARMOR                = 285,
         SPELL_AURA_ABILITY_PERIODIC_CRIT                    = 286,
         SPELL_AURA_DEFLECT_SPELLS                           = 287,
-        SPELL_AURA_288                                      = 288,
-        SPELL_AURA_289                                      = 289,
+        SPELL_AURA_288                                      = 288,              // Deterrence
+        SPELL_AURA_289                                      = 289,              // unused
         SPELL_AURA_MOD_ALL_CRIT_CHANCE                      = 290,
         SPELL_AURA_MOD_QUEST_XP_PCT                         = 291,
-        SPELL_AURA_292                                      = 292,
+        SPELL_AURA_OPEN_STABLE                              = 292,
         SPELL_AURA_OVERRIDE_SPELLS                          = 293,
-        SPELL_AURA_294                                      = 294,
-        SPELL_AURA_295                                      = 295,
-        SPELL_AURA_296                                      = 296,
-        SPELL_AURA_297                                      = 297,
-        SPELL_AURA_298                                      = 298,
-        SPELL_AURA_299                                      = 299,
-        SPELL_AURA_300                                      = 300,
+        SPELL_AURA_STOP_MANA_REGEN                          = 294,
+        SPELL_AURA_295                                      = 295,              // unused
+        SPELL_AURA_296                                      = 296,              // Emulates vehicle?
+        SPELL_AURA_ROOT_NO_FALL                             = 297,
+        SPELL_AURA_STUN_NO_FALL                             = 298,
+        SPELL_AURA_299                                      = 299,              // unused
+        SPELL_AURA_SHARE_DAMAGE_PCT                         = 300,
         SPELL_AURA_HEAL_ABSORB                              = 301,
-        SPELL_AURA_302                                      = 302,
-        SPELL_AURA_303                                      = 303,
+        SPELL_AURA_302                                      = 302,              // unused
+        SPELL_AURA_MOD_DAMAGE_DONE_TO_AURA_STATE_PCT        = 303,
         SPELL_AURA_304                                      = 304,
         SPELL_AURA_MOD_MINIMUM_SPEED                        = 305,
         SPELL_AURA_306                                      = 306,
-        SPELL_AURA_307                                      = 307,
+        SPELL_AURA_HEAL_ABSORB_2                            = 307,
         SPELL_AURA_308                                      = 308,
         SPELL_AURA_309                                      = 309,
-        SPELL_AURA_310                                      = 310,
-        SPELL_AURA_311                                      = 311,
-        SPELL_AURA_312                                      = 312,
-        SPELL_AURA_313                                      = 313,
-        SPELL_AURA_314                                      = 314,
-        SPELL_AURA_315                                      = 315,
-        SPELL_AURA_316                                      = 316,
+        SPELL_AURA_MOD_AOE_DAMAGE                           = 310,
+        SPELL_AURA_311                                      = 311,              // unused
+        SPELL_AURA_312                                      = 312,              // unused
+        SPELL_AURA_313                                      = 313,              // unused
+        SPELL_AURA_314                                      = 314,              // Confused
+        SPELL_AURA_UNDERWATER_WALKING                       = 315,
+        SPELL_AURA_HASTE_AFFECT_DOT_TICK                    = 316,
         TOTAL_AURAS                                         = 317
     }
 
@@ -987,7 +987,7 @@ namespace SpellWork
         AURA_STATE_UNKNOWN19                = 19,           //     | not used
         AURA_STATE_UNKNOWN20                = 20,           //  c  | only (45317 Suicide)
         AURA_STATE_UNKNOWN21                = 21,           //     | not used
-        AURA_STATE_UNKNOWN22                = 22,           // C   | not implemented yet (Requires Evasive Charges to use)
+        AURA_STATE_UNKNOWN22                = 22,           // C  t| not implemented yet (Requires Evasive Charges to use)
         AURA_STATE_HEALTH_ABOVE_75_PERCENT  = 23            // C   |
     };
 
