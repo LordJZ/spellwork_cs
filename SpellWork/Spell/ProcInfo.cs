@@ -28,19 +28,17 @@ namespace SpellWork
                              SkillLine.Value
                          };
 
-            for (int i = 0; i < 96; i++)
+            for (int i = 0; i < 64; i++)
             {
-                uint[] mask = new uint[3];
+                uint[] mask = new uint[2];
 
                 if (i < 32)
                     mask[0] = 1U << i;
-                else if (i < 64)
-                    mask[1] = 1U << (i - 32);
                 else
-                    mask[2] = 1U << (i - 64);
+                    mask[1] = 1U << (i - 32);
 
                 TreeNode node   = new TreeNode();
-                node.Text       = String.Format("0x{0:X8} {1:X8} {2:X8}", mask[2], mask[1], mask[0]);
+                node.Text       = String.Format("0x{0:X8} {1:X8}", mask[1], mask[0]);
                 node.ImageKey   = "family.ico";
                 familyTree.Nodes.Add(node);
             }
@@ -72,14 +70,12 @@ namespace SpellWork
                 
                 foreach (TreeNode node in familyTree.Nodes)
                 {
-                    uint[] mask = new uint[3];
+                    uint[] mask = new uint[2];
 
                     if (node.Index < 32)
                         mask[0] = 1U << node.Index;
-                    else if (node.Index < 64)
-                        mask[1] = 1U << (node.Index - 32);
                     else
-                        mask[2] = 1U << (node.Index - 64);
+                        mask[1] = 1U << (node.Index - 32);
 
                     if ((spell.SpellFamilyFlags.ContainsElement(mask)))
                     {

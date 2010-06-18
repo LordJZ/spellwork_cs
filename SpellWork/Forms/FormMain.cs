@@ -173,8 +173,7 @@ namespace SpellWork
                                           || (spell.AttributesEx3 & at) != 0
                                           || (spell.AttributesEx4 & at) != 0
                                           || (spell.AttributesEx5 & at) != 0
-                                          || (spell.AttributesEx6 & at) != 0
-                                          || (spell.AttributesExG & at) != 0))
+                                          || (spell.AttributesEx6 & at) != 0))
 
                              && ((id != 0 || ic != 0 && at != 0) || spell.SpellName.ContainsText(name))
                           

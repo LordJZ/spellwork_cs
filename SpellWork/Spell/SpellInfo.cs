@@ -40,8 +40,8 @@ namespace SpellWork
             rtb.AppendFormatLine("Category = {0}, SpellIconID = {1}, activeIconID = {2}, SpellVisual = ({3},{4})",
                 spell.Category, spell.SpellIconID, spell.ActiveIconID, spell.SpellVisual[0], spell.SpellVisual[1]);
 
-            rtb.AppendFormatLine("Family {0}, flag 0x{1:X8} {2:X8} {3:X8}",
-                (SpellFamilyNames)spell.SpellFamilyName, spell.SpellFamilyFlags[2], spell.SpellFamilyFlags[1], spell.SpellFamilyFlags[0]);
+            rtb.AppendFormatLine("Family {0}, flag 0x{1:X16}",
+                (SpellFamilyNames)spell.SpellFamilyName, spell.SpellFamilyFlags);
 
             rtb.AppendLine();
 
@@ -50,7 +50,7 @@ namespace SpellWork
             rtb.AppendFormatLine("PreventionType = {0} ({1})", spell.PreventionType, (SpellPreventionType)spell.PreventionType);
 
             if (spell.Attributes != 0 || spell.AttributesEx != 0 || spell.AttributesEx2 != 0 || spell.AttributesEx3 != 0 
-                || spell.AttributesEx4 != 0 || spell.AttributesEx5 != 0 || spell.AttributesEx6 != 0 || spell.AttributesExG != 0)
+                || spell.AttributesEx4 != 0 || spell.AttributesEx5 != 0 || spell.AttributesEx6 != 0)
                 rtb.AppendLine(_line);
 
             if (spell.Attributes != 0)
@@ -67,8 +67,6 @@ namespace SpellWork
                 rtb.AppendFormatLine("AttributesEx5: 0x{0:X8} ({1})", spell.AttributesEx5, (SpellAtributeEx5)spell.AttributesEx5);
             if (spell.AttributesEx6 != 0)
                 rtb.AppendFormatLine("AttributesEx6: 0x{0:X8} ({1})", spell.AttributesEx6, (SpellAtributeEx6)spell.AttributesEx6);
-            if (spell.AttributesExG != 0)
-                rtb.AppendFormatLine("AttributesExG: 0x{0:X8} ({1})", spell.AttributesExG, (SpellAtributeExG)spell.AttributesExG);
 
             rtb.AppendLine(_line);
             
@@ -163,8 +161,6 @@ namespace SpellWork
             if (spell.TargetAuraStateNot != 0)
                 rtb.AppendFormatLine("TargetAuraStateNot = {0} ({1})", spell.TargetAuraStateNot, (AuraState)spell.TargetAuraStateNot);
 
-            AppendSpellAura();
-
             rtb.AppendFormatLineIfNotNull("Requires Spell Focus {0}", spell.RequiresSpellFocus);
 
             if (spell.ProcFlags != 0)
@@ -226,19 +222,18 @@ namespace SpellWork
 
                 rtb.AppendFormatLine("Effect {0}: Id {1} ({2})", EFFECT_INDEX, spell.Effect[EFFECT_INDEX], (SpellEffects)spell.Effect[EFFECT_INDEX]);
                 rtb.SetDefaultStyle();
-                rtb.AppendFormat("BasePoints = {0}", spell.EffectBasePoints[EFFECT_INDEX] + 1);
+                rtb.AppendFormat("BasePoints = {0}", spell.EffectBasePoints[EFFECT_INDEX] + spell.EffectBaseDice[EFFECT_INDEX]);
                 
                 if (spell.EffectRealPointsPerLevel[EFFECT_INDEX] != 0)
                     rtb.AppendFormat(" + Level * {0:F}", spell.EffectRealPointsPerLevel[EFFECT_INDEX]);
 
-                // WTF ? 1 = spell.EffectBaseDice[i]
-                if (1 < spell.EffectDieSides[EFFECT_INDEX])
+                if (spell.EffectBaseDice[EFFECT_INDEX] < spell.EffectDieSides[EFFECT_INDEX])
                 {
                     if (spell.EffectRealPointsPerLevel[EFFECT_INDEX] != 0)
                         rtb.AppendFormat(" to {0} + lvl * {1:F}",
-                            spell.EffectBasePoints[EFFECT_INDEX] + 1 + spell.EffectDieSides[EFFECT_INDEX], spell.EffectRealPointsPerLevel[EFFECT_INDEX]);
+                            spell.EffectBasePoints[EFFECT_INDEX] + spell.EffectBaseDice[EFFECT_INDEX] + spell.EffectDieSides[EFFECT_INDEX], spell.EffectRealPointsPerLevel[EFFECT_INDEX]);
                     else
-                        rtb.AppendFormat(" to {0}", spell.EffectBasePoints[EFFECT_INDEX] + 1 + spell.EffectDieSides[EFFECT_INDEX]);
+                        rtb.AppendFormat(" to {0}", spell.EffectBasePoints[EFFECT_INDEX] + spell.EffectBaseDice[EFFECT_INDEX] + spell.EffectDieSides[EFFECT_INDEX]);
                 }
 
                 rtb.AppendFormatIfNotNull(" + combo * {0:F}", spell.EffectPointsPerComboPoint[EFFECT_INDEX]);
@@ -255,45 +250,45 @@ namespace SpellWork
 
                 AuraModTypeName(EFFECT_INDEX);
 
-                uint[] ClassMask = new uint[3];
+                //uint[] ClassMask = new uint[3];
                
-                switch (EFFECT_INDEX)
-                {
-                    case 0: ClassMask = spell.EffectSpellClassMaskA; break;
-                    case 1: ClassMask = spell.EffectSpellClassMaskB; break;
-                    case 2: ClassMask = spell.EffectSpellClassMaskC; break;
-                }
+                //switch (EFFECT_INDEX)
+                //{
+                //    case 0: ClassMask = spell.EffectSpellClassMaskA; break;
+                //    case 1: ClassMask = spell.EffectSpellClassMaskB; break;
+                //    case 2: ClassMask = spell.EffectSpellClassMaskC; break;
+                //}
 
-                if (ClassMask[0] != 0 || ClassMask[1] != 0 || ClassMask[2] != 0)
-                {
-                    rtb.AppendFormatLine("SpellClassMask = {0:X8} {1:X8} {2:X8}", ClassMask[2], ClassMask[1], ClassMask[0]);
+                //if (ClassMask[0] != 0 || ClassMask[1] != 0 || ClassMask[2] != 0)
+                //{
+                //    rtb.AppendFormatLine("SpellClassMask = {0:X8} {1:X8} {2:X8}", ClassMask[2], ClassMask[1], ClassMask[0]);
 
-                    var query = from Spell in DBC.Spell.Values
-                                where Spell.SpellFamilyName == spell.SpellFamilyName && Spell.SpellFamilyFlags.ContainsElement(ClassMask)
-                                join sk in DBC.SkillLineAbility on Spell.ID equals sk.Value.SpellId into temp
-                                from Skill in temp.DefaultIfEmpty()
-                                select new
-                                {
-                                    SpellID   = Spell.ID,
-                                    SpellName = Spell.SpellNameRank,
-                                    SkillId   = Skill.Value.SkillId
-                                };
+                //    var query = from Spell in DBC.Spell.Values
+                //                where Spell.SpellFamilyName == spell.SpellFamilyName && Spell.SpellFamilyFlags.ContainsElement(ClassMask)
+                //                join sk in DBC.SkillLineAbility on Spell.ID equals sk.Value.SpellId into temp
+                //                from Skill in temp.DefaultIfEmpty()
+                //                select new
+                //                {
+                //                    SpellID   = Spell.ID,
+                //                    SpellName = Spell.SpellNameRank,
+                //                    SkillId   = Skill.Value.SkillId
+                //                };
 
-                    foreach (var row in query)
-                    {
-                        if (row.SkillId > 0)
-                        {
-                            rtb.SelectionColor = Color.Blue;
-                            rtb.AppendFormatLine("\t+ {0} - {1}",  row.SpellID, row.SpellName);
-                        }
-                        else
-                        {
-                            rtb.SelectionColor = Color.Red;
-                            rtb.AppendFormatLine("\t- {0} - {1}", row.SpellID, row.SpellName);
-                        }
-                        rtb.SelectionColor = Color.Black;
-                    }
-                }
+                //    foreach (var row in query)
+                //    {
+                //        if (row.SkillId > 0)
+                //        {
+                //            rtb.SelectionColor = Color.Blue;
+                //            rtb.AppendFormatLine("\t+ {0} - {1}",  row.SpellID, row.SpellName);
+                //        }
+                //        else
+                //        {
+                //            rtb.SelectionColor = Color.Red;
+                //            rtb.AppendFormatLine("\t- {0} - {1}", row.SpellID, row.SpellName);
+                //        }
+                //        rtb.SelectionColor = Color.Black;
+                //    }
+                //}
 
                 rtb.AppendFormatLineIfNotNull("{0}", spell.GetRadius(EFFECT_INDEX));
                 
@@ -330,41 +325,6 @@ namespace SpellWork
                     rtb.AppendFormatLine("Effect Mechanic = {0} ({1})", spell.EffectMechanic[EFFECT_INDEX], (Mechanics)spell.EffectMechanic[EFFECT_INDEX]);
 
                 rtb.AppendLine();
-            }
-        }
-
-        private void AppendSpellAura()
-        {
-            if (spell.CasterAuraSpell != 0)
-            {
-                if(DBC.Spell.ContainsKey(spell.CasterAuraSpell))
-                    rtb.AppendFormatLine("  Caster Aura Spell ({0}) {1}", spell.CasterAuraSpell, DBC.Spell[spell.CasterAuraSpell].SpellName);
-                else
-                    rtb.AppendFormatLine("  Caster Aura Spell ({0}) ?????", spell.CasterAuraSpell);
-            }
-
-            if (spell.TargetAuraSpell != 0)
-            {
-                if(DBC.Spell.ContainsKey(spell.TargetAuraSpell))
-                    rtb.AppendFormatLine("  Target Aura Spell ({0}) {1}", spell.TargetAuraSpell, DBC.Spell[spell.TargetAuraSpell].SpellName);
-                else
-                    rtb.AppendFormatLine("  Target Aura Spell ({0}) ?????", spell.TargetAuraSpell);
-            }
-
-            if (spell.ExcludeCasterAuraSpell != 0)
-            {
-                if(DBC.Spell.ContainsKey(spell.ExcludeCasterAuraSpell))
-                    rtb.AppendFormatLine("  Ex Caster Aura Spell ({0}) {1}", spell.ExcludeCasterAuraSpell, DBC.Spell[spell.ExcludeCasterAuraSpell].SpellName);
-                else
-                    rtb.AppendFormatLine("  Ex Caster Aura Spell ({0}) ?????", spell.ExcludeCasterAuraSpell);
-            }
-
-            if (spell.ExcludeTargetAuraSpell != 0)
-            {
-                if(DBC.Spell.ContainsKey(spell.ExcludeTargetAuraSpell))
-                    rtb.AppendFormatLine("  Ex Target Aura Spell ({0}) {1}", spell.ExcludeTargetAuraSpell, DBC.Spell[spell.ExcludeTargetAuraSpell].SpellName);
-                else
-                    rtb.AppendFormatLine("  Ex Target Aura Spell ({0}) ?????", spell.ExcludeTargetAuraSpell);
             }
         }
 
