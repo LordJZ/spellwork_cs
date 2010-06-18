@@ -79,7 +79,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataBase\LinqQueryBuilder.cs" />
     <Compile Include="Extensions\LinqExtensions.cs" />
     <Compile Include="Extensions\TreeViewExtensions.cs" />
     <Compile Include="Forms\FormAboutBox.cs">

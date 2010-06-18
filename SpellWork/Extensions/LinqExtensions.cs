@@ -43,7 +43,6 @@ namespace SpellWork
                         return false;
                     }
                 case @"Single[]":
-                case @"Float[]":
                     {
                         foreach (float el in (float[])basicValue)
                         {

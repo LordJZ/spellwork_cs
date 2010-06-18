@@ -179,7 +179,7 @@ namespace SpellWork
         /// </summary>
         public string SpellName
         {
-            get { return DBC._SpellStrings.GetValue(_SpellName[(uint)DBC.Locale]); }
+            get { return DBC.SpellStrings.GetValue(_SpellName[(uint)DBC.Locale]); }
         }
 
         /// <summary>
@@ -187,7 +187,7 @@ namespace SpellWork
         /// </summary>
         public string Rank
         {
-            get { return _Rank[(uint)DBC.Locale] != 0 ? DBC._SpellStrings[_Rank[(uint)DBC.Locale]] : ""; }
+            get { return _Rank[(uint)DBC.Locale] != 0 ? DBC.SpellStrings[_Rank[(uint)DBC.Locale]] : ""; }
         }
 
         public string SpellNameRank
@@ -200,7 +200,7 @@ namespace SpellWork
         /// </summary>
         public string Description
         {
-            get { return DBC._SpellStrings.GetValue(_Description[(uint)DBC.Locale]); }
+            get { return DBC.SpellStrings.GetValue(_Description[(uint)DBC.Locale]); }
         }
 
         /// <summary>
@@ -208,12 +208,12 @@ namespace SpellWork
         /// </summary>
         public string ToolTip
         {
-            get { return DBC._SpellStrings.GetValue(_ToolTip[(uint)DBC.Locale]); }
+            get { return DBC.SpellStrings.GetValue(_ToolTip[(uint)DBC.Locale]); }
         }
 
         public string GetName(byte loc)
         {
-            return DBC._SpellStrings.GetValue(_SpellName[loc]);
+            return DBC.SpellStrings.GetValue(_SpellName[loc]);
         }
 
         public string ProcInfo
@@ -312,17 +312,17 @@ namespace SpellWork
 
         public string Name
         {
-            get { return DBC._SkillLineStrings.GetValue(_Name[(uint)DBC.Locale]); }
+            get { return DBC.SkillLineStrings.GetValue(_Name[(uint)DBC.Locale]); }
         }
 
         public string Description
         {
-            get { return DBC._SkillLineStrings.GetValue(_Description[(uint)DBC.Locale]); }
+            get { return DBC.SkillLineStrings.GetValue(_Description[(uint)DBC.Locale]); }
         }
 
         public string AlternateVerb
         {
-            get { return DBC._SkillLineStrings.GetValue(_AlternateVerb[(uint)DBC.Locale]); }
+            get { return DBC.SkillLineStrings.GetValue(_AlternateVerb[(uint)DBC.Locale]); }
         }
     };
 
@@ -369,12 +369,12 @@ namespace SpellWork
 
         public string Description1
         {
-            get { return DBC._SpellRangeStrings.GetValue(_Desc1[(uint)DBC.Locale]); }
+            get { return DBC.SpellRangeStrings.GetValue(_Desc1[(uint)DBC.Locale]); }
         }
 
         public string Description2
         {
-            get { return DBC._SpellRangeStrings.GetValue(_Desc2[(uint)DBC.Locale]); }
+            get { return DBC.SpellRangeStrings.GetValue(_Desc2[(uint)DBC.Locale]); }
         }
     };
 
@@ -413,7 +413,7 @@ namespace SpellWork
 
         public string Name
         {
-            get { return DBC._ScreenEffectStrings.GetValue(_Name); }
+            get { return DBC.ScreenEffectStrings.GetValue(_Name); }
         }
     };
 

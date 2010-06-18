@@ -29,6 +29,11 @@ namespace SpellWork
             textbox.AppendText(text + Environment.NewLine);
         }
 
+        public static void Append(this RichTextBox textbox, object text)
+        {
+            textbox.AppendText(text.ToString());
+        }
+
         public static void AppendFormatLineIfNotNull(this RichTextBox builder, string format, uint arg)
         {
             if (arg != 0)

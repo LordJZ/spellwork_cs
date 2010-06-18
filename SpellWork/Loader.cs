@@ -10,7 +10,7 @@ namespace SpellWork
     {
         public Loader(bool thread)
         {
-            DBC.Spell = DBCReader.ReadDBC<SpellEntry>(DBC._SpellStrings);
+            DBC.Spell = DBCReader.ReadDBC<SpellEntry>(DBC.SpellStrings);
             
             if (thread)
                 new Thread(RunOther).Start();
@@ -22,9 +22,9 @@ namespace SpellWork
 
         private void RunOther()
         {
-            DBC.SkillLine        = DBCReader.ReadDBC<SkillLineEntry>(DBC._SkillLineStrings);
-            DBC.SpellRange       = DBCReader.ReadDBC<SpellRangeEntry>(DBC._SpellRangeStrings);
-            DBC.ScreenEffect     = DBCReader.ReadDBC<ScreenEffectEntry>(DBC._ScreenEffectStrings);
+            DBC.SkillLine        = DBCReader.ReadDBC<SkillLineEntry>(DBC.SkillLineStrings);
+            DBC.SpellRange       = DBCReader.ReadDBC<SpellRangeEntry>(DBC.SpellRangeStrings);
+            DBC.ScreenEffect     = DBCReader.ReadDBC<ScreenEffectEntry>(DBC.ScreenEffectStrings);
             
             DBC.SpellDuration    = DBCReader.ReadDBC<SpellDurationEntry>(null);
             DBC.SkillLineAbility = DBCReader.ReadDBC<SkillLineAbilityEntry>(null);
