@@ -245,7 +245,7 @@ namespace SpellWork
         /// <param name="text">The original text, which will search entry</param>
         /// <param name="compareText">String which will be matched with the original text</param>
         /// <returns>Boolean(true or false)</returns>
-        public static bool ContainText(this string text, string compareText)
+        public static bool ContainsText(this string text, string compareText)
         {
             return (text.ToUpper().IndexOf(compareText.ToUpper(), StringComparison.CurrentCultureIgnoreCase) != -1);
         }
@@ -256,17 +256,17 @@ namespace SpellWork
         /// <param name="text">The original text, which will search entry</param>
         /// <param name="compareText">Array strings which will be matched with the original text</param>
         /// <returns>Boolean(true or false)</returns>
-        public static bool ContainText(this string text, string[] compareText)
+        public static bool ContainsText(this string text, string[] compareText)
         {
             foreach (string str in compareText)
             {
-                if ((text.ToUpper().IndexOf(str.ToUpper(), StringComparison.CurrentCultureIgnoreCase) != -1))
+                if ((text.IndexOf(str, StringComparison.CurrentCultureIgnoreCase) != -1))
                     return true;
             }
             return false;
         }
 
-        public static bool ContainElement(this uint[] array, uint[] value)
+        public static bool ContainsElement(this uint[] array, uint[] value)
         {
             if (array.Length != value.Length)
                 return false; 
@@ -286,7 +286,7 @@ namespace SpellWork
         /// <param name="array">Array in which to search</param>
         /// <param name="value">Meaning Search</param>
         /// <returns>true or false</returns>
-        public static bool ContainElement(this uint[] array, uint value)
+        public static bool ContainsElement(this uint[] array, uint value)
         {
             foreach (uint i in array)
                 if (i == value) return true;

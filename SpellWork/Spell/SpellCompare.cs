@@ -36,7 +36,7 @@ namespace SpellWork
 
                 if (rtb2.Find(str, RichTextBoxFinds.WholeWord) != -1)
                 {
-                    if (str.ContainText(words))
+                    if (str.ContainsText(words))
                     {
                         rtb1.SelectionBackColor = rtb1.BackColor;
                     }
@@ -59,7 +59,7 @@ namespace SpellWork
 
                 if (rtb1.Find(str, RichTextBoxFinds.WholeWord) != -1)
                 {
-                    if (str.ContainText(words))
+                    if (str.ContainsText(words))
                     {
                         rtb2.SelectionBackColor = rtb2.BackColor;
                     }

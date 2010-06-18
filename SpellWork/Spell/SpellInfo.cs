@@ -220,7 +220,8 @@ namespace SpellWork
                 if ((SpellEffects)spell.Effect[EFFECT_INDEX] == SpellEffects.NO_SPELL_EFFECT)
                 {
                     rtb.AppendFormatLine("Effect {0}:  NO EFFECT", EFFECT_INDEX);
-                    return;
+                    rtb.AppendLine();
+                    continue;
                 }
 
                 rtb.AppendFormatLine("Effect {0}: Id {1} ({2})", EFFECT_INDEX, spell.Effect[EFFECT_INDEX], (SpellEffects)spell.Effect[EFFECT_INDEX]);
@@ -268,7 +269,7 @@ namespace SpellWork
                     rtb.AppendFormatLine("SpellClassMask = {0:X8} {1:X8} {2:X8}", ClassMask[2], ClassMask[1], ClassMask[0]);
 
                     var query = from Spell in DBC.Spell.Values
-                                where Spell.SpellFamilyName == spell.SpellFamilyName && Spell.SpellFamilyFlags.ContainElement(ClassMask)
+                                where Spell.SpellFamilyName == spell.SpellFamilyName && Spell.SpellFamilyFlags.ContainsElement(ClassMask)
                                 join sk in DBC.SkillLineAbility on Spell.ID equals sk.Value.SpellId into temp
                                 from Skill in temp.DefaultIfEmpty()
                                 select new
@@ -443,7 +444,7 @@ namespace SpellWork
                 return;
             
             var items = from   item in DBC.ItemTemplate
-                        where  item.SpellID.ContainElement(spell.ID)
+                        where  item.SpellID.ContainsElement(spell.ID)
                         select item;
 
             if (items.Count() == 0)

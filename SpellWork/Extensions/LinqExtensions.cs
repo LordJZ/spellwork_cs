@@ -23,7 +23,7 @@ namespace SpellWork
                 case "Int32":  return basicValue.ToInt32()  == val.ToInt32();
                 case "Single": return basicValue.ToFloat()  == val.ToFloat();
                 case "UInt64": return basicValue.ToUlong()  == val.ToUlong();
-                case "String": return basicValue.ToString().ContainText(val.ToString());
+                case "String": return basicValue.ToString().ContainsText(val.ToString());
                 case @"UInt32[]":
                     {
                         foreach (uint el in (uint[])basicValue)
@@ -65,7 +65,7 @@ namespace SpellWork
                     {
                         foreach (uint el in (uint[])basicValue)
                         {
-                            if (el.ToString().ContainText(val.ToString()))
+                            if (el.ToString().ContainsText(val.ToString()))
                                 return true;
                         }
                         return false;

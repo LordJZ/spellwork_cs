@@ -176,7 +176,7 @@ namespace SpellWork
                                           || (spell.AttributesEx6 & at) != 0
                                           || (spell.AttributesExG & at) != 0))
 
-                             && ((id != 0 || ic != 0 && at != 0) || spell.SpellName.ContainText(name))
+                             && ((id != 0 || ic != 0 && at != 0) || spell.SpellName.ContainsText(name))
                           
                           select spell).ToList();
 
@@ -215,10 +215,10 @@ namespace SpellWork
             _spellList = (from spell in DBC.Spell.Values
                            
                           where ( !bFamilyNames || spell.SpellFamilyName == fFamilyNames)
-                              && (!bSpellEffect || spell.Effect.ContainElement((uint)fSpellEffect))
-                              && (!bSpellAura   || spell.EffectApplyAuraName.ContainElement((uint)fSpellAura))
-                              && (!bTarget1     || spell.EffectImplicitTargetA.ContainElement((uint)fTarget1))
-                              && (!bTarget2     || spell.EffectImplicitTargetB.ContainElement((uint)fTarget2))
+                              && (!bSpellEffect || spell.Effect.ContainsElement((uint)fSpellEffect))
+                              && (!bSpellAura   || spell.EffectApplyAuraName.ContainsElement((uint)fSpellAura))
+                              && (!bTarget1     || spell.EffectImplicitTargetA.ContainsElement((uint)fTarget1))
+                              && (!bTarget2     || spell.EffectImplicitTargetB.ContainsElement((uint)fTarget2))
                               && (!use1val      || spell.CreateFilter(field1, advVal1))
                               && (!use2val      || spell.CreateFilter(field2, advVal2))
                            
@@ -348,7 +348,7 @@ namespace SpellWork
             
             _spellProcList = (from spell in DBC.Spell.Values
                            where (id == 0 || spell.ID == id)
-                              && (id != 0 || spell.SpellName.ContainText(_tbProcSeach.Text))
+                              && (id != 0 || spell.SpellName.ContainsText(_tbProcSeach.Text))
                            select spell).ToList();
             
             _lvProcSpellList.VirtualListSize = _spellProcList.Count;
@@ -376,10 +376,10 @@ namespace SpellWork
             _spellProcList = (from spell in DBC.Spell.Values
 
                               where (!bFamilyNames || spell.SpellFamilyName == fFamilyNames)
-                                 && (!bSpellEffect || spell.Effect.ContainElement((uint)fSpellEffect))
+                                 && (!bSpellEffect || spell.Effect.ContainsElement((uint)fSpellEffect))
                                  && (!bSpellAura   || spell.EffectApplyAuraName.Contains((uint)fSpellAura))
-                                 && (!bTarget1     || spell.EffectImplicitTargetA.ContainElement((uint)fTarget1))
-                                 && (!bTarget2     || spell.EffectImplicitTargetB.ContainElement((uint)fTarget2))
+                                 && (!bTarget1     || spell.EffectImplicitTargetA.ContainsElement((uint)fTarget1))
+                                 && (!bTarget2     || spell.EffectImplicitTargetB.ContainsElement((uint)fTarget2))
                               
                               select spell).ToList();
 
@@ -399,7 +399,7 @@ namespace SpellWork
 
             var query = from Spell in DBC.Spell.Values
                         where Spell.SpellFamilyName == ProcInfo.SpellProc.SpellFamilyName
-                        && Spell.SpellFamilyFlags.ContainElement(mask)
+                        && Spell.SpellFamilyFlags.ContainsElement(mask)
                         join sk in DBC.SkillLineAbility on Spell.ID equals sk.Value.SpellId into temp1
                         from Skill in temp1.DefaultIfEmpty()
                         //join skl in DBC.SkillLine on Skill.Value.SkillId equals skl.Value.ID into temp2

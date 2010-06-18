@@ -46,7 +46,7 @@ namespace SpellWork
                                             || (spell.AttributesEx6 & at) != 0
                                             || (spell.AttributesExG & at) != 0))
 
-                                && (id != 0 || ic != 0 && at != 0) || spell.SpellName.ContainText(name)
+                                && (id != 0 || ic != 0 && at != 0) || spell.SpellName.ContainsText(name)
 
                             select spell).ToList();
 
@@ -80,10 +80,10 @@ namespace SpellWork
                 _spellList = (from spell in DBC.Spell.Values
 
                             where (!bFamilyNames || spell.SpellFamilyName == fFamilyNames)
-                               && (!bSpellEffect || spell.Effect.ContainElement((uint)fSpellEffect))
-                               && (!bSpellAura   || spell.EffectApplyAuraName.ContainElement((uint)fSpellAura))
-                               && (!bTarget1     || spell.EffectImplicitTargetA.ContainElement((uint)fTarget1))
-                               && (!bTarget2     || spell.EffectImplicitTargetB.ContainElement((uint)fTarget2))
+                               && (!bSpellEffect || spell.Effect.ContainsElement((uint)fSpellEffect))
+                               && (!bSpellAura   || spell.EffectApplyAuraName.ContainsElement((uint)fSpellAura))
+                               && (!bTarget1     || spell.EffectImplicitTargetA.ContainsElement((uint)fTarget1))
+                               && (!bTarget2     || spell.EffectImplicitTargetB.ContainsElement((uint)fTarget2))
 
                             select spell).ToList();
 
