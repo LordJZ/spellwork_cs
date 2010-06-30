@@ -10,11 +10,11 @@ namespace SpellWork
     {
         public Loader(bool thread)
         {
-            DBC.Spell = DBCReader.ReadDBC<SpellEntry>(DBC.SpellStrings);
+            //DBC.Spell = DBCReader.ReadDBC<SpellEntry>(DBC.SpellStrings);
             
-            if (thread)
-                new Thread(RunOther).Start();
-            else
+            //if (thread)
+            //    new Thread(RunOther).Start();
+            //else
                 RunOther();
             
             DBC.Locale = DetectedLocale;

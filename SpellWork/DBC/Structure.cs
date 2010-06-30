@@ -124,7 +124,7 @@ namespace SpellWork
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
         public float[] EffectPointsPerComboPoint;                 // 119-121  m_effectPointsPerCombo
         public uint[] SpellVisual;                                // 131-132  m_spellVisualID
-
+        public uint __unk;
         public uint SpellIconID;                                  // 133      m_spellIconID
         public uint ActiveIconID;                                 // 134      m_activeIconID
         public uint SpellPriority;                                // 135      m_spellPriority not used
