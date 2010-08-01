@@ -23,7 +23,9 @@ namespace SpellWork
                 !File.Exists(DBC.DBC_PATH + "SpellDuration.dbc")    ||
                 !File.Exists(DBC.DBC_PATH + "SkillLineAbility.dbc") ||
                 !File.Exists(DBC.DBC_PATH + "SkillLine.dbc")        ||
-                !File.Exists(DBC.DBC_PATH + "SpellCastTimes.dbc"))
+                !File.Exists(DBC.DBC_PATH + "SpellCastTimes.dbc")   ||
+                !File.Exists(DBC.DBC_PATH + "ScreenEffect.dbc")     ||
+                !File.Exists(DBC.DBC_PATH + "OverrideSpellData.dbc"))
             {
                 MessageBox.Show(String.Format("Files not found:\r\n" 
                     + "{0}Spell.dbc\r\n"
@@ -32,7 +34,9 @@ namespace SpellWork
                     + "{0}SpellDuration.dbc\r\n"
                     + "{0}SkillLineAbility.dbc\r\n"
                     + "{0}SkillLine.dbc\r\n"
-                    + "{0}SpellCastTimes.dbc\r\n",
+                    + "{0}SpellCastTimes.dbc\r\n"
+                    + "{0}ScreenEffect.dbc\r\n"
+                    + "{0}OverrideSpellData.dbc\r\n",
                     DBC.DBC_PATH),
                 "SpellWork ERROR",
                 MessageBoxButtons.OK,
