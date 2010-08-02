@@ -238,7 +238,9 @@ namespace SpellWork
         SPELL_EFFECT_160                        = 160,
         SPELL_EFFECT_TALENT_SPEC_COUNT          = 161,
         SPELL_EFFECT_TALENT_SPEC_SELECT         = 162,
-        TOTAL_SPELL_EFFECTS                     = 163
+        SPELL_EFFECT_163                        = 163,
+        SPELL_EFFECT_164                        = 164,
+        TOTAL_SPELL_EFFECTS                     = 165
     };
 
     /// <summary>
