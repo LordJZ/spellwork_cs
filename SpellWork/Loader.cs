@@ -41,7 +41,7 @@ namespace SpellWork
                     ++locale;
 
                     if (locale >= DBC.MAX_DBC_LOCALE)
-                        throw new SpellWorkException("Detected unknown locale index {0}", locale);
+                        throw new Exception("Detected unknown locale index " + locale);
                 }
                 return (LocalesDBC)locale;
             }

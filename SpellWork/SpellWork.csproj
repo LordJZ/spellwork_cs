@@ -114,8 +114,6 @@
       <DependentUpon>FormSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="Spell\SpellCompare.cs" />
-    <Compile Include="Extensions\SpellWorkException.cs">
-    </Compile>
     <Compile Include="DBC\Structure.cs" />
     <Compile Include="Spell\SpellInfo.cs" />
     <Compile Include="Spell\SpellEnums.cs" />
