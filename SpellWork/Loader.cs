@@ -10,25 +10,14 @@ namespace SpellWork
     {
         public Loader(bool thread)
         {
-            DBC.Spell = DBCReader.ReadDBC<SpellEntry>(DBC.SpellStrings);
-            
-            if (thread)
-                new Thread(RunOther).Start();
-            else
-                RunOther();
-            
-            DBC.Locale = DetectedLocale;
-        }
+            DBC.Spell               = DBCReader.ReadDBC<SpellEntry>(DBC.SpellStrings);
+            DBC.SkillLine           = DBCReader.ReadDBC<SkillLineEntry>(DBC.SkillLineStrings);
+            DBC.SpellRange          = DBCReader.ReadDBC<SpellRangeEntry>(DBC.SpellRangeStrings);
 
-        private void RunOther()
-        {
-            DBC.SkillLine        = DBCReader.ReadDBC<SkillLineEntry>(DBC.SkillLineStrings);
-            DBC.SpellRange       = DBCReader.ReadDBC<SpellRangeEntry>(DBC.SpellRangeStrings);
-            
-            DBC.SpellDuration    = DBCReader.ReadDBC<SpellDurationEntry>(null);
-            DBC.SkillLineAbility = DBCReader.ReadDBC<SkillLineAbilityEntry>(null);
-            DBC.SpellRadius      = DBCReader.ReadDBC<SpellRadiusEntry>(null);
-            DBC.SpellCastTimes   = DBCReader.ReadDBC<SpellCastTimesEntry>(null);
+            DBC.SpellDuration       = DBCReader.ReadDBC<SpellDurationEntry>(null);
+            DBC.SkillLineAbility    = DBCReader.ReadDBC<SkillLineAbilityEntry>(null);
+            DBC.SpellRadius         = DBCReader.ReadDBC<SpellRadiusEntry>(null);
+            DBC.SpellCastTimes      = DBCReader.ReadDBC<SpellCastTimesEntry>(null);
         }
 
         private LocalesDBC DetectedLocale

@@ -20,15 +20,12 @@ namespace SpellWork
             try
             {
                 new Loader(!(args.Count() > 0 && args[0].ToLower() == "nothread"));
+                Application.Run(new FormMain());
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "SpellWork Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Application.Exit();
-                return;
             }
-
-            Application.Run(new FormMain());
         }
     }
 }

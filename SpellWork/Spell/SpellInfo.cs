@@ -369,35 +369,6 @@ namespace SpellWork
 
             switch (aura)
             {
-                case AuraType.SPELL_AURA_OVERRIDE_SPELLS:
-                    if (!DBC.OverrideSpellData.ContainsKey((uint)misc))
-                    {
-                        rtb.SetStyle(Color.Red, FontStyle.Bold);
-                        rtb.AppendFormatLine("Cannot find key {0} in OverrideSpellData.dbc", (uint)misc);
-                    }
-                    else
-                    {
-                        rtb.AppendLine();
-                        rtb.SetStyle(Color.DarkRed, FontStyle.Bold);
-                        rtb.AppendLine("Overriding Spells:");
-                        OverrideSpellDataEntry Override = DBC.OverrideSpellData[(uint)misc];
-                        for (int i = 0; i < 10; ++i)
-                        {
-                            if (Override.Spells[i] == 0)
-                                continue;
-
-                            rtb.SetStyle(Color.DarkBlue, FontStyle.Regular);
-                            rtb.AppendFormatLine("\t - #{0} ({1}) {2}", i + 1, Override.Spells[i],
-                                DBC.Spell.ContainsKey(Override.Spells[i]) ? DBC.Spell[Override.Spells[i]].SpellName : "?????");
-                        }
-                        rtb.AppendLine();
-                    }
-                    break;
-                case AuraType.SPELL_AURA_SCREEN_EFFECT:
-                    rtb.SetStyle(Color.DarkBlue, FontStyle.Bold);
-                    rtb.AppendFormatLine("ScreenEffect: {0}",
-                        DBC.ScreenEffect.ContainsKey((uint)misc) ? DBC.ScreenEffect[(uint)misc].Name : "?????");
-                    break;
                 default:
                     break;
             }

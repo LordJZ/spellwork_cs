@@ -4,7 +4,7 @@ namespace SpellWork
 {
     public static class DBC
     {
-        public const string VERSION  = "SpellWork 3.3.3a (11723)";
+        public const string VERSION  = "SpellWork 2.4.3 (8606)";
         public const string DBC_PATH = @"dbc\";
 
         public const int MAX_DBC_LOCALE                 = 16;
@@ -18,13 +18,10 @@ namespace SpellWork
         public static Dictionary<uint, SpellDurationEntry>          SpellDuration;
         public static Dictionary<uint, SkillLineAbilityEntry>       SkillLineAbility;
         public static Dictionary<uint, SkillLineEntry>              SkillLine;
-        public static Dictionary<uint, ScreenEffectEntry>           ScreenEffect;
-        public static Dictionary<uint, OverrideSpellDataEntry>      OverrideSpellData;
 
         public static Dictionary<uint, string> SpellStrings            = new Dictionary<uint, string>();
         public static Dictionary<uint, string> SkillLineStrings        = new Dictionary<uint, string>();
         public static Dictionary<uint, string> SpellRangeStrings       = new Dictionary<uint, string>();
-        public static Dictionary<uint, string> ScreenEffectStrings     = new Dictionary<uint, string>();
 
         // DB 
         public static List<Item> ItemTemplate = new List<Item>();
