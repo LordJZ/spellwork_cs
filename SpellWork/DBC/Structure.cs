@@ -123,8 +123,8 @@ namespace SpellWork
         public uint[] EffectTriggerSpell;                         // 116-118  m_effectTriggerSpell
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
         public float[] EffectPointsPerComboPoint;                 // 119-121  m_effectPointsPerCombo
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
         public uint[] SpellVisual;                                // 131-132  m_spellVisualID
-        public uint __unk;
         public uint SpellIconID;                                  // 133      m_spellIconID
         public uint ActiveIconID;                                 // 134      m_activeIconID
         public uint SpellPriority;                                // 135      m_spellPriority not used
@@ -236,8 +236,8 @@ namespace SpellWork
                 SpellRangeEntry range = DBC.SpellRange[RangeIndex];
                 StringBuilder sb = new StringBuilder();
                 sb.AppendFormatLine("SpellRange: (Id {0}) \"{1}\":", range.ID, range.Description1);
-                sb.AppendFormatLine("    MinRange = {0}, MinRangeFriendly = {1}", range.MinRange, range.MinRangeFriendly);
-                sb.AppendFormatLine("    MaxRange = {0}, MaxRangeFriendly = {1}", range.MaxRange, range.MaxRangeFriendly);
+                sb.AppendFormatLine("    MinRange = {0}", range.MinRange);
+                sb.AppendFormatLine("    MaxRange = {0}", range.MaxRange);
 
                 return sb.ToString();
             }
@@ -292,10 +292,6 @@ namespace SpellWork
         public uint[] _Description;                                // 20-35    m_description_lang
         public uint DescriptionFlags;                              // 36
         public uint SpellIcon;                                     // 37       m_spellIconID
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-        public uint[] _AlternateVerb;                              // 38-53    m_alternateVerb_lang
-        public uint AlternateVerbFlags;                            // 54
-        public uint CanLink;                                       // 55       m_canLink (prof. with recipes
 
         public string Name
         {
@@ -305,11 +301,6 @@ namespace SpellWork
         public string Description
         {
             get { return DBC.SkillLineStrings.GetValue(_Description[(uint)DBC.Locale]); }
-        }
-
-        public string AlternateVerb
-        {
-            get { return DBC.SkillLineStrings.GetValue(_AlternateVerb[(uint)DBC.Locale]); }
         }
     };
 
@@ -329,6 +320,7 @@ namespace SpellWork
         public uint Min_value;                                      // 11       m_trivialSkillLineRankLow
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
         public uint[] CharacterPoints;                              // 12-13    m_characterPoints[2]
+        public uint ReqTrainpoints;                                 // 14
     };
 
     public struct SpellRadiusEntry
@@ -343,10 +335,8 @@ namespace SpellWork
     {
         public uint  ID;
         public float MinRange;
-        public float MinRangeFriendly;
         public float MaxRange;
-        public float MaxRangeFriendly;
-        public uint  Field5;
+        public uint Flags;
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
         public uint[] _Desc1;
         public uint  Desc1Flags;

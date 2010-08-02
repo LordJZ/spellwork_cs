@@ -38,7 +38,7 @@ namespace SpellWork
                     mask[1] = 1U << (i - 32);
 
                 TreeNode node   = new TreeNode();
-                node.Text       = String.Format("0x{0:X8} {1:X8}", mask[1], mask[0]);
+                node.Text       = String.Format("0x{0:X8}{1:X8}", mask[1], mask[0]);
                 node.ImageKey   = "family.ico";
                 familyTree.Nodes.Add(node);
             }
