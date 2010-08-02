@@ -15,15 +15,17 @@ namespace SpellWork
             
             using (BinaryReader reader = new BinaryReader(new FileStream(fileName, FileMode.Open, FileAccess.Read), Encoding.UTF8))
             {
+                if (!File.Exists(fileName))
+                    throw new FileNotFoundException();
                 // read dbc header
                 DbcHeader header = reader.ReadStruct<DbcHeader>();
                 int size = Marshal.SizeOf(typeof(T));
 
                 if (!header.IsDBC)
-                    throw new SpellWorkException("{0} is not DBC files", fileName);
+                    throw new Exception(fileName + " is not DBC files!");
                 
                 if (header.RecordSize != size)
-                    throw new SpellWorkException("Size of row in DBC file ({0}) != size of DBC struct ({1}) in DBC: {2}", header.RecordSize, size, fileName);
+                    throw new Exception(string.Format("Size of row in DBC file ({0}) != size of DBC struct ({1}) in DBC: {2}", header.RecordSize, size, fileName));
 
                 // read dbc data
                 for (int r = 0; r < header.RecordsCount; ++r)
