@@ -434,7 +434,7 @@ namespace SpellWork
         public string   SpellName;
         public uint     SchoolMask;
         public uint     SpellFamilyName;
-        public uint[]   SpellFamilyMask;
+        public uint[,]  SpellFamilyMask;
         public uint     ProcFlags;
         public uint     ProcEx;
         public float    PpmRate;
@@ -449,9 +449,15 @@ namespace SpellWork
                 SpellName, 
                 SchoolMask.ToString(), 
                 SpellFamilyName.ToString(), 
-                SpellFamilyMask[0].ToString(), 
-                SpellFamilyMask[1].ToString(), 
-                SpellFamilyMask[2].ToString(), 
+                SpellFamilyMask[0,0].ToString(), 
+                SpellFamilyMask[0,1].ToString(), 
+                SpellFamilyMask[0,2].ToString(), 
+                SpellFamilyMask[1,0].ToString(), 
+                SpellFamilyMask[1,1].ToString(), 
+                SpellFamilyMask[1,2].ToString(),
+                SpellFamilyMask[2,0].ToString(), 
+                SpellFamilyMask[2,1].ToString(), 
+                SpellFamilyMask[2,2].ToString(),
                 ProcFlags.ToString(), 
                 ProcEx.ToString(), 
                 PpmRate.ToString(), 
