@@ -280,6 +280,13 @@ namespace SpellWork
             return false;
         }
 
+        public static bool Match(this SpellClassOptionsEntry opt, SpellClassOptionsEntry arg, uint[] mask)
+        {
+            if (opt.SpellFamilyName == arg.SpellFamilyName && opt.SpellFamilyFlags != null && opt.SpellFamilyFlags.ContainsElement(mask))
+                return true;
+            return false;
+        }
+
         /// <summary>
         /// Checks if the specified value in a given array
         /// </summary>

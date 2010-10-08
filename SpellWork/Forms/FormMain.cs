@@ -202,7 +202,7 @@ namespace SpellWork
             var bTarget2 = _cbTarget2.SelectedIndex != 0;
             var fTarget2 = _cbTarget2.SelectedValue.ToInt32();
 
-            // additional filtert
+            // additional filter
             var advVal1 = _tbAdvansedFilter1Val.Text;
             var advVal2 = _tbAdvansedFilter2Val.Text;
 
@@ -213,12 +213,12 @@ namespace SpellWork
             bool use2val = advVal2 != string.Empty;
 
             _spellList = (from spell in DBC.Spell.Values
-                           
-                          where ( !bFamilyNames || spell.SpellFamilyName == fFamilyNames)
-                              && (!bSpellEffect || spell.Effect.ContainsElement((uint)fSpellEffect))
-                              && (!bSpellAura   || spell.EffectApplyAuraName.ContainsElement((uint)fSpellAura))
-                              && (!bTarget1     || spell.EffectImplicitTargetA.ContainsElement((uint)fTarget1))
-                              && (!bTarget2     || spell.EffectImplicitTargetB.ContainsElement((uint)fTarget2))
+
+                          where (!bFamilyNames  || spell.SpellClassOptions.SpellFamilyName == fFamilyNames)
+                              && (!bSpellEffect || spell.HasSpellEffect(fSpellEffect))
+                              && (!bSpellAura   || spell.HasSpellAura(fSpellAura))
+                              && (!bTarget1     || spell.HasSpellTargetA(fTarget1))
+                              && (!bTarget2     || spell.HasSpellTargetB(fTarget2))
                               && (!use1val      || spell.CreateFilter(field1, advVal1))
                               && (!use2val      || spell.CreateFilter(field2, advVal2))
                            
@@ -227,7 +227,6 @@ namespace SpellWork
             _lvSpellList.VirtualListSize = _spellList.Count();
             if (_lvSpellList.SelectedIndices.Count > 0)
                 _lvSpellList.Items[_lvSpellList.SelectedIndices[0]].Selected = false;
-
         }
 
         #endregion
@@ -315,13 +314,15 @@ namespace SpellWork
         {
             new SpellInfo(_rtbProcSpellInfo, spell);
 
-            _cbProcSpellFamilyTree.SelectedValue = spell.SpellFamilyName;
-            _clbProcFlags.SetCheckedItemFromFlag(spell.ProcFlags);
+            var classOptions = spell.SpellClassOptions;
+            _cbProcSpellFamilyTree.SelectedValue = classOptions.SpellFamilyName;
+            var auraOptions = spell.SpellAuraOptions;
+            _clbProcFlags.SetCheckedItemFromFlag(auraOptions.ProcFlags);
             _clbSchools.SetCheckedItemFromFlag(spell.SchoolMask);
-            _cbProcFitstSpellFamily.SelectedValue = spell.SpellFamilyName;
+            _cbProcFitstSpellFamily.SelectedValue = classOptions.SpellFamilyName;
             _tbPPM.Text = "0"; // need correct value
-            _tbChance.Text = spell.ProcChance.ToString();
-            _tbCooldown.Text = (spell.RecoveryTime / 1000f).ToString();
+            _tbChance.Text = auraOptions.ProcChance.ToString();
+            _tbCooldown.Text = (spell.SpellCooldowns.RecoveryTime / 1000f).ToString();
         }
 
         private void GetProcAttribute(SpellEntry spell)
@@ -375,11 +376,11 @@ namespace SpellWork
 
             _spellProcList = (from spell in DBC.Spell.Values
 
-                              where (!bFamilyNames || spell.SpellFamilyName == fFamilyNames)
-                                 && (!bSpellEffect || spell.Effect.ContainsElement((uint)fSpellEffect))
-                                 && (!bSpellAura   || spell.EffectApplyAuraName.Contains((uint)fSpellAura))
-                                 && (!bTarget1     || spell.EffectImplicitTargetA.ContainsElement((uint)fTarget1))
-                                 && (!bTarget2     || spell.EffectImplicitTargetB.ContainsElement((uint)fTarget2))
+                              where (!bFamilyNames || spell.SpellClassOptions.SpellFamilyName == fFamilyNames)
+                                 && (!bSpellEffect || spell.HasSpellEffect(fSpellEffect))
+                                 && (!bSpellAura   || spell.HasSpellAura(fSpellAura))
+                                 && (!bTarget1     || spell.HasSpellTargetA(fTarget1))
+                                 && (!bTarget2     || spell.HasSpellTargetB(fTarget2))
                               
                               select spell).ToList();
 
@@ -398,8 +399,7 @@ namespace SpellWork
             uint[] mask = ((TreeView)sender).GetMask();
 
             var query = from Spell in DBC.Spell.Values
-                        where Spell.SpellFamilyName == ProcInfo.SpellProc.SpellFamilyName
-                        && Spell.SpellFamilyFlags.ContainsElement(mask)
+                        where Spell.SpellClassOptions.Match(ProcInfo.SpellProc.SpellClassOptions, mask)
                         join sk in DBC.SkillLineAbility on Spell.ID equals sk.Value.SpellId into temp1
                         from Skill in temp1.DefaultIfEmpty()
                         //join skl in DBC.SkillLine on Skill.Value.SkillId equals skl.Value.ID into temp2

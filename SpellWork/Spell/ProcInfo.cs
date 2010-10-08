@@ -16,7 +16,7 @@ namespace SpellWork
             familyTree.Nodes.Clear();
 
             var spells = from Spell in DBC.Spell
-                         where Spell.Value.SpellFamilyName == (uint)spellfamily
+                         where Spell.Value.SpellClassOptions.SpellFamilyName == (uint)spellfamily
                          join sk in DBC.SkillLineAbility on Spell.Key equals sk.Value.SpellId into temp1
                          from Skill in temp1.DefaultIfEmpty()
                          join skl in DBC.SkillLine on Skill.Value.SkillId equals skl.Key into temp2
@@ -81,7 +81,7 @@ namespace SpellWork
                     else
                         mask[2] = 1U << (node.Index - 64);
 
-                    if ((spell.SpellFamilyFlags.ContainsElement(mask)))
+                    if ((spell.SpellClassOptions.SpellFamilyFlags.ContainsElement(mask)))
                     {
                         TreeNode child  = new TreeNode();
                         child           = node.Nodes.Add(name.ToString());

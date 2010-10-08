@@ -79,11 +79,11 @@ namespace SpellWork
 
                 _spellList = (from spell in DBC.Spell.Values
 
-                            where (!bFamilyNames || spell.SpellFamilyName == fFamilyNames)
-                               && (!bSpellEffect || spell.Effect.ContainsElement((uint)fSpellEffect))
-                               && (!bSpellAura   || spell.EffectApplyAuraName.ContainsElement((uint)fSpellAura))
-                               && (!bTarget1     || spell.EffectImplicitTargetA.ContainsElement((uint)fTarget1))
-                               && (!bTarget2     || spell.EffectImplicitTargetB.ContainsElement((uint)fTarget2))
+                              where (!bFamilyNames || spell.SpellClassOptions.SpellFamilyName == fFamilyNames)
+                               && (!bSpellEffect || spell.HasSpellEffect(fSpellEffect))
+                               && (!bSpellAura   || spell.HasSpellAura(fSpellAura))
+                               && (!bTarget1     || spell.HasSpellTargetA(fTarget1))
+                               && (!bTarget2     || spell.HasSpellTargetB(fTarget2))
 
                             select spell).ToList();
 
