@@ -17,15 +17,8 @@ namespace SpellWork
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            try
-            {
-                new Loader();
-                Application.Run(new FormMain());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "SpellWork Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            new Loader();
+            Application.Run(new FormMain());
         }
     }
 }

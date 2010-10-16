@@ -32,147 +32,124 @@ namespace SpellWork
     [StructLayout(LayoutKind.Sequential)]
     public struct SpellEntry
     {
-        public uint ID;                                           // 0        m_ID
-        public uint Category;                                     // 1        m_category
-        public uint Dispel;                                       // 2        m_dispelType
-        public uint Mechanic;                                     // 3        m_mechanic
-        public uint Attributes;                                   // 4        m_attribute
-        public uint AttributesEx;                                 // 5        m_attributesEx
-        public uint AttributesEx2;                                // 6        m_attributesExB
-        public uint AttributesEx3;                                // 7        m_attributesExC
-        public uint AttributesEx4;                                // 8        m_attributesExD
-        public uint AttributesEx5;                                // 9        m_attributesExE
-        public uint AttributesEx6;                                // 10       m_attributesExF
-        public uint AttributesExG;                                // 11       3.2.0 (0x20 - totems, 0x4 - paladin auras, etc...)
-        public ulong Stances;                                     // 12-13    m_shapeshiftMask
-        public ulong StancesNot;                                  // 14-15    m_shapeshiftExclude
-        public uint Targets;                                      // 16       m_targets
-        public uint TargetCreatureType;                           // 17       m_targetCreatureType
-        public uint RequiresSpellFocus;                           // 18       m_requiresSpellFocus
-        public uint FacingCasterFlags;                            // 19       m_facingCasterFlags
-        public uint CasterAuraState;                              // 20       m_casterAuraState
-        public uint TargetAuraState;                              // 21       m_targetAuraState
-        public uint CasterAuraStateNot;                           // 22       m_excludeCasterAuraState
-        public uint TargetAuraStateNot;                           // 23       m_excludeTargetAuraState
-        public uint CasterAuraSpell;                              // 24       m_casterAuraSpell
-        public uint TargetAuraSpell;                              // 25       m_targetAuraSpell
-        public uint ExcludeCasterAuraSpell;                       // 26       m_excludeCasterAuraSpell
-        public uint ExcludeTargetAuraSpell;                       // 27       m_excludeTargetAuraSpell
-        public uint CastingTimeIndex;                             // 28       m_castingTimeIndex
-        public uint RecoveryTime;                                 // 29       m_recoveryTime
-        public uint CategoryRecoveryTime;                         // 30       m_categoryRecoveryTime
-        public uint InterruptFlags;                               // 31       m_interruptFlags
-        public uint AuraInterruptFlags;                           // 32       m_auraInterruptFlags
-        public uint ChannelInterruptFlags;                        // 33       m_channelInterruptFlags
-        public uint ProcFlags;                                    // 34       m_procTypeMask
-        public uint ProcChance;                                   // 35       m_procChance
-        public uint ProcCharges;                                  // 36       m_procCharges
-        public uint MaxLevel;                                     // 37       m_maxLevel
-        public uint BaseLevel;                                    // 38       m_baseLevel
-        public uint SpellLevel;                                   // 39       m_spellLevel
-        public uint DurationIndex;                                // 40       m_durationIndex
-        public uint PowerType;                                    // 41       m_powerType
-        public uint ManaCost;                                     // 42       m_manaCost
-        public uint ManaCostPerlevel;                             // 43       m_manaCostPerLevel
-        public uint ManaPerSecond;                                // 44       m_manaPerSecond
-        public uint ManaPerSecondPerLevel;                        // 45       m_manaPerSecondPerLevel
-        public uint RangeIndex;                                   // 46       m_rangeIndex
-        public float Speed;                                       // 47       m_speed
-        public uint ModalNextSpell;                               // 48       m_modalNextSpell not used
-        public uint StackAmount;                                  // 49       m_cumulativeAura
+        public uint    ID;                                           // 0 normally counted from 0 field (but some tools start counting from 1, check this before tool use for data view!)
+        public uint    SchoolMask;                                       // 1 not schoolMask from 2.x - just school type so everything linked with SpellEntry::SchoolMask must be rewrited
+        public uint    Category;                                     // 2
+        public uint castUI;                                       // 3 not used
+        public uint    Dispel;                                       // 4
+        public uint    Mechanic;                                     // 5
+        public uint    Attributes;                                   // 6
+        public uint    AttributesEx;                                 // 7
+        public uint    AttributesEx2;                                // 8
+        public uint    AttributesEx3;                                // 9
+        public uint    AttributesEx4;                                // 10
+        public uint    Stances;                                      // 11
+        public uint    StancesNot;                                   // 12
+        public uint    Targets;                                      // 13
+        public uint    TargetCreatureType;                           // 14
+        public uint    RequiresSpellFocus;                           // 15
+        public uint    CasterAuraState;                              // 16
+        public uint    TargetAuraState;                              // 17
+        public uint    CastingTimeIndex;                             // 18
+        public uint    RecoveryTime;                                 // 19
+        public uint    CategoryRecoveryTime;                         // 20
+        public uint    InterruptFlags;                               // 21
+        public uint    AuraInterruptFlags;                           // 22
+        public uint    ChannelInterruptFlags;                        // 23
+        public uint    ProcFlags;                                    // 24
+        public uint    ProcChance;                                   // 25
+        public uint    ProcCharges;                                  // 26
+        public uint    MaxLevel;                                     // 27
+        public uint    BaseLevel;                                    // 28
+        public uint    SpellLevel;                                   // 29
+        public uint    DurationIndex;                                // 30
+        public uint    PowerType;                                    // 31
+        public uint    ManaCost;                                     // 32
+        public uint    ManaCostPerlevel;                             // 33
+        public uint    ManaPerSecond;                                // 34
+        public uint    ManaPerSecondPerLevel;                        // 35
+        public uint    RangeIndex;                                   // 36
+        public float     Speed;                                        // 37
+        public uint    ModalNextSpell;                               // 38 not used
+        public uint    StackAmount;                                  // 39
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
-        public uint[] Totem;                                      // 50-51    m_totem
+        public uint[]    Totem;                      // 40-41
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
-        public int[] Reagent;                                     // 52-59    m_reagent
+        public int[]     Reagent;                  // 42-49
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
-        public uint[] ReagentCount;                               // 60-67    m_reagentCount
-        public int EquippedItemClass;                             // 68       m_equippedItemClass (value)
-        public int EquippedItemSubClassMask;                      // 69       m_equippedItemSubclass (mask)
-        public int EquippedItemInventoryTypeMask;                 // 70       m_equippedItemInvTypes (mask)
+        public uint[]    ReagentCount;             // 50-57
+        public int     EquippedItemClass;                            // 58 (value)
+        public uint     EquippedItemSubClassMask;                     // 59 (mask)
+        public uint     EquippedItemInventoryTypeMask;                // 60 (mask)
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
-        public uint[] Effect;                     				  // 71-73    m_effect
+        public uint[]    Effect;                     // 61-63
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
-        public int[] EffectDieSides;                              // 74-76    m_effectDieSides
+        public int[]     EffectDieSides;             // 64-66
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
-        public float[] EffectRealPointsPerLevel;                  // 77-79    m_effectRealPointsPerLevel
+        public uint[]    EffectBaseDice;             // 67-69
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
-        public int[] EffectBasePoints;                            // 80-82    m_effectBasePoints (don't must be used in spell/auras explicitly, must be used cached Spell::m_currentBasePoints)
+        public float[]     EffectDicePerLevel;         // 70-72
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
-        public uint[] EffectMechanic;                             // 83-85    m_effectMechanic
+        public float[]     EffectRealPointsPerLevel;   // 73-75
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
-        public uint[] EffectImplicitTargetA;                      // 86-88    m_implicitTargetA
+        public int[]     EffectBasePoints;           // 76-78 (don't must be used in spell/auras explicitly, must be used cached Spell::m_currentBasePoints)
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
-        public uint[] EffectImplicitTargetB;                      // 89-91    m_implicitTargetB
+        public uint[]    EffectMechanic;             // 79-81
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
-        public uint[] EffectRadiusIndex;                          // 92-94    m_effectRadiusIndex - spellradius.dbc
+        public uint[]    EffectImplicitTargetA;      // 82-84
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
-        public uint[] EffectApplyAuraName;                        // 95-97    m_effectAura
+        public uint[]    EffectImplicitTargetB;      // 85-87
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
-        public uint[] EffectAmplitude;                            // 98-100   m_effectAuraPeriod
+        public uint[]    EffectRadiusIndex;          // 88-90 - spellradius.dbc
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
-        public float[] EffectMultipleValue;                       // 101-103  m_effectAmplitude
+        public uint[]    EffectApplyAuraName;        // 91-93
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
-        public uint[] EffectChainTarget;                          // 104-106  m_effectChainTargets
+        public uint[]    EffectAmplitude;            // 94-96
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
-        public uint[] EffectItemType;                             // 107-109  m_effectItemType
+        public float[]     EffectMultipleValue;        // 97-99
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
-        public int[] EffectMiscValue;                             // 110-112  m_effectMiscValue
+        public uint[]    EffectChainTarget;          // 100-102
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
-        public int[] EffectMiscValueB;                            // 113-115  m_effectMiscValueB
+        public uint[]    EffectItemType;             // 103-105
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
-        public uint[] EffectTriggerSpell;                         // 116-118  m_effectTriggerSpell
+        public int[]     EffectMiscValue;            // 106-108
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
-        public float[] EffectPointsPerComboPoint;                 // 119-121  m_effectPointsPerCombo
+        public uint[]    EffectTriggerSpell;         // 109-111
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
-        public uint[] EffectSpellClassMaskA;                      // 122-124  m_effectSpellClassMaskA, effect 0
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
-        public uint[] EffectSpellClassMaskB;                      // 125-127  m_effectSpellClassMaskB, effect 1
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
-        public uint[] EffectSpellClassMaskC;                      // 128-130  m_effectSpellClassMaskC, effect 2
+        public float[]     EffectPointsPerComboPoint;  // 112-114
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
-        public uint[] SpellVisual;                                // 131-132  m_spellVisualID
-        public uint SpellIconID;                                  // 133      m_spellIconID
-        public uint ActiveIconID;                                 // 134      m_activeIconID
-        public uint SpellPriority;                                // 135      m_spellPriority not used
+        public uint[]    SpellVisual;                                  // 115
+        public uint    SpellIconID;                                  // 117
+        public uint    ActiveIconID;                                 // 118
+        public uint    SpellPriority;                              // 119
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_DBC_LOCALE)]
-        private uint[] _SpellName;                                // 136-151  m_name_lang
-        public uint SpellNameFlag;                                // 152      not used
+        private uint[]     _SpellName;                                 // 120-127
+        private uint    SpellNameFlag;                              // 128
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_DBC_LOCALE)]
-        private uint[] _Rank;                                     // 153-168  m_nameSubtext_lang
-        public uint RankFlags;                                    // 169      not used
+        private uint[]     _Rank;                                      // 129-136
+        private uint    RankFlags;                                  // 137
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_DBC_LOCALE)]
-        private uint[] _Description;                              // 170-185  m_description_lang not used
-        public uint DescriptionFlags;                             // 186      not used
+        private uint[]     _Description;                             // 138-145 not used
+        private uint    DescriptionFlags;                           // 146     not used
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_DBC_LOCALE)]
-        private uint[] _ToolTip;                                  // 187-202  m_auraDescription_lang not used
-        public uint ToolTipFlags;                                 // 203      not used
-        public uint ManaCostPercentage;                           // 204      m_manaCostPct
-        public uint StartRecoveryCategory;                        // 205      m_startRecoveryCategory
-        public uint StartRecoveryTime;                            // 206      m_startRecoveryTime
-        public uint MaxTargetLevel;                               // 207      m_maxTargetLevel
-        public uint SpellFamilyName;                              // 208      m_spellClassSet
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
-        public uint[] SpellFamilyFlags;                           // 209-211  m_spellClassMask NOTE: size is 12 bytes!!!
-        public uint MaxAffectedTargets;                           // 212      m_maxTargets
-        public uint DmgClass;                                     // 213      m_defenseType
-        public uint PreventionType;                               // 214      m_preventionType
-        public uint StanceBarOrder;                               // 215      m_stanceBarOrder not used
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
-        public float[] DmgMultiplier;              				  // 216-218  m_effectChainAmplitude
-        public uint MinFactionId;                                 // 219      m_minFactionID not used
-        public uint MinReputation;                                // 220      m_minReputation not used
-        public uint RequiredAuraVision;                           // 221      m_requiredAuraVision not used
+        private uint[]     _ToolTip;                                 // 147-154 not used
+        private uint    ToolTipFlags;                               // 155     not used
+        public uint    ManaCostPercentage;                           // 156
+        public uint    StartRecoveryCategory;                        // 157
+        public uint    StartRecoveryTime;                            // 158
+        public uint    MaxTargetLevel;                               // 159
+        public uint    SpellFamilyName;                              // 160
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
-        public uint[] TotemCategory;                              // 222-223  m_requiredTotemCategoryID
-        public int  AreaGroupId;                                  // 224      m_requiredAreaGroupId
-        public uint SchoolMask;                                   // 225      m_schoolMask
-        public uint RuneCostID;                                   // 226      m_runeCostID
-        public uint SpellMissileID;                               // 227      m_spellMissileID not used
-        public uint PowerDisplayId;                               // 228      PowerDisplay.dbc, new in 3.1
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
-        public float[] Unk_320_4;                                 // 229-231  3.2.0
-        public uint SpellDescriptionVariableID;                   // 232      3.2.0
-        public uint SpellDifficultyId;                            // 233      3.3.0                           // 239      3.3.0
+        public uint[] SpellFamilyFlags;                             // 161+162
+        public uint    MaxAffectedTargets;                           // 163
+        public uint    DmgClass;                                     // 164 defenseType
+        public uint    PreventionType;                               // 165
+        public uint    StanceBarOrder;                             // 166 not used
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
+        public float[]     DmgMultiplier;              // 167-169
+        public uint    MinFactionId;                               // 170 not used, and 0 in 2.4.2
+        public uint    MinReputation;                              // 171 not used, and 0 in 2.4.2
+        public uint    RequiredAuraVision;                         // 172 not used
 
         /// <summary>
         /// Return current Spell Name
@@ -249,8 +226,8 @@ namespace SpellWork
                 SpellRangeEntry range = DBC.SpellRange[RangeIndex];
                 StringBuilder sb = new StringBuilder();
                 sb.AppendFormatLine("SpellRange: (Id {0}) \"{1}\":", range.ID, range.Description1);
-                sb.AppendFormatLine("    MinRange = {0}, MinRangeFriendly = {1}", range.MinRange, range.MinRangeFriendly);
-                sb.AppendFormatLine("    MaxRange = {0}, MaxRangeFriendly = {1}", range.MaxRange, range.MaxRangeFriendly);
+                sb.AppendFormatLine("    MinRange = {0}", range.MinRange);
+                sb.AppendFormatLine("    MaxRange = {0}", range.MaxRange);
 
                 return sb.ToString();
             }
@@ -298,17 +275,13 @@ namespace SpellWork
         public uint ID;                                            // 0        m_ID
         public int  CategoryId;                                    // 1        m_categoryID
         public uint SkillCostID;                                   // 2        m_skillCostsID
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_DBC_LOCALE)]
         public uint[] _Name;                                       // 3-18     m_displayName_lang
         public uint NameFlags;                                     // 19
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_DBC_LOCALE)]
         public uint[] _Description;                                // 20-35    m_description_lang
         public uint DescriptionFlags;                              // 36
         public uint SpellIcon;                                     // 37       m_spellIconID
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-        public uint[] _AlternateVerb;                              // 38-53    m_alternateVerb_lang
-        public uint AlternateVerbFlags;                            // 54
-        public uint CanLink;                                       // 55       m_canLink (prof. with recipes
 
         public string Name
         {
@@ -318,11 +291,6 @@ namespace SpellWork
         public string Description
         {
             get { return DBC.SkillLineStrings.GetValue(_Description[(uint)DBC.Locale]); }
-        }
-
-        public string AlternateVerb
-        {
-            get { return DBC.SkillLineStrings.GetValue(_AlternateVerb[(uint)DBC.Locale]); }
         }
     };
 
@@ -342,13 +310,17 @@ namespace SpellWork
         public uint Min_value;                                      // 11       m_trivialSkillLineRankLow
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
         public uint[] CharacterPoints;                              // 12-13    m_characterPoints[2]
+        /// <summary>
+        /// TODO: use?
+        /// </summary>
+        public uint reqtrainpoints;                               // 14
     };
 
     public struct SpellRadiusEntry
     {
         public uint  ID;
         public float Radius;
-        public int   Zero;
+        public int Zero;
         public float Radius2;
     };
 
@@ -356,14 +328,12 @@ namespace SpellWork
     {
         public uint  ID;
         public float MinRange;
-        public float MinRangeFriendly;
         public float MaxRange;
-        public float MaxRangeFriendly;
-        public uint  Field5;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+        public uint  Flags;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_DBC_LOCALE)]
         public uint[] _Desc1;
         public uint  Desc1Flags;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_DBC_LOCALE)]
         public uint[] _Desc2;
         public uint  Desc2Flags;
 
@@ -396,34 +366,6 @@ namespace SpellWork
         public int   CastTime;   
         public float CastTimePerLevel;
         public int   MinCastTime;
-    };
-
-    public struct ScreenEffectEntry
-    {
-        public uint Id;
-        public uint _Name;
-        public uint Unk0;
-        public float Unk1;
-        public uint Unk2;
-        public uint Unk3;           // % of smth?
-        public uint Unk4;           // all 0
-        public int Unk5;
-        public uint Unk6;
-        public uint Unk7;
-
-        public string Name
-        {
-            get { return DBC.ScreenEffectStrings.GetValue(_Name); }
-        }
-    };
-
-    public struct OverrideSpellDataEntry
-    {
-        public uint Id;
-        // Value 10 also used in SpellInfo.AuraModTypeName
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 10)]
-        public uint[] Spells;
-        public uint unk;
     };
 
     //=============== DateBase =================\\

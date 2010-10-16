@@ -40,8 +40,8 @@ namespace SpellWork
             rtb.AppendFormatLine("Category = {0}, SpellIconID = {1}, activeIconID = {2}, SpellVisual = ({3},{4})",
                 spell.Category, spell.SpellIconID, spell.ActiveIconID, spell.SpellVisual[0], spell.SpellVisual[1]);
 
-            rtb.AppendFormatLine("Family {0}, flag 0x{1:X8} {2:X8} {3:X8}",
-                (SpellFamilyNames)spell.SpellFamilyName, spell.SpellFamilyFlags[2], spell.SpellFamilyFlags[1], spell.SpellFamilyFlags[0]);
+            rtb.AppendFormatLine("Family {0}, flag 0x{1:X8} {2:X8}",
+                (SpellFamilyNames)spell.SpellFamilyName, spell.SpellFamilyFlags[1], spell.SpellFamilyFlags[0]);
 
             rtb.AppendLine();
 
@@ -50,7 +50,7 @@ namespace SpellWork
             rtb.AppendFormatLine("PreventionType = {0} ({1})", spell.PreventionType, (SpellPreventionType)spell.PreventionType);
 
             if (spell.Attributes != 0 || spell.AttributesEx != 0 || spell.AttributesEx2 != 0 || spell.AttributesEx3 != 0 
-                || spell.AttributesEx4 != 0 || spell.AttributesEx5 != 0 || spell.AttributesEx6 != 0 || spell.AttributesExG != 0)
+                || spell.AttributesEx4 != 0)
                 rtb.AppendLine(_line);
 
             if (spell.Attributes != 0)
@@ -63,12 +63,6 @@ namespace SpellWork
                 rtb.AppendFormatLine("AttributesEx3: 0x{0:X8} ({1})", spell.AttributesEx3, (SpellAtributeEx3)spell.AttributesEx3);
             if (spell.AttributesEx4 != 0)
                 rtb.AppendFormatLine("AttributesEx4: 0x{0:X8} ({1})", spell.AttributesEx4, (SpellAtributeEx4)spell.AttributesEx4);
-            if (spell.AttributesEx5 != 0)
-                rtb.AppendFormatLine("AttributesEx5: 0x{0:X8} ({1})", spell.AttributesEx5, (SpellAtributeEx5)spell.AttributesEx5);
-            if (spell.AttributesEx6 != 0)
-                rtb.AppendFormatLine("AttributesEx6: 0x{0:X8} ({1})", spell.AttributesEx6, (SpellAtributeEx6)spell.AttributesEx6);
-            if (spell.AttributesExG != 0)
-                rtb.AppendFormatLine("AttributesExG: 0x{0:X8} ({1})", spell.AttributesExG, (SpellAtributeExG)spell.AttributesExG);
 
             rtb.AppendLine(_line);
             
@@ -156,12 +150,6 @@ namespace SpellWork
 
             if (spell.TargetAuraState != 0)
                 rtb.AppendFormatLine("TargetAuraState = {0} ({1})", spell.TargetAuraState, (AuraState)spell.TargetAuraState);
-
-            if (spell.CasterAuraStateNot != 0)
-                rtb.AppendFormatLine("CasterAuraStateNot = {0} ({1})", spell.CasterAuraStateNot, (AuraState)spell.CasterAuraStateNot);
-
-            if (spell.TargetAuraStateNot != 0)
-                rtb.AppendFormatLine("TargetAuraStateNot = {0} ({1})", spell.TargetAuraStateNot, (AuraState)spell.TargetAuraStateNot);
 
             AppendSpellAura();
 
@@ -257,12 +245,12 @@ namespace SpellWork
 
                 uint[] ClassMask = new uint[3];
                
-                switch (EFFECT_INDEX)
+                /*switch (EFFECT_INDEX)
                 {
                     case 0: ClassMask = spell.EffectSpellClassMaskA; break;
                     case 1: ClassMask = spell.EffectSpellClassMaskB; break;
                     case 2: ClassMask = spell.EffectSpellClassMaskC; break;
-                }
+                }*/
 
                 if (ClassMask[0] != 0 || ClassMask[1] != 0 || ClassMask[2] != 0)
                 {
@@ -335,7 +323,7 @@ namespace SpellWork
 
         private void AppendSpellAura()
         {
-            if (spell.CasterAuraSpell != 0)
+            /*if (spell.CasterAuraSpell != 0)
             {
                 if(DBC.Spell.ContainsKey(spell.CasterAuraSpell))
                     rtb.AppendFormatLine("  Caster Aura Spell ({0}) {1}", spell.CasterAuraSpell, DBC.Spell[spell.CasterAuraSpell].SpellName);
@@ -365,7 +353,7 @@ namespace SpellWork
                     rtb.AppendFormatLine("  Ex Target Aura Spell ({0}) {1}", spell.ExcludeTargetAuraSpell, DBC.Spell[spell.ExcludeTargetAuraSpell].SpellName);
                 else
                     rtb.AppendFormatLine("  Ex Target Aura Spell ({0}) ?????", spell.ExcludeTargetAuraSpell);
-            }
+            }*/
         }
 
         private void AuraModTypeName(int index)
@@ -375,8 +363,7 @@ namespace SpellWork
 
             if (spell.EffectApplyAuraName[index] == 0)
             {
-                rtb.AppendFormatLineIfNotNull("EffectMiscValueA = {0}", spell.EffectMiscValue[index]);
-                rtb.AppendFormatLineIfNotNull("EffectMiscValueB = {0}", spell.EffectMiscValueB[index]);
+                rtb.AppendFormatLineIfNotNull("EffectMiscValue = {0}", spell.EffectMiscValue[index]);
                 rtb.AppendFormatLineIfNotNull("EffectAmplitude = {0}",  spell.EffectAmplitude[index]);
                 
                 return;
@@ -391,9 +378,6 @@ namespace SpellWork
                 case AuraType.SPELL_AURA_MOD_STAT:
                     rtb.Append((UnitMods)misc);
                     break;
-                case AuraType.SPELL_AURA_MOD_RATING:
-                    rtb.Append((CombatRating)misc);
-                    break;
                 case AuraType.SPELL_AURA_ADD_FLAT_MODIFIER:
                 case AuraType.SPELL_AURA_ADD_PCT_MODIFIER:
                     rtb.Append((SpellModOp)misc);
@@ -404,43 +388,7 @@ namespace SpellWork
                     break;
             }
 
-            rtb.AppendFormat("), miscB = {0}", spell.EffectMiscValueB[index]);
-            rtb.AppendFormatLine(", periodic = {0}", spell.EffectAmplitude[index]);
-
-            switch (aura)
-            {
-                case AuraType.SPELL_AURA_OVERRIDE_SPELLS:
-                    if (!DBC.OverrideSpellData.ContainsKey((uint)misc))
-                    {
-                        rtb.SetStyle(Color.Red, FontStyle.Bold);
-                        rtb.AppendFormatLine("Cannot find key {0} in OverrideSpellData.dbc", (uint)misc);
-                    }
-                    else
-                    {
-                        rtb.AppendLine();
-                        rtb.SetStyle(Color.DarkRed, FontStyle.Bold);
-                        rtb.AppendLine("Overriding Spells:");
-                        OverrideSpellDataEntry Override = DBC.OverrideSpellData[(uint)misc];
-                        for (int i = 0; i < 10; ++i)
-                        {
-                            if (Override.Spells[i] == 0)
-                                continue;
-
-                            rtb.SetStyle(Color.DarkBlue, FontStyle.Regular);
-                            rtb.AppendFormatLine("\t - #{0} ({1}) {2}", i + 1, Override.Spells[i],
-                                DBC.Spell.ContainsKey(Override.Spells[i]) ? DBC.Spell[Override.Spells[i]].SpellName : "?????");
-                        }
-                        rtb.AppendLine();
-                    }
-                    break;
-                case AuraType.SPELL_AURA_SCREEN_EFFECT:
-                    rtb.SetStyle(Color.DarkBlue, FontStyle.Bold);
-                    rtb.AppendFormatLine("ScreenEffect: {0}",
-                        DBC.ScreenEffect.ContainsKey((uint)misc) ? DBC.ScreenEffect[(uint)misc].Name : "?????");
-                    break;
-                default:
-                    break;
-            }
+            rtb.AppendFormatLine("), periodic = {0}", spell.EffectAmplitude[index]);
         }
 
         private void AppendItemInfo()
