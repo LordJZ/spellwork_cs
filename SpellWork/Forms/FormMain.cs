@@ -42,8 +42,11 @@ namespace SpellWork
 
             _status.Text = String.Format("DBC Locale: {0}", DBC.Locale);
 
-            _cbAdvansedFilter1.SetStructFields<SpellEntry>();
-            _cbAdvansedFilter2.SetStructFields<SpellEntry>();
+            _cbAdvancedFilter1.SetStructFields<SpellEntry>();
+            _cbAdvancedFilter2.SetStructFields<SpellEntry>();
+
+            _cbAdvancedFilter1CompareType.SetEnumValuesDirect<CompareType>(true);
+            _cbAdvancedFilter2CompareType.SetEnumValuesDirect<CompareType>(true);
 
             ConnStatus();
         }
@@ -203,14 +206,17 @@ namespace SpellWork
             var fTarget2 = _cbTarget2.SelectedValue.ToInt32();
 
             // additional filtert
-            var advVal1 = _tbAdvansedFilter1Val.Text;
-            var advVal2 = _tbAdvansedFilter2Val.Text;
+            var advVal1 = _tbAdvancedFilter1Val.Text;
+            var advVal2 = _tbAdvancedFilter2Val.Text;
 
-            var field1 = (MemberInfo)_cbAdvansedFilter1.SelectedValue;
-            var field2 = (MemberInfo)_cbAdvansedFilter2.SelectedValue;
+            var field1 = (MemberInfo)_cbAdvancedFilter1.SelectedValue;
+            var field2 = (MemberInfo)_cbAdvancedFilter2.SelectedValue;
 
             bool use1val = advVal1 != string.Empty;
             bool use2val = advVal2 != string.Empty;
+
+            CompareType field1ct = (CompareType)_cbAdvancedFilter1CompareType.SelectedItem;
+            CompareType field2ct = (CompareType)_cbAdvancedFilter2CompareType.SelectedItem;
 
             _spellList = (from spell in DBC.Spell.Values
                            
@@ -219,8 +225,8 @@ namespace SpellWork
                               && (!bSpellAura   || spell.EffectApplyAuraName.ContainsElement((uint)fSpellAura))
                               && (!bTarget1     || spell.EffectImplicitTargetA.ContainsElement((uint)fTarget1))
                               && (!bTarget2     || spell.EffectImplicitTargetB.ContainsElement((uint)fTarget2))
-                              && (!use1val      || spell.CreateFilter(field1, advVal1))
-                              && (!use2val      || spell.CreateFilter(field2, advVal2))
+                              && (!use1val      || spell.CreateFilter(field1, advVal1, field1ct))
+                              && (!use2val      || spell.CreateFilter(field2, advVal2, field2ct))
                            
                           select spell).ToList();
 

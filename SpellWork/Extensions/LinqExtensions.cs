@@ -3,6 +3,17 @@ using System.Reflection;
 
 namespace SpellWork
 {
+    public enum CompareType
+    {
+        Equal,
+        And,
+        Not,
+
+        StartsWith,
+        EndsWith,
+        Contains,
+    }
+
     public static class LinqExtensions
     {
         /// <summary>
@@ -13,22 +24,27 @@ namespace SpellWork
         /// <param name="field">Value Type is MemberInfo</param>
         /// <param name="val"></param>
         /// <returns></returns>
-        public static bool CreateFilter<T>(this T T_entry, object field, object val)
+        public static bool CreateFilter<T>(this T T_entry, object field, object val, CompareType compareType)
         {
             object basicValue = GetValue<T>(T_entry, (MemberInfo)field);
             
             switch (basicValue.GetType().Name)
             {
-                case "UInt32": return basicValue.ToUInt32() == val.ToUInt32();
-                case "Int32":  return basicValue.ToInt32()  == val.ToInt32();
-                case "Single": return basicValue.ToFloat()  == val.ToFloat();
-                case "UInt64": return basicValue.ToUlong()  == val.ToUlong();
-                case "String": return basicValue.ToString().ContainsText(val.ToString());
+                case "UInt32":
+                    return Compare(basicValue.ToUInt32(), val.ToUInt32(), compareType);
+                case "Int32":
+                    return Compare(basicValue.ToInt32(), val.ToInt32(), compareType);
+                case "Single":
+                    return Compare(basicValue.ToFloat(), val.ToFloat(), compareType);
+                case "UInt64":
+                    return Compare(basicValue.ToUlong(), val.ToUlong(), compareType);
+                case "String":
+                    return Compare(basicValue.ToString(), val.ToString(), compareType);
                 case @"UInt32[]":
                     {
                         foreach (uint el in (uint[])basicValue)
                         {
-                            if (el.ToUInt32() == val.ToUInt32())
+                            if (Compare(el.ToUInt32(), val.ToUInt32(), compareType))
                                 return true;
                         }
                         return false;
@@ -37,7 +53,7 @@ namespace SpellWork
                     {
                         foreach (int el in (int[])basicValue)
                         {
-                            if (el.ToInt32() == val.ToInt32())
+                            if (Compare(el.ToInt32(), val.ToInt32(), compareType))
                                 return true;
                         }
                         return false;
@@ -46,7 +62,7 @@ namespace SpellWork
                     {
                         foreach (float el in (float[])basicValue)
                         {
-                            if (el.ToFloat() == val.ToFloat())
+                            if (Compare(el.ToFloat(), val.ToFloat(), compareType))
                                 return true;
                         }
                         return false;
@@ -55,7 +71,7 @@ namespace SpellWork
                     {
                         foreach (ulong el in (ulong[])basicValue)
                         {
-                            if (el.ToUlong() == val.ToUlong())
+                            if (Compare(el.ToUlong(), val.ToUlong(), compareType))
                                 return true;
                         }
                         return false;
@@ -64,7 +80,7 @@ namespace SpellWork
                     {
                         foreach (uint el in (uint[])basicValue)
                         {
-                            if (el.ToString().ContainsText(val.ToString()))
+                            if (Compare(el.ToString(), val.ToString(), compareType))
                                 return true;
                         }
                         return false;
@@ -73,6 +89,84 @@ namespace SpellWork
                 default: return false;
             }
         }
+
+        #region Specific Compares
+
+        private static Boolean Compare(String baseValue, String value, CompareType compareType)
+        {
+            switch (compareType)
+            {
+                case CompareType.StartsWith:
+                    return baseValue.StartsWith(value);
+                case CompareType.EndsWith:
+                    return baseValue.EndsWith(value);
+
+                case CompareType.Contains:
+                    return baseValue.ContainsText(value);
+
+                case CompareType.Equal:
+                default:
+                    return baseValue.Equals(value,
+                        StringComparison.CurrentCultureIgnoreCase);
+            }
+        }
+
+        private static Boolean Compare(float baseValue, float value, CompareType compareType)
+        {
+            switch (compareType)
+            {
+                case CompareType.Equal:
+                default:
+                    return baseValue == value;
+            }
+        }
+
+        private static Boolean Compare(UInt64 baseValue, UInt64 value, CompareType compareType)
+        {
+            switch (compareType)
+            {
+                case CompareType.And:
+                    return (baseValue & value) == value;
+                case CompareType.Not:
+                    return (baseValue & value) == 0;
+
+                case CompareType.Equal:
+                default:
+                    return baseValue == value;
+            }
+        }
+
+        private static Boolean Compare(Int32 baseValue, Int32 value, CompareType compareType)
+        {
+            switch (compareType)
+            {
+                case CompareType.And:
+                    return (baseValue & value) == value;
+                case CompareType.Not:
+                    return (baseValue & value) == 0;
+
+                case CompareType.Equal:
+                default:
+                    return baseValue == value;
+            }
+        }
+
+        private static Boolean Compare(UInt32 baseValue, UInt32 value, CompareType compareType)
+        {
+            switch (compareType)
+            {
+                case CompareType.And:
+                    return (baseValue & value) == value;
+                case CompareType.Not:
+                    return (baseValue & value) == 0;
+
+                case CompareType.Equal:
+                default:
+                    return baseValue == value;
+            }
+        }
+
+        #endregion
 
         private static Object GetValue<T>(T T_entry, MemberInfo field)
         {

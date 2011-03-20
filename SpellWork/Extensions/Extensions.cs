@@ -212,6 +212,20 @@ namespace SpellWork
             cb.ValueMember = "ID";
         }
 
+        public static void SetEnumValuesDirect<T>(this ComboBox cb, Boolean setFirstValue)
+        {
+            cb.BeginUpdate();
+
+            cb.Items.Clear();
+            foreach (T value in Enum.GetValues(typeof(T)))
+                cb.Items.Add(value);
+
+            if (setFirstValue && cb.Items.Count > 0)
+                cb.SelectedIndex = 0;
+
+            cb.EndUpdate();
+        }
+
         public static void SetStructFields<T>(this ComboBox cb)
         {
             cb.Items.Clear();

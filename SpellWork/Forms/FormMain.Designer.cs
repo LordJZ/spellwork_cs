@@ -51,10 +51,12 @@
             this.chSpellName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this._gSpellFilter = new System.Windows.Forms.GroupBox();
             this._gbAdvansedSearch = new System.Windows.Forms.GroupBox();
-            this._tbAdvansedFilter2Val = new System.Windows.Forms.TextBox();
-            this._tbAdvansedFilter1Val = new System.Windows.Forms.TextBox();
-            this._cbAdvansedFilter2 = new System.Windows.Forms.ComboBox();
-            this._cbAdvansedFilter1 = new System.Windows.Forms.ComboBox();
+            this._cbAdvancedFilter2CompareType = new System.Windows.Forms.ComboBox();
+            this._cbAdvancedFilter1CompareType = new System.Windows.Forms.ComboBox();
+            this._tbAdvancedFilter2Val = new System.Windows.Forms.TextBox();
+            this._tbAdvancedFilter1Val = new System.Windows.Forms.TextBox();
+            this._cbAdvancedFilter2 = new System.Windows.Forms.ComboBox();
+            this._cbAdvancedFilter1 = new System.Windows.Forms.ComboBox();
             this._cbTarget2 = new System.Windows.Forms.ComboBox();
             this._cbTarget1 = new System.Windows.Forms.ComboBox();
             this._cbSpellEffect = new System.Windows.Forms.ComboBox();
@@ -142,6 +144,12 @@
             this.spellfamilymaskA0 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.spellfamilymaskA1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.spellfamilymaskA2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.spellfamilymaskB0 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.spellfamilymaskB1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.spellfamilymaskB2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.spellfamilymaskC0 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.spellfamilymaskC1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.spellfamilymaskC2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.procflag = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.procEx = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ppmRate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -157,12 +165,6 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
-            this.spellfamilymaskB0 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.spellfamilymaskB1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.spellfamilymaskB2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.spellfamilymaskC0 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.spellfamilymaskC1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.spellfamilymaskC2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -252,27 +254,27 @@
             this._tsmSettings,
             this._tsmExit});
             this._tsmFile.Name = "_tsmFile";
-            this._tsmFile.Size = new System.Drawing.Size(37, 20);
+            this._tsmFile.Size = new System.Drawing.Size(35, 20);
             this._tsmFile.Text = "File";
             // 
             // _Connected
             // 
             this._Connected.Name = "_Connected";
-            this._Connected.Size = new System.Drawing.Size(132, 22);
+            this._Connected.Size = new System.Drawing.Size(126, 22);
             this._Connected.Text = "Connected";
             this._Connected.Click += new System.EventHandler(this._Connected_Click);
             // 
             // _tsmSettings
             // 
             this._tsmSettings.Name = "_tsmSettings";
-            this._tsmSettings.Size = new System.Drawing.Size(132, 22);
+            this._tsmSettings.Size = new System.Drawing.Size(126, 22);
             this._tsmSettings.Text = "Setting";
             this._tsmSettings.Click += new System.EventHandler(this.Settings_Click);
             // 
             // _tsmExit
             // 
             this._tsmExit.Name = "_tsmExit";
-            this._tsmExit.Size = new System.Drawing.Size(132, 22);
+            this._tsmExit.Size = new System.Drawing.Size(126, 22);
             this._tsmExit.Text = "Exit";
             this._tsmExit.Click += new System.EventHandler(this.Exit_Click);
             // 
@@ -281,13 +283,13 @@
             this._tsmHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._tsmAbout});
             this._tsmHelp.Name = "_tsmHelp";
-            this._tsmHelp.Size = new System.Drawing.Size(44, 20);
+            this._tsmHelp.Size = new System.Drawing.Size(40, 20);
             this._tsmHelp.Text = "Help";
             // 
             // _tsmAbout
             // 
             this._tsmAbout.Name = "_tsmAbout";
-            this._tsmAbout.Size = new System.Drawing.Size(113, 22);
+            this._tsmAbout.Size = new System.Drawing.Size(111, 22);
             this._tsmAbout.Text = "About..";
             this._tsmAbout.Click += new System.EventHandler(this.About_Click);
             // 
@@ -373,10 +375,10 @@
             this._lvSpellList.FullRowSelect = true;
             this._lvSpellList.GridLines = true;
             this._lvSpellList.HideSelection = false;
-            this._lvSpellList.Location = new System.Drawing.Point(6, 285);
+            this._lvSpellList.Location = new System.Drawing.Point(6, 284);
             this._lvSpellList.MultiSelect = false;
             this._lvSpellList.Name = "_lvSpellList";
-            this._lvSpellList.Size = new System.Drawing.Size(302, 265);
+            this._lvSpellList.Size = new System.Drawing.Size(302, 261);
             this._lvSpellList.TabIndex = 7;
             this._lvSpellList.UseCompatibleStateImageBehavior = false;
             this._lvSpellList.View = System.Windows.Forms.View.Details;
@@ -416,10 +418,12 @@
             // 
             this._gbAdvansedSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this._gbAdvansedSearch.Controls.Add(this._tbAdvansedFilter2Val);
-            this._gbAdvansedSearch.Controls.Add(this._tbAdvansedFilter1Val);
-            this._gbAdvansedSearch.Controls.Add(this._cbAdvansedFilter2);
-            this._gbAdvansedSearch.Controls.Add(this._cbAdvansedFilter1);
+            this._gbAdvansedSearch.Controls.Add(this._cbAdvancedFilter2CompareType);
+            this._gbAdvansedSearch.Controls.Add(this._cbAdvancedFilter1CompareType);
+            this._gbAdvansedSearch.Controls.Add(this._tbAdvancedFilter2Val);
+            this._gbAdvansedSearch.Controls.Add(this._tbAdvancedFilter1Val);
+            this._gbAdvansedSearch.Controls.Add(this._cbAdvancedFilter2);
+            this._gbAdvansedSearch.Controls.Add(this._cbAdvancedFilter1);
             this._gbAdvansedSearch.Location = new System.Drawing.Point(3, 135);
             this._gbAdvansedSearch.Name = "_gbAdvansedSearch";
             this._gbAdvansedSearch.Size = new System.Drawing.Size(300, 70);
@@ -427,49 +431,67 @@
             this._gbAdvansedSearch.TabStop = false;
             this._gbAdvansedSearch.Text = "Advanced Filter";
             // 
-            // _tbAdvansedFilter2Val
+            // _cbAdvancedFilter2CompareType
             // 
-            this._tbAdvansedFilter2Val.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this._tbAdvansedFilter2Val.Location = new System.Drawing.Point(210, 42);
-            this._tbAdvansedFilter2Val.Name = "_tbAdvansedFilter2Val";
-            this._tbAdvansedFilter2Val.Size = new System.Drawing.Size(94, 20);
-            this._tbAdvansedFilter2Val.TabIndex = 1;
-            this._tbAdvansedFilter2Val.KeyDown += new System.Windows.Forms.KeyEventHandler(this._tbAdvansedFilterVal_KeyDown);
+            this._cbAdvancedFilter2CompareType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this._cbAdvancedFilter2CompareType.FormattingEnabled = true;
+            this._cbAdvancedFilter2CompareType.Location = new System.Drawing.Point(127, 41);
+            this._cbAdvancedFilter2CompareType.Name = "_cbAdvancedFilter2CompareType";
+            this._cbAdvancedFilter2CompareType.Size = new System.Drawing.Size(76, 21);
+            this._cbAdvancedFilter2CompareType.TabIndex = 3;
             // 
-            // _tbAdvansedFilter1Val
+            // _cbAdvancedFilter1CompareType
             // 
-            this._tbAdvansedFilter1Val.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this._tbAdvansedFilter1Val.Location = new System.Drawing.Point(209, 15);
-            this._tbAdvansedFilter1Val.Name = "_tbAdvansedFilter1Val";
-            this._tbAdvansedFilter1Val.Size = new System.Drawing.Size(94, 20);
-            this._tbAdvansedFilter1Val.TabIndex = 1;
-            this._tbAdvansedFilter1Val.KeyDown += new System.Windows.Forms.KeyEventHandler(this._tbAdvansedFilterVal_KeyDown);
+            this._cbAdvancedFilter1CompareType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this._cbAdvancedFilter1CompareType.FormattingEnabled = true;
+            this._cbAdvancedFilter1CompareType.Location = new System.Drawing.Point(127, 15);
+            this._cbAdvancedFilter1CompareType.Name = "_cbAdvancedFilter1CompareType";
+            this._cbAdvancedFilter1CompareType.Size = new System.Drawing.Size(76, 21);
+            this._cbAdvancedFilter1CompareType.TabIndex = 2;
             // 
-            // _cbAdvansedFilter2
+            // _tbAdvancedFilter2Val
             // 
-            this._cbAdvansedFilter2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this._tbAdvancedFilter2Val.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this._tbAdvancedFilter2Val.Location = new System.Drawing.Point(210, 42);
+            this._tbAdvancedFilter2Val.Name = "_tbAdvancedFilter2Val";
+            this._tbAdvancedFilter2Val.Size = new System.Drawing.Size(85, 20);
+            this._tbAdvancedFilter2Val.TabIndex = 1;
+            this._tbAdvancedFilter2Val.KeyDown += new System.Windows.Forms.KeyEventHandler(this._tbAdvansedFilterVal_KeyDown);
+            // 
+            // _tbAdvancedFilter1Val
+            // 
+            this._tbAdvancedFilter1Val.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this._tbAdvancedFilter1Val.Location = new System.Drawing.Point(209, 15);
+            this._tbAdvancedFilter1Val.Name = "_tbAdvancedFilter1Val";
+            this._tbAdvancedFilter1Val.Size = new System.Drawing.Size(85, 20);
+            this._tbAdvancedFilter1Val.TabIndex = 1;
+            this._tbAdvancedFilter1Val.KeyDown += new System.Windows.Forms.KeyEventHandler(this._tbAdvansedFilterVal_KeyDown);
+            // 
+            // _cbAdvancedFilter2
+            // 
+            this._cbAdvancedFilter2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this._cbAdvansedFilter2.DropDownHeight = 500;
-            this._cbAdvansedFilter2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this._cbAdvansedFilter2.FormattingEnabled = true;
-            this._cbAdvansedFilter2.IntegralHeight = false;
-            this._cbAdvansedFilter2.Location = new System.Drawing.Point(1, 42);
-            this._cbAdvansedFilter2.Name = "_cbAdvansedFilter2";
-            this._cbAdvansedFilter2.Size = new System.Drawing.Size(202, 21);
-            this._cbAdvansedFilter2.TabIndex = 0;
+            this._cbAdvancedFilter2.DropDownHeight = 500;
+            this._cbAdvancedFilter2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this._cbAdvancedFilter2.FormattingEnabled = true;
+            this._cbAdvancedFilter2.IntegralHeight = false;
+            this._cbAdvancedFilter2.Location = new System.Drawing.Point(1, 42);
+            this._cbAdvancedFilter2.Name = "_cbAdvancedFilter2";
+            this._cbAdvancedFilter2.Size = new System.Drawing.Size(120, 21);
+            this._cbAdvancedFilter2.TabIndex = 0;
             // 
-            // _cbAdvansedFilter1
+            // _cbAdvancedFilter1
             // 
-            this._cbAdvansedFilter1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this._cbAdvancedFilter1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this._cbAdvansedFilter1.DropDownHeight = 500;
-            this._cbAdvansedFilter1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this._cbAdvansedFilter1.FormattingEnabled = true;
-            this._cbAdvansedFilter1.IntegralHeight = false;
-            this._cbAdvansedFilter1.Location = new System.Drawing.Point(1, 15);
-            this._cbAdvansedFilter1.Name = "_cbAdvansedFilter1";
-            this._cbAdvansedFilter1.Size = new System.Drawing.Size(202, 21);
-            this._cbAdvansedFilter1.TabIndex = 0;
+            this._cbAdvancedFilter1.DropDownHeight = 500;
+            this._cbAdvancedFilter1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this._cbAdvancedFilter1.FormattingEnabled = true;
+            this._cbAdvancedFilter1.IntegralHeight = false;
+            this._cbAdvancedFilter1.Location = new System.Drawing.Point(1, 15);
+            this._cbAdvancedFilter1.Name = "_cbAdvancedFilter1";
+            this._cbAdvancedFilter1.Size = new System.Drawing.Size(120, 21);
+            this._cbAdvancedFilter1.TabIndex = 0;
             // 
             // _cbTarget2
             // 
@@ -1506,6 +1528,36 @@
             this.spellfamilymaskA2.Text = "Spell Family Mask A 2";
             this.spellfamilymaskA2.Width = 120;
             // 
+            // spellfamilymaskB0
+            // 
+            this.spellfamilymaskB0.Text = "Spell Family Mask B 0";
+            this.spellfamilymaskB0.Width = 120;
+            // 
+            // spellfamilymaskB1
+            // 
+            this.spellfamilymaskB1.Text = "Spell Family Mask B 1";
+            this.spellfamilymaskB1.Width = 120;
+            // 
+            // spellfamilymaskB2
+            // 
+            this.spellfamilymaskB2.Text = "Spell Family Mask B 2";
+            this.spellfamilymaskB2.Width = 120;
+            // 
+            // spellfamilymaskC0
+            // 
+            this.spellfamilymaskC0.Text = "Spell Family Mask C 0";
+            this.spellfamilymaskC0.Width = 120;
+            // 
+            // spellfamilymaskC1
+            // 
+            this.spellfamilymaskC1.Text = "Spell Family Mask C 1";
+            this.spellfamilymaskC1.Width = 120;
+            // 
+            // spellfamilymaskC2
+            // 
+            this.spellfamilymaskC2.Text = "Spell Family Mask C 2";
+            this.spellfamilymaskC2.Width = 120;
+            // 
             // procflag
             // 
             this.procflag.Text = "Proc Flags";
@@ -1643,36 +1695,6 @@
             this.richTextBox2.Size = new System.Drawing.Size(430, 429);
             this.richTextBox2.TabIndex = 0;
             this.richTextBox2.Text = "";
-            // 
-            // spellfamilymaskB0
-            // 
-            this.spellfamilymaskB0.Text = "Spell Family Mask B 0";
-            this.spellfamilymaskB0.Width = 120;
-            // 
-            // spellfamilymaskB1
-            // 
-            this.spellfamilymaskB1.Text = "Spell Family Mask B 1";
-            this.spellfamilymaskB1.Width = 120;
-            // 
-            // spellfamilymaskB2
-            // 
-            this.spellfamilymaskB2.Text = "Spell Family Mask B 2";
-            this.spellfamilymaskB2.Width = 120;
-            // 
-            // spellfamilymaskC0
-            // 
-            this.spellfamilymaskC0.Text = "Spell Family Mask C 0";
-            this.spellfamilymaskC0.Width = 120;
-            // 
-            // spellfamilymaskC1
-            // 
-            this.spellfamilymaskC1.Text = "Spell Family Mask C 1";
-            this.spellfamilymaskC1.Width = 120;
-            // 
-            // spellfamilymaskC2
-            // 
-            this.spellfamilymaskC2.Text = "Spell Family Mask C 2";
-            this.spellfamilymaskC2.Width = 120;
             // 
             // FormMain
             // 
@@ -1871,10 +1893,10 @@
         private System.Windows.Forms.Button _bCompareSearch1;
         private System.Windows.Forms.Button _bCompareSearch2;
         private System.Windows.Forms.GroupBox _gbAdvansedSearch;
-        private System.Windows.Forms.TextBox _tbAdvansedFilter2Val;
-        private System.Windows.Forms.TextBox _tbAdvansedFilter1Val;
-        private System.Windows.Forms.ComboBox _cbAdvansedFilter2;
-        private System.Windows.Forms.ComboBox _cbAdvansedFilter1;
+        private System.Windows.Forms.TextBox _tbAdvancedFilter2Val;
+        private System.Windows.Forms.TextBox _tbAdvancedFilter1Val;
+        private System.Windows.Forms.ComboBox _cbAdvancedFilter2;
+        private System.Windows.Forms.ComboBox _cbAdvancedFilter1;
         private System.Windows.Forms.RichTextBox _rtbSqlLog;
         private System.Windows.Forms.ImageList _ilPro;
         private System.Windows.Forms.ColumnHeader spellfamilymaskB0;
@@ -1883,5 +1905,7 @@
         private System.Windows.Forms.ColumnHeader spellfamilymaskC0;
         private System.Windows.Forms.ColumnHeader spellfamilymaskC1;
         private System.Windows.Forms.ColumnHeader spellfamilymaskC2;
+        private System.Windows.Forms.ComboBox _cbAdvancedFilter2CompareType;
+        private System.Windows.Forms.ComboBox _cbAdvancedFilter1CompareType;
     }
 }
