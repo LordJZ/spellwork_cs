@@ -183,6 +183,7 @@ namespace SpellWork
 
             AppendSpellEffectInfo();
             AppendItemInfo();
+            AppendDifficultyInfo();
         }
 
         private void AppendSkillLine()
@@ -440,6 +441,39 @@ namespace SpellWork
                     break;
                 default:
                     break;
+            }
+        }
+
+        private void AppendDifficultyInfo()
+        {
+            uint difficultyId = spell.SpellDifficultyId;
+            if (difficultyId == 0)
+                return;
+
+            if (!DBC.SpellDifficulty.ContainsKey(difficultyId))
+            {
+                rtb.AppendFormatLine("Cannot find difficulty overrides for id {0} in SpellDifficulty.dbc!", difficultyId);
+                return;
+            }
+
+            string[] modeNames = new string[]
+            {
+                "Normal 10",
+                "Normal 25",
+                "Heroic 10",
+                "Heroic 25",
+            };
+
+            rtb.SetBold();
+            rtb.AppendLine("Spell difficulty Ids:");
+
+            SpellDifficultyEntry difficulty = DBC.SpellDifficulty[difficultyId];
+            for (int i = 0; i < 4; ++i)
+            {
+                if (difficulty.SpellId[i] <= 0)
+                    continue;
+
+                rtb.AppendFormatLine("{0}: {1}", modeNames[i], difficulty.SpellId[i]);
             }
         }
 

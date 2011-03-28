@@ -479,4 +479,11 @@ namespace SpellWork
         public string   LocalesDescription;
         public uint[]   SpellID;
     };
+
+    public struct SpellDifficultyEntry
+    {
+        public uint     Id;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
+        public int[]    SpellId;
+    };
 }

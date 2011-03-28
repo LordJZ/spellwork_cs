@@ -10,17 +10,17 @@ namespace SpellWork
     {
         public Loader()
         {
-            DBC.Spell               = DBCReader.ReadDBC<SpellEntry>(DBC.SpellStrings);
-            DBC.SkillLine           = DBCReader.ReadDBC<SkillLineEntry>(DBC.SkillLineStrings);
-            DBC.SpellRange          = DBCReader.ReadDBC<SpellRangeEntry>(DBC.SpellRangeStrings);
-            DBC.ScreenEffect        = DBCReader.ReadDBC<ScreenEffectEntry>(DBC.ScreenEffectStrings);
-
-            DBC.SpellDuration       = DBCReader.ReadDBC<SpellDurationEntry>(null);
-            DBC.SkillLineAbility    = DBCReader.ReadDBC<SkillLineAbilityEntry>(null);
-            DBC.SpellRadius         = DBCReader.ReadDBC<SpellRadiusEntry>(null);
-            DBC.SpellCastTimes      = DBCReader.ReadDBC<SpellCastTimesEntry>(null);
-
             DBC.OverrideSpellData   = DBCReader.ReadDBC<OverrideSpellDataEntry>(null);
+            DBC.ScreenEffect        = DBCReader.ReadDBC<ScreenEffectEntry>(DBC.ScreenEffectStrings);
+            DBC.SkillLine           = DBCReader.ReadDBC<SkillLineEntry>(DBC.SkillLineStrings);
+            DBC.SkillLineAbility    = DBCReader.ReadDBC<SkillLineAbilityEntry>(null);
+            DBC.Spell               = DBCReader.ReadDBC<SpellEntry>(DBC.SpellStrings);
+            DBC.SpellCastTimes      = DBCReader.ReadDBC<SpellCastTimesEntry>(null);
+            DBC.SpellDifficulty     = DBCReader.ReadDBC<SpellDifficultyEntry>(null);
+            DBC.SpellDuration       = DBCReader.ReadDBC<SpellDurationEntry>(null);
+            DBC.SpellRadius         = DBCReader.ReadDBC<SpellRadiusEntry>(null);
+            DBC.SpellRange          = DBCReader.ReadDBC<SpellRangeEntry>(DBC.SpellRangeStrings);
+
 
             DBC.Locale = DetectedLocale;
         }
