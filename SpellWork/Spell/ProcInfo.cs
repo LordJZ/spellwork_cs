@@ -54,7 +54,7 @@ namespace SpellWork
                 StringBuilder toolTip = new StringBuilder();
 
                 name.AppendFormat("{0} - {1} ", spell.ID, spell.SpellNameRank);
-                
+
                 toolTip.AppendFormatLine("Spell Name: {0}",  spell.SpellNameRank);
                 toolTip.AppendFormatLine("Description: {0}", spell.Description);
                 toolTip.AppendFormatLine("ToolTip: {0}",     spell.ToolTip);
@@ -69,7 +69,7 @@ namespace SpellWork
                 }
 
                 name.AppendFormat("({0})", spell.School.ToString().NormaliseString("MASK_"));
-                
+
                 foreach (TreeNode node in familyTree.Nodes)
                 {
                     uint[] mask = new uint[3];

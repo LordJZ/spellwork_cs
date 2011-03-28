@@ -32,7 +32,7 @@ namespace SpellWork
             Settings.Default.UseDbConnect = _cbUseDBConnect.Checked;
 
             MySQLConnect.TestConnect();
-            
+
             if (((Button)sender).Text != "Save")
             {
                 if (MySQLConnect.Connected)

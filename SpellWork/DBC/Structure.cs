@@ -12,12 +12,12 @@ namespace SpellWork
         public int FieldsCount;
         public int RecordSize;
         public int StringTableSize;
-        
+
         public bool IsDBC
         {
             get { return Signature == 0x43424457; }
         }
-        
+
         public long DataSize
         {
             get { return (long)(RecordsCount * RecordSize); }
@@ -43,7 +43,7 @@ namespace SpellWork
         public uint AttributesEx4;                                // 8        m_attributesExD
         public uint AttributesEx5;                                // 9        m_attributesExE
         public uint AttributesEx6;                                // 10       m_attributesExF
-        public uint AttributesExG;                                // 11       3.2.0 (0x20 - totems, 0x4 - paladin auras, etc...)
+        public uint AttributesEx7;                                // 11       3.2.0 (0x20 - totems, 0x4 - paladin auras, etc...)
         public ulong Stances;                                     // 12-13    m_shapeshiftMask
         public ulong StancesNot;                                  // 14-15    m_shapeshiftExclude
         public uint Targets;                                      // 16       m_targets
@@ -90,7 +90,7 @@ namespace SpellWork
         public int EquippedItemSubClassMask;                      // 69       m_equippedItemSubclass (mask)
         public int EquippedItemInventoryTypeMask;                 // 70       m_equippedItemInvTypes (mask)
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
-        public uint[] Effect;                     				  // 71-73    m_effect
+        public uint[] Effect;                                       // 71-73    m_effect
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
         public int[] EffectDieSides;                              // 74-76    m_effectDieSides
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
@@ -158,7 +158,7 @@ namespace SpellWork
         public uint PreventionType;                               // 214      m_preventionType
         public uint StanceBarOrder;                               // 215      m_stanceBarOrder not used
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
-        public float[] DmgMultiplier;              				  // 216-218  m_effectChainAmplitude
+        public float[] DmgMultiplier;                                // 216-218  m_effectChainAmplitude
         public uint MinFactionId;                                 // 219      m_minFactionID not used
         public uint MinReputation;                                // 220      m_minReputation not used
         public uint RequiredAuraVision;                           // 221      m_requiredAuraVision not used
@@ -279,7 +279,7 @@ namespace SpellWork
                 if (!DBC.SpellCastTimes.ContainsKey(CastingTimeIndex))
                     return String.Format("CastingTime (Id {0}) = ????", CastingTimeIndex);
                 else
-                    return String.Format("CastingTime (Id {0}) = {1:F}", 
+                    return String.Format("CastingTime (Id {0}) = {1:F}",
                         CastingTimeIndex, DBC.SpellCastTimes[CastingTimeIndex].CastTime / 1000.0f);
             }
         }
@@ -393,7 +393,7 @@ namespace SpellWork
     public struct SpellCastTimesEntry
     {
         public uint  ID;
-        public int   CastTime;   
+        public int   CastTime;
         public float CastTimePerLevel;
         public int   MinCastTime;
     };
@@ -434,7 +434,7 @@ namespace SpellWork
         public string   SpellName;
         public uint     SchoolMask;
         public uint     SpellFamilyName;
-        public uint[,]  SpellFamilyMask;
+        public uint[]   SpellFamilyMask;
         public uint     ProcFlags;
         public uint     ProcEx;
         public float    PpmRate;
@@ -442,26 +442,20 @@ namespace SpellWork
         public uint     Cooldown;
 
         public string[] ToArray()
-        {  
+        {
             return new[]
             {
-                ID.ToString(), 
-                SpellName, 
-                SchoolMask.ToString(), 
-                SpellFamilyName.ToString(), 
-                SpellFamilyMask[0,0].ToString(), 
-                SpellFamilyMask[0,1].ToString(), 
-                SpellFamilyMask[0,2].ToString(), 
-                SpellFamilyMask[1,0].ToString(), 
-                SpellFamilyMask[1,1].ToString(), 
-                SpellFamilyMask[1,2].ToString(),
-                SpellFamilyMask[2,0].ToString(), 
-                SpellFamilyMask[2,1].ToString(), 
-                SpellFamilyMask[2,2].ToString(),
-                ProcFlags.ToString(), 
-                ProcEx.ToString(), 
-                PpmRate.ToString(), 
-                CustomChance.ToString(), 
+                ID.ToString(),
+                SpellName,
+                SchoolMask.ToString(),
+                SpellFamilyName.ToString(),
+                SpellFamilyMask[0].ToString(),
+                SpellFamilyMask[1].ToString(),
+                SpellFamilyMask[2].ToString(),
+                ProcFlags.ToString(),
+                ProcEx.ToString(),
+                PpmRate.ToString(),
+                CustomChance.ToString(),
                 Cooldown.ToString()
             };
         }

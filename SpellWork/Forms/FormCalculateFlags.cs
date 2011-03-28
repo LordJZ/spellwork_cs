@@ -6,11 +6,11 @@ namespace SpellWork
     public partial class FormCalculateFlags : Form
     {
         public uint Flags { get; private set; }
- 
+
         public FormCalculateFlags(Type data, uint value, String remove)
         {
             InitializeComponent();
-            
+
             this._clbCalcFlags.SetFlags(data, remove);
             this._clbCalcFlags.SetCheckedItemFromFlag(value);
 

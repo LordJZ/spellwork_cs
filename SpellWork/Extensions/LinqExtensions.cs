@@ -27,7 +27,7 @@ namespace SpellWork
         public static bool CreateFilter<T>(this T T_entry, object field, object val, CompareType compareType)
         {
             object basicValue = GetValue<T>(T_entry, (MemberInfo)field);
-            
+
             switch (basicValue.GetType().Name)
             {
                 case "UInt32":

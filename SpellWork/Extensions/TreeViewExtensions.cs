@@ -35,7 +35,7 @@ namespace SpellWork
         public static void SetMask(this TreeView tv, uint[] mask)
         {
             ProcInfo.Update = false;
-            
+
             for (int i = 0; i < tv.Nodes.Count; ++i)
             {
                 if (i < 32)
@@ -44,28 +44,6 @@ namespace SpellWork
                     tv.Nodes[i].Checked = ((mask[1] / (1 << (i - 32))) % 2) != 0;
                 else
                     tv.Nodes[i].Checked = ((mask[2] / (1 << (i - 64))) % 2) != 0;
-            }
-
-            ProcInfo.Update = true;
-        }
-
-        /// <summary>
-        /// Check items of the collection...
-        /// </summary>
-        /// <param name="tv"></param>
-        /// <param name="mask"></param>
-        public static void SetMask(this TreeView tv, uint[,] mask)
-        {
-            ProcInfo.Update = false;
-
-            for (int i = 0; i < tv.Nodes.Count; ++i)
-            {
-                if (i < 32)
-                    tv.Nodes[i].Checked = ((mask[0, 0] / (1 << i)) % 2) != 0;
-                else if (i < 64)
-                    tv.Nodes[i].Checked = ((mask[0, 1] / (1 << (i - 32))) % 2) != 0;
-                else
-                    tv.Nodes[i].Checked = ((mask[0, 2] / (1 << (i - 64))) % 2) != 0;
             }
 
             ProcInfo.Update = true;

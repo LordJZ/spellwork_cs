@@ -27,7 +27,7 @@ namespace SpellWork
 
             string[] strsl = rtb1.Text.Split('\n');
             string[] strsr = rtb2.Text.Split('\n');
-            
+
             int pos = 0;
             foreach (string str in strsl)
             {

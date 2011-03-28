@@ -22,7 +22,6 @@ namespace SpellWork
 
             DBC.OverrideSpellData   = DBCReader.ReadDBC<OverrideSpellDataEntry>(null);
 
-            
             DBC.Locale = DetectedLocale;
         }
 

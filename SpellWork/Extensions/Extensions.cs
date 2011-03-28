@@ -38,12 +38,12 @@ namespace SpellWork
         public static unsafe T ReadStruct<T>(this BinaryReader reader) where T : struct
         {
             byte[] rawData = reader.ReadBytes(Marshal.SizeOf(typeof(T)));
-            
+
             GCHandle handle = GCHandle.Alloc(rawData, GCHandleType.Pinned);
             T returnObject = (T)Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(T));
-            
+
             handle.Free();
-            
+
             return returnObject;
         }
 
@@ -95,7 +95,7 @@ namespace SpellWork
 
         public static int ToInt32(this Object val)
         {
-            if (val == null) 
+            if (val == null)
                 return 0;
 
             int num;
@@ -283,7 +283,7 @@ namespace SpellWork
         public static bool ContainsElement(this uint[] array, uint[] value)
         {
             if (array.Length != value.Length)
-                return false; 
+                return false;
 
             for(int i = 0; i < array.Length; i++)
             {

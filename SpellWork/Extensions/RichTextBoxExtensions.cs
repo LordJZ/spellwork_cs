@@ -79,7 +79,7 @@ namespace SpellWork
             textbox.SelectionColor = color;
             textbox.SelectionFont = new Font(DEFAULT_FAMILY, DEFAULT_SIZE, style);
         }
-        
+
         public static void SetBold(this RichTextBox textbox)
         {
             textbox.SelectionFont = new Font(DEFAULT_FAMILY, DEFAULT_SIZE, FontStyle.Bold);
@@ -102,7 +102,7 @@ namespace SpellWork
             foreach (String keyword in keywords)
             {
                 int keywordPos = rtb.Find(keyword, RichTextBoxFinds.MatchCase | RichTextBoxFinds.WholeWord);
-                
+
                 while (keywordPos != -1)
                 {
                     int commentPos = text.LastIndexOf("-- ", keywordPos, StringComparison.OrdinalIgnoreCase);

@@ -26,7 +26,7 @@ namespace SpellWork
         public static Dictionary<uint, string> SpellRangeStrings       = new Dictionary<uint, string>();
         public static Dictionary<uint, string> ScreenEffectStrings     = new Dictionary<uint, string>();
 
-        // DB 
+        // DB
         public static List<Item> ItemTemplate = new List<Item>();
 
         // Locale

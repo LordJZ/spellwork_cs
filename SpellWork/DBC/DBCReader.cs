@@ -12,7 +12,7 @@ namespace SpellWork
         {
             Dictionary<uint, T> dict = new Dictionary<uint, T>();
             String fileName = Path.Combine(DBC.DBC_PATH, typeof(T).Name + ".dbc").Replace("Entry", String.Empty);
-            
+
             using (BinaryReader reader = new BinaryReader(new FileStream(fileName, FileMode.Open, FileAccess.Read), Encoding.UTF8))
             {
                 if (!File.Exists(fileName))
@@ -23,7 +23,7 @@ namespace SpellWork
 
                 if (!header.IsDBC)
                     throw new Exception(fileName + " is not DBC files!");
-                
+
                 if (header.RecordSize != size)
                     throw new Exception(string.Format("Size of row in DBC file ({0}) != size of DBC struct ({1}) in DBC: {2}", header.RecordSize, size, fileName));
 

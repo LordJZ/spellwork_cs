@@ -44,7 +44,7 @@ namespace SpellWork
                                             || (spell.AttributesEx4 & at) != 0
                                             || (spell.AttributesEx5 & at) != 0
                                             || (spell.AttributesEx6 & at) != 0
-                                            || (spell.AttributesExG & at) != 0))
+                                            || (spell.AttributesEx7 & at) != 0))
 
                                 && (id != 0 || ic != 0 && at != 0) || spell.SpellName.ContainsText(name)
 
@@ -52,7 +52,7 @@ namespace SpellWork
 
                 _lvSpellList.VirtualListSize = _spellList.Count();
                 groupBox1.Text = "Spell Search count: " + _spellList.Count();
-                
+
                 if (_lvSpellList.SelectedIndices.Count > 0)
                     _lvSpellList.Items[_lvSpellList.SelectedIndices[0]].Selected = false;
             }
@@ -89,7 +89,7 @@ namespace SpellWork
 
                 _lvSpellList.VirtualListSize = _spellList.Count();
                 groupBox2.Text = "Spell Filter " + "count: " + _spellList.Count();
-                
+
                 if (_lvSpellList.SelectedIndices.Count > 0)
                     _lvSpellList.Items[_lvSpellList.SelectedIndices[0]].Selected = false;
             }

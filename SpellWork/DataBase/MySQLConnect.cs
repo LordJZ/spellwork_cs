@@ -17,13 +17,13 @@ namespace SpellWork
 
         private static String ConnectionString
         {
-            get 
+            get
             {
-                return String.Format("Server={0};Port={1};Uid={2};Pwd={3};Database={4};character set=utf8;Connection Timeout=10", 
-                    Settings.Default.Host, 
-                    Settings.Default.Port, 
-                    Settings.Default.User, 
-                    Settings.Default.Pass, 
+                return String.Format("Server={0};Port={1};Uid={2};Pwd={3};Database={4};character set=utf8;Connection Timeout=10",
+                    Settings.Default.Host,
+                    Settings.Default.Port,
+                    Settings.Default.User,
+                    Settings.Default.Pass,
                     Settings.Default.Db_mangos);
             }
         }
@@ -59,30 +59,18 @@ namespace SpellWork
                         str.SpellName           = GetSpellName(str.ID);
                         str.SchoolMask          = reader[1].ToUInt32();
                         str.SpellFamilyName     = reader[2].ToUInt32();
-                        str.SpellFamilyMask     = new[,] 
-                        { 
-                            {
-                                (uint)reader[3 ], 
-                                (uint)reader[4 ], 
-                                (uint)reader[5 ],
-                            },
-                            {
-                                (uint)reader[6 ], 
-                                (uint)reader[7 ], 
-                                (uint)reader[8 ],
-                            },
-                            {
-                                (uint)reader[9 ], 
-                                (uint)reader[10], 
-                                (uint)reader[11],
-                            }
+                        str.SpellFamilyMask     = new[]
+                        {
+                            (uint)reader[3],
+                            (uint)reader[4],
+                            (uint)reader[5]
                         };
-                        str.ProcFlags           = reader[12].ToUInt32();
-                        str.ProcEx              = reader[13].ToUInt32();
-                        str.PpmRate             = reader[14].ToUInt32();
-                        str.CustomChance        = reader[15].ToUInt32();
-                        str.Cooldown            = reader[16].ToUInt32();
-                        
+                        str.ProcFlags           = reader[6].ToUInt32();
+                        str.ProcEx              = reader[7].ToUInt32();
+                        str.PpmRate             = reader[8].ToUInt32();
+                        str.CustomChance        = reader[9].ToUInt32();
+                        str.Cooldown            = reader[10].ToUInt32();
+
                         SpellProcEvent.Add(str);
                     }
                 }
@@ -103,27 +91,27 @@ namespace SpellWork
             List<Item> items = DBC.ItemTemplate;
             // In order to reduce the search time, we make the first selection of all items that have spellid
             string query = String.Format(
-                @"SELECT    t.entry, 
-                            t.name, 
-                            t.description, 
-                            l.name_loc{0}, 
-                            l.description_loc{0}, 
-                            t.spellid_1, 
-                            t.spellid_2, 
-                            t.spellid_3, 
-                            t.spellid_4, 
-                            t.spellid_5 
-                FROM 
-                    `item_template` t 
-                LEFT JOIN 
-                    `locales_item` l 
-                ON 
-                    t.entry = l.entry 
-                WHERE 
-                    t.spellid_1 <> 0 || 
-                    t.spellid_2 <> 0 || 
-                    t.spellid_3 <> 0 || 
-                    t.spellid_4 <> 0 || 
+                @"SELECT    t.entry,
+                            t.name,
+                            t.description,
+                            l.name_loc{0},
+                            l.description_loc{0},
+                            t.spellid_1,
+                            t.spellid_2,
+                            t.spellid_3,
+                            t.spellid_4,
+                            t.spellid_5
+                FROM
+                    `item_template` t
+                LEFT JOIN
+                    `locales_item` l
+                ON
+                    t.entry = l.entry
+                WHERE
+                    t.spellid_1 <> 0 ||
+                    t.spellid_2 <> 0 ||
+                    t.spellid_3 <> 0 ||
+                    t.spellid_4 <> 0 ||
                     t.spellid_5 <> 0;",
                 (int)DBC.Locale == 0 ? 1 : (int)DBC.Locale /* it's huck TODO: replase code*/);
 
@@ -143,13 +131,13 @@ namespace SpellWork
                             Description         = reader[2].ToString(),
                             LocalesName         = reader[3].ToString(),
                             LocalesDescription  = reader[4].ToString(),
-                            SpellID             = new uint[] 
-                            { 
-                                (uint)reader[5], 
-                                (uint)reader[6], 
-                                (uint)reader[7], 
-                                (uint)reader[8], 
-                                (uint)reader[9] 
+                            SpellID             = new uint[]
+                            {
+                                (uint)reader[5],
+                                (uint)reader[6],
+                                (uint)reader[7],
+                                (uint)reader[8],
+                                (uint)reader[9]
                             }
                         });
                     }

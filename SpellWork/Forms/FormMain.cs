@@ -16,7 +16,7 @@ namespace SpellWork
         {
             InitializeComponent();
             splitContainer3.SplitterDistance = 128;
-            
+
             Text = DBC.VERSION;
 
             _cbSpellFamilyName.SetEnumValues<SpellFamilyNames>("SpellFamilyName");
@@ -165,7 +165,7 @@ namespace SpellWork
             uint at = _tbSearchAttributes.Text.ToUInt32();
 
             _spellList = (from spell in DBC.Spell.Values
-                          
+
                           where ((id == 0 || spell.ID          == id)
 
                               && (ic == 0 || spell.SpellIconID == ic)
@@ -177,10 +177,10 @@ namespace SpellWork
                                           || (spell.AttributesEx4 & at) != 0
                                           || (spell.AttributesEx5 & at) != 0
                                           || (spell.AttributesEx6 & at) != 0
-                                          || (spell.AttributesExG & at) != 0))
+                                          || (spell.AttributesEx7 & at) != 0))
 
                              && ((id != 0 || ic != 0 && at != 0) || spell.SpellName.ContainsText(name))
-                          
+
                           select spell).ToList();
 
             _lvSpellList.VirtualListSize = _spellList.Count();
@@ -219,7 +219,7 @@ namespace SpellWork
             CompareType field2ct = (CompareType)_cbAdvancedFilter2CompareType.SelectedItem;
 
             _spellList = (from spell in DBC.Spell.Values
-                           
+
                           where ( !bFamilyNames || spell.SpellFamilyName == fFamilyNames)
                               && (!bSpellEffect || spell.Effect.ContainsElement((uint)fSpellEffect))
                               && (!bSpellAura   || spell.EffectApplyAuraName.ContainsElement((uint)fSpellAura))
@@ -227,7 +227,7 @@ namespace SpellWork
                               && (!bTarget2     || spell.EffectImplicitTargetB.ContainsElement((uint)fTarget2))
                               && (!use1val      || spell.CreateFilter(field1, advVal1, field1ct))
                               && (!use2val      || spell.CreateFilter(field2, advVal2, field2ct))
-                           
+
                           select spell).ToList();
 
             _lvSpellList.VirtualListSize = _spellList.Count();
@@ -277,7 +277,7 @@ namespace SpellWork
             if (_lvProcAdditionalInfo.SelectedIndices.Count > 0)
                 SetProcAtribute(DBC.Spell[_lvProcAdditionalInfo.SelectedItems[0].SubItems[0].Text.ToUInt32()]);
         }
-        
+
         private void _clbSchools_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ProcInfo.SpellProc.ID != 0)
@@ -351,12 +351,12 @@ namespace SpellWork
         private void Search()
         {
             uint id = _tbProcSeach.Text.ToUInt32();
-            
+
             _spellProcList = (from spell in DBC.Spell.Values
                            where (id == 0 || spell.ID == id)
                               && (id != 0 || spell.SpellName.ContainsText(_tbProcSeach.Text))
                            select spell).ToList();
-            
+
             _lvProcSpellList.VirtualListSize = _spellProcList.Count;
             if (_lvProcSpellList.SelectedIndices.Count > 0)
                 _lvProcSpellList.Items[_lvProcSpellList.SelectedIndices[0]].Selected = false;
@@ -386,14 +386,14 @@ namespace SpellWork
                                  && (!bSpellAura   || spell.EffectApplyAuraName.Contains((uint)fSpellAura))
                                  && (!bTarget1     || spell.EffectImplicitTargetA.ContainsElement((uint)fTarget1))
                                  && (!bTarget2     || spell.EffectImplicitTargetB.ContainsElement((uint)fTarget2))
-                              
+
                               select spell).ToList();
 
             _lvProcSpellList.VirtualListSize = _spellProcList.Count();
             if (_lvProcSpellList.SelectedIndices.Count > 0)
                 _lvProcSpellList.Items[_lvProcSpellList.SelectedIndices[0]].Selected = false;
         }
-       
+
         private void FamilyTree_AfterCheck(object sender, TreeViewEventArgs e)
         {
             if (!ProcInfo.Update) return;
@@ -570,14 +570,13 @@ namespace SpellWork
             // drop query
             var drop = String.Format("DELETE FROM `spell_proc_event` WHERE `entry` IN ({0});", ProcInfo.SpellProc.ID);
             // insert query
-            var insert = String.Format("INSERT INTO `spell_proc_event` VALUES ({0}, 0x{1:X2}, 0x{2:X2}, 0x{3:X8}, 0x{4:X8}, 0x{5:X8}, 0x{6:X8}, 0x{7:X8}, 0x{8:X8}, 0x{9:X8}, 0x{10:X8}, 0x{11:X8}, 0x{12:X8}, 0x{13:X8}, {14}, {15}, {16});",
+            var insert = String.Format("INSERT INTO `spell_proc_event` VALUES ({0}, 0x{1:X2}, 0x{2:X2}, 0x{3:X8}, 0x{4:X8}, 0x{5:X8}, 0x{6:X8}, 0x{7:X8}, {8}, {9}, {10});",
                 ProcInfo.SpellProc.ID,
                 _clbSchools.GetFlagsValue(),
                 _cbProcFitstSpellFamily.SelectedValue.ToUInt32(),
                 SpellFamilyFlags[0],
                 SpellFamilyFlags[1],
                 SpellFamilyFlags[2],
-                0,0,0,0,0,0,// пока что так, пока не пойму как...
                 _clbProcFlags.GetFlagsValue(),
                 _clbProcFlagEx.GetFlagsValue(),
                 _tbPPM.Text.Replace(',', '.'),
@@ -591,7 +590,7 @@ namespace SpellWork
 
             ((Button)sender).Enabled = false;
         }
-        
+
         private void ProcParse(object sender)
         {
             SpellProcEventEntry proc = MySQLConnect.SpellProcEvent[((ListView)sender).SelectedIndices[0]];
@@ -612,7 +611,7 @@ namespace SpellWork
             _tbCooldown.Text = proc.Cooldown.ToString();
 
             _tvFamilyTree.SetMask(proc.SpellFamilyMask);
-            
+
             tabControl1.SelectedIndex = 1;
         }
 
@@ -621,7 +620,7 @@ namespace SpellWork
         #region VIRTUAL MODE
 
         private List<SpellEntry> _spellList = new List<SpellEntry>();
- 
+
         private void _lvSpellList_RetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
         {
             e.Item = new ListViewItem(new[] { _spellList[e.ItemIndex].ID.ToString(), _spellList[e.ItemIndex].SpellNameRank });

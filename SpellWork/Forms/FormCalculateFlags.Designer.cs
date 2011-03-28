@@ -34,9 +34,9 @@
             this._clbCalcFlags = new System.Windows.Forms.CheckedListBox();
             this._lFlagValue = new System.Windows.Forms.Label();
             this.SuspendLayout();
-            // 
+            //
             // _bNo
-            // 
+            //
             this._bNo.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this._bNo.Location = new System.Drawing.Point(12, 270);
             this._bNo.Name = "_bNo";
@@ -45,9 +45,9 @@
             this._bNo.Text = "Cancel";
             this._bNo.UseVisualStyleBackColor = true;
             this._bNo.Click += new System.EventHandler(this._bNo_Click);
-            // 
+            //
             // _bOk
-            // 
+            //
             this._bOk.Location = new System.Drawing.Point(201, 270);
             this._bOk.Name = "_bOk";
             this._bOk.Size = new System.Drawing.Size(75, 23);
@@ -55,9 +55,9 @@
             this._bOk.Text = "OK";
             this._bOk.UseVisualStyleBackColor = true;
             this._bOk.Click += new System.EventHandler(this._bOk_Click);
-            // 
+            //
             // _clbCalcFlags
-            // 
+            //
             this._clbCalcFlags.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -68,9 +68,9 @@
             this._clbCalcFlags.Size = new System.Drawing.Size(291, 259);
             this._clbCalcFlags.TabIndex = 0;
             this._clbCalcFlags.SelectedValueChanged += new System.EventHandler(this._clbCalcFlags_SelectedValueChanged);
-            // 
+            //
             // _lFlagValue
-            // 
+            //
             this._lFlagValue.AutoSize = true;
             this._lFlagValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this._lFlagValue.ForeColor = System.Drawing.Color.Blue;
@@ -79,9 +79,9 @@
             this._lFlagValue.Size = new System.Drawing.Size(54, 13);
             this._lFlagValue.TabIndex = 3;
             this._lFlagValue.Text = "Value: 0";
-            // 
+            //
             // FormCalculateFlags
-            // 
+            //
             this.AcceptButton = this._bOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
