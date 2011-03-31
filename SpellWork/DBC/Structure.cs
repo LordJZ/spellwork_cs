@@ -82,9 +82,9 @@ namespace SpellWork
         public uint StackAmount;                                  // 49       m_cumulativeAura
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
         public uint[] Totem;                                      // 50-51    m_totem
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_REAGENT_COUNT)]
         public int[] Reagent;                                     // 52-59    m_reagent
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_REAGENT_COUNT)]
         public uint[] ReagentCount;                               // 60-67    m_reagentCount
         public int EquippedItemClass;                             // 68       m_equippedItemClass (value)
         public int EquippedItemSubClassMask;                      // 69       m_equippedItemSubclass (mask)
@@ -157,8 +157,8 @@ namespace SpellWork
         public uint DmgClass;                                     // 213      m_defenseType
         public uint PreventionType;                               // 214      m_preventionType
         public uint StanceBarOrder;                               // 215      m_stanceBarOrder not used
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
-        public float[] DmgMultiplier;                                // 216-218  m_effectChainAmplitude
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
+        public float[] DmgMultiplier;                             // 216-218  m_effectChainAmplitude
         public uint MinFactionId;                                 // 219      m_minFactionID not used
         public uint MinReputation;                                // 220      m_minReputation not used
         public uint RequiredAuraVision;                           // 221      m_requiredAuraVision not used
@@ -169,8 +169,8 @@ namespace SpellWork
         public uint RuneCostID;                                   // 226      m_runeCostID
         public uint SpellMissileID;                               // 227      m_spellMissileID not used
         public uint PowerDisplayId;                               // 228      PowerDisplay.dbc, new in 3.1
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
-        public float[] Unk_320_4;                                 // 229-231  3.2.0
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
+        public float[] DamageCoeficient;                          // 229-231  3.2.0
         public uint SpellDescriptionVariableID;                   // 232      3.2.0
         public uint SpellDifficultyId;                            // 233      3.3.0                           // 239      3.3.0
 

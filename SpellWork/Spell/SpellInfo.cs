@@ -41,7 +41,7 @@ namespace SpellWork
                 spell.Category, spell.SpellIconID, spell.ActiveIconID, spell.SpellVisual[0], spell.SpellVisual[1]);
 
             rtb.AppendFormatLine("Family {0}, flag 0x{1:X8} {2:X8} {3:X8}",
-                (SpellFamilyNames)spell.SpellFamilyName, spell.SpellFamilyFlags[2], spell.SpellFamilyFlags[1], spell.SpellFamilyFlags[0]);
+                (SpellFamilyNames)spell.SpellFamilyName, spell.SpellFamilyFlags[0], spell.SpellFamilyFlags[1], spell.SpellFamilyFlags[2]);
 
             rtb.AppendLine();
 
@@ -267,7 +267,7 @@ namespace SpellWork
 
                 if (ClassMask[0] != 0 || ClassMask[1] != 0 || ClassMask[2] != 0)
                 {
-                    rtb.AppendFormatLine("SpellClassMask = {0:X8} {1:X8} {2:X8}", ClassMask[2], ClassMask[1], ClassMask[0]);
+                    rtb.AppendFormatLine("SpellClassMask = {0:X8} {1:X8} {2:X8}", ClassMask[0], ClassMask[1], ClassMask[2]);
 
                     var query = from Spell in DBC.Spell.Values
                                 where Spell.SpellFamilyName == spell.SpellFamilyName && Spell.SpellFamilyFlags.ContainsElement(ClassMask)

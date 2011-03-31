@@ -8,6 +8,7 @@ namespace SpellWork
         public const string DBC_PATH = @"dbc";
 
         public const int MAX_DBC_LOCALE                 = 16;
+        public const int MAX_REAGENT_COUNT              = 8;
         public const int MAX_EFFECT_INDEX               = 3;
         public const int SPELL_ENTRY_FOR_DETECT_LOCALE  = 1;
 
