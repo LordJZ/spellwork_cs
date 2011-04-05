@@ -284,6 +284,40 @@ namespace SpellWork
             }
         }
 
+        public string SpellDifficulty
+        {
+            get
+            {
+                if (SpellDifficultyId == 0)
+                    return string.Empty;
+
+                StringBuilder builder = new StringBuilder("Spell Difficulty Id: " + SpellDifficultyId);
+
+                SpellDifficultyEntry entry;
+                if (DBC.SpellDifficulty.TryGetValue(SpellDifficultyId, out entry))
+                {
+                    builder.AppendLine();
+
+                    for (int i = 0; i < entry.Spells.Length; ++i)
+                    {
+                        int spellId = entry.Spells[i];
+
+                        builder.AppendFormat("    {0}) {1} - ", i, spellId);
+
+                        SpellEntry spell;
+                        if (DBC.Spell.TryGetValue((uint)spellId, out spell))
+                            builder.AppendLine(spell.SpellNameRank);
+                        else
+                            builder.AppendLine("(Not Found in Spell.dbc)");
+                    }
+                }
+                else
+                    builder.AppendLine(" (Not Found in SpellDifficulty.dbc)");
+
+                return builder.ToString();
+            }
+        }
+
         public SpellSchoolMask School
         {
             get
@@ -396,6 +430,13 @@ namespace SpellWork
         public int   CastTime;   
         public float CastTimePerLevel;
         public int   MinCastTime;
+    };
+
+    public struct SpellDifficultyEntry
+    {
+        public uint Id;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
+        public int[] Spells;
     };
 
     public struct ScreenEffectEntry

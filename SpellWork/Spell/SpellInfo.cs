@@ -130,6 +130,8 @@ namespace SpellWork
            
             rtb.AppendLine(spell.CastTime);
 
+            rtb.AppendLine(spell.SpellDifficulty);
+
             if (spell.RecoveryTime != 0 || spell.CategoryRecoveryTime != 0 || spell.StartRecoveryCategory != 0)
             {
                 rtb.AppendFormatLine("RecoveryTime: {0} ms, CategoryRecoveryTime: {1} ms", spell.RecoveryTime, spell.CategoryRecoveryTime);

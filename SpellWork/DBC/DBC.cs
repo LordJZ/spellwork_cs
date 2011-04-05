@@ -14,6 +14,7 @@ namespace SpellWork
         public static Dictionary<uint, SpellEntry>                  Spell;
         public static Dictionary<uint, SpellRadiusEntry>            SpellRadius;
         public static Dictionary<uint, SpellCastTimesEntry>         SpellCastTimes;
+        public static Dictionary<uint, SpellDifficultyEntry>        SpellDifficulty;
         public static Dictionary<uint, SpellRangeEntry>             SpellRange;
         public static Dictionary<uint, SpellDurationEntry>          SpellDuration;
         public static Dictionary<uint, SkillLineAbilityEntry>       SkillLineAbility;
