@@ -11,7 +11,7 @@ namespace SpellWork
         private RichTextBox  rtb;
         private SpellEntry spell;
 
-        private string _line = "=================================================";
+        private const string _line = "=================================================";
 
         public SpellInfo(RichTextBox rtb, SpellEntry spell)
         {

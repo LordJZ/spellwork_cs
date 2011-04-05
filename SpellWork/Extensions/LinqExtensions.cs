@@ -43,52 +43,47 @@ namespace SpellWork
                 case "String":
                     return Compare(basicValue.ToString(), val.ToString(), compareType);
                 case @"UInt32[]":
+                {
+                    uint val_uint = val.ToUInt32();
+                    foreach (uint el in (uint[])basicValue)
                     {
-                        foreach (uint el in (uint[])basicValue)
-                        {
-                            if (Compare(el.ToUInt32(), val.ToUInt32(), compareType))
-                                return true;
-                        }
-                        return false;
+                        if (Compare(el, val_uint, compareType))
+                            return true;
                     }
+                    return false;
+                }
                 case @"Int32[]":
+                {
+                    int val_int = val.ToInt32();
+                    foreach (int el in (int[])basicValue)
                     {
-                        foreach (int el in (int[])basicValue)
-                        {
-                            if (Compare(el.ToInt32(), val.ToInt32(), compareType))
-                                return true;
-                        }
-                        return false;
+                        if (Compare(el, val_int, compareType))
+                            return true;
                     }
+                    return false;
+                }
                 case @"Single[]":
+                {
+                    float val_float = val.ToFloat();
+                    foreach (float el in (float[])basicValue)
                     {
-                        foreach (float el in (float[])basicValue)
-                        {
-                            if (Compare(el.ToFloat(), val.ToFloat(), compareType))
-                                return true;
-                        }
-                        return false;
+                        if (Compare(el, val_float, compareType))
+                            return true;
                     }
+                    return false;
+                }
                 case @"UInt64[]":
+                {
+                    ulong val_ulong = val.ToUlong();
+                    foreach (ulong el in (ulong[])basicValue)
                     {
-                        foreach (ulong el in (ulong[])basicValue)
-                        {
-                            if (Compare(el.ToUlong(), val.ToUlong(), compareType))
-                                return true;
-                        }
-                        return false;
+                        if (Compare(el, val_ulong, compareType))
+                            return true;
                     }
-                case @"String[]":
-                    {
-                        foreach (uint el in (uint[])basicValue)
-                        {
-                            if (Compare(el.ToString(), val.ToString(), compareType))
-                                return true;
-                        }
-                        return false;
-                    }
-                // todo: more
-                default: return false;
+                    return false;
+                }
+                default:
+                    return false;
             }
         }
 
