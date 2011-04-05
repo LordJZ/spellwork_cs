@@ -22,8 +22,8 @@ namespace SpellWork
                 int size = Marshal.SizeOf(typeof(T));
 
                 if (!header.IsDBC)
-                    throw new Exception(fileName + " is not DBC files");
-                
+                    throw new Exception(fileName + " is not DBC files!");
+
                 if (header.RecordSize != size)
                     throw new Exception(string.Format("Size of row in DBC file ({0}) != size of DBC struct ({1}) in DBC: {2}", header.RecordSize, size, fileName));
 

@@ -54,22 +54,34 @@ namespace SpellWork
                     while (reader.Read())
                     {
                         SpellProcEventEntry str;
-                        
+
                         str.ID                  = reader[0].ToUInt32();
                         str.SpellName           = GetSpellName(str.ID);
                         str.SchoolMask          = reader[1].ToUInt32();
                         str.SpellFamilyName     = reader[2].ToUInt32();
-                        str.SpellFamilyMask     = new[] 
+                        str.SpellFamilyMask     = new[,] 
                         { 
-                            (uint)reader[3], 
-                            (uint)reader[4], 
-                            (uint)reader[5] 
+                            {
+                                (uint)reader[3 ], 
+                                (uint)reader[4 ], 
+                                (uint)reader[5 ],
+                            },
+                            {
+                                (uint)reader[6 ], 
+                                (uint)reader[7 ], 
+                                (uint)reader[8 ],
+                            },
+                            {
+                                (uint)reader[9 ], 
+                                (uint)reader[10], 
+                                (uint)reader[11],
+                            }
                         };
-                        str.ProcFlags           = reader[6].ToUInt32();
-                        str.ProcEx              = reader[7].ToUInt32();
-                        str.PpmRate             = reader[8].ToUInt32();
-                        str.CustomChance        = reader[9].ToUInt32();
-                        str.Cooldown            = reader[10].ToUInt32();
+                        str.ProcFlags           = reader[12].ToUInt32();
+                        str.ProcEx              = reader[13].ToUInt32();
+                        str.PpmRate             = reader[14].ToUInt32();
+                        str.CustomChance        = reader[15].ToUInt32();
+                        str.Cooldown            = reader[16].ToUInt32();
                         
                         SpellProcEvent.Add(str);
                     }

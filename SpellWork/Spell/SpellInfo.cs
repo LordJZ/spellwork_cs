@@ -23,7 +23,7 @@ namespace SpellWork
         private SpellInterruptsEntry spellInterrupts;
         private SpellPowerEntry spellPower;
 
-        private string _line = "=================================================";
+        private const string _line = "=================================================";
 
         public SpellInfo(RichTextBox rtb, SpellEntry spell)
         {
@@ -159,6 +159,8 @@ namespace SpellWork
             rtb.AppendFormatLineIfNotNull("Stackable up to {0}", spellAuraOptions.StackAmount);
 
             rtb.AppendLine(spell.CastTime);
+
+            rtb.AppendLine(spell.SpellDifficulty);
 
             if (spellCooldowns.RecoveryTime != 0 || spellCooldowns.CategoryRecoveryTime != 0 || spellCategories.StartRecoveryCategory != 0)
             {

@@ -41,16 +41,17 @@ namespace SpellWork
             DBC.SkillLineAbility            = DBCReader.ReadDBC<SkillLineAbilityEntry>(null);
             DBC.SpellRadius                 = DBCReader.ReadDBC<SpellRadiusEntry>(null);
             DBC.SpellCastTimes              = DBCReader.ReadDBC<SpellCastTimesEntry>(null);
+            DBC.SpellDifficulty     = DBCReader.ReadDBC<SpellDifficultyEntry>(null);
 
             DBC.OverrideSpellData           = DBCReader.ReadDBC<OverrideSpellDataEntry>(null);
             DBC.SkillLine                   = DBCReader.ReadDBC<SkillLineEntry>(DBC.SkillLineStrings);
             DBC.SpellRange                  = DBCReader.ReadDBC<SpellRangeEntry>(DBC.SpellRangeStrings);
             DBC.ScreenEffect                = DBCReader.ReadDBC<ScreenEffectEntry>(DBC.ScreenEffectStrings);
 
-            DBC.Locale = DetectedLocale();
+            DBC.Locale = DetectLocale();
         }
 
-        private LocalesDBC DetectedLocale()
+        private LocalesDBC DetectLocale()
         {
             byte locale = 0;
             while (DBC.Spell[DBC.SPELL_ENTRY_FOR_DETECT_LOCALE].GetName(locale) == string.Empty)
