@@ -5,9 +5,11 @@ namespace SpellWork
 {
     public enum CompareType
     {
+        NotEqual,
         Equal,
+        AndStrict,
         And,
-        Not,
+        NotAnd,
 
         StartsWith,
         EndsWith,
@@ -104,10 +106,11 @@ namespace SpellWork
                 case CompareType.Contains:
                     return baseValue.ContainsText(value);
 
+                case CompareType.NotEqual:
+                    return !baseValue.Equals(value, StringComparison.CurrentCultureIgnoreCase);
                 case CompareType.Equal:
                 default:
-                    return baseValue.Equals(value,
-                        StringComparison.CurrentCultureIgnoreCase);
+                    return baseValue.Equals(value, StringComparison.CurrentCultureIgnoreCase);
             }
         }
 
@@ -115,6 +118,8 @@ namespace SpellWork
         {
             switch (compareType)
             {
+                case CompareType.NotEqual:
+                    return baseValue != value;
                 case CompareType.Equal:
                 default:
                     return baseValue == value;
@@ -125,11 +130,15 @@ namespace SpellWork
         {
             switch (compareType)
             {
-                case CompareType.And:
+                case CompareType.AndStrict:
                     return (baseValue & value) == value;
-                case CompareType.Not:
+                case CompareType.And:
+                    return (baseValue & value) != 0;
+                case CompareType.NotAnd:
                     return (baseValue & value) == 0;
 
+                case CompareType.NotEqual:
+                    return baseValue != value;
                 case CompareType.Equal:
                 default:
                     return baseValue == value;
@@ -140,11 +149,15 @@ namespace SpellWork
         {
             switch (compareType)
             {
-                case CompareType.And:
+                case CompareType.AndStrict:
                     return (baseValue & value) == value;
-                case CompareType.Not:
+                case CompareType.And:
+                    return (baseValue & value) != 0;
+                case CompareType.NotAnd:
                     return (baseValue & value) == 0;
 
+                case CompareType.NotEqual:
+                    return baseValue != value;
                 case CompareType.Equal:
                 default:
                     return baseValue == value;
@@ -155,11 +168,15 @@ namespace SpellWork
         {
             switch (compareType)
             {
-                case CompareType.And:
+                case CompareType.AndStrict:
                     return (baseValue & value) == value;
-                case CompareType.Not:
+                case CompareType.And:
+                    return (baseValue & value) != 0;
+                case CompareType.NotAnd:
                     return (baseValue & value) == 0;
 
+                case CompareType.NotEqual:
+                    return baseValue != value;
                 case CompareType.Equal:
                 default:
                     return baseValue == value;
@@ -171,9 +188,9 @@ namespace SpellWork
         private static Object GetValue<T>(T T_entry, MemberInfo field)
         {
             if (field is FieldInfo)
-                return T_entry.GetType().GetField(field.Name).GetValue(T_entry);
+                return typeof(T).GetField(field.Name).GetValue(T_entry);
             else if (field is PropertyInfo)
-                return T_entry.GetType().GetProperty(field.Name).GetValue(T_entry, null);
+                return typeof(T).GetProperty(field.Name).GetValue(T_entry, null);
             else
                 return null;
         }
