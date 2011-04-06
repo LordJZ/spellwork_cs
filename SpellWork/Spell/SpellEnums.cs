@@ -576,7 +576,45 @@ namespace SpellWork
         SPELL_AURA_314                                      = 314,              // Confused
         SPELL_AURA_UNDERWATER_WALKING                       = 315,
         SPELL_AURA_HASTE_AFFECT_DOT_TICK                    = 316,
-        TOTAL_AURAS                                         = 317
+        SPELL_AURA_MOD_SPELL_POWER                          = 317,
+        SPELL_AURA_MOD_MASTERY                              = 318,
+        SPELL_AURA_MOD_MELEE_ATTACK_SPEED                   = 319,
+        SPELL_AURA_MOD_RANGED_ATTACK_SPEED                  = 320,
+        SPELL_AURA_321                                      = 321,              // only Hex 93958
+        SPELL_AURA_CANNOT_TARGET_FOR_ATTACK                 = 322,
+        SPELL_AURA_323                                      = 323,              // unused 13623
+        SPELL_AURA_MOD_EXPERTISE2                           = 324,
+        SPELL_AURA_325                                      = 325,              // unused 13623
+        SPELL_AURA_326                                      = 326,              // related to phasing
+        SPELL_AURA_327                                      = 327,              // unused 13623
+        SPELL_AURA_TRIGGER_SPELL_ON_POWER_REACH             = 328,
+        SPELL_AURA_MOD_RUNIC_POWER_GENERATION               = 329,
+        SPELL_AURA_ALLOW_CAST_WHILE_MOVING                  = 330,
+        SPELL_AURA_MOD_WEATHER                              = 331,
+        SPELL_AURA_REPLACE_SPELL                            = 332,
+        SPELL_AURA_333                                      = 333,              // related to trap launcher
+        SPELL_AURA_334                                      = 334,
+        SPELL_AURA_335                                      = 335,              // related to invisibility
+        SPELL_AURA_ALLOW_MOUNTS                             = 336,
+        SPELL_AURA_MOD_ITEM_PRICE_DECREASE                  = 337,
+        SPELL_AURA_MOD_DURABILITY_DAMAGE_DECREASE           = 338,
+        SPELL_AURA_MOD_GET_SKILL_POINT_CHANCE               = 339,
+        SPELL_AURA_MOD_HEALTH_ON_RESURRECT                  = 340,
+        SPELL_AURA_MOD_ITEM_COOLDOWN                        = 341,              // confused
+        SPELL_AURA_MOD_MELEE_RANGED_ATTACK_SPEED            = 342,
+        SPELL_AURA_343                                      = 343,              // Vendetta rogue talent, confused
+        SPELL_AURA_MOD_SPELL_DAMAGE_OF_ATTACK_POWER2        = 344,
+        SPELL_AURA_MOD_TARGET_ARMOR_PCT2                    = 345,
+        SPELL_AURA_346                                      = 346,              // activates UI element
+        SPELL_AURA_HASTE_AFFECT_COOLDOWN                    = 347,
+        SPELL_AURA_MOD_LOOTED_MONEY_GUILDBANK_DEPOSIT       = 348,
+        SPELL_AURA_MOD_CURRENCY_GAIN                        = 349,
+        SPELL_AURA_MOD_ITEM_GAIN_QUANTITY                   = 350,
+        SPELL_AURA_MOD_ARCHAEOLOGY_ITEM_FINDS               = 351,
+        SPELL_AURA_ENABLE_SWITCH_RACES                      = 352,              // only 94293 Enable Worgen Altered Form - enables second race from ChrRaces.dbc
+        SPELL_AURA_353                                      = 353,              // has a lot of spells in mask
+
+        TOTAL_AURAS
     }
 
     /// <summary>
@@ -1009,6 +1047,9 @@ namespace SpellWork
         POWER_HAPPINESS     = 4,
         POWER_RUNE          = 5,
         POWER_RUNIC_POWER   = 6,
+        POWER_SOUL_SHARDS   = 7,
+        POWER_ECLIPSE       = 8,
+        POWER_HOLY_POWER    = 9,
         POWER_HEALTH        = 0xFFFFFFFE,    // (-2 as signed value)
     };
 
