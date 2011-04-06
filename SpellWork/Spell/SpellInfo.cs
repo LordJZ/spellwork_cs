@@ -120,6 +120,9 @@ namespace SpellWork
             rtb.AppendFormatLine("Spell Level = {0}, base {1}, max {2}, maxTarget {3}",
                 spellLevels.SpellLevel, spellLevels.BaseLevel, spellLevels.MaxLevel, targetRestrictions.MaxTargetLevel);
 
+            // reagents
+            rtb.Append(spell.Reagents);
+
             if (spellEquippedItems.EquippedItemClass != -1)
             {
                 rtb.AppendFormatLine("EquippedItemClass = {0} ({1})", spellEquippedItems.EquippedItemClass, (ItemClass)spellEquippedItems.EquippedItemClass);

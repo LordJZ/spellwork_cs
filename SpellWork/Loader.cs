@@ -47,6 +47,7 @@ namespace SpellWork
             DBC.OverrideSpellData           = DBCReader.ReadDBC<OverrideSpellDataEntry>(null);
             DBC.SkillLine                   = DBCReader.ReadDBC<SkillLineEntry>(DBC.SkillLineStrings);
             DBC.SpellRange                  = DBCReader.ReadDBC<SpellRangeEntry>(DBC.SpellRangeStrings);
+            DBC.SpellReagents               = DBCReader.ReadDBC<SpellReagentsEntry>(null);
             DBC.ScreenEffect                = DBCReader.ReadDBC<ScreenEffectEntry>(DBC.ScreenEffectStrings);
 
             DBC.Locale = DetectLocale();

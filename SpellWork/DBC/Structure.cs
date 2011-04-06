@@ -731,6 +731,45 @@ namespace SpellWork
                 }
             }
         }
+
+        public string Reagents
+        {
+            get
+            {
+                if (SpellReagentsId == 0)
+                    return string.Empty;
+
+                SpellReagentsEntry reagents;
+                if (!DBC.SpellReagents.TryGetValue(SpellReagentsId, out reagents))
+                    return "Reagents: Not Found Id " + SpellReagentsId;
+
+                StringBuilder builder = new StringBuilder();
+
+                bool printedHeader = false;
+                for (int i = 0; i < reagents.Reagent.Length; ++i)
+                {
+                    if (reagents.Reagent[i] == 0)
+                        continue;
+
+                    if (!printedHeader)
+                    {
+                        builder.AppendLine();
+                        builder.Append("Reagents:");
+                        printedHeader = true;
+                    }
+
+                    builder.AppendFormat("  {0}x{1}", reagents.Reagent[i], reagents.ReagentCount[i]);
+                }
+
+                if (printedHeader)
+                {
+                    builder.AppendLine();
+                    builder.AppendLine();
+                }
+
+                return builder.ToString();
+            }
+        }
     };
 
     public struct SkillLineEntry
