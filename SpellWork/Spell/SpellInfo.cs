@@ -420,6 +420,18 @@ namespace SpellWork
                 rtb.AppendFormatLineIfNotNull("EffectMiscValueB = {0}", effect.EffectMiscValueB);
                 rtb.AppendFormatLineIfNotNull("EffectAmplitude = {0}", effect.EffectAmplitude);
 
+                switch ((SpellEffects)effect.Effect)
+                {
+                    case SpellEffects.SPELL_EFFECT_MOD_CURRENCY:
+                        rtb.Append("Currency Type: " + effect.EffectMiscValue + " ");
+                        CurrencyTypesEntry entry;
+                        if (DBC.CurrencyTypes.TryGetValue((uint)effect.EffectMiscValue, out entry))
+                            rtb.AppendLine(entry.Name);
+                        else
+                            rtb.AppendLine("(Not Found in CurrencyTypes.dbc)");
+                        break;
+                }
+
                 return;
             }
 

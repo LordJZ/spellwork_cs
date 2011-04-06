@@ -241,7 +241,7 @@ namespace SpellWork
         SPELL_EFFECT_163                        = 163,
         SPELL_EFFECT_CANCEL_AURA                = 164,
         SPELL_EFFECT_165                        = 165,
-        SPELL_EFFECT_166                        = 166,
+        SPELL_EFFECT_MOD_CURRENCY               = 166,
         SPELL_EFFECT_167                        = 167,
         SPELL_EFFECT_168                        = 168,
         SPELL_EFFECT_169                        = 169,

@@ -41,8 +41,9 @@ namespace SpellWork
             DBC.SkillLineAbility            = DBCReader.ReadDBC<SkillLineAbilityEntry>(null);
             DBC.SpellRadius                 = DBCReader.ReadDBC<SpellRadiusEntry>(null);
             DBC.SpellCastTimes              = DBCReader.ReadDBC<SpellCastTimesEntry>(null);
-            DBC.SpellDifficulty     = DBCReader.ReadDBC<SpellDifficultyEntry>(null);
+            DBC.SpellDifficulty             = DBCReader.ReadDBC<SpellDifficultyEntry>(null);
 
+            DBC.CurrencyTypes               = DBCReader.ReadDBC<CurrencyTypesEntry>(DBC.CurrencyTypesStrings);
             DBC.OverrideSpellData           = DBCReader.ReadDBC<OverrideSpellDataEntry>(null);
             DBC.SkillLine                   = DBCReader.ReadDBC<SkillLineEntry>(DBC.SkillLineStrings);
             DBC.SpellRange                  = DBCReader.ReadDBC<SpellRangeEntry>(DBC.SpellRangeStrings);

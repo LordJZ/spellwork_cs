@@ -29,6 +29,25 @@ namespace SpellWork
         }
     };
 
+    public struct CurrencyTypesEntry
+    {
+        public uint Id;
+        public uint Category;
+        public uint _Name;
+        public uint _Icon;
+        public uint Unk0;
+        public uint Unk1_Archaeology;
+        public uint Unk2_Archaeology;
+        public uint TotalCap;
+        public uint WeekCap;
+        public uint Unk3;
+        public uint _Desc;
+
+        public string Name { get { return DBC.CurrencyTypesStrings.GetValue(_Name); } }
+        public string Icon { get { return DBC.CurrencyTypesStrings.GetValue(_Icon); } }
+        public string Desc { get { return DBC.CurrencyTypesStrings.GetValue(_Desc); } }
+    };
+
     // SpellAuraOptions.dbc
     public struct SpellAuraOptionsEntry
     {
