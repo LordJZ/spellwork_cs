@@ -215,8 +215,8 @@ namespace SpellWork
             bool use1val = advVal1 != string.Empty;
             bool use2val = advVal2 != string.Empty;
 
-            CompareType field1ct = (CompareType)_cbAdvancedFilter1CompareType.SelectedItem;
-            CompareType field2ct = (CompareType)_cbAdvancedFilter2CompareType.SelectedItem;
+            CompareType field1ct = (CompareType)_cbAdvancedFilter1CompareType.SelectedIndex;
+            CompareType field2ct = (CompareType)_cbAdvancedFilter2CompareType.SelectedIndex;
 
             _spellList = (from spell in DBC.Spell.Values
                            

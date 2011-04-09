@@ -5,14 +5,32 @@ namespace SpellWork
 {
     public enum CompareType
     {
+        [FullName("x != y")]
         NotEqual,
+        [FullName("x == y")]
         Equal,
+
+        [FullName("x > y")]
+        GreaterThan,
+        [FullName("x >= y")]
+        GreaterOrEqual,
+        [FullName("x < y")]
+        LowerThan,
+        [FullName("x <= y")]
+        LowerOrEqual,
+
+        [FullName("x & y == y")]
         AndStrict,
+        [FullName("x & y != 0")]
         And,
+        [FullName("x & y == 0")]
         NotAnd,
 
+        [FullName("x Starts With y")]
         StartsWith,
+        [FullName("x Ends With y")]
         EndsWith,
+        [FullName("x Contains y")]
         Contains,
     }
 
@@ -113,6 +131,15 @@ namespace SpellWork
         {
             switch (compareType)
             {
+                case CompareType.GreaterOrEqual:
+                    return baseValue >= value;
+                case CompareType.GreaterThan:
+                    return baseValue > value;
+                case CompareType.LowerOrEqual:
+                    return baseValue <= value;
+                case CompareType.LowerThan:
+                    return baseValue < value;
+
                 case CompareType.NotEqual:
                     return baseValue != value;
                 case CompareType.Equal:
@@ -125,6 +152,15 @@ namespace SpellWork
         {
             switch (compareType)
             {
+                case CompareType.GreaterOrEqual:
+                    return baseValue >= value;
+                case CompareType.GreaterThan:
+                    return baseValue > value;
+                case CompareType.LowerOrEqual:
+                    return baseValue <= value;
+                case CompareType.LowerThan:
+                    return baseValue < value;
+
                 case CompareType.AndStrict:
                     return (baseValue & value) == value;
                 case CompareType.And:
@@ -144,6 +180,15 @@ namespace SpellWork
         {
             switch (compareType)
             {
+                case CompareType.GreaterOrEqual:
+                    return baseValue >= value;
+                case CompareType.GreaterThan:
+                    return baseValue > value;
+                case CompareType.LowerOrEqual:
+                    return baseValue <= value;
+                case CompareType.LowerThan:
+                    return baseValue < value;
+
                 case CompareType.AndStrict:
                     return (baseValue & value) == value;
                 case CompareType.And:
@@ -163,6 +208,15 @@ namespace SpellWork
         {
             switch (compareType)
             {
+                case CompareType.GreaterOrEqual:
+                    return baseValue >= value;
+                case CompareType.GreaterThan:
+                    return baseValue > value;
+                case CompareType.LowerOrEqual:
+                    return baseValue <= value;
+                case CompareType.LowerThan:
+                    return baseValue < value;
+
                 case CompareType.AndStrict:
                     return (baseValue & value) == value;
                 case CompareType.And:
