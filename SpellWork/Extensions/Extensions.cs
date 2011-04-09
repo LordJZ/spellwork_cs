@@ -217,8 +217,8 @@ namespace SpellWork
             cb.BeginUpdate();
 
             cb.Items.Clear();
-            foreach (T value in Enum.GetValues(typeof(T)))
-                cb.Items.Add(value);
+            foreach (object value in Enum.GetValues(typeof(T)))
+                cb.Items.Add(((Enum)value).GetFullName());
 
             if (setFirstValue && cb.Items.Count > 0)
                 cb.SelectedIndex = 0;
@@ -324,6 +324,31 @@ namespace SpellWork
         public static bool IsEmpty(this String str)
         {
             return str == String.Empty;
+        }
+
+        public static string GetFullName(this Enum _enum)
+        {
+            var field = _enum.GetType().GetField(_enum.ToString());
+            if (field != null)
+            {
+                FullNameAttribute[] attrs = (FullNameAttribute[])field.GetCustomAttributes(typeof(FullNameAttribute), false);
+
+                if (attrs.Length > 0)
+                    return attrs[0].FullName;
+            }
+
+            return _enum.ToString();
+        }
+    }
+
+    [AttributeUsage(AttributeTargets.Field, AllowMultiple = false, Inherited = false)]
+    public class FullNameAttribute : Attribute
+    {
+        public string FullName { get; private set; }
+
+        public FullNameAttribute(string fullName)
+        {
+            this.FullName = fullName;
         }
     }
 }

@@ -434,6 +434,7 @@
             // _cbAdvancedFilter2CompareType
             // 
             this._cbAdvancedFilter2CompareType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this._cbAdvancedFilter2CompareType.DropDownWidth = 160;
             this._cbAdvancedFilter2CompareType.FormattingEnabled = true;
             this._cbAdvancedFilter2CompareType.Location = new System.Drawing.Point(127, 41);
             this._cbAdvancedFilter2CompareType.Name = "_cbAdvancedFilter2CompareType";
@@ -443,6 +444,7 @@
             // _cbAdvancedFilter1CompareType
             // 
             this._cbAdvancedFilter1CompareType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this._cbAdvancedFilter1CompareType.DropDownWidth = 160;
             this._cbAdvancedFilter1CompareType.FormattingEnabled = true;
             this._cbAdvancedFilter1CompareType.Location = new System.Drawing.Point(127, 15);
             this._cbAdvancedFilter1CompareType.Name = "_cbAdvancedFilter1CompareType";
