@@ -433,6 +433,7 @@
             // 
             // _cbAdvancedFilter2CompareType
             // 
+            this._cbAdvancedFilter2CompareType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this._cbAdvancedFilter2CompareType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._cbAdvancedFilter2CompareType.DropDownWidth = 160;
             this._cbAdvancedFilter2CompareType.FormattingEnabled = true;
@@ -443,6 +444,7 @@
             // 
             // _cbAdvancedFilter1CompareType
             // 
+            this._cbAdvancedFilter1CompareType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this._cbAdvancedFilter1CompareType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._cbAdvancedFilter1CompareType.DropDownWidth = 160;
             this._cbAdvancedFilter1CompareType.FormattingEnabled = true;
