@@ -11,7 +11,7 @@ namespace SpellWork
         private RichTextBox  rtb;
         private SpellEntry spell;
 
-        private string _line = "=================================================";
+        private const string _line = "=================================================";
 
         public SpellInfo(RichTextBox rtb, SpellEntry spell)
         {
@@ -34,7 +34,7 @@ namespace SpellWork
             rtb.AppendFormatLineIfNotNull("Description: {0}", spell.Description);
             rtb.AppendFormatLineIfNotNull("ToolTip: {0}", spell.ToolTip);
             rtb.AppendFormatLineIfNotNull("Modal Next Spell: {0}", spell.ModalNextSpell);
-            if(spell.Description != string.Empty && spell.ToolTip != string.Empty && spell.ModalNextSpell != 0)
+            if (spell.Description != string.Empty && spell.ToolTip != string.Empty && spell.ModalNextSpell != 0)
                 rtb.AppendFormatLine(_line);
 
             rtb.AppendFormatLine("Category = {0}, SpellIconID = {1}, activeIconID = {2}, SpellVisual = ({3},{4})",
@@ -54,9 +54,9 @@ namespace SpellWork
                 rtb.AppendLine(_line);
 
             if (spell.Attributes != 0)
-                rtb.AppendFormatLine("Attributes: 0x{0:X8} ({1})",    spell.Attributes,    (SpellAtribute)spell.Attributes);
+                rtb.AppendFormatLine("Attributes: 0x{0:X8} ({1})", spell.Attributes, (SpellAtribute)spell.Attributes);
             if (spell.AttributesEx != 0)
-                rtb.AppendFormatLine("AttributesEx1: 0x{0:X8} ({1})", spell.AttributesEx,  (SpellAtributeEx)spell.AttributesEx);
+                rtb.AppendFormatLine("AttributesEx1: 0x{0:X8} ({1})", spell.AttributesEx, (SpellAtributeEx)spell.AttributesEx);
             if (spell.AttributesEx2 != 0)
                 rtb.AppendFormatLine("AttributesEx2: 0x{0:X8} ({1})", spell.AttributesEx2, (SpellAtributeEx2)spell.AttributesEx2);
             if (spell.AttributesEx3 != 0)
@@ -86,6 +86,28 @@ namespace SpellWork
                 rtb.AppendFormatLine("Stances Not: {0}", (ShapeshiftFormMask)spell.StancesNot);
 
             AppendSkillLine();
+
+            // reagents
+            {
+                bool printedHeader = false;
+                for (int i = 0; i < spell.Reagent.Length; ++i)
+                {
+                    if (spell.Reagent[i] == 0)
+                        continue;
+
+                    if (!printedHeader)
+                    {
+                        rtb.AppendLine();
+                        rtb.Append("Reagents:");
+                        printedHeader = true;
+                    }
+
+                    rtb.AppendFormat("  {0}x{1}", spell.Reagent[i], spell.ReagentCount[i]);
+                }
+
+                if (printedHeader)
+                    rtb.AppendLine();
+            }
 
             rtb.AppendFormatLine("Spell Level = {0}, base {1}, max {2}, maxTarget {3}",
                 spell.SpellLevel, spell.BaseLevel, spell.MaxLevel, spell.MaxTargetLevel);

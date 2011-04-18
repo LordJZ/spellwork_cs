@@ -398,6 +398,13 @@ namespace SpellWork
         public int   MinCastTime;
     };
 
+    public struct SpellDifficultyEntry
+    {
+        public uint  Id;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
+        public int[] SpellId;
+    };
+
     public struct ScreenEffectEntry
     {
         public uint Id;
@@ -478,12 +485,5 @@ namespace SpellWork
         public string   LocalesName;
         public string   LocalesDescription;
         public uint[]   SpellID;
-    };
-
-    public struct SpellDifficultyEntry
-    {
-        public uint     Id;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
-        public int[]    SpellId;
     };
 }
