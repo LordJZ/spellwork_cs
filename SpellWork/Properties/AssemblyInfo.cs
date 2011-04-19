@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("SpellWork")]
 [assembly: AssemblyDescription("SpellWork")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("TrinityCore")]
+[assembly: AssemblyCompany("Trinity")]
 [assembly: AssemblyProduct("SpellWork")]
 [assembly: AssemblyCopyright("Copyright © LordJZ and Konctantin 2010")]
 [assembly: AssemblyTrademark("")]
