@@ -24,7 +24,7 @@ namespace SpellWork
                     Settings.Default.Port,
                     Settings.Default.User,
                     Settings.Default.Pass,
-                    Settings.Default.Db_mangos);
+                    Settings.Default.WorldDbName);
             }
         }
 

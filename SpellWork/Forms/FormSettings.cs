@@ -28,7 +28,7 @@ namespace SpellWork
             Settings.Default.Port = _tbPort.Text;
             Settings.Default.User = _tbUser.Text;
             Settings.Default.Pass = _tbPass.Text;
-            Settings.Default.Db_mangos = _tbBase.Text;
+            Settings.Default.WorldDbName = _tbBase.Text;
             Settings.Default.UseDbConnect = _cbUseDBConnect.Checked;
 
             MySQLConnect.TestConnect();
@@ -37,12 +37,12 @@ namespace SpellWork
             {
                 if (MySQLConnect.Connected)
                 {
-                    MessageBox.Show("Connection is successfully!", "MySQL Connections!",
+                    MessageBox.Show("Connection is successful!", "MySQL Connections!",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MessageBox.Show("Connection is failed!", "ERROR!",
+                    MessageBox.Show("Connection failed!", "ERROR!",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -60,7 +60,7 @@ namespace SpellWork
             _tbPort.Text = Settings.Default.Port;
             _tbUser.Text = Settings.Default.User;
             _tbPass.Text = Settings.Default.Pass;
-            _tbBase.Text = Settings.Default.Db_mangos;
+            _tbBase.Text = Settings.Default.WorldDbName;
             _gbDbSetting.Enabled = _cbUseDBConnect.Checked = Settings.Default.UseDbConnect;
         }
     }

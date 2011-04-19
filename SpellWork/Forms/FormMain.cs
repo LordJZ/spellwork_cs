@@ -80,8 +80,6 @@ namespace SpellWork
         {
             try
             {
-                // Чтобы панели в сплит контейнере были одинаковы при изменении размера формы, сделаем так.
-                // Может можно как-то можно через привязки, но я пока незнаю как
                 _scCompareRoot.SplitterDistance = (((Form)sender).Size.Width / 2) - 25;
                 _chName.Width = (((Form)sender).Size.Width - 140);
             }
@@ -94,7 +92,7 @@ namespace SpellWork
 
             if (MySQLConnect.Connected)
             {
-                _dbConnect.Text = "Connection is successfully";
+                _dbConnect.Text = "Connection is successful.";
                 _dbConnect.ForeColor = Color.Green;
                 // read db data
                 DBC.ItemTemplate = MySQLConnect.SelectItems();
@@ -111,9 +109,9 @@ namespace SpellWork
             MySQLConnect.TestConnect();
 
             if (MySQLConnect.Connected)
-                MessageBox.Show("Connection is successfully!", "MySQL Connections!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Connection is successful!", "MySQL Connections!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             else
-                MessageBox.Show("Connection is failed!", "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Connection failed!", "ERROR!", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             ConnStatus();
         }
