@@ -102,7 +102,7 @@ namespace SpellWork
                         printedHeader = true;
                     }
 
-                    rtb.AppendFormat("  {0}x{1}", spell.Reagent[i], spell.ReagentCount[i]);
+                    rtb.AppendFormat("  {0} x{1}", spell.Reagent[i], spell.ReagentCount[i]);
                 }
 
                 if (printedHeader)
