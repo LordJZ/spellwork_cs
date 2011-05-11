@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+using SpellWork.Database;
 using SpellWork.Properties;
 
-namespace SpellWork
+namespace SpellWork.Forms
 {
     public partial class FormSettings : Form
     {
@@ -17,12 +12,12 @@ namespace SpellWork
             InitializeComponent();
         }
 
-        private void _cbUseDBConnect_CheckedChanged(object sender, EventArgs e)
+        private void CbUseDbConnectCheckedChanged(object sender, EventArgs e)
         {
             _gbDbSetting.Enabled = ((CheckBox)sender).Checked;
         }
 
-        private void _bSaveSettings_Click(object sender, EventArgs e)
+        private void BSaveSettingsClick(object sender, EventArgs e)
         {
             Settings.Default.Host = _tbHost.Text;
             Settings.Default.Port = _tbPort.Text;
@@ -31,30 +26,30 @@ namespace SpellWork
             Settings.Default.WorldDbName = _tbBase.Text;
             Settings.Default.UseDbConnect = _cbUseDBConnect.Checked;
 
-            MySQLConnect.TestConnect();
+            MySqlConnection.TestConnect();
 
-            if (((Button)sender).Text != "Save")
+            if (((Button)sender).Text != @"Save")
             {
-                if (MySQLConnect.Connected)
+                if (MySqlConnection.Connected)
                 {
-                    MessageBox.Show("Connection is successful!", "MySQL Connections!",
+                    MessageBox.Show(@"Connection is successful!", @"MySQL Connections!",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MessageBox.Show("Connection failed!", "ERROR!",
+                    MessageBox.Show(@"Connection failed!", @"ERROR!",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
-            if (((Button)sender).Text == "Save")
-            {
-                Settings.Default.Save();
-                this.Close();
-            }
+            if (((Button)sender).Text != @"Save")
+                return;
+
+            Settings.Default.Save();
+            Close();
         }
 
-        private void SettingsForm_Load(object sender, EventArgs e)
+        private void SettingsFormLoad(object sender, EventArgs e)
         {
             _tbHost.Text = Settings.Default.Host;
             _tbPort.Text = Settings.Default.Port;

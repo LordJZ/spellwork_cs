@@ -1,14 +1,15 @@
 ﻿using System;
+using SpellWork.DBC;
+using SpellWork.Extensions;
 using SpellWork.Properties;
 using System.Collections.Generic;
 using MySql.Data.MySqlClient;
-using System.Windows.Forms;
 
-namespace SpellWork
+namespace SpellWork.Database
 {
-    public static class MySQLConnect
+    public static class MySqlConnection
     {
-        private static MySqlConnection _conn;
+        private static MySql.Data.MySqlClient.MySqlConnection _conn;
         private static MySqlCommand _command;
 
         public static bool Connected { get; private set; }
@@ -30,20 +31,16 @@ namespace SpellWork
 
         private static String GetSpellName(uint id)
         {
-            if (DBC.Spell.ContainsKey(id))
-            {
-                return DBC.Spell[id].SpellNameRank;
-            }
-            else
-            {
-                Dropped.Add(String.Format("DELETE FROM `spell_proc_event` WHERE `entry` IN ({0});\r\n", id.ToUInt32()));
-                return String.Empty;
-            }
+            if (DBC.DBC.Spell.ContainsKey(id))
+                return DBC.DBC.Spell[id].SpellNameRank;
+
+            Dropped.Add(String.Format("DELETE FROM `spell_proc_event` WHERE `entry` IN ({0});\r\n", id.ToUInt32()));
+            return String.Empty;
         }
 
         public static void SelectProc(string query)
         {
-            using (_conn = new MySqlConnection(ConnectionString))
+            using (_conn = new MySql.Data.MySqlClient.MySqlConnection(ConnectionString))
             {
                 _command = new MySqlCommand(query, _conn);
                 _conn.Open();
@@ -55,8 +52,8 @@ namespace SpellWork
                     {
                         SpellProcEventEntry str;
 
-                        str.ID                  = reader[0].ToUInt32();
-                        str.SpellName           = GetSpellName(str.ID);
+                        str.Id                  = reader[0].ToUInt32();
+                        str.SpellName           = GetSpellName(str.Id);
                         str.SchoolMask          = reader[1].ToUInt32();
                         str.SpellFamilyName     = reader[2].ToUInt32();
                         str.SpellFamilyMask     = new[]
@@ -79,7 +76,7 @@ namespace SpellWork
 
         public static void Insert(string query)
         {
-            _conn    = new MySqlConnection(ConnectionString);
+            _conn    = new MySql.Data.MySqlClient.MySqlConnection(ConnectionString);
             _command = new MySqlCommand(query, _conn);
             _conn.Open();
             _command.ExecuteNonQuery();
@@ -88,9 +85,9 @@ namespace SpellWork
 
         public static List<Item> SelectItems()
         {
-            List<Item> items = DBC.ItemTemplate;
+            var items = DBC.DBC.ItemTemplate;
             // In order to reduce the search time, we make the first selection of all items that have spellid
-            string query = String.Format(
+            var query = String.Format(
                 @"SELECT    t.entry,
                             t.name,
                             t.description,
@@ -113,14 +110,14 @@ namespace SpellWork
                     t.spellid_3 <> 0 ||
                     t.spellid_4 <> 0 ||
                     t.spellid_5 <> 0;",
-                (int)DBC.Locale == 0 ? 1 : (int)DBC.Locale /* it's huck TODO: replase code*/);
+                (int)DBC.DBC.Locale == 0 ? 1 : (int)DBC.DBC.Locale /* it's hack TODO: replace code*/);
 
-            using (_conn = new MySqlConnection(ConnectionString))
+            using (_conn = new MySql.Data.MySqlClient.MySqlConnection(ConnectionString))
             {
                 _command = new MySqlCommand(query, _conn);
                 _conn.Open();
 
-                using (MySqlDataReader reader = _command.ExecuteReader())
+                using (var reader = _command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
@@ -131,7 +128,7 @@ namespace SpellWork
                             Description         = reader[2].ToString(),
                             LocalesName         = reader[3].ToString(),
                             LocalesDescription  = reader[4].ToString(),
-                            SpellID             = new uint[]
+                            SpellId             = new[]
                             {
                                 (uint)reader[5],
                                 (uint)reader[6],
@@ -156,7 +153,7 @@ namespace SpellWork
 
             try
             {
-                _conn = new MySqlConnection(ConnectionString);
+                _conn = new MySql.Data.MySqlClient.MySqlConnection(ConnectionString);
                 _conn.Open();
                 _conn.Close();
                 Connected = true;

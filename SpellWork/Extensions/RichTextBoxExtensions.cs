@@ -2,12 +2,12 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace SpellWork
+namespace SpellWork.Extensions
 {
     public static class RichTextBoxExtensions
     {
-        public const String DEFAULT_FAMILY = "Arial Unicode MS";
-        public const float  DEFAULT_SIZE   = 9f;
+        public const String DefaultFamily = "Arial Unicode MS";
+        public const float  DefaultSize   = 9f;
 
         public static void AppendFormatLine(this RichTextBox textbox, string format, params object[] arg0)
         {
@@ -77,44 +77,42 @@ namespace SpellWork
         public static void SetStyle(this RichTextBox textbox, Color color, FontStyle style)
         {
             textbox.SelectionColor = color;
-            textbox.SelectionFont = new Font(DEFAULT_FAMILY, DEFAULT_SIZE, style);
+            textbox.SelectionFont = new Font(DefaultFamily, DefaultSize, style);
         }
 
         public static void SetBold(this RichTextBox textbox)
         {
-            textbox.SelectionFont = new Font(DEFAULT_FAMILY, DEFAULT_SIZE, FontStyle.Bold);
+            textbox.SelectionFont = new Font(DefaultFamily, DefaultSize, FontStyle.Bold);
         }
 
         public static void SetDefaultStyle(this RichTextBox textbox)
         {
-            textbox.SelectionFont = new Font(DEFAULT_FAMILY, DEFAULT_SIZE, FontStyle.Regular);
+            textbox.SelectionFont = new Font(DefaultFamily, DefaultSize, FontStyle.Regular);
             textbox.SelectionColor = Color.Black;
         }
 
         public static void ColorizeCode(this RichTextBox rtb)
         {
             string[] keywords = { "INSERT", "INTO", "DELETE", "FROM", "IN", "VALUES", "WHERE" };
-            string text = rtb.Text;
+            var text = rtb.Text;
 
             rtb.SelectAll();
             rtb.SelectionColor = rtb.ForeColor;
 
-            foreach (String keyword in keywords)
+            foreach (var keyword in keywords)
             {
-                int keywordPos = rtb.Find(keyword, RichTextBoxFinds.MatchCase | RichTextBoxFinds.WholeWord);
+                var keywordPos = rtb.Find(keyword, RichTextBoxFinds.MatchCase | RichTextBoxFinds.WholeWord);
 
                 while (keywordPos != -1)
                 {
-                    int commentPos = text.LastIndexOf("-- ", keywordPos, StringComparison.OrdinalIgnoreCase);
-                    int newLinePos = text.LastIndexOf("\n", keywordPos, StringComparison.OrdinalIgnoreCase);
+                    var commentPos = text.LastIndexOf("-- ", keywordPos, StringComparison.OrdinalIgnoreCase);
+                    var newLinePos = text.LastIndexOf("\n", keywordPos, StringComparison.OrdinalIgnoreCase);
 
-                    int quoteCount = 0;
-                    int quotePos = text.IndexOf("\"", newLinePos + 1, keywordPos - newLinePos, StringComparison.OrdinalIgnoreCase);
+                    var quoteCount = 0;
+                    var quotePos = text.IndexOf("\"", newLinePos + 1, keywordPos - newLinePos, StringComparison.OrdinalIgnoreCase);
 
                     for (; quotePos != -1; quoteCount++)
-                    {
                         quotePos = text.IndexOf("\"", quotePos + 1, keywordPos - (quotePos + 1), StringComparison.OrdinalIgnoreCase);
-                    }
 
                     if (newLinePos >= commentPos && quoteCount % 2 == 0)
                         rtb.SelectionColor = Color.Blue;

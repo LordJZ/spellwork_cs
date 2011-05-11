@@ -1,16 +1,17 @@
 using System.Collections.Generic;
+using SpellWork.Spell;
 
-namespace SpellWork
+namespace SpellWork.DBC
 {
     public static class DBC
     {
-        public const string VERSION  = "SpellWork 3.3.5a (12340)";
-        public const string DBC_PATH = @"dbc";
+        public const string Version = "SpellWork 3.3.5a (12340)";
+        public const string DbcPath = @"dbc";
 
-        public const int MAX_DBC_LOCALE                 = 16;
-        public const int MAX_REAGENT_COUNT              = 8;
-        public const int MAX_EFFECT_INDEX               = 3;
-        public const int SPELL_ENTRY_FOR_DETECT_LOCALE  = 1;
+        public const int MaxDbcLocale                 = 16;
+        public const int MaxReagentCount              = 8;
+        public const int MaxEffectIndex               = 3;
+        public const int SpellEntryForDetectLocale    = 1;
 
         public static Dictionary<uint, OverrideSpellDataEntry>      OverrideSpellData;
         public static Dictionary<uint, ScreenEffectEntry>           ScreenEffect;

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Windows.Forms;
+using SpellWork.Extensions;
 
-namespace SpellWork
+namespace SpellWork.Forms
 {
-    public partial class FormCalculateFlags : Form
+    public sealed partial class FormCalculateFlags : Form
     {
         public uint Flags { get; private set; }
 
@@ -11,28 +12,28 @@ namespace SpellWork
         {
             InitializeComponent();
 
-            this._clbCalcFlags.SetFlags(data, remove);
-            this._clbCalcFlags.SetCheckedItemFromFlag(value);
+            _clbCalcFlags.SetFlags(data, remove);
+            _clbCalcFlags.SetCheckedItemFromFlag(value);
 
-            this.Text = "Calculate " + data.Name;
+            Text = @"Calculate " + data.Name;
         }
 
-        private void _bOk_Click(object sender, EventArgs e)
+        private void BOkClick(object sender, EventArgs e)
         {
-            this.Flags = this._clbCalcFlags.GetFlagsValue();
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            Flags = _clbCalcFlags.GetFlagsValue();
+            DialogResult = DialogResult.OK;
+            Close();
         }
 
-        private void _bNo_Click(object sender, EventArgs e)
+        private void BNoClick(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
-        private void _clbCalcFlags_SelectedValueChanged(object sender, EventArgs e)
+        private void ClbCalcFlagsSelectedValueChanged(object sender, EventArgs e)
         {
-            this.Flags = this._clbCalcFlags.GetFlagsValue();
-            _lFlagValue.Text = "Value: " + this.Flags;
+            Flags = _clbCalcFlags.GetFlagsValue();
+            _lFlagValue.Text = @"Value: " + Flags;
         }
     }
 }

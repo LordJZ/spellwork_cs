@@ -1,4 +1,4 @@
-﻿namespace SpellWork
+﻿namespace SpellWork.Forms
 {
     partial class FormSearch
     {
@@ -94,7 +94,7 @@
             this._bOk.TabIndex = 9;
             this._bOk.Text = "OK";
             this._bOk.UseVisualStyleBackColor = true;
-            this._bOk.Click += new System.EventHandler(this.Ok_Click);
+            this._bOk.Click += new System.EventHandler(this.OkClick);
             //
             // _bCencel
             //
@@ -105,7 +105,7 @@
             this._bCencel.TabIndex = 10;
             this._bCencel.Text = "Cencel";
             this._bCencel.UseVisualStyleBackColor = true;
-            this._bCencel.Click += new System.EventHandler(this.Cencel_Click);
+            this._bCencel.Click += new System.EventHandler(this.CencelClick);
             //
             // groupBox1
             //
@@ -162,7 +162,7 @@
             this._tbAttribute.Name = "_tbAttribute";
             this._tbAttribute.Size = new System.Drawing.Size(198, 20);
             this._tbAttribute.TabIndex = 2;
-            this._tbAttribute.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IdName_KeyDown);
+            this._tbAttribute.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IdNameKeyDown);
             //
             // _tbIcon
             //
@@ -172,7 +172,7 @@
             this._tbIcon.Name = "_tbIcon";
             this._tbIcon.Size = new System.Drawing.Size(198, 20);
             this._tbIcon.TabIndex = 1;
-            this._tbIcon.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IdName_KeyDown);
+            this._tbIcon.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IdNameKeyDown);
             //
             // _tbIdName
             //
@@ -182,7 +182,7 @@
             this._tbIdName.Name = "_tbIdName";
             this._tbIdName.Size = new System.Drawing.Size(198, 20);
             this._tbIdName.TabIndex = 0;
-            this._tbIdName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IdName_KeyDown);
+            this._tbIdName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IdNameKeyDown);
             //
             // _lvSpellList
             //
@@ -202,9 +202,9 @@
             this._lvSpellList.UseCompatibleStateImageBehavior = false;
             this._lvSpellList.View = System.Windows.Forms.View.Details;
             this._lvSpellList.VirtualMode = true;
-            this._lvSpellList.SelectedIndexChanged += new System.EventHandler(this.SpellList_SelectedIndexChanged);
-            this._lvSpellList.DoubleClick += new System.EventHandler(this.Ok_Click);
-            this._lvSpellList.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.SpellList_RetrieveVirtualItem);
+            this._lvSpellList.SelectedIndexChanged += new System.EventHandler(this.SpellListSelectedIndexChanged);
+            this._lvSpellList.DoubleClick += new System.EventHandler(this.OkClick);
+            this._lvSpellList.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.SpellListRetrieveVirtualItem);
             //
             // _chID
             //
@@ -242,7 +242,7 @@
             this._cbTarget2.Name = "_cbTarget2";
             this._cbTarget2.Size = new System.Drawing.Size(263, 21);
             this._cbTarget2.TabIndex = 7;
-            this._cbTarget2.SelectedIndexChanged += new System.EventHandler(this.SpellFamily_SelectedIndexChanged);
+            this._cbTarget2.SelectedIndexChanged += new System.EventHandler(this.SpellFamilySelectedIndexChanged);
             //
             // _cbTarget1
             //
@@ -255,7 +255,7 @@
             this._cbTarget1.Name = "_cbTarget1";
             this._cbTarget1.Size = new System.Drawing.Size(263, 21);
             this._cbTarget1.TabIndex = 6;
-            this._cbTarget1.SelectedIndexChanged += new System.EventHandler(this.SpellFamily_SelectedIndexChanged);
+            this._cbTarget1.SelectedIndexChanged += new System.EventHandler(this.SpellFamilySelectedIndexChanged);
             //
             // _cbSpellEffect
             //
@@ -268,7 +268,7 @@
             this._cbSpellEffect.Name = "_cbSpellEffect";
             this._cbSpellEffect.Size = new System.Drawing.Size(263, 21);
             this._cbSpellEffect.TabIndex = 5;
-            this._cbSpellEffect.SelectedIndexChanged += new System.EventHandler(this.SpellFamily_SelectedIndexChanged);
+            this._cbSpellEffect.SelectedIndexChanged += new System.EventHandler(this.SpellFamilySelectedIndexChanged);
             //
             // _cbSpellAura
             //
@@ -281,7 +281,7 @@
             this._cbSpellAura.Name = "_cbSpellAura";
             this._cbSpellAura.Size = new System.Drawing.Size(263, 21);
             this._cbSpellAura.TabIndex = 4;
-            this._cbSpellAura.SelectedIndexChanged += new System.EventHandler(this.SpellFamily_SelectedIndexChanged);
+            this._cbSpellAura.SelectedIndexChanged += new System.EventHandler(this.SpellFamilySelectedIndexChanged);
             //
             // _cbSpellFamily
             //
@@ -294,7 +294,7 @@
             this._cbSpellFamily.Name = "_cbSpellFamily";
             this._cbSpellFamily.Size = new System.Drawing.Size(263, 21);
             this._cbSpellFamily.TabIndex = 3;
-            this._cbSpellFamily.SelectedIndexChanged += new System.EventHandler(this.SpellFamily_SelectedIndexChanged);
+            this._cbSpellFamily.SelectedIndexChanged += new System.EventHandler(this.SpellFamilySelectedIndexChanged);
             //
             // FormSearch
             //

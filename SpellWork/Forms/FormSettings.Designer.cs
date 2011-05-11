@@ -1,4 +1,4 @@
-﻿namespace SpellWork
+﻿namespace SpellWork.Forms
 {
     partial class FormSettings
     {
@@ -155,7 +155,7 @@
             this._cbUseDBConnect.TabIndex = 5;
             this._cbUseDBConnect.Text = "Use DB Connect";
             this._cbUseDBConnect.UseVisualStyleBackColor = true;
-            this._cbUseDBConnect.CheckedChanged += new System.EventHandler(this._cbUseDBConnect_CheckedChanged);
+            this._cbUseDBConnect.CheckedChanged += new System.EventHandler(this.CbUseDbConnectCheckedChanged);
             //
             // _bTestConnect
             //
@@ -165,7 +165,7 @@
             this._bTestConnect.TabIndex = 6;
             this._bTestConnect.Text = "Test connect";
             this._bTestConnect.UseVisualStyleBackColor = true;
-            this._bTestConnect.Click += new System.EventHandler(this._bSaveSettings_Click);
+            this._bTestConnect.Click += new System.EventHandler(this.BSaveSettingsClick);
             //
             // _bSaveSettings
             //
@@ -175,7 +175,7 @@
             this._bSaveSettings.TabIndex = 7;
             this._bSaveSettings.Text = "Save";
             this._bSaveSettings.UseVisualStyleBackColor = true;
-            this._bSaveSettings.Click += new System.EventHandler(this._bSaveSettings_Click);
+            this._bSaveSettings.Click += new System.EventHandler(this.BSaveSettingsClick);
             //
             // FormSettings
             //
@@ -195,7 +195,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "SpellWork Settings";
-            this.Load += new System.EventHandler(this.SettingsForm_Load);
+            this.Load += new System.EventHandler(this.SettingsFormLoad);
             this._gbDbSetting.ResumeLayout(false);
             this._gbDbSetting.PerformLayout();
             this.ResumeLayout(false);

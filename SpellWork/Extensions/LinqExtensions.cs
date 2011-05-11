@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 
-namespace SpellWork
+namespace SpellWork.Extensions
 {
     public enum CompareType
     {
@@ -40,13 +41,14 @@ namespace SpellWork
         /// Compares two values object
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="T_entry"></param>
+        /// <param name="entry"></param>
         /// <param name="field">Value Type is MemberInfo</param>
         /// <param name="val"></param>
+        /// <param name="compareType"></param>
         /// <returns></returns>
-        public static bool CreateFilter<T>(this T T_entry, object field, object val, CompareType compareType)
+        public static bool CreateFilter<T>(this T entry, object field, object val, CompareType compareType)
         {
-            object basicValue = GetValue<T>(T_entry, (MemberInfo)field);
+            var basicValue = GetValue(entry, (MemberInfo)field);
 
             switch (basicValue.GetType().Name)
             {
@@ -62,43 +64,23 @@ namespace SpellWork
                     return Compare(basicValue.ToString(), val.ToString(), compareType);
                 case @"UInt32[]":
                 {
-                    uint val_uint = val.ToUInt32();
-                    foreach (uint el in (uint[])basicValue)
-                    {
-                        if (Compare(el, val_uint, compareType))
-                            return true;
-                    }
-                    return false;
+                    var valUint = val.ToUInt32();
+                    return ((uint[])basicValue).Any(el => Compare(el, valUint, compareType));
                 }
                 case @"Int32[]":
                 {
-                    int val_int = val.ToInt32();
-                    foreach (int el in (int[])basicValue)
-                    {
-                        if (Compare(el, val_int, compareType))
-                            return true;
-                    }
-                    return false;
+                    var valInt = val.ToInt32();
+                    return ((int[])basicValue).Any(el => Compare(el, valInt, compareType));
                 }
                 case @"Single[]":
                 {
-                    float val_float = val.ToFloat();
-                    foreach (float el in (float[])basicValue)
-                    {
-                        if (Compare(el, val_float, compareType))
-                            return true;
-                    }
-                    return false;
+                    var valFloat = val.ToFloat();
+                    return ((float[])basicValue).Any(el => Compare(el, valFloat, compareType));
                 }
                 case @"UInt64[]":
                 {
-                    ulong val_ulong = val.ToUlong();
-                    foreach (ulong el in (ulong[])basicValue)
-                    {
-                        if (Compare(el, val_ulong, compareType))
-                            return true;
-                    }
-                    return false;
+                    var valUlong = val.ToUlong();
+                    return ((ulong[])basicValue).Any(el => Compare(el, valUlong, compareType));
                 }
                 default:
                     return false;
@@ -121,7 +103,6 @@ namespace SpellWork
 
                 case CompareType.NotEqual:
                     return !baseValue.Equals(value, StringComparison.CurrentCultureIgnoreCase);
-                case CompareType.Equal:
                 default:
                     return baseValue.Equals(value, StringComparison.CurrentCultureIgnoreCase);
             }
@@ -142,7 +123,6 @@ namespace SpellWork
 
                 case CompareType.NotEqual:
                     return baseValue != value;
-                case CompareType.Equal:
                 default:
                     return baseValue == value;
             }
@@ -170,7 +150,6 @@ namespace SpellWork
 
                 case CompareType.NotEqual:
                     return baseValue != value;
-                case CompareType.Equal:
                 default:
                     return baseValue == value;
             }
@@ -198,7 +177,6 @@ namespace SpellWork
 
                 case CompareType.NotEqual:
                     return baseValue != value;
-                case CompareType.Equal:
                 default:
                     return baseValue == value;
             }
@@ -226,7 +204,6 @@ namespace SpellWork
 
                 case CompareType.NotEqual:
                     return baseValue != value;
-                case CompareType.Equal:
                 default:
                     return baseValue == value;
             }
@@ -234,14 +211,13 @@ namespace SpellWork
 
         #endregion
 
-        private static Object GetValue<T>(T T_entry, MemberInfo field)
+        private static Object GetValue<T>(T entry, MemberInfo field)
         {
             if (field is FieldInfo)
-                return typeof(T).GetField(field.Name).GetValue(T_entry);
-            else if (field is PropertyInfo)
-                return typeof(T).GetProperty(field.Name).GetValue(T_entry, null);
-            else
-                return null;
+                return typeof(T).GetField(field.Name).GetValue(entry);
+            if (field is PropertyInfo)
+                return typeof(T).GetProperty(field.Name).GetValue(entry, null);
+            return null;
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿namespace SpellWork
+﻿namespace SpellWork.Forms
 {
-    partial class FormCalculateFlags
+    sealed partial class FormCalculateFlags
     {
         /// <summary>
         /// Required designer variable.
@@ -44,7 +44,7 @@
             this._bNo.TabIndex = 1;
             this._bNo.Text = "Cancel";
             this._bNo.UseVisualStyleBackColor = true;
-            this._bNo.Click += new System.EventHandler(this._bNo_Click);
+            this._bNo.Click += new System.EventHandler(this.BNoClick);
             //
             // _bOk
             //
@@ -54,7 +54,7 @@
             this._bOk.TabIndex = 2;
             this._bOk.Text = "OK";
             this._bOk.UseVisualStyleBackColor = true;
-            this._bOk.Click += new System.EventHandler(this._bOk_Click);
+            this._bOk.Click += new System.EventHandler(this.BOkClick);
             //
             // _clbCalcFlags
             //
@@ -67,7 +67,7 @@
             this._clbCalcFlags.Name = "_clbCalcFlags";
             this._clbCalcFlags.Size = new System.Drawing.Size(291, 259);
             this._clbCalcFlags.TabIndex = 0;
-            this._clbCalcFlags.SelectedValueChanged += new System.EventHandler(this._clbCalcFlags_SelectedValueChanged);
+            this._clbCalcFlags.SelectedValueChanged += new System.EventHandler(this.ClbCalcFlagsSelectedValueChanged);
             //
             // _lFlagValue
             //

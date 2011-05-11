@@ -1,7 +1,8 @@
 ﻿using System;
 
-namespace SpellWork
+namespace SpellWork.Spell
 {
+    // ReSharper disable InconsistentNaming
     public enum LocalesDBC
     {
         enUS,
@@ -669,7 +670,7 @@ namespace SpellWork
         TARGET_UNIT_TARGET_PUPPET               = 90,
         TARGET_DEST_DEST_RANDOM_DIR_DIST        = 91,
         TARGET_UNIT_SUMMONER                    = 92,
-        TARGET_CORPSE_AREA_ENEMY_PLAYER_SRC     = 93, // TODO
+        TARGET_CORPSE_AREA_ENEMY_PLAYER_SRC     = 93,
         TARGET_UNIT_VEHICLE                     = 94,
         TARGET_UNIT_DRIVER                      = 95,
         TARGET_UNIT_PASSENGER_0                 = 96,
@@ -1543,6 +1544,8 @@ namespace SpellWork
         UNIT_MOD_POWER_START            = UNIT_MOD_MANA,
         UNIT_MOD_POWER_END              = UNIT_MOD_RUNIC_POWER       + 1,
     };
+
+// ReSharper restore InconsistentNaming
 
     public class SpellEnums
     {

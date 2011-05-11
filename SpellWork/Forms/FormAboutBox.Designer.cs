@@ -1,6 +1,6 @@
-﻿namespace SpellWork
+﻿namespace SpellWork.Forms
 {
-    partial class FormAboutBox
+    sealed partial class FormAboutBox
     {
         /// <summary>
         /// Требуется переменная конструктора.

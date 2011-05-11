@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
+using SpellWork.DBC;
+using SpellWork.Spell;
 
 namespace SpellWork
 {
@@ -10,31 +8,32 @@ namespace SpellWork
     {
         public Loader()
         {
-            DBC.OverrideSpellData   = DBCReader.ReadDBC<OverrideSpellDataEntry>(null);
-            DBC.ScreenEffect        = DBCReader.ReadDBC<ScreenEffectEntry>(DBC.ScreenEffectStrings);
-            DBC.SkillLine           = DBCReader.ReadDBC<SkillLineEntry>(DBC.SkillLineStrings);
-            DBC.SkillLineAbility    = DBCReader.ReadDBC<SkillLineAbilityEntry>(null);
-            DBC.Spell               = DBCReader.ReadDBC<SpellEntry>(DBC.SpellStrings);
-            DBC.SpellCastTimes      = DBCReader.ReadDBC<SpellCastTimesEntry>(null);
-            DBC.SpellDifficulty     = DBCReader.ReadDBC<SpellDifficultyEntry>(null);
-            DBC.SpellDuration       = DBCReader.ReadDBC<SpellDurationEntry>(null);
-            DBC.SpellRadius         = DBCReader.ReadDBC<SpellRadiusEntry>(null);
-            DBC.SpellRange          = DBCReader.ReadDBC<SpellRangeEntry>(DBC.SpellRangeStrings);
+            DBC.DBC.OverrideSpellData = DBCReader.ReadDBC<OverrideSpellDataEntry>(null);
+            DBC.DBC.ScreenEffect = DBCReader.ReadDBC<ScreenEffectEntry>(DBC.DBC.ScreenEffectStrings);
+            DBC.DBC.SkillLine = DBCReader.ReadDBC<SkillLineEntry>(DBC.DBC.SkillLineStrings);
+            DBC.DBC.SkillLineAbility = DBCReader.ReadDBC<SkillLineAbilityEntry>(null);
+            DBC.DBC.Spell = DBCReader.ReadDBC<SpellEntry>(DBC.DBC.SpellStrings);
+            DBC.DBC.SpellCastTimes = DBCReader.ReadDBC<SpellCastTimesEntry>(null);
+            DBC.DBC.SpellDifficulty = DBCReader.ReadDBC<SpellDifficultyEntry>(null);
+            DBC.DBC.SpellDuration = DBCReader.ReadDBC<SpellDurationEntry>(null);
+            DBC.DBC.SpellRadius = DBCReader.ReadDBC<SpellRadiusEntry>(null);
+            DBC.DBC.SpellRange = DBCReader.ReadDBC<SpellRangeEntry>(DBC.DBC.SpellRangeStrings);
 
 
-            DBC.Locale = DetectedLocale;
+            DBC.DBC.Locale = DetectedLocale;
         }
 
-        private LocalesDBC DetectedLocale
+        /// <exception cref="Exception"><c>Exception</c>.</exception>
+        private static LocalesDBC DetectedLocale
         {
             get
             {
                 byte locale = 0;
-                while (DBC.Spell[DBC.SPELL_ENTRY_FOR_DETECT_LOCALE].GetName(locale) == String.Empty)
+                while (DBC.DBC.Spell[DBC.DBC.SpellEntryForDetectLocale].GetName(locale) == String.Empty)
                 {
                     ++locale;
 
-                    if (locale >= DBC.MAX_DBC_LOCALE)
+                    if (locale >= DBC.DBC.MaxDbcLocale)
                         throw new Exception("Detected unknown locale index " + locale);
                 }
                 return (LocalesDBC)locale;

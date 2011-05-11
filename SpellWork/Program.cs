@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
-using System.IO;
+using SpellWork.Forms;
 
 namespace SpellWork
 {
@@ -12,7 +10,7 @@ namespace SpellWork
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main(string[] args)
+        static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -24,7 +22,7 @@ namespace SpellWork
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "SpellWork Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, @"SpellWork Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
