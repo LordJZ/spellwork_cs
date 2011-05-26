@@ -806,7 +806,7 @@ namespace SpellWork.Spell
         MECHANIC_FEAR               = 5,
         MECHANIC_GRIP               = 6,
         MECHANIC_ROOT               = 7,
-        MECHANIC_PACIFY             = 8,   //0 spells use this mechanic
+        MECHANIC_SLOW_ATTACK        = 8,
         MECHANIC_SILENCE            = 9,
         MECHANIC_SLEEP              = 10,
         MECHANIC_SNARE              = 11,
@@ -1178,8 +1178,8 @@ namespace SpellWork.Spell
         SPELL_ATTR0_UNK4                            = 0x00000010, //  4
         SPELL_ATTR0_TRADESPELL                      = 0x00000020, //  5 trade spells, will be added by client to a sublist of profession spell
         SPELL_ATTR0_PASSIVE                         = 0x00000040, //  6 Passive spell
-        SPELL_ATTR0_UNK7                            = 0x00000080, //  7 visible?
-        SPELL_ATTR0_UNK8                            = 0x00000100, //  8
+        SPELL_ATTR0_HIDDEN_CLIENTSIDE               = 0x00000080, //  7 Spells with this attribute are not visible in spellbook or aura bar
+        SPELL_ATTR0_HIDE_IN_COMBAT_LOG              = 0x00000100, //  8 This attribite controls whether spell appears in combat logs
         SPELL_ATTR0_UNK9                            = 0x00000200, //  9
         SPELL_ATTR0_UNK10                           = 0x00000400, // 10 on next swing 2
         SPELL_ATTR0_UNK11                           = 0x00000800, // 11
@@ -1306,7 +1306,7 @@ namespace SpellWork.Spell
         SPELL_ATTR3_UNK15                           = 0x00008000, // 15 Auto Shoot, Shoot, Throw,  - this is autoshot flag
         SPELL_ATTR3_UNK16                           = 0x00010000, // 16 no triggers effects that trigger on casting a spell?? (15290 - 2.2ptr change)
         SPELL_ATTR3_NO_INITIAL_AGGRO                = 0x00020000, // 17 Soothe Animal, 39758, Mind Soothe
-        SPELL_ATTR3_UNK18                           = 0x00040000, // 18 added to Explosive Trap Effect 3.3.0, removed from Mutilate 3.3.0
+        SPELL_ATTR3_IGNORE_HIT_RESULT               = 0x00040000, // 18 Spell should always hit its target
         SPELL_ATTR3_DISABLE_PROC                    = 0x00080000, // 19 during aura proc no spells can trigger (20178, 20375)
         SPELL_ATTR3_DEATH_PERSISTENT                = 0x00100000, // 20 Death persistent spells
         SPELL_ATTR3_UNK21                           = 0x00200000, // 21
@@ -1341,7 +1341,7 @@ namespace SpellWork.Spell
         SPELL_ATTR4_UNK11                           = 0x00000800, // 11
         SPELL_ATTR4_UNK12                           = 0x00001000, // 12
         SPELL_ATTR4_UNK13                           = 0x00002000, // 13
-        SPELL_ATTR4_UNK14                           = 0x00004000, // 14
+        SPELL_ATTR4_DAMAGE_DOESNT_BREAK_AURAS       = 0x00004000, // 14 doesn't break auras by damage from these spells
         SPELL_ATTR4_UNK15                           = 0x00008000, // 15
         SPELL_ATTR4_NOT_USABLE_IN_ARENA             = 0x00010000, // 16 not usable in arena
         SPELL_ATTR4_USABLE_IN_ARENA                 = 0x00020000, // 17 usable in arena
@@ -1379,7 +1379,7 @@ namespace SpellWork.Spell
         SPELL_ATTR5_UNK10                           = 0x00000400, // 10
         SPELL_ATTR5_UNK11                           = 0x00000800, // 11
         SPELL_ATTR5_UNK12                           = 0x00001000, // 12
-        SPELL_ATTR5_UNK13                           = 0x00002000, // 13
+        SPELL_ATTR5_HASTE_AFFECT_DURATION           = 0x00002000, // 13 haste effects decrease duration of this
         SPELL_ATTR5_UNK14                           = 0x00004000, // 14
         SPELL_ATTR5_UNK15                           = 0x00008000, // 15
         SPELL_ATTR5_SPECIAL_ITEM_CLASS_CHECK        = 0x00010000, // 16 this allows spells with EquippedItemClass to affect spells from other items if the required item is equipped
@@ -1452,8 +1452,8 @@ namespace SpellWork.Spell
         SPELL_ATTR7_SUMMON_PLAYER_TOTEM             = 0x00000020, //  5 Only Shaman player totems.
         SPELL_ATTR7_UNK6                            = 0x00000040, //  6 Dark Surge, Surge of Light, Burning Breath triggers (boss spells).
         SPELL_ATTR7_UNK7                            = 0x00000080, //  7 66218 (Launch) spell.
-        SPELL_ATTR7_UNK8                            = 0x00000100, //  8 Teleports, mounts and other spells.
-        SPELL_ATTR7_UNK9                            = 0x00000200, //  9 Teleports, mounts and other spells.
+        SPELL_ATTR7_HORDE_ONLY                      = 0x00000100, //  8 Teleports, mounts and other spells.
+        SPELL_ATTR7_ALLIANCE_ONLY                   = 0x00000200, //  9 Teleports, mounts and other spells.
         SPELL_ATTR7_DISPEL_CHARGES                  = 0x00000400, // 10 Dispel and Spellsteal individual charges instead of whole aura.
         SPELL_ATTR7_INTERRUPT_ONLY_NONPLAYER        = 0x00000800, // 11 Only non-player casts interrupt, though Feral Charge - Bear has it.
         SPELL_ATTR7_UNK12                           = 0x00001000, // 12 Not set in 3.2.2a.
