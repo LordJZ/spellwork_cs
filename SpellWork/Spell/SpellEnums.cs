@@ -695,8 +695,6 @@ namespace SpellWork.Spell
     [Flags]
     public enum ProcFlags
     {
-        PROC_FLAG_NONE                              = 0x00000000,
-
         PROC_FLAG_KILLED                            = 0x00000001,    // 00 Killed by agressor - not sure about this flag
         PROC_FLAG_KILL                              = 0x00000002,    // 01 Kill target (in most cases need XP/Honor reward)
 
@@ -739,7 +737,7 @@ namespace SpellWork.Spell
     [Flags]
     public enum ProcFlagsEx
     {
-        PROC_EX_NONE                    = 0x0000000,                 // If none can tigger on Hit/Crit only (passive spells MUST defined by SpellFamily flag)
+        // If none can tigger on Hit/Crit only (passive spells MUST defined by SpellFamily flag)
         PROC_EX_NORMAL_HIT              = 0x0000001,                 // If set only from normal hit (only damage spells)
         PROC_EX_CRITICAL_HIT            = 0x0000002,
         PROC_EX_MISS                    = 0x0000004,

@@ -141,7 +141,7 @@ namespace SpellWork.Extensions
         {
             uint val = 0;
             for (var i = 0; i < name.CheckedIndices.Count; ++i)
-                val += 1U << (name.CheckedIndices[i] - 1);
+                val |= 1U << (name.CheckedIndices[i]);
 
             return val;
         }
