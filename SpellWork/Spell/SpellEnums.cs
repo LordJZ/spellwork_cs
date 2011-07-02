@@ -578,8 +578,8 @@ namespace SpellWork.Spell
         NO_TARGET                               = 0,
         TARGET_UNIT_CASTER                      = 1,
         TARGET_UNIT_NEARBY_ENEMY                = 2,
-        TARGET_UNIT_NEARBY_ALLY                 = 3,
-        TARGET_UNIT_NEARBY_ALLY_UNK             = 4,
+        TARGET_UNIT_NEARBY_PARTY                = 3,
+        TARGET_UNIT_NEARBY_ALLY                 = 4,
         TARGET_UNIT_PET                         = 5,
         TARGET_UNIT_TARGET_ENEMY                = 6,
         TARGET_UNIT_AREA_ENTRY_SRC              = 7,
@@ -667,7 +667,7 @@ namespace SpellWork.Spell
         TARGET_DEST_DEST                        = 87,
         TARGET_DEST_DYNOBJ_NONE                 = 88,
         TARGET_DEST_TRAJ                        = 89,
-        TARGET_UNIT_TARGET_PUPPET               = 90,
+        TARGET_UNIT_TARGET_MINIPET              = 90,
         TARGET_DEST_DEST_RANDOM_DIR_DIST        = 91,
         TARGET_UNIT_SUMMONER                    = 92,
         TARGET_CORPSE_AREA_ENEMY_PLAYER_SRC     = 93,
@@ -840,7 +840,7 @@ namespace SpellWork.Spell
         SPELL_MISS_BLOCK    = 5,
         SPELL_MISS_EVADE    = 6,
         SPELL_MISS_IMMUNE   = 7,
-        SPELL_MISS_IMMUNE2  = 8,
+        SPELL_MISS_IMMUNE2  = 8, // one of these 2 is MISS_TEMPIMMUNE
         SPELL_MISS_DEFLECT  = 9,
         SPELL_MISS_ABSORB   = 10,
         SPELL_MISS_REFLECT  = 11
@@ -1171,15 +1171,15 @@ namespace SpellWork.Spell
         SPELL_ATTR_NONE                             = 0x00000000,
         SPELL_ATTR0_UNK0                            = 0x00000001, //  0
         SPELL_ATTR0_REQ_AMMO                        = 0x00000002, //  1
-        SPELL_ATTR0_ON_NEXT_SWING                   = 0x00000004, //  2 on next swing
+        SPELL_ATTR0_ON_NEXT_SWING                   = 0x00000004, //  2
         SPELL_ATTR0_UNK3                            = 0x00000008, //  3 not set in 3.0.3
-        SPELL_ATTR0_UNK4                            = 0x00000010, //  4
-        SPELL_ATTR0_TRADESPELL                      = 0x00000020, //  5 trade spells, will be added by client to a sublist of profession spell
+        SPELL_ATTR0_ABILITY                         = 0x00000010, //  4 client puts 'ability' instead of 'spell' in game strings for these spells
+        SPELL_ATTR0_TRADESPELL                      = 0x00000020, //  5 trade spells (recipes), will be added by client to a sublist of profession spell
         SPELL_ATTR0_PASSIVE                         = 0x00000040, //  6 Passive spell
         SPELL_ATTR0_HIDDEN_CLIENTSIDE               = 0x00000080, //  7 Spells with this attribute are not visible in spellbook or aura bar
         SPELL_ATTR0_HIDE_IN_COMBAT_LOG              = 0x00000100, //  8 This attribite controls whether spell appears in combat logs
-        SPELL_ATTR0_UNK9                            = 0x00000200, //  9
-        SPELL_ATTR0_UNK10                           = 0x00000400, // 10 on next swing 2
+        SPELL_ATTR0_TARGET_MAINHAND_ITEM            = 0x00000200, //  9 Client automatically selects item from mainhand slot as a cast target
+        SPELL_ATTR0_ON_NEXT_SWING_2                 = 0x00000400, // 10
         SPELL_ATTR0_UNK11                           = 0x00000800, // 11
         SPELL_ATTR0_DAYTIME_ONLY                    = 0x00001000, // 12 only useable at daytime, not set in 2.4.2
         SPELL_ATTR0_NIGHT_ONLY                      = 0x00002000, // 13 only useable at night, not set in 2.4.2
@@ -1191,7 +1191,7 @@ namespace SpellWork.Spell
         SPELL_ATTR0_LEVEL_DAMAGE_CALCULATION        = 0x00080000, // 19 spelldamage depends on caster level
         SPELL_ATTR0_STOP_ATTACK_TARGET              = 0x00100000, // 20 Stop attack after use this spell (and not begin attack if use)
         SPELL_ATTR0_IMPOSSIBLE_DODGE_PARRY_BLOCK    = 0x00200000, // 21 Cannot be dodged/parried/blocked
-        SPELL_ATTR0_UNK22                           = 0x00400000, // 22 shoot spells
+        SPELL_ATTR0_CAST_TRACK_TARGET               = 0x00400000, // 22 Client automatically forces player to face target when casting
         SPELL_ATTR0_CASTABLE_WHILE_DEAD             = 0x00800000, // 23 castable while dead?
         SPELL_ATTR0_CASTABLE_WHILE_MOUNTED          = 0x01000000, // 24 castable while mounted
         SPELL_ATTR0_DISABLED_WHILE_ACTIVE           = 0x02000000, // 25 Activate and start cooldown after aura fade or remove summoned creature or go
@@ -1208,13 +1208,13 @@ namespace SpellWork.Spell
     {
         SPELL_ATTR1_ALL                             = 0xFFFFFFFF,
         SPELL_ATTR1_NONE                            = 0x00000000,
-        SPELL_ATTR1_DISMISS_PET                     = 0x00000001, //  0 dismiss pet and not allow to summon new one?
+        SPELL_ATTR1_DISMISS_PET                     = 0x00000001, //  0 for spells without this flag client doesn't allow to summon pet if caster has a pet
         SPELL_ATTR1_DRAIN_ALL_POWER                 = 0x00000002, //  1 use all power (Only paladin Lay of Hands and Bunyanize)
-        SPELL_ATTR1_CHANNELED_1                     = 0x00000004, //  2 channeled target
+        SPELL_ATTR1_CHANNELED_1                     = 0x00000004, //  2 clientside checked?
         SPELL_ATTR1_PUT_CASTER_IN_COMBAT            = 0x00000008, //  3 spells that cause a caster to enter a combat
         SPELL_ATTR1_UNK4                            = 0x00000010, //  4 stealth and whirlwind
         SPELL_ATTR1_NOT_BREAK_STEALTH               = 0x00000020, //  5 Not break stealth
-        SPELL_ATTR1_CHANNELED_2                     = 0x00000040, //  6 channeled self
+        SPELL_ATTR1_CHANNELED_2                     = 0x00000040, //  6
         SPELL_ATTR1_NEGATIVE                        = 0x00000080, //  7
         SPELL_ATTR1_NOT_IN_COMBAT_TARGET            = 0x00000100, //  8 Spell req target not to be in combat state
         SPELL_ATTR1_UNK9                            = 0x00000200, //  9 melee spells
@@ -1222,7 +1222,7 @@ namespace SpellWork.Spell
         SPELL_ATTR1_UNK11                           = 0x00000800, // 11 aura
         SPELL_ATTR1_UNK12                           = 0x00001000, // 12
         SPELL_ATTR1_USE_RADIUS_AS_MAX_DISTANCE      = 0x00002000, // 13
-        SPELL_ATTR1_STACK_FOR_DIFF_CASTERS          = 0x00004000, // 14
+        SPELL_ATTR1_CHANNEL_TRACK_TARGET            = 0x00004000, // 14 Client automatically forces player to face target when channeling
         SPELL_ATTR1_DISPEL_AURAS_ON_IMMUNITY        = 0x00008000, // 15 remove auras on immunity
         SPELL_ATTR1_UNAFFECTED_BY_SCHOOL_IMMUNE     = 0x00010000, // 16 on immuniy
         SPELL_ATTR1_UNAUTOCASTABLE_BY_PET           = 0x00020000, // 17
@@ -1232,12 +1232,12 @@ namespace SpellWork.Spell
         SPELL_ATTR1_UNK21                           = 0x00200000, // 21
         SPELL_ATTR1_REQ_COMBO_POINTS2               = 0x00400000, // 22 Req combo points on target
         SPELL_ATTR1_UNK23                           = 0x00800000, // 23
-        SPELL_ATTR1_UNK24                           = 0x01000000, // 24 Req fishing pole??
+        SPELL_ATTR1_UNK24                           = 0x01000000, // 24 only fishing spells
         SPELL_ATTR1_UNK25                           = 0x02000000, // 25
         SPELL_ATTR1_UNK26                           = 0x04000000, // 26 works correctly with [target=focus] and [target=mouseover] macros?
         SPELL_ATTR1_UNK27                           = 0x08000000, // 27
         SPELL_ATTR1_IGNORE_IMMUNITY                 = 0x10000000, // 28 removed from Chains of Ice 3.3.0
-        SPELL_ATTR1_UNK29                           = 0x20000000, // 29
+        SPELL_ATTR1_CHANNEL_DISPLAY_SPELL_NAME      = 0x20000000, // 29 spell name is displayed in cast bar instead of 'channeling' text
         SPELL_ATTR1_ENABLE_AT_DODGE                 = 0x40000000, // 30 Overpower, Wolverine Bite
         SPELL_ATTR1_UNK31                           = 0x80000000  // 31
     };
@@ -1328,7 +1328,7 @@ namespace SpellWork.Spell
         SPELL_ATTR4_UNK0                            = 0x00000001, //  0
         SPELL_ATTR4_UNK1                            = 0x00000002, //  1 proc on finishing move?
         SPELL_ATTR4_UNK2                            = 0x00000004, //  2
-        SPELL_ATTR4_CANT_PROC_FROM_SELFCAST         = 0x00000008, //  3
+        SPELL_ATTR4_UNK3                            = 0x00000008, //  3
         SPELL_ATTR4_UNK4                            = 0x00000010, //  4 This will no longer cause guards to attack on use??
         SPELL_ATTR4_UNK5                            = 0x00000020, //  5
         SPELL_ATTR4_NOT_STEALABLE                   = 0x00000040, //  6 although such auras might be dispellable, they cannot be stolen
@@ -1341,8 +1341,8 @@ namespace SpellWork.Spell
         SPELL_ATTR4_UNK13                           = 0x00002000, // 13
         SPELL_ATTR4_DAMAGE_DOESNT_BREAK_AURAS       = 0x00004000, // 14 doesn't break auras by damage from these spells
         SPELL_ATTR4_UNK15                           = 0x00008000, // 15
-        SPELL_ATTR4_NOT_USABLE_IN_ARENA             = 0x00010000, // 16 not usable in arena
-        SPELL_ATTR4_USABLE_IN_ARENA                 = 0x00020000, // 17 usable in arena
+        SPELL_ATTR4_NOT_USABLE_IN_ARENA             = 0x00010000, // 16
+        SPELL_ATTR4_USABLE_IN_ARENA                 = 0x00020000, // 17
         SPELL_ATTR4_UNK18                           = 0x00040000, // 18
         SPELL_ATTR4_UNK19                           = 0x00080000, // 19
         SPELL_ATTR4_NOT_CHECK_SELFCAST_POWER        = 0x00100000, // 20 supersedes message "More powerful spell applied" for self casts.
@@ -1374,7 +1374,7 @@ namespace SpellWork.Spell
         SPELL_ATTR5_UNK7                            = 0x00000080, //  7
         SPELL_ATTR5_UNK8                            = 0x00000100, //  8
         SPELL_ATTR5_START_PERIODIC_AT_APPLY         = 0x00000200, //  9  begin periodic tick at aura apply
-        SPELL_ATTR5_UNK10                           = 0x00000400, // 10
+        SPELL_ATTR5_HIDE_DURATION                   = 0x00000400, // 10
         SPELL_ATTR5_UNK11                           = 0x00000800, // 11
         SPELL_ATTR5_UNK12                           = 0x00001000, // 12
         SPELL_ATTR5_HASTE_AFFECT_DURATION           = 0x00002000, // 13 haste effects decrease duration of this
@@ -1445,7 +1445,7 @@ namespace SpellWork.Spell
         SPELL_ATTR7_UNK0                            = 0x00000001, //  0 Shaman's new spells (Call of the ...), Feign Death.
         SPELL_ATTR7_UNK1                            = 0x00000002, //  1 Not set in 3.2.2a.
         SPELL_ATTR7_REACTIVATE_AT_RESURRECT         = 0x00000004, //  2 Paladin's auras and 65607 only.
-        SPELL_ATTR7_DISABLED_CLIENT_SIDE            = 0x00000008, //  3 used only by client to disable spells client-side. some sort of special player flag (0x40000) bypasses that restriction
+        SPELL_ATTR7_IS_CHEAT_SPELL                  = 0x00000008, //  3 Cannot cast if caster doesn't have UnitFlag2 & UNIT_FLAG2_ALLOW_CHEAT_SPELLS
         SPELL_ATTR7_UNK4                            = 0x00000010, //  4 Only 66109 test spell.
         SPELL_ATTR7_SUMMON_PLAYER_TOTEM             = 0x00000020, //  5 Only Shaman player totems.
         SPELL_ATTR7_UNK6                            = 0x00000040, //  6 Dark Surge, Surge of Light, Burning Breath triggers (boss spells).
