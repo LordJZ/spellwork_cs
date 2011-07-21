@@ -6,3 +6,4 @@ SpellWork/obj/*
 *.rej
 *.patch
 *.log
+_ReSharper*
