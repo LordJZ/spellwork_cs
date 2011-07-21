@@ -966,26 +966,27 @@ namespace SpellWork.Spell
     public enum SpellCastTargetFlags
     {
         TARGET_FLAG_SELF            = 0x00000000,
-        TARGET_FLAG_UNUSED1         = 0x00000001,               // not used in any spells as of 3.2.2a (can be set dynamically)
+        TARGET_FLAG_UNUSED_1        = 0x00000001,               // not used
         TARGET_FLAG_UNIT            = 0x00000002,               // pguid
-        TARGET_FLAG_UNUSED2         = 0x00000004,               // not used in any spells as of 3.2.2a (can be set dynamically)
-        TARGET_FLAG_UNUSED3         = 0x00000008,               // not used in any spells as of 3.2.2a (can be set dynamically)
+        TARGET_FLAG_UNIT_RAID       = 0x00000004,               // not sent, used to validate target (if raid member)
+        TARGET_FLAG_UNIT_PARTY      = 0x00000008,               // not sent, used to validate target (if party member)
         TARGET_FLAG_ITEM            = 0x00000010,               // pguid
-        TARGET_FLAG_SOURCE_LOCATION = 0x00000020,               // 3 float
-        TARGET_FLAG_DEST_LOCATION   = 0x00000040,               // 3 float
-        TARGET_FLAG_OBJECT_CASTER   = 0x00000080,               // used in 7 spells only
-        TARGET_FLAG_UNIT_CASTER     = 0x00000100,               // looks like self target (480 spells)
-        TARGET_FLAG_PVP_CORPSE      = 0x00000200,               // pguid
-        TARGET_FLAG_UNIT_CORPSE     = 0x00000400,               // 10 spells (gathering professions)
-        TARGET_FLAG_OBJECT          = 0x00000800,               // pguid, 2 spells
-        TARGET_FLAG_TRADE_ITEM      = 0x00001000,               // pguid, 0 spells
-        TARGET_FLAG_STRING          = 0x00002000,               // string, 0 spells
-        TARGET_FLAG_OPEN_LOCK       = 0x00004000,               // 199 spells, opening object/lock
-        TARGET_FLAG_CORPSE          = 0x00008000,               // pguid, resurrection spells
-        TARGET_FLAG_UNK17           = 0x00010000,               // pguid, not used in any spells as of 3.2.2a (can be set dynamically)
-        TARGET_FLAG_GLYPH           = 0x00020000,               // used in glyph spells
-        TARGET_FLAG_UNK19           = 0x00040000,               //
-        TARGET_FLAG_UNUSED20        = 0x00080000                // uint32 counter, loop { vec3 - screen position (?), guid }, not used so far
+        TARGET_FLAG_SOURCE_LOCATION = 0x00000020,               // pguid, 3 float
+        TARGET_FLAG_DEST_LOCATION   = 0x00000040,               // pguid, 3 float
+        TARGET_FLAG_UNIT_ENEMY      = 0x00000080,               // not sent, used to validate target (if enemy)
+        TARGET_FLAG_UNIT_ALLY       = 0x00000100,               // not sent, used to validate target (if ally)
+        TARGET_FLAG_CORPSE_ENEMY    = 0x00000200,               // pguid
+        TARGET_FLAG_UNIT_DEAD       = 0x00000400,               // not sent, used to validate target (if dead creature)
+        TARGET_FLAG_GAMEOBJECT      = 0x00000800,               // pguid, used with TARGET_GAMEOBJECT
+        TARGET_FLAG_TRADE_ITEM      = 0x00001000,               // pguid
+        TARGET_FLAG_STRING          = 0x00002000,               // string
+        TARGET_FLAG_GAMEOBJECT_ITEM = 0x00004000,               // not sent, used with TARGET_GAMEOBJECT_ITEM
+        TARGET_FLAG_CORPSE_ALLY     = 0x00008000,               // pguid
+        TARGET_FLAG_UNIT_MINIPET    = 0x00010000,               // pguid, used to validate target (if non combat pet)
+        TARGET_FLAG_GLYPH_SLOT      = 0x00020000,               // used in glyph spells
+        TARGET_FLAG_UNK19           = 0x00040000,               // sometimes appears with DEST_TARGET spells (may appear or not for a given spell)
+        TARGET_FLAG_UNUSED20        = 0x00080000,               // uint32 counter, loop { vec3 - screen position (?), guid }, not used so far
+        TARGET_FLAG_UNIT_PASSENGER  = 0x00100000,               // guessed, used to validate target (if vehicle passenger)
     };
 
     public enum Powers : uint
@@ -1187,7 +1188,7 @@ namespace SpellWork.Spell
         SPELL_ATTR0_OUTDOORS_ONLY                   = 0x00008000, // 15 Only useable outdoors.
         SPELL_ATTR0_NOT_SHAPESHIFT                  = 0x00010000, // 16 Not while shapeshifted
         SPELL_ATTR0_ONLY_STEALTHED                  = 0x00020000, // 17 Must be in stealth
-        SPELL_ATTR0_UNK18                           = 0x00040000, // 18
+        SPELL_ATTR0_DONT_AFFECT_SHEATH_STATE        = 0x00040000, // 18 client won't hide unit weapons in sheath on cast/channel
         SPELL_ATTR0_LEVEL_DAMAGE_CALCULATION        = 0x00080000, // 19 spelldamage depends on caster level
         SPELL_ATTR0_STOP_ATTACK_TARGET              = 0x00100000, // 20 Stop attack after use this spell (and not begin attack if use)
         SPELL_ATTR0_IMPOSSIBLE_DODGE_PARRY_BLOCK    = 0x00200000, // 21 Cannot be dodged/parried/blocked
@@ -1211,17 +1212,17 @@ namespace SpellWork.Spell
         SPELL_ATTR1_DISMISS_PET                     = 0x00000001, //  0 for spells without this flag client doesn't allow to summon pet if caster has a pet
         SPELL_ATTR1_DRAIN_ALL_POWER                 = 0x00000002, //  1 use all power (Only paladin Lay of Hands and Bunyanize)
         SPELL_ATTR1_CHANNELED_1                     = 0x00000004, //  2 clientside checked?
-        SPELL_ATTR1_PUT_CASTER_IN_COMBAT            = 0x00000008, //  3 spells that cause a caster to enter a combat
+        SPELL_ATTR1_CANT_BE_REDIRECTED              = 0x00000008, //  3
         SPELL_ATTR1_UNK4                            = 0x00000010, //  4 stealth and whirlwind
         SPELL_ATTR1_NOT_BREAK_STEALTH               = 0x00000020, //  5 Not break stealth
         SPELL_ATTR1_CHANNELED_2                     = 0x00000040, //  6
-        SPELL_ATTR1_NEGATIVE                        = 0x00000080, //  7
+        SPELL_ATTR1_CANT_BE_REFLECTED               = 0x00000080, //  7
         SPELL_ATTR1_NOT_IN_COMBAT_TARGET            = 0x00000100, //  8 Spell req target not to be in combat state
-        SPELL_ATTR1_UNK9                            = 0x00000200, //  9 melee spells
+        SPELL_ATTR1_MELEE_COMBAT_START              = 0x00000200, //  9 player starts melee combat after this spell is cast
         SPELL_ATTR1_NO_THREAT                       = 0x00000400, // 10 no generates threat on cast 100% (old NO_INITIAL_AGGRO)
         SPELL_ATTR1_UNK11                           = 0x00000800, // 11 aura
         SPELL_ATTR1_UNK12                           = 0x00001000, // 12
-        SPELL_ATTR1_USE_RADIUS_AS_MAX_DISTANCE      = 0x00002000, // 13
+        SPELL_ATTR1_FARSIGHT                        = 0x00002000, // 13
         SPELL_ATTR1_CHANNEL_TRACK_TARGET            = 0x00004000, // 14 Client automatically forces player to face target when channeling
         SPELL_ATTR1_DISPEL_AURAS_ON_IMMUNITY        = 0x00008000, // 15 remove auras on immunity
         SPELL_ATTR1_UNAFFECTED_BY_SCHOOL_IMMUNE     = 0x00010000, // 16 on immuniy
@@ -1236,7 +1237,7 @@ namespace SpellWork.Spell
         SPELL_ATTR1_UNK25                           = 0x02000000, // 25
         SPELL_ATTR1_UNK26                           = 0x04000000, // 26 works correctly with [target=focus] and [target=mouseover] macros?
         SPELL_ATTR1_UNK27                           = 0x08000000, // 27
-        SPELL_ATTR1_IGNORE_IMMUNITY                 = 0x10000000, // 28 removed from Chains of Ice 3.3.0
+        SPELL_ATTR1_DONT_DISPLAY_IN_AURA_BAR        = 0x10000000, // 28 client doesn't display these spells in aura bar
         SPELL_ATTR1_CHANNEL_DISPLAY_SPELL_NAME      = 0x20000000, // 29 spell name is displayed in cast bar instead of 'channeling' text
         SPELL_ATTR1_ENABLE_AT_DODGE                 = 0x40000000, // 30 Overpower, Wolverine Bite
         SPELL_ATTR1_UNK31                           = 0x80000000  // 31
@@ -1249,11 +1250,11 @@ namespace SpellWork.Spell
         SPELL_ATTR2_NONE                            = 0x00000000,
         SPELL_ATTR2_ALLOW_DEAD_TARGET               = 0x00000001, //  0
         SPELL_ATTR2_UNK1                            = 0x00000002, //  1 ? many triggered spells have this flag
-        SPELL_ATTR2_CANT_REFLECTED                  = 0x00000004, //  2 ? used for detect can or not spell reflected
+        SPELL_ATTR2_UNK2                            = 0x00000004, //  2
         SPELL_ATTR2_UNK3                            = 0x00000008, //  3
         SPELL_ATTR2_ALWAYS_APPLY_MODIFIERS          = 0x00000010, //  4 ? spell modifiers are applied dynamically (even if aura is not passive)
         SPELL_ATTR2_AUTOREPEAT_FLAG                 = 0x00000020, //  5
-        SPELL_ATTR2_UNK6                            = 0x00000040, //  6
+        SPELL_ATTR2_CANT_TARGET_TAPPED              = 0x00000040, //  6
         SPELL_ATTR2_UNK7                            = 0x00000080, //  7
         SPELL_ATTR2_UNK8                            = 0x00000100, //  8 not set in 3.0.3
         SPELL_ATTR2_UNK9                            = 0x00000200, //  9
@@ -1277,7 +1278,7 @@ namespace SpellWork.Spell
         SPELL_ATTR2_UNK27                           = 0x08000000, // 27
         SPELL_ATTR2_UNK28                           = 0x10000000, // 28 no breaks stealth if it fails??
         SPELL_ATTR2_CANT_CRIT                       = 0x20000000, // 29 Spell can't crit
-        SPELL_ATTR2_TRIGGERED_CAN_TRIGGER           = 0x40000000, // 30 spell can trigger even if triggered
+        SPELL_ATTR2_TRIGGERED_CAN_TRIGGER_PROC      = 0x40000000, // 30 spell can trigger even if triggered
         SPELL_ATTR2_FOOD_BUFF                       = 0x80000000  // 31 Food or Drink Buff (like Well Fed)
     };
 
@@ -1290,19 +1291,19 @@ namespace SpellWork.Spell
         SPELL_ATTR3_UNK1                            = 0x00000002, //  1
         SPELL_ATTR3_UNK2                            = 0x00000004, //  2
         SPELL_ATTR3_BLOCKABLE_SPELL                 = 0x00000008, //  3 Only dmg class melee in 3.1.3
-        SPELL_ATTR3_UNK4                            = 0x00000010, //  4 Druid Rebirth only this spell have this flag
+        SPELL_ATTR3_IGNORE_RESURRECTION_TIMER       = 0x00000010, //  4 Druid Rebirth only this spell have this flag
         SPELL_ATTR3_UNK5                            = 0x00000020, //  5
         SPELL_ATTR3_UNK6                            = 0x00000040, //  6
         SPELL_ATTR3_STACK_FOR_DIFF_CASTERS          = 0x00000080, //  7 separate stack for every caster
         SPELL_ATTR3_PLAYERS_ONLY                    = 0x00000100, //  8 Player only?
-        SPELL_ATTR3_TRIGGERED_CAN_TRIGGER_2         = 0x00000200, //  9 triggered from effect?
+        SPELL_ATTR3_TRIGGERED_CAN_TRIGGER_PROC_2    = 0x00000200, //  9 triggered from effect?
         SPELL_ATTR3_MAIN_HAND                       = 0x00000400, // 10 Main hand weapon required
         SPELL_ATTR3_BATTLEGROUND                    = 0x00000800, // 11 Can casted only on battleground
         SPELL_ATTR3_REQUIRE_DEAD_TARGET             = 0x00001000, // 12
         SPELL_ATTR3_UNK13                           = 0x00002000, // 13
         SPELL_ATTR3_UNK14                           = 0x00004000, // 14 "Honorless Target" only this spells have this flag
         SPELL_ATTR3_UNK15                           = 0x00008000, // 15 Auto Shoot, Shoot, Throw,  - this is autoshot flag
-        SPELL_ATTR3_UNK16                           = 0x00010000, // 16 no triggers effects that trigger on casting a spell?? (15290 - 2.2ptr change)
+        SPELL_ATTR3_CANT_TRIGGER_PROC               = 0x00010000, // 16 no triggers effects that trigger on casting a spell?? (15290 - 2.2ptr change)
         SPELL_ATTR3_NO_INITIAL_AGGRO                = 0x00020000, // 17 Soothe Animal, 39758, Mind Soothe
         SPELL_ATTR3_IGNORE_HIT_RESULT               = 0x00040000, // 18 Spell should always hit its target
         SPELL_ATTR3_DISABLE_PROC                    = 0x00080000, // 19 during aura proc no spells can trigger (20178, 20375)
@@ -1312,7 +1313,7 @@ namespace SpellWork.Spell
         SPELL_ATTR3_UNK23                           = 0x00800000, // 23
         SPELL_ATTR3_REQ_OFFHAND                     = 0x01000000, // 24 Req offhand weapon
         SPELL_ATTR3_UNK25                           = 0x02000000, // 25 no cause spell pushback ?
-        SPELL_ATTR3_CAN_PROC_TRIGGERED              = 0x04000000, // 26
+        SPELL_ATTR3_CAN_PROC_WITH_TRIGGERED         = 0x04000000, // 26 auras with this attribute can proc from triggered spell casts with SPELL_ATTR3_TRIGGERED_CAN_TRIGGER_PROC_2 (67736 + 52999)
         SPELL_ATTR3_DRAIN_SOUL                      = 0x08000000, // 27 only drain soul has this flag
         SPELL_ATTR3_UNK28                           = 0x10000000, // 28
         SPELL_ATTR3_NO_DONE_BONUS                   = 0x20000000, // 29 Ignore caster spellpower and done damage mods?
