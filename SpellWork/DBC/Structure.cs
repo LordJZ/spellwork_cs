@@ -435,8 +435,8 @@ namespace SpellWork.DBC
     {
         public uint     Id;
         public string   SpellName;
-        public uint     SchoolMask;
-        public uint     SpellFamilyName;
+        public byte     SchoolMask;
+        public ushort   SpellFamilyName;
         public uint[]   SpellFamilyMask;
         public uint     ProcFlags;
         public uint     ProcEx;
@@ -480,6 +480,6 @@ namespace SpellWork.DBC
         public string   Description;
         public string   LocalesName;
         public string   LocalesDescription;
-        public uint[]   SpellId;
+        public int[]   SpellId;
     };
 }

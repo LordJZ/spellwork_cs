@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 using SpellWork.DBC;
 using SpellWork.Extensions;
 using SpellWork.Properties;
-using System.Collections.Generic;
-using MySql.Data.MySqlClient;
 
 namespace SpellWork.Database
 {
@@ -20,12 +21,12 @@ namespace SpellWork.Database
         {
             get
             {
-                return String.Format("Server={0};Port={1};Uid={2};Pwd={3};Database={4};character set=utf8;Connection Timeout=10",
-                    Settings.Default.Host,
-                    Settings.Default.Port,
-                    Settings.Default.User,
-                    Settings.Default.Pass,
-                    Settings.Default.WorldDbName);
+                if (Settings.Default.Host == ".")
+                    return String.Format("Server=localhost;Pipe={0};UserID={1};Password={2};Database={3};CharacterSet=utf8;ConnectionTimeout=5;ConnectionProtocol=Pipe;",
+                        Settings.Default.PortOrPipe, Settings.Default.User, Settings.Default.Pass, Settings.Default.WorldDbName);
+
+                return String.Format("Server={0};Port={1};UserID={2};Password={3};Database={4};CharacterSet=utf8;ConnectionTimeout=5;",
+                    Settings.Default.Host, Settings.Default.PortOrPipe, Settings.Default.User, Settings.Default.Pass, Settings.Default.WorldDbName);
             }
         }
 
@@ -50,25 +51,25 @@ namespace SpellWork.Database
                 {
                     while (reader.Read())
                     {
-                        SpellProcEventEntry str;
-
-                        str.Id                  = reader[0].ToUInt32();
-                        str.SpellName           = GetSpellName(str.Id);
-                        str.SchoolMask          = reader[1].ToUInt32();
-                        str.SpellFamilyName     = reader[2].ToUInt32();
-                        str.SpellFamilyMask     = new[]
+                        uint spellId = reader.GetUInt32(0);
+                        SpellProcEvent.Add(new SpellProcEventEntry
                         {
-                            (uint)reader[3],
-                            (uint)reader[4],
-                            (uint)reader[5]
-                        };
-                        str.ProcFlags           = reader[6].ToUInt32();
-                        str.ProcEx              = reader[7].ToUInt32();
-                        str.PpmRate             = reader[8].ToUInt32();
-                        str.CustomChance        = reader[9].ToUInt32();
-                        str.Cooldown            = reader[10].ToUInt32();
-
-                        SpellProcEvent.Add(str);
+                            Id                  = spellId,
+                            SpellName           = GetSpellName(spellId),
+                            SchoolMask          = reader.GetByte(1),
+                            SpellFamilyName     = reader.GetUInt16(2),
+                            SpellFamilyMask     = new[]
+                            {
+                                reader.GetUInt32(3),
+                                reader.GetUInt32(4),
+                                reader.GetUInt32(5)
+                            },
+                            ProcFlags           = reader.GetUInt32(6),
+                            ProcEx              = reader.GetUInt32(7),
+                            PpmRate             = reader.GetFloat(8),
+                            CustomChance        = reader.GetFloat(9),
+                            Cooldown            = reader.GetUInt32(10)
+                        });
                     }
                 }
             }
@@ -123,18 +124,18 @@ namespace SpellWork.Database
                     {
                         items.Add(new Item
                         {
-                            Entry               = reader[0].ToUInt32(),
-                            Name                = reader[1].ToString(),
-                            Description         = reader[2].ToString(),
-                            LocalesName         = reader[3].ToString(),
-                            LocalesDescription  = reader[4].ToString(),
+                            Entry               = reader.GetUInt32(0),
+                            Name                = reader.GetString(1),
+                            Description         = reader.GetString(2),
+                            LocalesName         = reader.IsDBNull(3) ? string.Empty : reader.GetString(3),
+                            LocalesDescription  = reader.IsDBNull(4) ? string.Empty : reader.GetString(4),
                             SpellId             = new[]
                             {
-                                (uint)reader[5],
-                                (uint)reader[6],
-                                (uint)reader[7],
-                                (uint)reader[8],
-                                (uint)reader[9]
+                                reader.GetInt32(5),
+                                reader.GetInt32(6),
+                                reader.GetInt32(7),
+                                reader.GetInt32(8),
+                                reader.GetInt32(9)
                             }
                         });
                     }
@@ -157,6 +158,11 @@ namespace SpellWork.Database
                 _conn.Open();
                 _conn.Close();
                 Connected = true;
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show(string.Format("Errno {0}{1}{2}", ex.Number, Environment.NewLine, ex.Message));
+                Connected = false;
             }
             catch
             {

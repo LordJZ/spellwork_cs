@@ -265,6 +265,11 @@ namespace SpellWork.Extensions
             return array.Any(i => i == value);
         }
 
+        public static bool ContainsElement(this int[] array, int value)
+        {
+            return array.Any(i => i == value);
+        }
+
         public static T GetValue<T>(this Dictionary<uint, T> dictionary, uint key)
         {
             T value;

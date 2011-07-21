@@ -126,9 +126,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(6, 51);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(26, 13);
+            this.label2.Size = new System.Drawing.Size(52, 13);
             this.label2.TabIndex = 0;
-            this.label2.Text = "Port";
+            this.label2.Text = "Port/Pipe";
             //
             // _tbHost
             //
@@ -181,7 +181,7 @@
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(242, 234);
+            this.ClientSize = new System.Drawing.Size(234, 230);
             this.Controls.Add(this._bSaveSettings);
             this.Controls.Add(this._bTestConnect);
             this.Controls.Add(this._cbUseDBConnect);

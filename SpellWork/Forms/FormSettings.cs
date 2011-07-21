@@ -20,7 +20,7 @@ namespace SpellWork.Forms
         private void BSaveSettingsClick(object sender, EventArgs e)
         {
             Settings.Default.Host = _tbHost.Text;
-            Settings.Default.Port = _tbPort.Text;
+            Settings.Default.PortOrPipe = _tbPort.Text;
             Settings.Default.User = _tbUser.Text;
             Settings.Default.Pass = _tbPass.Text;
             Settings.Default.WorldDbName = _tbBase.Text;
@@ -29,18 +29,9 @@ namespace SpellWork.Forms
             MySqlConnection.TestConnect();
 
             if (((Button)sender).Text != @"Save")
-            {
                 if (MySqlConnection.Connected)
-                {
-                    MessageBox.Show(@"Connection is successful!", @"MySQL Connections!",
+                    MessageBox.Show(@"Connection successful!", @"MySQL Connections!",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show(@"Connection failed!", @"ERROR!",
-                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
 
             if (((Button)sender).Text != @"Save")
                 return;
@@ -52,7 +43,7 @@ namespace SpellWork.Forms
         private void SettingsFormLoad(object sender, EventArgs e)
         {
             _tbHost.Text = Settings.Default.Host;
-            _tbPort.Text = Settings.Default.Port;
+            _tbPort.Text = Settings.Default.PortOrPipe;
             _tbUser.Text = Settings.Default.User;
             _tbPass.Text = Settings.Default.Pass;
             _tbBase.Text = Settings.Default.WorldDbName;

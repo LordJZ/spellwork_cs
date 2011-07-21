@@ -507,7 +507,7 @@ namespace SpellWork.Spell
                 return;
 
             var items = from item in DBC.DBC.ItemTemplate
-                        where  item.SpellId.ContainsElement(_spell.ID)
+                        where  item.SpellId.ContainsElement((int)_spell.ID)
                         select item;
 
             if (items.Count() == 0)
@@ -515,17 +515,17 @@ namespace SpellWork.Spell
 
             _rtb.AppendLine(_line);
             _rtb.SetStyle(Color.Blue, FontStyle.Bold);
-            _rtb.AppendLine("Items used this spell:");
+            _rtb.AppendLine("Items using this spell:");
             _rtb.SetDefaultStyle();
 
             foreach (var item in items)
             {
-                var name = item.LocalesName == string.Empty ? item.Name : item.LocalesName;
-                var desc = item.LocalesDescription == string.Empty ? item.Description : item.LocalesDescription;
+                var name = string.IsNullOrEmpty(item.LocalesName) ? item.Name : item.LocalesName;
+                var desc = string.IsNullOrEmpty(item.LocalesDescription) ? item.Description : item.LocalesDescription;
 
-                desc = desc == string.Empty ? string.Empty : string.Format("({0})", desc);
+                desc = string.IsNullOrEmpty(desc) ? string.Empty : string.Format(" - \"{0}\"", desc);
 
-                _rtb.AppendFormatLine(@"   {0} - {1} {2} ", item.Entry, name, desc);
+                _rtb.AppendFormatLine(@"   {0}: {1} {2}", item.Entry, name, desc);
             }
         }
     }

@@ -23,6 +23,7 @@ namespace SpellWork
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, @"SpellWork Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.ToString());
             }
         }
     }

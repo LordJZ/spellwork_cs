@@ -5,7 +5,7 @@
     <Setting Name="Host" Type="System.String" Scope="User">
       <Value Profile="(Default)">localhost</Value>
     </Setting>
-    <Setting Name="Port" Type="System.String" Scope="User">
+    <Setting Name="PortOrPipe" Type="System.String" Scope="User">
       <Value Profile="(Default)">3306</Value>
     </Setting>
     <Setting Name="User" Type="System.String" Scope="User">
