@@ -13,6 +13,8 @@ namespace SpellWork.DBC
         public const int MaxEffectIndex               = 3;
         public const int SpellEntryForDetectLocale    = 1;
 
+        public static Dictionary<uint, AreaGroupEntry>              AreaGroup;
+        public static Dictionary<uint, AreaTableEntry>              AreaTable;
         public static Dictionary<uint, OverrideSpellDataEntry>      OverrideSpellData;
         public static Dictionary<uint, ScreenEffectEntry>           ScreenEffect;
         public static Dictionary<uint, SkillLineAbilityEntry>       SkillLineAbility;
@@ -24,6 +26,7 @@ namespace SpellWork.DBC
         public static Dictionary<uint, SpellRadiusEntry>            SpellRadius;
         public static Dictionary<uint, SpellRangeEntry>             SpellRange;
 
+        public static Dictionary<uint, string> AreaStrings             = new Dictionary<uint, string>();
         public static Dictionary<uint, string> SpellStrings            = new Dictionary<uint, string>();
         public static Dictionary<uint, string> SkillLineStrings        = new Dictionary<uint, string>();
         public static Dictionary<uint, string> SpellRangeStrings       = new Dictionary<uint, string>();

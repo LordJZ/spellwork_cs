@@ -8,6 +8,8 @@ namespace SpellWork
     {
         public Loader()
         {
+            DBC.DBC.AreaGroup = DBCReader.ReadDBC<AreaGroupEntry>(null);
+            DBC.DBC.AreaTable = DBCReader.ReadDBC<AreaTableEntry>(DBC.DBC.AreaStrings);
             DBC.DBC.OverrideSpellData = DBCReader.ReadDBC<OverrideSpellDataEntry>(null);
             DBC.DBC.ScreenEffect = DBCReader.ReadDBC<ScreenEffectEntry>(DBC.DBC.ScreenEffectStrings);
             DBC.DBC.SkillLine = DBCReader.ReadDBC<SkillLineEntry>(DBC.DBC.SkillLineStrings);
