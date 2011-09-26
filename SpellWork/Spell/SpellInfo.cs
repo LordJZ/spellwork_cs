@@ -450,18 +450,136 @@ namespace SpellWork
             rtb.AppendFormat("Aura Id {0:D} ({0})", aura);
             rtb.AppendFormat(", value = {0}", spell.EffectBasePoints[index] + 1);
             rtb.AppendFormat(", misc = {0} (", misc);
-          
+
             switch (aura)
             {
                 case AuraType.SPELL_AURA_MOD_STAT:
+                case AuraType.SPELL_AURA_MOD_PERCENT_STAT:
+                case AuraType.SPELL_AURA_MOD_TOTAL_STAT_PERCENTAGE:
+                case AuraType.SPELL_AURA_MOD_SPELL_HEALING_OF_STAT_PERCENT:
+                case AuraType.SPELL_AURA_MOD_RANGED_ATTACK_POWER_OF_STAT_PERCENT:
+                case AuraType.SPELL_AURA_MOD_MANA_REGEN_FROM_STAT:
+                case AuraType.SPELL_AURA_MOD_ATTACK_POWER_OF_STAT_PERCENT:
                     rtb.Append((UnitMods)misc);
                     break;
+
                 case AuraType.SPELL_AURA_MOD_RATING:
+                case AuraType.SPELL_AURA_MOD_RATING_FROM_STAT:
                     rtb.Append((CombatRating)misc);
+                    break;
+
+                case AuraType.SPELL_AURA_MOD_DAMAGE_DONE:
+                case AuraType.SPELL_AURA_MOD_DAMAGE_TAKEN:
+                case AuraType.SPELL_AURA_MOD_DAMAGE_PERCENT_DONE:
+                case AuraType.SPELL_AURA_MOD_DAMAGE_PERCENT_TAKEN:
+                case AuraType.SPELL_AURA_MOD_SPELL_DAMAGE_OF_STAT_PERCENT:
+                case AuraType.SPELL_AURA_SHARE_DAMAGE_PCT:
+                case AuraType.SPELL_AURA_MOD_SPELL_DAMAGE_OF_ATTACK_POWER:
+                case AuraType.SPELL_AURA_MOD_AOE_DAMAGE_AVOIDANCE:
+                case AuraType.SPELL_AURA_SPLIT_DAMAGE_PCT:
+                case AuraType.SPELL_AURA_DAMAGE_IMMUNITY:
+
+                case AuraType.SPELL_AURA_MOD_CRIT_DAMAGE_BONUS:
+                case AuraType.SPELL_AURA_MOD_ATTACKER_MELEE_CRIT_DAMAGE:
+                case AuraType.SPELL_AURA_MOD_ATTACKER_RANGED_CRIT_DAMAGE:
+                case AuraType.SPELL_AURA_MOD_ATTACKER_SPELL_CRIT_DAMAGE:
+
+
+                case AuraType.SPELL_AURA_MOD_HEALING:
+                case AuraType.SPELL_AURA_MOD_HEALING_PCT:
+                case AuraType.SPELL_AURA_MOD_HEALING_DONE:
+                case AuraType.SPELL_AURA_MOD_HEALING_DONE_PERCENT:
+                case AuraType.SPELL_AURA_MOD_DAMAGE_FROM_CASTER:
+                case AuraType.SPELL_AURA_MOD_HEALING_RECEIVED:
+                case AuraType.SPELL_AURA_MOD_PERIODIC_HEAL:
+                case AuraType.SPELL_AURA_MOD_SPELL_HEALING_OF_ATTACK_POWER:
+
+                case AuraType.SPELL_AURA_MOD_RESISTANCE:
+                case AuraType.SPELL_AURA_MOD_BASE_RESISTANCE:
+                case AuraType.SPELL_AURA_MOD_RESISTANCE_PCT:
+                case AuraType.SPELL_AURA_MOD_TARGET_RESISTANCE:
+                case AuraType.SPELL_AURA_MOD_BASE_RESISTANCE_PCT:
+                case AuraType.SPELL_AURA_MOD_RESISTANCE_EXCLUSIVE:
+                case AuraType.SPELL_AURA_MOD_RESISTANCE_OF_STAT_PERCENT:
+
+                case AuraType.SPELL_AURA_MOD_ATTACKER_SPELL_CRIT_CHANCE:
+                case AuraType.SPELL_AURA_MOD_ATTACKER_SPELL_HIT_CHANCE:
+                case AuraType.SPELL_AURA_MOD_INCREASES_SPELL_PCT_TO_HIT:
+
+                case AuraType.SPELL_AURA_SCHOOL_IMMUNITY:
+                case AuraType.SPELL_AURA_SCHOOL_ABSORB:
+                case AuraType.SPELL_AURA_MOD_SPELL_CRIT_CHANCE_SCHOOL:
+                case AuraType.SPELL_AURA_MOD_POWER_COST_SCHOOL_PCT:
+                case AuraType.SPELL_AURA_MOD_POWER_COST_SCHOOL:
+                case AuraType.SPELL_AURA_REFLECT_SPELLS_SCHOOL:
+                case AuraType.SPELL_AURA_MOD_IGNORE_ABSORB_SCHOOL:
+                case AuraType.SPELL_AURA_MOD_IMMUNE_AURA_APPLY_SCHOOL:
+                case AuraType.SPELL_AURA_MOD_IGNORE_DAMAGE_REDUCTION_SCHOOL:
+                case AuraType.SPELL_AURA_MOD_IGNORE_ABSORB_FOR_SPELL:
+
+                case AuraType.SPELL_AURA_MOD_THREAT:
+                case AuraType.SPELL_AURA_MOD_CRITICAL_THREAT:
+
+                case AuraType.SPELL_AURA_REDUCE_PUSHBACK:
+                case AuraType.SPELL_AURA_MOD_PET_AOE_DAMAGE_AVOIDANCE:
+                case AuraType.SPELL_AURA_HASTE_SPELLS:
+                case AuraType.SPELL_AURA_MANA_SHIELD:
+                case AuraType.SPELL_AURA_MOD_CRITICAL_HEALING_AMOUNT:
+
+                    rtb.Append((SpellSchoolMask)misc);
                     break;
                 case AuraType.SPELL_AURA_ADD_FLAT_MODIFIER:
                 case AuraType.SPELL_AURA_ADD_PCT_MODIFIER:
                     rtb.Append((SpellModOp)misc);
+                    break;
+
+                case AuraType.SPELL_AURA_MOD_POWER_REGEN:
+                case AuraType.SPELL_AURA_MOD_POWER_REGEN_PERCENT:
+                case AuraType.SPELL_AURA_MOD_INCREASE_ENERGY_PERCENT:
+                case AuraType.SPELL_AURA_MOD_INCREASE_ENERGY:
+                case AuraType.SPELL_AURA_PERIODIC_ENERGIZE:
+                    rtb.Append((Powers)misc);
+                    break;
+
+                case AuraType.SPELL_AURA_MECHANIC_IMMUNITY:
+                case AuraType.SPELL_AURA_MOD_MECHANIC_RESISTANCE:
+                case AuraType.SPELL_AURA_MECHANIC_DURATION_MOD:
+                case AuraType.SPELL_AURA_MECHANIC_DURATION_MOD_NOT_STACK:
+                case AuraType.SPELL_AURA_MOD_MECHANIC_DAMAGE_TAKEN_PERCENT:
+
+                    rtb.Append((Mechanics)misc);
+                    break;
+
+                case AuraType.SPELL_AURA_MOD_MELEE_ATTACK_POWER_VERSUS:
+                case AuraType.SPELL_AURA_MOD_RANGED_ATTACK_POWER_VERSUS:
+                case AuraType.SPELL_AURA_MOD_DAMAGE_DONE_VERSUS:
+                case AuraType.SPELL_AURA_MOD_CRIT_PERCENT_VERSUS:
+                case AuraType.SPELL_AURA_MOD_FLAT_SPELL_DAMAGE_VERSUS:
+                case AuraType.SPELL_AURA_MOD_DAMAGE_DONE_CREATURE:
+                    rtb.Append((CreatureTypeMask)misc);
+                    break;
+
+                case AuraType.SPELL_AURA_TRACK_CREATURES:
+                    rtb.Append((CreatureTypeMask)((int)(1 << (misc - 1))));
+                    break;
+
+                case AuraType.SPELL_AURA_DISPEL_IMMUNITY:
+                case AuraType.SPELL_AURA_MOD_DEBUFF_RESISTANCE:
+                case AuraType.SPELL_AURA_MOD_DURATION_OF_MAGIC_EFFECTS:
+                case AuraType.SPELL_AURA_MOD_DURATION_OF_EFFECTS_BY_DISPEL:
+                    rtb.Append((DispelType)misc);
+                    break;
+
+                case AuraType.SPELL_AURA_TRACK_RESOURCES:
+                    rtb.Append((LockType)misc);
+                    break;
+
+                case AuraType.SPELL_AURA_MOD_SHAPESHIFT:
+                    rtb.Append((ShapeshiftFormMask)(1 << (misc-1)));
+                    break;
+
+                case AuraType.SPELL_AURA_EFFECT_IMMUNITY:
+                    rtb.Append((SpellEffects)misc);
                     break;
                 // todo: more case
                 default:
@@ -469,7 +587,18 @@ namespace SpellWork
                     break;
             }
 
-            rtb.AppendFormat("), miscB = {0}", spell.EffectMiscValueB[index]);
+            int miscB = spell.EffectMiscValueB[index];
+            rtb.AppendFormat("), miscB = {0}", miscB);
+
+            switch (aura)
+            {
+                case AuraType.SPELL_AURA_MOD_SPELL_DAMAGE_OF_STAT_PERCENT:
+                case AuraType.SPELL_AURA_MOD_RESISTANCE_OF_STAT_PERCENT:
+                case AuraType.SPELL_AURA_MOD_RATING_FROM_STAT:
+                    rtb.AppendFormat("({0})", (UnitMods)miscB);
+                    break;
+            }
+
             rtb.AppendFormatLine(", periodic = {0}", spell.EffectAmplitude[index]);
 
             switch (aura)
