@@ -526,4 +526,43 @@ namespace SpellWork
         public string   LocalesDescription;
         public uint[]   SpellID;
     };
+
+    public struct AreaGroupEntry
+    {
+        public uint AreaGroupId;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 6)]
+        public uint[] AreaId;
+        public uint NextGroup;
+    };
+
+    public struct AreaTableEntry
+    {
+        public uint Id;
+        public uint MapId;
+        public uint ZoneId;
+        public uint ExploreFlag;
+        public uint Flags;
+        public uint SoundPreferences;
+        public uint SoundPreferencesUnderwater;
+        public uint SoundAmbience;
+        public uint ZoneMusic;
+        public uint ZoneIntroMusicTable;
+        public int Level;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_DBC_LOCALE)]
+        public uint[] NamePtr;
+        public uint StringFlags;
+        public uint FactionFlags;
+        public uint LiquidType1;
+        public uint LiquidType2;
+        public uint LiquidType3;
+        public uint LiquidType4;
+        public float MinElevation;
+        public float AmbientMultiplier;
+        public uint Light;
+
+        public string Name
+        {
+            get { return DBC.AreaStrings.GetValue(NamePtr[(uint)DBC.Locale]); }
+        }
+    };
 }

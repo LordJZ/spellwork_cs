@@ -189,6 +189,8 @@ namespace SpellWork
 
             AppendSpellAura();
 
+            AppendAreaInfo();
+
             rtb.AppendFormatLineIfNotNull("Requires Spell Focus {0}", spell.RequiresSpellFocus);
 
             if (spell.ProcFlags != 0)
@@ -207,6 +209,45 @@ namespace SpellWork
 
             AppendSpellEffectInfo();
             AppendItemInfo();
+        }
+
+        private void AppendAreaInfo()
+        {
+            if (spell.AreaGroupId <= 0)
+                return;
+
+            var areaGroupId = (uint)spell.AreaGroupId;
+            if (!DBC.AreaGroup.ContainsKey(areaGroupId))
+            {
+                rtb.AppendFormatLine("Cannot find area group id {0} in AreaGroup.dbc!", spell.AreaGroupId);
+                return;
+            }
+
+            rtb.AppendLine();
+            rtb.SetBold();
+            rtb.AppendLine("Allowed areas:");
+            while (DBC.AreaGroup.ContainsKey(areaGroupId))
+            {
+                var groupEntry = DBC.AreaGroup[areaGroupId];
+                for (var i = 0; i < 6; ++i)
+                {
+                    var areaId = groupEntry.AreaId[i];
+                    if (DBC.AreaTable.ContainsKey(areaId))
+                    {
+                        var areaEntry = DBC.AreaTable[areaId];
+                        rtb.AppendFormatLine("{0} - {1} (Map: {2})", areaId, areaEntry.Name, areaEntry.MapId);
+                    }
+                }
+
+
+                if (groupEntry.NextGroup == 0)
+                    break;
+
+                // Try search in next group
+                areaGroupId = groupEntry.NextGroup;
+            }
+
+            rtb.AppendLine();
         }
 
         private void AppendSkillLine()

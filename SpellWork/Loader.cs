@@ -10,6 +10,8 @@ namespace SpellWork
     {
         public Loader()
         {
+            DBC.AreaGroup = DBCReader.ReadDBC<AreaGroupEntry>(null);
+            DBC.AreaTable = DBCReader.ReadDBC<AreaTableEntry>(DBC.AreaStrings);
             DBC.Spell               = DBCReader.ReadDBC<SpellEntry>(DBC.SpellStrings);
             DBC.SkillLine           = DBCReader.ReadDBC<SkillLineEntry>(DBC.SkillLineStrings);
             DBC.SpellRange          = DBCReader.ReadDBC<SpellRangeEntry>(DBC.SpellRangeStrings);
