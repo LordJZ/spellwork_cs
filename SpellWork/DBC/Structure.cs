@@ -43,7 +43,7 @@ namespace SpellWork
         public uint AttributesEx4;                                // 8        m_attributesExD
         public uint AttributesEx5;                                // 9        m_attributesExE
         public uint AttributesEx6;                                // 10       m_attributesExF
-        public uint AttributesExG;                                // 11       3.2.0 (0x20 - totems, 0x4 - paladin auras, etc...)
+        public uint AttributesEx7;                                // 11       3.2.0 (0x20 - totems, 0x4 - paladin auras, etc...)
         public ulong Stances;                                     // 12-13    m_shapeshiftMask
         public ulong StancesNot;                                  // 14-15    m_shapeshiftExclude
         public uint Targets;                                      // 16       m_targets
@@ -170,7 +170,7 @@ namespace SpellWork
         public uint SpellMissileID;                               // 227      m_spellMissileID not used
         public uint PowerDisplayId;                               // 228      PowerDisplay.dbc, new in 3.1
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
-        public float[] Unk_320_4;                                 // 229-231  3.2.0
+        public float[] EffectCoeffs;                              // 229-231  3.2.0
         public uint SpellDescriptionVariableID;                   // 232      3.2.0
         public uint SpellDifficultyId;                            // 233      3.3.0                           // 239      3.3.0
 

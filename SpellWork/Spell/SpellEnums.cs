@@ -441,8 +441,8 @@ namespace SpellWork
         SPELL_AURA_MOD_RATING                               = 189,
         SPELL_AURA_MOD_FACTION_REPUTATION_GAIN              = 190,
         SPELL_AURA_USE_NORMAL_MOVEMENT_SPEED                = 191,
-        SPELL_AURA_HASTE_MELEE                              = 192,
-        SPELL_AURA_MELEE_SLOW                               = 193,
+        SPELL_AURA_MOD_MELEE_RANGED_HASTE                   = 192,
+        SPELL_AURA_HASTE_ALL                                = 193,
         SPELL_AURA_MOD_IGNORE_ABSORB_SCHOOL                 = 194,
         SPELL_AURA_MOD_IGNORE_ABSORB_FOR_SPELL              = 195,
         SPELL_AURA_MOD_COOLDOWN                             = 196,                          // only 24818 Noxious Breath
@@ -455,12 +455,12 @@ namespace SpellWork
         SPELL_AURA_MOD_ATTACKER_MELEE_CRIT_DAMAGE           = 203,
         SPELL_AURA_MOD_ATTACKER_RANGED_CRIT_DAMAGE          = 204,
         SPELL_AURA_MOD_ATTACKER_SPELL_CRIT_DAMAGE           = 205,
-        SPELL_AURA_MOD_SPEED_MOUNTED                        = 206,                     // ? used in strange spells
-        SPELL_AURA_MOD_INCREASE_FLIGHT_SPEED                = 207,
-        SPELL_AURA_MOD_SPEED_FLIGHT                         = 208,
-        SPELL_AURA_MOD_FLIGHT_SPEED_ALWAYS                  = 209,
-        SPELL_AURA_210                                      = 210,  // unused
-        SPELL_AURA_MOD_FLIGHT_SPEED_NOT_STACK               = 211,
+        SPELL_AURA_MOD_FLIGHT_SPEED                         = 206,                     // ? used in strange spells
+        SPELL_AURA_MOD_FLIGHT_SPEED_MOUNTED                 = 207,
+        SPELL_AURA_MOD_FLIGHT_SPEED_STACKING                = 208,
+        SPELL_AURA_MOD_FLIGHT_SPEED_MOUNTED_STACKING        = 209,
+        SPELL_AURA_MOD_FLIGHT_SPEED_NOT_STACKING            = 210,
+        SPELL_AURA_MOD_FLIGHT_SPEED_MOUNTED_NOT_STACKING    = 211,
         SPELL_AURA_MOD_RANGED_ATTACK_POWER_OF_STAT_PERCENT  = 212,
         SPELL_AURA_MOD_RAGE_FROM_DAMAGE_DEALT               = 213,
         SPELL_AURA_214                                      = 214,
@@ -479,7 +479,7 @@ namespace SpellWork
         SPELL_AURA_PERIODIC_TRIGGER_SPELL_WITH_VALUE        = 227,
         SPELL_AURA_DETECT_STEALTH                           = 228,
         SPELL_AURA_MOD_AOE_DAMAGE_AVOIDANCE                 = 229,
-        SPELL_AURA_230                                      = 230,
+        SPELL_AURA_MOD_PARTY_MAX_HEALTH                     = 230,
         SPELL_AURA_PROC_TRIGGER_SPELL_WITH_VALUE            = 231,
         SPELL_AURA_MECHANIC_DURATION_MOD                    = 232,
         SPELL_AURA_233                                      = 233,
@@ -492,26 +492,26 @@ namespace SpellWork
         SPELL_AURA_MOD_EXPERTISE                            = 240,
         SPELL_AURA_FORCE_MOVE_FORWARD                       = 241,
         SPELL_AURA_MOD_SPELL_DAMAGE_FROM_HEALING            = 242,
-        SPELL_AURA_MOD_FACTION_TEMPLATE                     = 243,
+        SPELL_AURA_FACTION_CHANGE                           = 243,
         SPELL_AURA_COMPREHEND_LANGUAGE                      = 244,
         SPELL_AURA_MOD_DURATION_OF_MAGIC_EFFECTS            = 245,
         SPELL_AURA_MOD_DURATION_OF_EFFECTS_BY_DISPEL        = 246,
-        SPELL_AURA_247                                      = 247,
+        SPELL_AURA_MIRROR_IMAGE                             = 247,
         SPELL_AURA_MOD_COMBAT_RESULT_CHANCE                 = 248,
         SPELL_AURA_CONVERT_RUNE                             = 249,
         SPELL_AURA_MOD_INCREASE_HEALTH_2                    = 250,
         SPELL_AURA_MOD_ENEMY_DODGE                          = 251,
-        SPELL_AURA_252                                      = 252,
+        SPELL_AURA_SLOW_ALL                                 = 252,
         SPELL_AURA_MOD_BLOCK_CRIT_CHANCE                    = 253,
-        SPELL_AURA_MOD_DISARM_SHIELD                        = 254,
+        SPELL_AURA_MOD_DISARM_OFFHAND                       = 254,
         SPELL_AURA_MOD_MECHANIC_DAMAGE_TAKEN_PERCENT        = 255,
         SPELL_AURA_NO_REAGENT_USE                           = 256,
         SPELL_AURA_MOD_TARGET_RESIST_BY_SPELL_CLASS         = 257,
         SPELL_AURA_258                                      = 258,
-        SPELL_AURA_259                                      = 259,
+        SPELL_AURA_MOD_PERIODIC_HEAL                        = 259,
         SPELL_AURA_SCREEN_EFFECT                            = 260,
         SPELL_AURA_PHASE                                    = 261,
-        SPELL_AURA_262                                      = 262,
+        SPELL_AURA_IGNORE_UNIT_STATE                        = 262,
         SPELL_AURA_ALLOW_ONLY_ABILITY                       = 263,
         SPELL_AURA_264                                      = 264,
         SPELL_AURA_265                                      = 265,
@@ -537,13 +537,13 @@ namespace SpellWork
         SPELL_AURA_MOD_ATTACK_POWER_OF_ARMOR                = 285,
         SPELL_AURA_ABILITY_PERIODIC_CRIT                    = 286,
         SPELL_AURA_DEFLECT_SPELLS                           = 287,
-        SPELL_AURA_288                                      = 288,              // Deterrence
+        SPELL_AURA_MOD_PARRY_FROM_BEHIND_PERCENT            = 288,              // Deterrence
         SPELL_AURA_289                                      = 289,              // unused
         SPELL_AURA_MOD_ALL_CRIT_CHANCE                      = 290,
         SPELL_AURA_MOD_QUEST_XP_PCT                         = 291,
         SPELL_AURA_OPEN_STABLE                              = 292,
         SPELL_AURA_OVERRIDE_SPELLS                          = 293,
-        SPELL_AURA_STOP_MANA_REGEN                          = 294,
+        SPELL_AURA_STOP_NATURAL_MANA_REGEN                  = 294,
         SPELL_AURA_295                                      = 295,              // unused
         SPELL_AURA_296                                      = 296,              // Emulates vehicle?
         SPELL_AURA_ROOT_NO_FALL                             = 297,
@@ -559,7 +559,7 @@ namespace SpellWork
         SPELL_AURA_HEAL_ABSORB_2                            = 307,
         SPELL_AURA_308                                      = 308,
         SPELL_AURA_309                                      = 309,
-        SPELL_AURA_MOD_AOE_DAMAGE                           = 310,
+        SPELL_AURA_MOD_PET_AOE_DAMAGE_AVOIDANCE             = 310,
         SPELL_AURA_311                                      = 311,              // unused
         SPELL_AURA_312                                      = 312,              // unused
         SPELL_AURA_313                                      = 313,              // unused
@@ -762,7 +762,10 @@ namespace SpellWork
         PROC_EX_RESERVED3               = 0x0008000,
 
         PROC_EX_EX_TRIGGER_ALWAYS       = 0x0010000,                 // If set trigger always ( no matter another flags) used for drop charges
-        PROC_EX_EX_ONE_TIME_TRIGGER     = 0x0020000                  // If set trigger always but only one time (not used)
+        PROC_EX_EX_ONE_TIME_TRIGGER     = 0x0020000,                 // If set trigger always but only one time (not used)
+        PROC_EX_PERIODIC_POSITIVE       = 0x0040000,                 // For periodic heal
+        PROC_EX_CAST_END                = 0x0080000,                 // procs on end of cast
+        PROC_EX_DIRECT_DAMAGE           = 0x0100000                  // do not proc from absorbed damage
     };
 
     public enum SpellSchools
@@ -954,7 +957,7 @@ namespace SpellWork
         SPELLMOD_CHANCE_OF_SUCCESS      = 18,  // Only used with SPELL_AURA_ADD_FLAT_MODIFIER and affects proc spells
         SPELLMOD_ACTIVATION_TIME        = 19,
         SPELLMOD_EFFECT_PAST_FIRST      = 20,
-        SPELLMOD_CASTING_TIME_OLD       = 21,
+        SPELLMOD_GLOBAL_COOLDOWN        = 21,
         SPELLMOD_DOT                    = 22,
         SPELLMOD_EFFECT3                = 23,
         SPELLMOD_SPELL_BONUS_DAMAGE     = 24,
@@ -1025,7 +1028,7 @@ namespace SpellWork
         AURA_STATE_SWIFTMEND                = 15,           //   T |
         AURA_STATE_DEADLY_POISON            = 16,           //   T |
         AURA_STATE_ENRAGE                   = 17,           // C   |
-        AURA_STATE_UNKNOWN18                = 18,           // C  t|
+        AURA_STATE_BLEEDING                 = 18,           // C  t|
         AURA_STATE_UNKNOWN19                = 19,           //     | not used
         AURA_STATE_UNKNOWN20                = 20,           //  c  | only (45317 Suicide)
         AURA_STATE_UNKNOWN21                = 21,           //     | not used
@@ -1175,12 +1178,12 @@ namespace SpellWork
         SPELL_ATTR_RANGED                         = 1 << 0x01,            // 1 All ranged abilites have this flag
         SPELL_ATTR_ON_NEXT_SWING_1                = 1 << 0x02,            // 2 on next swing
         SPELL_ATTR_UNK3                           = 1 << 0x03,            // 3 not set in 3.0.3
-        SPELL_ATTR_UNK4                           = 1 << 0x04,            // 4 isAbility
+        SPELL_ATTR_ABILITY                        = 1 << 0x04,            // 4 client puts 'ability' instead of 'spell' in game strings for these spells
         SPELL_ATTR_TRADESPELL                     = 1 << 0x05,            // 5 trade spells, will be added by client to a sublist of profession spell
         SPELL_ATTR_PASSIVE                        = 1 << 0x06,            // 6 Passive spell
-        SPELL_ATTR_UNK7                           = 1 << 0x07,            // 7 can't be linked in chat?
-        SPELL_ATTR_UNK8                           = 1 << 0x08,            // 8 hide created item in tooltip (for effect=24)
-        SPELL_ATTR_UNK9                           = 1 << 0x09,            // 9
+        SPELL_ATTR_HIDDEN_CLIENTSIDE              = 1 << 0x07,            // 7 Spells with this attribute are not visible in spellbook or aura bar
+        SPELL_ATTR_HIDE_IN_COMBAT_LOG             = 1 << 0x08,            // 8 This attribite controls whether spell appears in combat logs
+        SPELL_ATTR_TARGET_MAINHAND_ITEM           = 1 << 0x09,            // 9 Client automatically selects item from mainhand slot as a cast target
         SPELL_ATTR_ON_NEXT_SWING_2                = 1 << 0x0A,            // 10 on next swing 2
         SPELL_ATTR_UNK11                          = 1 << 0x0B,            // 11
         SPELL_ATTR_DAYTIME_ONLY                   = 1 << 0x0C,            // 12 only useable at daytime, not set in 2.4.2
@@ -1193,7 +1196,7 @@ namespace SpellWork
         SPELL_ATTR_LEVEL_DAMAGE_CALCULATION       = 1 << 0x13,            // 19 spelldamage depends on caster level
         SPELL_ATTR_STOP_ATTACK_TARGET             = 1 << 0x14,            // 20 Stop attack after use this spell (and not begin attack if use)
         SPELL_ATTR_IMPOSSIBLE_DODGE_PARRY_BLOCK   = 1 << 0x15,            // 21 Cannot be dodged/parried/blocked
-        SPELL_ATTR_UNK22                          = 1 << 0x16,            // 22
+        SPELL_ATTR_SET_TRACKING_TARGET            = 1 << 0x16,            // 22 SetTrackingTarget
         SPELL_ATTR_UNK23                          = 1 << 0x17,            // 23 castable while dead?
         SPELL_ATTR_CASTABLE_WHILE_MOUNTED         = 1 << 0x18,            // 24 castable while mounted
         SPELL_ATTR_DISABLED_WHILE_ACTIVE          = 1 << 0x19,            // 25 Activate and start cooldown after aura fade or remove summoned creature or go
@@ -1201,7 +1204,7 @@ namespace SpellWork
         SPELL_ATTR_CASTABLE_WHILE_SITTING         = 1 << 0x1B,            // 27 castable while sitting
         SPELL_ATTR_CANT_USED_IN_COMBAT            = 1 << 0x1C,            // 28 Cannot be used in combat
         SPELL_ATTR_UNAFFECTED_BY_INVULNERABILITY  = 1 << 0x1D,            // 29 unaffected by invulnerability (hmm possible not...)
-        SPELL_ATTR_UNK30                          = 1 << 0x1E,            // 30 breakable by damage?
+        SPELL_ATTR_BREAKABLE_BY_DAMAGE            = 1 << 0x1E,            // 30 breakable by damage?
         SPELL_ATTR_CANT_CANCEL                    = 1 << 0x1F,            // 31 positive aura can't be canceled
     };
 
@@ -1213,33 +1216,33 @@ namespace SpellWork
         SPELL_ATTR_EX_UNK0                        = 1 << 0x00,            // 0
         SPELL_ATTR_EX_DRAIN_ALL_POWER             = 1 << 0x01,            // 1 use all power (Only paladin Lay of Hands and Bunyanize)
         SPELL_ATTR_EX_CHANNELED_1                 = 1 << 0x02,            // 2 channeled 1
-        SPELL_ATTR_EX_UNK3                        = 1 << 0x03,            // 3
+        SPELL_ATTR_EX_CANT_REFLECTED              = 1 << 0x03,            // 3 used for detect can or not spell reflected
         SPELL_ATTR_EX_UNK4                        = 1 << 0x04,            // 4
         SPELL_ATTR_EX_NOT_BREAK_STEALTH           = 1 << 0x05,            // 5 Not break stealth
         SPELL_ATTR_EX_CHANNELED_2                 = 1 << 0x06,            // 6 channeled 2
         SPELL_ATTR_EX_NEGATIVE                    = 1 << 0x07,            // 7
         SPELL_ATTR_EX_NOT_IN_COMBAT_TARGET        = 1 << 0x08,            // 8 Spell req target not to be in combat state
         SPELL_ATTR_EX_UNK9                        = 1 << 0x09,            // 9
-        SPELL_ATTR_EX_NO_INITIAL_AGGRO            = 1 << 0x0A,            // 10 no generates threat on cast 100%
+        SPELL_ATTR_EX_NO_THREAT                   = 1 << 0x0A,            // 10 no generates threat on cast 100%
         SPELL_ATTR_EX_UNK11                       = 1 << 0x0B,            // 11
         SPELL_ATTR_EX_UNK12                       = 1 << 0x0C,            // 12
         SPELL_ATTR_EX_UNK13                       = 1 << 0x0D,            // 13
-        SPELL_ATTR_EX_UNK14                       = 1 << 0x0E,            // 14
+        SPELL_ATTR_EX_CHANNEL_TRACKING_TARGET     = 1 << 0x0E,            // 14
         SPELL_ATTR_EX_DISPEL_AURAS_ON_IMMUNITY    = 1 << 0x0F,            // 15 remove auras on immunity
         SPELL_ATTR_EX_UNAFFECTED_BY_SCHOOL_IMMUNE = 1 << 0x10,            // 16 unaffected by school immunity
-        SPELL_ATTR_EX_UNK17                       = 1 << 0x11,            // 17
+        SPELL_ATTR_EX_UNK17                       = 1 << 0x11,            // 17 for auras SPELL_AURA_TRACK_CREATURES, SPELL_AURA_TRACK_RESOURCES and SPELL_AURA_TRACK_STEALTHED select non-stacking tracking spells
         SPELL_ATTR_EX_UNK18                       = 1 << 0x12,            // 18
         SPELL_ATTR_EX_UNK19                       = 1 << 0x13,            // 19
-        SPELL_ATTR_EX_REQ_COMBO_POINTS1           = 1 << 0x14,            // 20 Req combo points on target
+        SPELL_ATTR_EX_REQ_TARGET_COMBO_POINTS     = 1 << 0x14,            // 20 Req combo points on target
         SPELL_ATTR_EX_UNK21                       = 1 << 0x15,            // 21
-        SPELL_ATTR_EX_REQ_COMBO_POINTS2           = 1 << 0x16,            // 22 Req combo points on target
+        SPELL_ATTR_EX_REQ_COMBO_POINTS            = 1 << 0x16,            // 22 Use combo points
         SPELL_ATTR_EX_UNK23                       = 1 << 0x17,            // 23
         SPELL_ATTR_EX_UNK24                       = 1 << 0x18,            // 24 Req fishing pole??
         SPELL_ATTR_EX_UNK25                       = 1 << 0x19,            // 25
         SPELL_ATTR_EX_UNK26                       = 1 << 0x1A,            // 26
         SPELL_ATTR_EX_UNK27                       = 1 << 0x1B,            // 27
-        SPELL_ATTR_EX_UNK28                       = 1 << 0x1C,            // 28
-        SPELL_ATTR_EX_UNK29                       = 1 << 0x1D,            // 29
+        SPELL_ATTR_EX_HIDDEN_AURA                 = 1 << 0x1C,            // 28 client doesn't display these spells in aura bar (special and server-side spells)
+        SPELL_ATTR_EX_CHANNEL_DISPLAY_SPELL_NAME  = 1 << 0x1D,            // 29 spell name is displayed in cast bar instead of 'channeling' text
         SPELL_ATTR_EX_UNK30                       = 1 << 0x1E,            // 30 overpower
         SPELL_ATTR_EX_UNK31                       = 1 << 0x1F,            // 31
     };
@@ -1249,9 +1252,9 @@ namespace SpellWork
     {
         SPELL_ATTR_EX2_ALL                        =        -1,
         SPELL_ATTR_EX2_NONE                       =      0x00,
-        SPELL_ATTR_EX2_UNK0                       = 1 << 0x00,            // 0
+        SPELL_ATTR2_ALLOW_DEAD_TARGET             = 1 << 0x00,            // 0
         SPELL_ATTR_EX2_UNK1                       = 1 << 0x01,            // 1
-        SPELL_ATTR_EX2_CANT_REFLECTED             = 1 << 0x02,            // 2 ? used for detect can or not spell reflected // do not need LOS (e.g. 18220 since 3.3.3)
+        SPELL_ATTR_EX2_IGNORE_LOS                 = 1 << 0x02,            // 2 do not need LOS (e.g. 18220 since 3.3.3)
         SPELL_ATTR_EX2_UNK3                       = 1 << 0x03,            // 3 auto targeting? (e.g. fishing skill enhancement items since 3.3.3)
         SPELL_ATTR_EX2_UNK4                       = 1 << 0x04,            // 4
         SPELL_ATTR_EX2_AUTOREPEAT_FLAG            = 1 << 0x05,            // 5
@@ -1266,7 +1269,7 @@ namespace SpellWork
         SPELL_ATTR_EX2_UNK14                      = 1 << 0x0E,            // 14
         SPELL_ATTR_EX2_UNK15                      = 1 << 0x0F,            // 15 not set in 3.0.3
         SPELL_ATTR_EX2_UNK16                      = 1 << 0x10,            // 16
-        SPELL_ATTR_EX2_UNK17                      = 1 << 0x11,            // 17 suspend weapon timer instead of resetting it, (?Hunters Shot and Stings only have this flag?)
+        SPELL_ATTR_EX2_NOT_RESET_AUTOSHOT         = 1 << 0x11,            // 17 suspend weapon timer instead of resetting it, (?Hunters Shot and Stings only have this flag?)
         SPELL_ATTR_EX2_UNK18                      = 1 << 0x12,            // 18 Only Revive pet - possible req dead pet
         SPELL_ATTR_EX2_NOT_NEED_SHAPESHIFT        = 1 << 0x13,            // 19 does not necessarly need shapeshift
         SPELL_ATTR_EX2_UNK20                      = 1 << 0x14,            // 20
@@ -1291,11 +1294,11 @@ namespace SpellWork
         SPELL_ATTR_EX3_UNK0                       = 1 << 0x00,            // 0
         SPELL_ATTR_EX3_UNK1                       = 1 << 0x01,            // 1
         SPELL_ATTR_EX3_UNK2                       = 1 << 0x02,            // 2
-        SPELL_ATTR_EX3_UNK3                       = 1 << 0x03,            // 3
-        SPELL_ATTR_EX3_UNK4                       = 1 << 0x04,            // 4 Druid Rebirth only this spell have this flag
+        SPELL_ATTR_EX3_MELEE                      = 1 << 0x03,            // 3
+        SPELL_ATTR_EX3_IGNORE_RESURRECTION_TIMER  = 1 << 0x04,            // 4 you don't have to wait to be resurrected with these spells
         SPELL_ATTR_EX3_UNK5                       = 1 << 0x05,            // 5
         SPELL_ATTR_EX3_UNK6                       = 1 << 0x06,            // 6
-        SPELL_ATTR_EX3_UNK7                       = 1 << 0x07,            // 7 create a separate (de)buff stack for each caster
+        SPELL_ATTR_EX3_STACK_FOR_DIFF_CASTERS     = 1 << 0x07,            // 7 create a separate (de)buff stack for each caster
         SPELL_ATTR_EX3_UNK8                       = 1 << 0x08,            // 8
         SPELL_ATTR_EX3_UNK9                       = 1 << 0x09,            // 9
         SPELL_ATTR_EX3_MAIN_HAND                  = 1 << 0x0A,            // 10 Main hand weapon required
@@ -1304,9 +1307,9 @@ namespace SpellWork
         SPELL_ATTR_EX3_UNK13                      = 1 << 0x0D,            // 13
         SPELL_ATTR_EX3_UNK14                      = 1 << 0x0E,            // 14 "Honorless Target" only this spells have this flag
         SPELL_ATTR_EX3_UNK15                      = 1 << 0x0F,            // 15 Auto Shoot, Shoot, Throw,  - this is autoshot flag
-        SPELL_ATTR_EX3_UNK16                      = 1 << 0x10,            // 16 no triggers effects that trigger on casting a spell??
-        SPELL_ATTR_EX3_UNK17                      = 1 << 0x11,            // 17 no triggers effects that trigger on casting a spell??
-        SPELL_ATTR_EX3_UNK18                      = 1 << 0x12,            // 18
+        SPELL_ATTR_EX3_CANT_TRIGGER_PROC          = 1 << 0x10,            // 16 no triggers effects that trigger on casting a spell??
+        SPELL_ATTR_EX3_NO_INITIAL_AGGRO           = 1 << 0x11,            // 17 Causes no aggro if not missed
+        SPELL_ATTR_EX3_CANT_MISS                  = 1 << 0x12,            // 18 Spell should always hit its target
         SPELL_ATTR_EX3_UNK19                      = 1 << 0x13,            // 19
         SPELL_ATTR_EX3_DEATH_PERSISTENT           = 1 << 0x14,            // 20 Death persistent spells
         SPELL_ATTR_EX3_UNK21                      = 1 << 0x15,            // 21
@@ -1314,11 +1317,11 @@ namespace SpellWork
         SPELL_ATTR_EX3_UNK23                      = 1 << 0x17,            // 23
         SPELL_ATTR_EX3_REQ_OFFHAND                = 1 << 0x18,            // 24 Req offhand weapon
         SPELL_ATTR_EX3_UNK25                      = 1 << 0x19,            // 25 no cause spell pushback ?
-        SPELL_ATTR_EX3_UNK26                      = 1 << 0x1A,            // 26
+        SPELL_ATTR_EX3_CAN_PROC_WITH_TRIGGERED    = 1 << 0x1A,            // 26 auras with this attribute can proc from triggered spell casts (?)
         SPELL_ATTR_EX3_UNK27                      = 1 << 0x1B,            // 27
         SPELL_ATTR_EX3_UNK28                      = 1 << 0x1C,            // 28
-        SPELL_ATTR_EX3_UNK29                      = 1 << 0x1D,            // 29
-        SPELL_ATTR_EX3_UNK30                      = 1 << 0x1E,            // 30
+        SPELL_ATTR_EX3_DISABLE_MODS               = 1 << 0x1D,            // 29 Client doesn't apply spellmods for those spells (mostly mounting and like this spells)
+        SPELL_ATTR_EX3_DONT_DISPLAY_RANGE         = 1 << 0x1E,            // 30 client doesn't display range in tooltip for those spells
         SPELL_ATTR_EX3_UNK31                      = 1 << 0x1F,            // 31
     };
 
@@ -1334,14 +1337,14 @@ namespace SpellWork
         SPELL_ATTR_EX4_UNK4                       = 1 << 0x04,            // 4 This will no longer cause guards to attack on use??
         SPELL_ATTR_EX4_UNK5                       = 1 << 0x05,            // 5
         SPELL_ATTR_EX4_NOT_STEALABLE              = 1 << 0x06,            // 6 although such auras might be dispellable, they cannot be stolen
-        SPELL_ATTR_EX4_UNK7                       = 1 << 0x07,            // 7
+        SPELL_ATTR_EX4_FORCE_TRIGGERED            = 1 << 0x07,            // 7 forced triggered?
         SPELL_ATTR_EX4_STACK_DOT_MODIFIER         = 1 << 0x08,            // 8 no effect on non DoTs?
         SPELL_ATTR_EX4_UNK9                       = 1 << 0x09,            // 9
         SPELL_ATTR_EX4_SPELL_VS_EXTEND_COST       = 1 << 0x0A,            // 10 Rogue Shiv have this flag
         SPELL_ATTR_EX4_UNK11                      = 1 << 0x0B,            // 11
         SPELL_ATTR_EX4_UNK12                      = 1 << 0x0C,            // 12
         SPELL_ATTR_EX4_UNK13                      = 1 << 0x0D,            // 13
-        SPELL_ATTR_EX4_UNK14                      = 1 << 0x0E,            // 14
+        SPELL_ATTR_EX4_DAMAGE_DOESNT_BREAK_AURAS  = 1 << 0x0E,            // 14 doesn't break auras by damage from these spells
         SPELL_ATTR_EX4_UNK15                      = 1 << 0x0F,            // 15
         SPELL_ATTR_EX4_NOT_USABLE_IN_ARENA        = 1 << 0x10,            // 16 not usable in arena
         SPELL_ATTR_EX4_USABLE_IN_ARENA            = 1 << 0x11,            // 17 usable in arena
@@ -1352,7 +1355,7 @@ namespace SpellWork
         SPELL_ATTR_EX4_UNK22                      = 1 << 0x16,            // 22
         SPELL_ATTR_EX4_UNK23                      = 1 << 0x17,            // 23
         SPELL_ATTR_EX4_UNK24                      = 1 << 0x18,            // 24
-        SPELL_ATTR_EX4_UNK25                      = 1 << 0x19,            // 25 pet scaling auras
+        SPELL_ATTR_EX4_PET_SCALING_AURA           = 1 << 0x19,            // 25 pet scaling auras
         SPELL_ATTR_EX4_CAST_ONLY_IN_OUTLAND       = 1 << 0x1A,            // 26 Can only be used in Outland.
         SPELL_ATTR_EX4_UNK27                      = 1 << 0x1B,            // 27
         SPELL_ATTR_EX4_UNK28                      = 1 << 0x1C,            // 28
@@ -1376,10 +1379,10 @@ namespace SpellWork
         SPELL_ATTR_EX5_UNK7                       = 1 << 0x07,            // 7
         SPELL_ATTR_EX5_UNK8                       = 1 << 0x08,            // 8
         SPELL_ATTR_EX5_START_PERIODIC_AT_APPLY    = 1 << 0x09,            // 9  begin periodic tick at aura apply
-        SPELL_ATTR_EX5_UNK10                      = 1 << 0x0A,            // 10
+        SPELL_ATTR_EX5_NO_DURATION                = 1 << 0x0A,            // 10 not send duration to client
         SPELL_ATTR_EX5_UNK11                      = 1 << 0x0B,            // 11
         SPELL_ATTR_EX5_UNK12                      = 1 << 0x0C,            // 12
-        SPELL_ATTR_EX5_UNK13                      = 1 << 0x0D,            // 13 haste affects duration (e.g. 8050 since 3.3.3)
+        SPELL_ATTR_EX5_AFFECTED_BY_HASTE          = 1 << 0x0D,            // 13 haste affects duration (e.g. 8050 since 3.3.3)
         SPELL_ATTR_EX5_UNK14                      = 1 << 0x0E,            // 14
         SPELL_ATTR_EX5_UNK15                      = 1 << 0x0F,            // 15
         SPELL_ATTR_EX5_UNK16                      = 1 << 0x10,            // 16
@@ -1413,12 +1416,12 @@ namespace SpellWork
         SPELL_ATTR_EX6_UNK5                       = 1 << 0x05,            // 5
         SPELL_ATTR_EX6_UNK6                       = 1 << 0x06,            // 6
         SPELL_ATTR_EX6_UNK7                       = 1 << 0x07,            // 7
-        SPELL_ATTR_EX6_UNK8                       = 1 << 0x08,            // 8
+        SPELL_ATTR_EX6_IGNORE_CCED_TARGETS        = 1 << 0x08,            // 8
         SPELL_ATTR_EX6_UNK9                       = 1 << 0x09,            // 9
         SPELL_ATTR_EX6_UNK10                      = 1 << 0x0A,            // 10
         SPELL_ATTR_EX6_NOT_IN_RAID_INSTANCE       = 1 << 0x0B,            // 11 not usable in raid instance
-        SPELL_ATTR_EX6_UNK12                      = 1 << 0x0C,            // 12
-        SPELL_ATTR_EX6_UNK13                      = 1 << 0x0D,            // 13
+        SPELL_ATTR_EX6_CASTABLE_ON_VEHICLE        = 1 << 0x0C,            // 12 for auras SPELL_AURA_TRACK_CREATURES, SPELL_AURA_TRACK_RESOURCES and SPELL_AURA_TRACK_STEALTHED select non-stacking tracking spells
+        SPELL_ATTR_EX6_CAN_TARGET_INVISIBLE       = 1 << 0x0D,            // 13 ignore visibility requirement for spell target (phases, invisibility, etc.)
         SPELL_ATTR_EX6_UNK14                      = 1 << 0x0E,            // 14
         SPELL_ATTR_EX6_UNK15                      = 1 << 0x0F,            // 15 not set in 3.0.3
         SPELL_ATTR_EX6_UNK16                      = 1 << 0x10,            // 16
@@ -1428,10 +1431,10 @@ namespace SpellWork
         SPELL_ATTR_EX6_UNK20                      = 1 << 0x14,            // 20
         SPELL_ATTR_EX6_UNK21                      = 1 << 0x15,            // 21
         SPELL_ATTR_EX6_UNK22                      = 1 << 0x16,            // 22
-        SPELL_ATTR_EX6_UNK23                      = 1 << 0x17,            // 23 not set in 3.0.3
+        SPELL_ATTR_EX6_NO_STACK_DEBUFF_MAJOR      = 1 << 0x17,            // only debuff and debuff-like spells in 3.3.5a
         SPELL_ATTR_EX6_UNK24                      = 1 << 0x18,            // 24 not set in 3.0.3
         SPELL_ATTR_EX6_UNK25                      = 1 << 0x19,            // 25 not set in 3.0.3
-        SPELL_ATTR_EX6_UNK26                      = 1 << 0x1A,            // 26 not set in 3.0.3
+        SPELL_ATTR_EX6_NO_STACK_BUFF              = 1 << 0x1A,            // 26 not set in 3.0.3
         SPELL_ATTR_EX6_UNK27                      = 1 << 0x1B,            // 27 not set in 3.0.3
         SPELL_ATTR_EX6_UNK28                      = 1 << 0x1C,            // 28 not set in 3.0.3
         SPELL_ATTR_EX6_NO_DMG_PERCENT_MODS        = 1 << 0x1D,            // 29 do not apply damage percent mods (usually in cases where it has already been applied)
@@ -1440,21 +1443,21 @@ namespace SpellWork
     };
     
     [Flags]
-    public enum SpellAtributeExG
+    public enum SpellAtributeEx7
     {
         SPELL_ATTR_EXG_ALL                        =        -1,
         SPELL_ATTR_EXG_NONE                       =      0x00,
         SPELL_ATTR_EXG_UNK0                       = 1 << 0x00,            // 0 
         SPELL_ATTR_EXG_UNK1                       = 1 << 0x01,            // 1 
-        SPELL_ATTR_EXG_UNK2                       = 1 << 0x02,            // 2
-        SPELL_ATTR_EXG_UNK3                       = 1 << 0x03,            // 3
+        SPELL_ATTR_EXG_PALADIN_AURA               = 1 << 0x02,            // 2
+        SPELL_ATTR_EXG_GM_ONLY                    = 1 << 0x03,            // 3 Cannot cast if caster doesn't have UnitFlag2 & UNIT_FLAG2_GM_MODE
         SPELL_ATTR_EXG_UNK4                       = 1 << 0x04,            // 4
-        SPELL_ATTR_EXG_UNK5                       = 1 << 0x05,            // 5
+        SPELL_ATTR_EXG_TOTEM_SPELL                = 1 << 0x05,            // 5 shaman summon totem spells
         SPELL_ATTR_EXG_UNK6                       = 1 << 0x06,            // 6
         SPELL_ATTR_EXG_UNK7                       = 1 << 0x07,            // 7
         SPELL_ATTR_EXG_UNK8                       = 1 << 0x08,            // 8
         SPELL_ATTR_EXG_UNK9                       = 1 << 0x09,            // 9
-        SPELL_ATTR_EXG_UNK10                      = 1 << 0x0A,            // 10
+        SPELL_ATTR_EXG_DISPEL_CHARGES             = 1 << 0x0A,            // 10 Dispel and Spellsteal individual charges instead of whole aura.
         SPELL_ATTR_EXG_UNK11                      = 1 << 0x0B,            // 11 
         SPELL_ATTR_EXG_UNK12                      = 1 << 0x0C,            // 12
         SPELL_ATTR_EXG_UNK13                      = 1 << 0x0D,            // 13
@@ -1472,7 +1475,7 @@ namespace SpellWork
         SPELL_ATTR_EXG_UNK25                      = 1 << 0x19,            // 25 
         SPELL_ATTR_EXG_UNK26                      = 1 << 0x1A,            // 26 
         SPELL_ATTR_EXG_UNK27                      = 1 << 0x1B,            // 27
-        SPELL_ATTR_EXG_UNK28                      = 1 << 0x1C,            // 28
+        SPELL_ATTR_EXG_REPLACEABLE_AURA           = 1 << 0x1C,            // 28
         SPELL_ATTR_EXG_UNK29                      = 1 << 0x1D,            // 29
         SPELL_ATTR_EXG_UNK30                      = 1 << 0x1E,            // 30
         SPELL_ATTR_EXG_UNK31                      = 1 << 0x1F,            // 31
@@ -1611,7 +1614,8 @@ namespace SpellWork
             //23 0x00800000 100000000000000000000000 -
             "23 Successful off-hand melee attacks",
 
-            "24",
+            //24 0x00800000
+            "24 On caster's death",
             "25",
             "26",
             "27",
