@@ -468,10 +468,34 @@ namespace SpellWork
 
             if (spell.EffectApplyAuraName[index] == 0)
             {
-                rtb.AppendFormatLineIfNotNull("EffectMiscValueA = {0}", spell.EffectMiscValue[index]);
+               SpellEffects effect    = (SpellEffects)spell.Effect[index];
+
+               switch (effect)
+               {
+                   case SpellEffects.SPELL_EFFECT_ACTIVATE_RUNE:
+                       rtb.AppendFormatLine("EffectMiscValueA ={0} ({1})", misc, (RuneType)misc);
+                       break;
+                   case SpellEffects.SPELL_EFFECT_DISPEL_MECHANIC:
+                       rtb.AppendFormatLine("EffectMiscValueA ={0} ({1})", misc, (Mechanics)misc);
+                       break;
+                   case SpellEffects.SPELL_EFFECT_ENERGIZE:
+                   case SpellEffects.SPELL_EFFECT_ENERGIZE_PCT:
+                   case SpellEffects.SPELL_EFFECT_POWER_DRAIN:
+                       rtb.AppendFormatLine("EffectMiscValueA ={0} ({1})", misc, (Powers)misc);
+                       break;
+                   case SpellEffects.SPELL_EFFECT_DISPEL:
+                       rtb.AppendFormatLine("EffectMiscValueA ={0} ({1})", misc, (DispelType)misc);
+                       break;
+                   case SpellEffects.SPELL_EFFECT_OPEN_LOCK:
+                       rtb.AppendFormatLine("EffectMiscValueA ={0} ({1})", misc, (LockType)misc);
+                       break;
+                   default:
+                       rtb.AppendFormatLineIfNotNull("EffectMiscValueA = {0}", spell.EffectMiscValue[index]);
+                      break;
+               }
+
                 rtb.AppendFormatLineIfNotNull("EffectMiscValueB = {0}", spell.EffectMiscValueB[index]);
                 rtb.AppendFormatLineIfNotNull("EffectAmplitude = {0}",  spell.EffectAmplitude[index]);
-                
                 return;
             }
 
