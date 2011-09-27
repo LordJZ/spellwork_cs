@@ -1651,12 +1651,12 @@ namespace SpellWork
         };
         #endregion
     }
-    
-   public    enum RuneType
+
+    public enum RuneType
     {
         RUNE_BLOOD      = 0,
         RUNE_UNHOLY     = 1,
         RUNE_FROST      = 2,
         RUNE_DEATH      = 3
-    };
+    }
 }
