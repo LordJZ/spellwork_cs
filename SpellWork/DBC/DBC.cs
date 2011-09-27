@@ -23,13 +23,13 @@ namespace SpellWork
         public static Dictionary<uint, OverrideSpellDataEntry>      OverrideSpellData;
         public static Dictionary<uint, AreaGroupEntry>              AreaGroup;
         public static Dictionary<uint, AreaTableEntry>              AreaTable;
-        public static Dictionary<uint, SpellRuneCostEntry>          SpellRuneCostTable;
+        public static Dictionary<uint, SpellRuneCostEntry>          SpellRuneCost;
 
-        public static Dictionary<uint, string> AreaStrings             = new Dictionary<uint, string>();
-        public static Dictionary<uint, string> SpellStrings            = new Dictionary<uint, string>();
-        public static Dictionary<uint, string> SkillLineStrings        = new Dictionary<uint, string>();
-        public static Dictionary<uint, string> SpellRangeStrings       = new Dictionary<uint, string>();
-        public static Dictionary<uint, string> ScreenEffectStrings     = new Dictionary<uint, string>();
+        public static Dictionary<uint, string> AreaTableStrings         = new Dictionary<uint, string>();
+        public static Dictionary<uint, string> SpellStrings             = new Dictionary<uint, string>();
+        public static Dictionary<uint, string> SkillLineStrings         = new Dictionary<uint, string>();
+        public static Dictionary<uint, string> SpellRangeStrings        = new Dictionary<uint, string>();
+        public static Dictionary<uint, string> ScreenEffectStrings      = new Dictionary<uint, string>();
 
         // DB 
         public static List<Item> ItemTemplate = new List<Item>();
