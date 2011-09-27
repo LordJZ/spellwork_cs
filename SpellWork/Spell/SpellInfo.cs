@@ -1,4 +1,4 @@
-﻿using System;
+?using System;
 using System.Linq;
 using System.Drawing;
 using System.Windows.Forms;
@@ -171,33 +171,32 @@ namespace SpellWork
                 rtb.AppendFormatIfNotNull(" + lvl * {0}", spell.ManaPerSecondPerLevel);
                 rtb.AppendLine();
             }
-            
-            
-            if (spell.RuneCostID!=0 && DBC.SpellRuneCostTable.ContainsKey(spell.RuneCostID))
-            { 
-                 SpellRuneCostEntry R=DBC.SpellRuneCostTable[spell.RuneCostID];
-               
-                 bool append=true;
-                 for (uint i=0;i<R.RuneCost.Length;i++)
-                 {
-                    if (R.RuneCost[i]!=0)
-                    { 
-                      if (append)
+
+            if (spell.RuneCostID != 0 && DBC.SpellRuneCostTable.ContainsKey(spell.RuneCostID))
+            {
+                SpellRuneCostEntry R = DBC.SpellRuneCostTable[spell.RuneCostID];
+
+                bool append = true;
+                for (uint i = 0; i < R.RuneCost.Length; ++i)
+                {
+                    if (R.RuneCost[i] != 0)
+                    {
+                        if (append)
                         {
-                          rtb.AppendLine(_line);
-                          rtb.Append("Rune cost: ");
+                            rtb.AppendLine(_line);
+                            rtb.Append("Rune cost: ");
                         }
-                      rtb.AppendFormat("{0}x{1} ",(RuneType)i,  R.RuneCost[i]);
-                      append=false;
-                      }
-                 }
-                 
-				 if (!append)
-                   rtb.AppendLine();
- 				 
-                 rtb.AppendFormatLineIfNotNull("Rune power gain ={0}",R.runePowerGain);
-                 if (!append)
-                   rtb.AppendLine(_line);
+                        rtb.AppendFormat("{0}x{1} ", (RuneType)i, R.RuneCost[i]);
+                        append = false;
+                    }
+                }
+
+                if (!append)
+                    rtb.AppendLine();
+
+                rtb.AppendFormatLineIfNotNull("Rune power gain ={0}", R.runePowerGain);
+                if (!append)
+                    rtb.AppendLine(_line);
             }
 
             rtb.AppendFormatLine("Interrupt Flags: 0x{0:X8}, AuraIF 0x{1:X8}, ChannelIF 0x{2:X8}",
