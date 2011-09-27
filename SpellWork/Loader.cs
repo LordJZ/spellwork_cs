@@ -24,7 +24,7 @@ namespace SpellWork
             DBC.SpellDifficulty     = DBCReader.ReadDBC<SpellDifficultyEntry>(null);
 
             DBC.OverrideSpellData   = DBCReader.ReadDBC<OverrideSpellDataEntry>(null);
-            DBC.SpellRuneCostTable  = DBCReader.ReadDBC<SpellRuneCostEntry>(null);
+            DBC.SpellRuneCost       = DBCReader.ReadDBC<SpellRuneCostEntry>(null);
 
             
             DBC.Locale = DetectedLocale;

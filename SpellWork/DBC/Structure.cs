@@ -562,7 +562,7 @@ namespace SpellWork
 
         public string Name
         {
-            get { return DBC.AreaStrings.GetValue(NamePtr[(uint)DBC.Locale]); }
+            get { return DBC.AreaTableStrings.GetValue(NamePtr[(uint)DBC.Locale]); }
         }
     };
 

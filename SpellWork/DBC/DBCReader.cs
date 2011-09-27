@@ -10,19 +10,21 @@ namespace SpellWork
     {
         public static unsafe Dictionary<uint, T> ReadDBC<T>(Dictionary<uint, string> strDict) where T : struct
         {
-            Dictionary<uint, T> dict = new Dictionary<uint, T>();
-            String fileName = Path.Combine(DBC.DBC_PATH, typeof(T).Name + ".dbc").Replace("Entry", String.Empty);
-            
-            using (BinaryReader reader = new BinaryReader(new FileStream(fileName, FileMode.Open, FileAccess.Read), Encoding.UTF8))
+            var dict = new Dictionary<uint, T>();
+            string fileName = Path.Combine(DBC.DBC_PATH, typeof(T).Name + ".dbc").Replace("Entry", String.Empty);
+
+            using (var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+            using (var reader = new BinaryReader(fs, Encoding.UTF8))
             {
                 if (!File.Exists(fileName))
-                    throw new FileNotFoundException();
+                    throw new FileNotFoundException("One of DBC files not found.", fileName);
+
                 // read dbc header
-                DbcHeader header = reader.ReadStruct<DbcHeader>();
+                var header = reader.ReadStruct<DbcHeader>();
                 int size = Marshal.SizeOf(typeof(T));
 
                 if (!header.IsDBC)
-                    throw new Exception(fileName + " is not DBC files!");
+                    throw new Exception(fileName + " is not DBC file!");
                 
                 if (header.RecordSize != size)
                     throw new Exception(string.Format("Size of row in DBC file ({0}) != size of DBC struct ({1}) in DBC: {2}", header.RecordSize, size, fileName));

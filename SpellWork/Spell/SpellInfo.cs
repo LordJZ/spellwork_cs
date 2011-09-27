@@ -1,4 +1,4 @@
-?using System;
+using System;
 using System.Linq;
 using System.Drawing;
 using System.Windows.Forms;
@@ -172,9 +172,9 @@ namespace SpellWork
                 rtb.AppendLine();
             }
 
-            if (spell.RuneCostID != 0 && DBC.SpellRuneCostTable.ContainsKey(spell.RuneCostID))
+            if (spell.RuneCostID != 0 && DBC.SpellRuneCost.ContainsKey(spell.RuneCostID))
             {
-                SpellRuneCostEntry R = DBC.SpellRuneCostTable[spell.RuneCostID];
+                SpellRuneCostEntry R = DBC.SpellRuneCost[spell.RuneCostID];
 
                 bool append = true;
                 for (uint i = 0; i < R.RuneCost.Length; ++i)
