@@ -171,6 +171,34 @@ namespace SpellWork
                 rtb.AppendFormatIfNotNull(" + lvl * {0}", spell.ManaPerSecondPerLevel);
                 rtb.AppendLine();
             }
+            
+            
+            if (spell.RuneCostID!=0 && DBC.SpellRuneCostTable.ContainsKey(spell.RuneCostID))
+            { 
+                 SpellRuneCostEntry R=DBC.SpellRuneCostTable[spell.RuneCostID];
+               
+                 bool append=true;
+                 for (uint i=0;i<R.RuneCost.Length;i++)
+                 {
+                    if (R.RuneCost[i]!=0)
+                    { 
+                      if (append)
+                        {
+                          rtb.AppendLine(_line);
+                          rtb.Append("Rune cost: ");
+                        }
+                      rtb.AppendFormat("{0}x{1} ",(RuneType)i,  R.RuneCost[i]);
+                      append=false;
+                      }
+                 }
+                 
+				 if (!append)
+                   rtb.AppendLine();
+ 				 
+                 rtb.AppendFormatLineIfNotNull("Rune power gain ={0}",R.runePowerGain);
+                 if (!append)
+                   rtb.AppendLine(_line);
+            }
 
             rtb.AppendFormatLine("Interrupt Flags: 0x{0:X8}, AuraIF 0x{1:X8}, ChannelIF 0x{2:X8}",
                 spell.InterruptFlags, spell.AuraInterruptFlags, spell.ChannelInterruptFlags);
@@ -581,6 +609,11 @@ namespace SpellWork
                 case AuraType.SPELL_AURA_EFFECT_IMMUNITY:
                     rtb.Append((SpellEffects)misc);
                     break;
+
+                case AuraType.SPELL_AURA_CONVERT_RUNE:
+                    rtb.Append((RuneType)misc);
+                    break;
+
                 // todo: more case
                 default:
                     rtb.Append(misc);
@@ -596,6 +629,9 @@ namespace SpellWork
                 case AuraType.SPELL_AURA_MOD_RESISTANCE_OF_STAT_PERCENT:
                 case AuraType.SPELL_AURA_MOD_RATING_FROM_STAT:
                     rtb.AppendFormat("({0})", (UnitMods)miscB);
+                    break;
+                case AuraType.SPELL_AURA_CONVERT_RUNE:
+                    rtb.AppendFormat("({0})", (RuneType)miscB);
                     break;
             }
 

@@ -565,4 +565,12 @@ namespace SpellWork
             get { return DBC.AreaStrings.GetValue(NamePtr[(uint)DBC.Locale]); }
         }
     };
+
+    public struct SpellRuneCostEntry
+    {
+        public uint  ID;                                             // 0        m_ID
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+        public uint[]  RuneCost  ;                                   // 1-3      0=blood, 1=unholy, 2=frost ,3=death
+        public uint  runePowerGain;                                  // 4        m_runicPower
+    };
 }
