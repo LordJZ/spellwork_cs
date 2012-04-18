@@ -186,6 +186,9 @@ namespace SpellWork.Spell
             if (_spell.TargetAuraStateNot != 0)
                 _rtb.AppendFormatLine("TargetAuraStateNot = {0} ({1})", _spell.TargetAuraStateNot, (AuraState)_spell.TargetAuraStateNot);
 
+            if (_spell.MaxAffectedTargets != 0)
+                _rtb.AppendFormatLine("MaxAffectedTargets = {0}", _spell.MaxAffectedTargets);
+
             AppendSpellAura();
 
             AppendAreaInfo();
