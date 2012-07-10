@@ -1,7 +1,10 @@
 
 *.suo
 *.user
-SpellWork/obj/*
+
+bin
+obj
+
 *.orig
 *.rej
 *.patch
