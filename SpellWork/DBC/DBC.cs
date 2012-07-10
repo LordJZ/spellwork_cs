@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DBFilesClient.NET;
 
 namespace SpellWork
 {
@@ -11,25 +12,19 @@ namespace SpellWork
         public const int MAX_EFFECT_INDEX               = 3;
         public const int SPELL_ENTRY_FOR_DETECT_LOCALE  = 1;
 
-        public static Dictionary<uint, SpellEntry>                  Spell;
-        public static Dictionary<uint, SpellRadiusEntry>            SpellRadius;
-        public static Dictionary<uint, SpellCastTimesEntry>         SpellCastTimes;
-        public static Dictionary<uint, SpellDifficultyEntry>        SpellDifficulty;
-        public static Dictionary<uint, SpellRangeEntry>             SpellRange;
-        public static Dictionary<uint, SpellDurationEntry>          SpellDuration;
-        public static Dictionary<uint, SkillLineAbilityEntry>       SkillLineAbility;
-        public static Dictionary<uint, SkillLineEntry>              SkillLine;
-        public static Dictionary<uint, ScreenEffectEntry>           ScreenEffect;
-        public static Dictionary<uint, OverrideSpellDataEntry>      OverrideSpellData;
-        public static Dictionary<uint, AreaGroupEntry>              AreaGroup;
-        public static Dictionary<uint, AreaTableEntry>              AreaTable;
-        public static Dictionary<uint, SpellRuneCostEntry>          SpellRuneCost;
-
-        public static Dictionary<uint, string> AreaTableStrings         = new Dictionary<uint, string>();
-        public static Dictionary<uint, string> SpellStrings             = new Dictionary<uint, string>();
-        public static Dictionary<uint, string> SkillLineStrings         = new Dictionary<uint, string>();
-        public static Dictionary<uint, string> SpellRangeStrings        = new Dictionary<uint, string>();
-        public static Dictionary<uint, string> ScreenEffectStrings      = new Dictionary<uint, string>();
+        public static DBCStorage<SpellEntry>                  Spell;
+        public static DBCStorage<SpellRadiusEntry>            SpellRadius;
+        public static DBCStorage<SpellCastTimesEntry>         SpellCastTimes;
+        public static DBCStorage<SpellDifficultyEntry>        SpellDifficulty;
+        public static DBCStorage<SpellRangeEntry>             SpellRange;
+        public static DBCStorage<SpellDurationEntry>          SpellDuration;
+        public static DBCStorage<SkillLineAbilityEntry>       SkillLineAbility;
+        public static DBCStorage<SkillLineEntry>              SkillLine;
+        public static DBCStorage<ScreenEffectEntry>           ScreenEffect;
+        public static DBCStorage<OverrideSpellDataEntry>      OverrideSpellData;
+        public static DBCStorage<AreaGroupEntry>              AreaGroup;
+        public static DBCStorage<AreaTableEntry>              AreaTable;
+        public static DBCStorage<SpellRuneCostEntry>          SpellRuneCost;
 
         // DB 
         public static List<Item> ItemTemplate = new List<Item>();

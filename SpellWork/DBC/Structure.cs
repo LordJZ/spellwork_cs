@@ -1,7 +1,7 @@
 using System;
-using System.Linq;
-using System.Text;
 using System.Runtime.InteropServices;
+using System.Text;
+using DBFilesClient.NET;
 
 namespace SpellWork
 {
@@ -30,7 +30,7 @@ namespace SpellWork
     };
 
     [StructLayout(LayoutKind.Sequential)]
-    public struct SpellEntry
+    public class SpellEntry
     {
         public uint ID;                                           // 0        m_ID
         public uint Category;                                     // 1        m_category
@@ -80,96 +80,96 @@ namespace SpellWork
         public float Speed;                                       // 47       m_speed
         public uint ModalNextSpell;                               // 48       m_modalNextSpell not used
         public uint StackAmount;                                  // 49       m_cumulativeAura
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = 2)]
         public uint[] Totem;                                      // 50-51    m_totem
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = 8)]
         public int[] Reagent;                                     // 52-59    m_reagent
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 8)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = 8)]
         public uint[] ReagentCount;                               // 60-67    m_reagentCount
         public int EquippedItemClass;                             // 68       m_equippedItemClass (value)
         public int EquippedItemSubClassMask;                      // 69       m_equippedItemSubclass (mask)
         public int EquippedItemInventoryTypeMask;                 // 70       m_equippedItemInvTypes (mask)
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = DBC.MAX_EFFECT_INDEX)]
         public uint[] Effect;                     				  // 71-73    m_effect
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = DBC.MAX_EFFECT_INDEX)]
         public int[] EffectDieSides;                              // 74-76    m_effectDieSides
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = DBC.MAX_EFFECT_INDEX)]
         public float[] EffectRealPointsPerLevel;                  // 77-79    m_effectRealPointsPerLevel
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = DBC.MAX_EFFECT_INDEX)]
         public int[] EffectBasePoints;                            // 80-82    m_effectBasePoints (don't must be used in spell/auras explicitly, must be used cached Spell::m_currentBasePoints)
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = DBC.MAX_EFFECT_INDEX)]
         public uint[] EffectMechanic;                             // 83-85    m_effectMechanic
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = DBC.MAX_EFFECT_INDEX)]
         public uint[] EffectImplicitTargetA;                      // 86-88    m_implicitTargetA
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = DBC.MAX_EFFECT_INDEX)]
         public uint[] EffectImplicitTargetB;                      // 89-91    m_implicitTargetB
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = DBC.MAX_EFFECT_INDEX)]
         public uint[] EffectRadiusIndex;                          // 92-94    m_effectRadiusIndex - spellradius.dbc
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = DBC.MAX_EFFECT_INDEX)]
         public uint[] EffectApplyAuraName;                        // 95-97    m_effectAura
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = DBC.MAX_EFFECT_INDEX)]
         public uint[] EffectAmplitude;                            // 98-100   m_effectAuraPeriod
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = DBC.MAX_EFFECT_INDEX)]
         public float[] EffectMultipleValue;                       // 101-103  m_effectAmplitude
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = DBC.MAX_EFFECT_INDEX)]
         public uint[] EffectChainTarget;                          // 104-106  m_effectChainTargets
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = DBC.MAX_EFFECT_INDEX)]
         public uint[] EffectItemType;                             // 107-109  m_effectItemType
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = DBC.MAX_EFFECT_INDEX)]
         public int[] EffectMiscValue;                             // 110-112  m_effectMiscValue
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = DBC.MAX_EFFECT_INDEX)]
         public int[] EffectMiscValueB;                            // 113-115  m_effectMiscValueB
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = DBC.MAX_EFFECT_INDEX)]
         public uint[] EffectTriggerSpell;                         // 116-118  m_effectTriggerSpell
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = DBC.MAX_EFFECT_INDEX)]
         public float[] EffectPointsPerComboPoint;                 // 119-121  m_effectPointsPerCombo
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = DBC.MAX_EFFECT_INDEX)]
         public uint[] EffectSpellClassMaskA;                      // 122-124  m_effectSpellClassMaskA, effect 0
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = DBC.MAX_EFFECT_INDEX)]
         public uint[] EffectSpellClassMaskB;                      // 125-127  m_effectSpellClassMaskB, effect 1
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_EFFECT_INDEX)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = DBC.MAX_EFFECT_INDEX)]
         public uint[] EffectSpellClassMaskC;                      // 128-130  m_effectSpellClassMaskC, effect 2
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = 2)]
         public uint[] SpellVisual;                                // 131-132  m_spellVisualID
         public uint SpellIconID;                                  // 133      m_spellIconID
         public uint ActiveIconID;                                 // 134      m_activeIconID
         public uint SpellPriority;                                // 135      m_spellPriority not used
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_DBC_LOCALE)]
-        private uint[] _SpellName;                                // 136-151  m_name_lang
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = DBC.MAX_DBC_LOCALE)]
+        public string[] _SpellName;                              // 136-151  m_name_lang
         public uint SpellNameFlag;                                // 152      not used
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_DBC_LOCALE)]
-        private uint[] _Rank;                                     // 153-168  m_nameSubtext_lang
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = DBC.MAX_DBC_LOCALE)]
+        public string[] _Rank;                                   // 153-168  m_nameSubtext_lang
         public uint RankFlags;                                    // 169      not used
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_DBC_LOCALE)]
-        private uint[] _Description;                              // 170-185  m_description_lang not used
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = DBC.MAX_DBC_LOCALE)]
+        public string[] _Description;                            // 170-185  m_description_lang not used
         public uint DescriptionFlags;                             // 186      not used
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_DBC_LOCALE)]
-        private uint[] _ToolTip;                                  // 187-202  m_auraDescription_lang not used
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = DBC.MAX_DBC_LOCALE)]
+        public string[] _ToolTip;                                // 187-202  m_auraDescription_lang not used
         public uint ToolTipFlags;                                 // 203      not used
         public uint ManaCostPercentage;                           // 204      m_manaCostPct
         public uint StartRecoveryCategory;                        // 205      m_startRecoveryCategory
         public uint StartRecoveryTime;                            // 206      m_startRecoveryTime
         public uint MaxTargetLevel;                               // 207      m_maxTargetLevel
         public uint SpellFamilyName;                              // 208      m_spellClassSet
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = 3)]
         public uint[] SpellFamilyFlags;                           // 209-211  m_spellClassMask NOTE: size is 12 bytes!!!
         public uint MaxAffectedTargets;                           // 212      m_maxTargets
         public uint DmgClass;                                     // 213      m_defenseType
         public uint PreventionType;                               // 214      m_preventionType
         public uint StanceBarOrder;                               // 215      m_stanceBarOrder not used
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = 3)]
         public float[] DmgMultiplier;              				  // 216-218  m_effectChainAmplitude
         public uint MinFactionId;                                 // 219      m_minFactionID not used
         public uint MinReputation;                                // 220      m_minReputation not used
         public uint RequiredAuraVision;                           // 221      m_requiredAuraVision not used
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = 2)]
         public uint[] TotemCategory;                              // 222-223  m_requiredTotemCategoryID
         public int  AreaGroupId;                                  // 224      m_requiredAreaGroupId
         public uint SchoolMask;                                   // 225      m_schoolMask
         public uint RuneCostID;                                   // 226      m_runeCostID
         public uint SpellMissileID;                               // 227      m_spellMissileID not used
         public uint PowerDisplayId;                               // 228      PowerDisplay.dbc, new in 3.1
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = 3)]
         public float[] EffectCoeffs;                              // 229-231  3.2.0
         public uint SpellDescriptionVariableID;                   // 232      3.2.0
         public uint SpellDifficultyId;                            // 233      3.3.0                           // 239      3.3.0
@@ -179,7 +179,7 @@ namespace SpellWork
         /// </summary>
         public string SpellName
         {
-            get { return DBC.SpellStrings.GetValue(_SpellName[(uint)DBC.Locale]); }
+            get { return _SpellName[(uint)DBC.Locale] ?? string.Empty; }
         }
 
         /// <summary>
@@ -187,7 +187,7 @@ namespace SpellWork
         /// </summary>
         public string Rank
         {
-            get { return _Rank[(uint)DBC.Locale] != 0 ? DBC.SpellStrings[_Rank[(uint)DBC.Locale]] : ""; }
+            get { return _Rank[(uint)DBC.Locale] ?? string.Empty; }
         }
 
         public string SpellNameRank
@@ -200,7 +200,7 @@ namespace SpellWork
         /// </summary>
         public string Description
         {
-            get { return DBC.SpellStrings.GetValue(_Description[(uint)DBC.Locale]); }
+            get { return _Description[(uint)DBC.Locale] ?? string.Empty; }
         }
 
         /// <summary>
@@ -208,12 +208,12 @@ namespace SpellWork
         /// </summary>
         public string ToolTip
         {
-            get { return DBC.SpellStrings.GetValue(_ToolTip[(uint)DBC.Locale]); }
+            get { return _ToolTip[(uint)DBC.Locale] ?? string.Empty; }
         }
 
         public string GetName(byte loc)
         {
-            return DBC.SpellStrings.GetValue(_SpellName[loc]);
+            return _SpellName[loc] ?? string.Empty;
         }
 
         public string ProcInfo
@@ -327,40 +327,40 @@ namespace SpellWork
         }
     };
 
-    public struct SkillLineEntry
+    public class SkillLineEntry
     {
         public uint ID;                                            // 0        m_ID
         public int  CategoryId;                                    // 1        m_categoryID
         public uint SkillCostID;                                   // 2        m_skillCostsID
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-        public uint[] _Name;                                       // 3-18     m_displayName_lang
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = 16)]
+        public string[] _Name;                                       // 3-18     m_displayName_lang
         public uint NameFlags;                                     // 19
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-        public uint[] _Description;                                // 20-35    m_description_lang
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = 16)]
+        public string[] _Description;                                // 20-35    m_description_lang
         public uint DescriptionFlags;                              // 36
         public uint SpellIcon;                                     // 37       m_spellIconID
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-        public uint[] _AlternateVerb;                              // 38-53    m_alternateVerb_lang
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = 16)]
+        public string[] _AlternateVerb;                              // 38-53    m_alternateVerb_lang
         public uint AlternateVerbFlags;                            // 54
         public uint CanLink;                                       // 55       m_canLink (prof. with recipes
 
         public string Name
         {
-            get { return DBC.SkillLineStrings.GetValue(_Name[(uint)DBC.Locale]); }
+            get { return _Name[(uint)DBC.Locale] ?? string.Empty; }
         }
 
         public string Description
         {
-            get { return DBC.SkillLineStrings.GetValue(_Description[(uint)DBC.Locale]); }
+            get { return _Description[(uint)DBC.Locale] ?? string.Empty; }
         }
 
         public string AlternateVerb
         {
-            get { return DBC.SkillLineStrings.GetValue(_AlternateVerb[(uint)DBC.Locale]); }
+            get { return _AlternateVerb[(uint)DBC.Locale] ?? string.Empty; }
         }
     };
 
-    public struct SkillLineAbilityEntry
+    public class SkillLineAbilityEntry
     {
         public uint ID;                                             // 0        m_ID
         public uint SkillId;                                        // 1        m_skillLine
@@ -374,11 +374,11 @@ namespace SpellWork
         public uint LearnOnGetSkill;                                // 9        m_acquireMethod
         public uint Max_value;                                      // 10       m_trivialSkillLineRankHigh
         public uint Min_value;                                      // 11       m_trivialSkillLineRankLow
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = 2)]
         public uint[] CharacterPoints;                              // 12-13    m_characterPoints[2]
     };
 
-    public struct SpellRadiusEntry
+    public class SpellRadiusEntry
     {
         public uint  ID;
         public float Radius;
@@ -386,7 +386,7 @@ namespace SpellWork
         public float Radius2;
     };
 
-    public struct SpellRangeEntry
+    public class SpellRangeEntry
     {
         public uint  ID;
         public float MinRange;
@@ -394,28 +394,28 @@ namespace SpellWork
         public float MaxRange;
         public float MaxRangeFriendly;
         public uint  Field5;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-        public uint[] _Desc1;
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = 16)]
+        public string[] _Desc1;
         public uint  Desc1Flags;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 16)]
-        public uint[] _Desc2;
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = 16)]
+        public string[] _Desc2;
         public uint  Desc2Flags;
 
         public string Description1
         {
-            get { return DBC.SpellRangeStrings.GetValue(_Desc1[(uint)DBC.Locale]); }
+            get { return _Desc1[(uint)DBC.Locale] ?? string.Empty; }
         }
 
         public string Description2
         {
-            get { return DBC.SpellRangeStrings.GetValue(_Desc2[(uint)DBC.Locale]); }
+            get { return _Desc2[(uint)DBC.Locale] ?? string.Empty; }
         }
     };
 
-    public struct SpellDurationEntry
+    public class SpellDurationEntry
     {
         public uint ID;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = 3)]
         public int[] Duration;
 
         public override string ToString()
@@ -424,7 +424,7 @@ namespace SpellWork
         }
     };
 
-    public struct SpellCastTimesEntry
+    public class SpellCastTimesEntry
     {
         public uint  ID;
         public int   CastTime;   
@@ -432,17 +432,17 @@ namespace SpellWork
         public int   MinCastTime;
     };
 
-    public struct SpellDifficultyEntry
+    public class SpellDifficultyEntry
     {
         public uint Id;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = 4)]
         public int[] Spells;
     };
 
-    public struct ScreenEffectEntry
+    public class ScreenEffectEntry
     {
         public uint Id;
-        public uint _Name;
+        public string _Name;
         public uint Unk0;
         public float Unk1;
         public uint Unk2;
@@ -454,15 +454,15 @@ namespace SpellWork
 
         public string Name
         {
-            get { return DBC.ScreenEffectStrings.GetValue(_Name); }
+            get { return _Name; }
         }
     };
 
-    public struct OverrideSpellDataEntry
+    public class OverrideSpellDataEntry
     {
         public uint Id;
         // Value 10 also used in SpellInfo.AuraModTypeName
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 10)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = 10)]
         public uint[] Spells;
         public uint unk;
     };
@@ -527,15 +527,15 @@ namespace SpellWork
         public uint[]   SpellID;
     };
 
-    public struct AreaGroupEntry
+    public class AreaGroupEntry
     {
         public uint AreaGroupId;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 6)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = 6)]
         public uint[] AreaId;
         public uint NextGroup;
     };
 
-    public struct AreaTableEntry
+    public class AreaTableEntry
     {
         public uint Id;
         public uint MapId;
@@ -548,8 +548,8 @@ namespace SpellWork
         public uint ZoneMusic;
         public uint ZoneIntroMusicTable;
         public int Level;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = DBC.MAX_DBC_LOCALE)]
-        public uint[] NamePtr;
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = DBC.MAX_DBC_LOCALE)]
+        public string[] NamePtr;
         public uint StringFlags;
         public uint FactionFlags;
         public uint LiquidType1;
@@ -562,14 +562,14 @@ namespace SpellWork
 
         public string Name
         {
-            get { return DBC.AreaTableStrings.GetValue(NamePtr[(uint)DBC.Locale]); }
+            get { return NamePtr[(uint)DBC.Locale] ?? string.Empty; }
         }
     };
 
-    public struct SpellRuneCostEntry
+    public class SpellRuneCostEntry
     {
         public uint  ID;                                             // 0        m_ID
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+        [StoragePresence(StoragePresenceOption.Include, ArraySize = 3)]
         public uint[]  RuneCost  ;                                   // 1-3      0=blood, 1=unholy, 2=frost ,3=death
         public uint  runePowerGain;                                  // 4        m_runicPower
     };

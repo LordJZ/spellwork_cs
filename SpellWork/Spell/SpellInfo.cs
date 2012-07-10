@@ -1,8 +1,6 @@
-using System;
-using System.Linq;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
-using System.Text;
 
 namespace SpellWork
 {
@@ -279,10 +277,10 @@ namespace SpellWork
 
         private void AppendSkillLine()
         {
-            var query = from skillLineAbility in DBC.SkillLineAbility
-                        join skillLine in DBC.SkillLine
-                        on skillLineAbility.Value.SkillId equals skillLine.Key
-                        where skillLineAbility.Value.SpellId == spell.ID
+            var query = from skillLineAbility in DBC.SkillLineAbility.Records
+                        join skillLine in DBC.SkillLine.Records
+                        on skillLineAbility.SkillId equals skillLine.ID
+                        where skillLineAbility.SpellId == spell.ID
                         select new 
                         { 
                             skillLineAbility, 
@@ -292,8 +290,8 @@ namespace SpellWork
             if (query.Count() == 0)
                 return;
 
-            var skill = query.First().skillLineAbility.Value;
-            var line =  query.First().skillLine.Value;
+            var skill = query.First().skillLineAbility;
+            var line =  query.First().skillLine;
 
             rtb.AppendFormatLine("Skill (Id {0}) \"{1}\"", skill.SkillId, line.Name);
             rtb.AppendFormat("    ReqSkillValue {0}", skill.Req_skill_value);
@@ -362,13 +360,13 @@ namespace SpellWork
 
                     var query = from Spell in DBC.Spell.Values
                                 where Spell.SpellFamilyName == spell.SpellFamilyName && Spell.SpellFamilyFlags.ContainsElement(ClassMask)
-                                join sk in DBC.SkillLineAbility on Spell.ID equals sk.Value.SpellId into temp
+                                join sk in DBC.SkillLineAbility.Records on Spell.ID equals sk.SpellId into temp
                                 from Skill in temp.DefaultIfEmpty()
                                 select new
                                 {
                                     SpellID   = Spell.ID,
                                     SpellName = Spell.SpellNameRank,
-                                    SkillId   = Skill.Value.SkillId
+                                    SkillId   = Skill != null ? Skill.SkillId : 0
                                 };
 
                     foreach (var row in query)

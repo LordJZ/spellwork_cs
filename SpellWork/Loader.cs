@@ -1,32 +1,41 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
+using System.IO;
+using DBFilesClient.NET;
 
 namespace SpellWork
 {
     class Loader
     {
+        void LoadDBC<T>(out DBCStorage<T> dbc) where T : class, new()
+        {
+            var name = typeof(T).Name;
+            name = name.Substring(0, name.Length - "Entry".Length);
+
+            var tmp = new DBCStorage<T>();
+            var bytes = File.ReadAllBytes(Path.Combine(DBC.DBC_PATH, name + ".dbc"));
+            using (var ms = new MemoryStream(bytes))
+                tmp.Load(ms);
+            dbc = tmp;
+        }
+
         public Loader()
         {
-            DBC.AreaGroup           = DBCReader.ReadDBC<AreaGroupEntry>(null);
-            DBC.AreaTable           = DBCReader.ReadDBC<AreaTableEntry>(DBC.AreaTableStrings);
-            DBC.Spell               = DBCReader.ReadDBC<SpellEntry>(DBC.SpellStrings);
-            DBC.SkillLine           = DBCReader.ReadDBC<SkillLineEntry>(DBC.SkillLineStrings);
-            DBC.SpellRange          = DBCReader.ReadDBC<SpellRangeEntry>(DBC.SpellRangeStrings);
-            DBC.ScreenEffect        = DBCReader.ReadDBC<ScreenEffectEntry>(DBC.ScreenEffectStrings);
+            LoadDBC(out DBC.AreaGroup);
+            LoadDBC(out DBC.AreaTable);
+            LoadDBC(out DBC.Spell);
+            LoadDBC(out DBC.SkillLine);
+            LoadDBC(out DBC.SpellRange);
+            LoadDBC(out DBC.ScreenEffect);
 
-            DBC.SpellDuration       = DBCReader.ReadDBC<SpellDurationEntry>(null);
-            DBC.SkillLineAbility    = DBCReader.ReadDBC<SkillLineAbilityEntry>(null);
-            DBC.SpellRadius         = DBCReader.ReadDBC<SpellRadiusEntry>(null);
-            DBC.SpellCastTimes      = DBCReader.ReadDBC<SpellCastTimesEntry>(null);
-            DBC.SpellDifficulty     = DBCReader.ReadDBC<SpellDifficultyEntry>(null);
+            LoadDBC(out DBC.SpellDuration);
+            LoadDBC(out DBC.SkillLineAbility);
+            LoadDBC(out DBC.SpellRadius);
+            LoadDBC(out DBC.SpellCastTimes);
+            LoadDBC(out DBC.SpellDifficulty);
 
-            DBC.OverrideSpellData   = DBCReader.ReadDBC<OverrideSpellDataEntry>(null);
-            DBC.SpellRuneCost       = DBCReader.ReadDBC<SpellRuneCostEntry>(null);
+            LoadDBC(out DBC.OverrideSpellData);
+            LoadDBC(out DBC.SpellRuneCost);
 
-            
             DBC.Locale = DetectedLocale;
         }
 
