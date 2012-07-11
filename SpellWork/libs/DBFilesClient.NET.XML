@@ -67,7 +67,6 @@
             <summary>
             Lazy C string computes the <see cref="T:System.String"/> from the underlying signed byte stream by demand.
             This functionality is disabled by default. Use <see cref="F:DBFilesClient.NET.LoadFlags.LazyCStrings"/> to enable.
-            
             </summary>
         </member>
         <member name="F:DBFilesClient.NET.LoadFlags.LazyCStrings">
