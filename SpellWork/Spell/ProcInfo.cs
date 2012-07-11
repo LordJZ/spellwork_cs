@@ -15,17 +15,17 @@ namespace SpellWork
         {
             familyTree.Nodes.Clear();
 
-            var spells = from Spell in DBC.Spell
-                         where Spell.Value.SpellClassOptions.SpellFamilyName == (uint)spellfamily
-                         join sk in DBC.SkillLineAbility on Spell.Key equals sk.Value.SpellId into temp1
+            var spells = from Spell in DBC.Spell.Records
+                         where Spell.SpellClassOptions.SpellFamilyName == (uint)spellfamily
+                         join sk in DBC.SkillLineAbility.Records on Spell.ID equals sk.SpellId into temp1
                          from Skill in temp1.DefaultIfEmpty()
-                         join skl in DBC.SkillLine on Skill.Value.SkillId equals skl.Key into temp2
+                         join skl in DBC.SkillLine.Records on Skill.SkillId equals skl.ID into temp2
                          from SkillLine in temp2.DefaultIfEmpty()
                          select new
                          {
                              Spell,
-                             Skill.Value.SkillId,
-                             SkillLine.Value
+                             Skill.SkillId,
+                             SkillLine
                          };
 
             for (int i = 0; i < 96; i++)
@@ -47,7 +47,7 @@ namespace SpellWork
 
             foreach (var elem in spells)
             {
-                SpellEntry spell = elem.Spell.Value;
+                SpellEntry spell = elem.Spell;
                 bool IsSkill     = elem.SkillId != 0;
 
                 StringBuilder name    = new StringBuilder();
@@ -61,11 +61,11 @@ namespace SpellWork
 
                 if (IsSkill)
                 {
-                    name.AppendFormat("(Skill: ({0}) {1}) ", elem.SkillId, elem.Value.Name);
+                    name.AppendFormat("(Skill: ({0}) {1}) ", elem.SkillId, elem.SkillLine.Name);
 
                     toolTip.AppendLine();
-                    toolTip.AppendFormatLine("Skill Name: {0}",  elem.Value.Name);
-                    toolTip.AppendFormatLine("Description: {0}", elem.Value.Description);
+                    toolTip.AppendFormatLine("Skill Name: {0}",  elem.SkillLine.Name);
+                    toolTip.AppendFormatLine("Description: {0}", elem.SkillLine.Description);
                 }
 
                 name.AppendFormat("({0})", spell.School.ToString().NormaliseString("MASK_"));

@@ -279,7 +279,7 @@ namespace SpellWork
         
         private void _clbSchools_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ProcInfo.SpellProc.ID != 0)
+            if (ProcInfo.SpellProc != null && ProcInfo.SpellProc.ID != 0)
             {
                 _bWrite.Enabled = true;
                 GetProcAttribute(ProcInfo.SpellProc);
@@ -397,7 +397,8 @@ namespace SpellWork
        
         private void FamilyTree_AfterCheck(object sender, TreeViewEventArgs e)
         {
-            if (!ProcInfo.Update) return;
+            if (!ProcInfo.Update) 
+                return;
 
             _bWrite.Enabled = true;
             _lvProcAdditionalInfo.Items.Clear();
@@ -406,16 +407,16 @@ namespace SpellWork
 
             var query = from Spell in DBC.Spell.Values
                         where Spell.SpellClassOptions.Match(ProcInfo.SpellProc.SpellClassOptions, mask)
-                        join sk in DBC.SkillLineAbility on Spell.ID equals sk.Value.SpellId into temp1
+                        join sk in DBC.SkillLineAbility.Records on Spell.ID equals sk.SpellId into temp1
                         from Skill in temp1.DefaultIfEmpty()
                         //join skl in DBC.SkillLine on Skill.Value.SkillId equals skl.Value.ID into temp2
                         //from SkillLine in temp2.DefaultIfEmpty()
-                        orderby Skill.Key descending
+                        orderby Skill.ID descending
                         select new
                         {
                             SpellID = Spell.ID,
                             SpellName = Spell.SpellNameRank + " " + Spell.Description,
-                            SkillId = Skill.Value.SkillId
+                            SkillId = Skill.SkillId
                         };
 
             foreach (var str in query)

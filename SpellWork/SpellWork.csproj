@@ -72,6 +72,10 @@
     <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DBFilesClient.NET, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>libs\DBFilesClient.NET.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data, Version=6.2.2.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>libs\MySql.Data.dll</HintPath>
@@ -102,7 +106,6 @@
       <DependentUpon>FormAboutBox.cs</DependentUpon>
     </Compile>
     <Compile Include="DBC\DBC.cs" />
-    <Compile Include="DBC\DBCReader.cs" />
     <Compile Include="Forms\FormCalculateFlags.cs">
       <SubType>Form</SubType>
     </Compile>

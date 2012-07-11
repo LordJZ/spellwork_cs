@@ -1,69 +1,86 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using DBFilesClient.NET;
 
 namespace SpellWork
 {
     class Loader
     {
+        void LoadDBC<T>(out DBCStorage<T> dbc) where T : class, new()
+        {
+            var name = typeof(T).Name;
+            name = name.Substring(0, name.Length - "Entry".Length);
+
+            var tmp = new DBCStorage<T>();
+            var bytes = File.ReadAllBytes(Path.Combine(DBC.DBC_PATH, name + ".dbc"));
+            using (var ms = new MemoryStream(bytes))
+                tmp.Load(ms);
+            dbc = tmp;
+        }
+
         public Loader()
         {
-            DBC.Spell       = DBCReader.ReadDBC<SpellEntry>(DBC.SpellStrings);
-            DBC.SpellEffect = DBCReader.ReadDBC<SpellEffectEntry>(null);
+            LoadDBC(out DBC.Spell);
+            LoadDBC(out DBC.SpellEffect);
 
             // this is to speedup spelleffect lookups
-            foreach (var value in DBC.SpellEffect)
+            foreach (SpellEffectEntry value in DBC.SpellEffect)
             {
-                if (DBC.SpellEffects.ContainsKey(value.Value.EffectSpellId))
+                if (DBC.SpellEffects.ContainsKey(value.EffectSpellId))
                 {
-                    DBC.SpellEffects[value.Value.EffectSpellId].Add((int)value.Value.EffectIndex, value.Value);
+                    DBC.SpellEffects[value.EffectSpellId].Add(value.EffectIndex, value);
                 }
                 else
                 {
-                    Dictionary<int, SpellEffectEntry> temp = new Dictionary<int, SpellEffectEntry>(3);
-                    DBC.SpellEffects.Add(value.Value.EffectSpellId, temp);
-                    DBC.SpellEffects[value.Value.EffectSpellId].Add((int)value.Value.EffectIndex, value.Value);
+                    Dictionary<uint, SpellEffectEntry> temp = new Dictionary<uint, SpellEffectEntry>(3);
+                    DBC.SpellEffects.Add(value.EffectSpellId, temp);
+                    DBC.SpellEffects[value.EffectSpellId].Add(value.EffectIndex, value);
                 }
             }
+            LoadDBC(out DBC.SpellTargetRestrictions);
+            LoadDBC(out DBC.SpellAuraRestrictions);
+            LoadDBC(out DBC.SpellCooldowns);
+            LoadDBC(out DBC.SpellCategories);
+            LoadDBC(out DBC.SpellShapeshift);
+            LoadDBC(out DBC.SpellAuraOptions);
+            LoadDBC(out DBC.SpellLevels);
+            LoadDBC(out DBC.SpellClassOptions);
+            LoadDBC(out DBC.SpellCastingRequirements);
+            LoadDBC(out DBC.SpellPower);
+            LoadDBC(out DBC.SpellInterrupts);
+            LoadDBC(out DBC.SpellEquippedItems);
+            LoadDBC(out DBC.SpellDuration);
+            LoadDBC(out DBC.SkillLineAbility);
+            LoadDBC(out DBC.SpellRadius);
+            LoadDBC(out DBC.SpellCastTimes);
+            LoadDBC(out DBC.SpellDifficulty);
+            LoadDBC(out DBC.CurrencyTypes);
+            LoadDBC(out DBC.OverrideSpellData);
+            LoadDBC(out DBC.SkillLine);
+            LoadDBC(out DBC.SpellRange);
+            LoadDBC(out DBC.SpellReagents);
+            LoadDBC(out DBC.ScreenEffect);
 
-            DBC.SpellTargetRestrictions     = DBCReader.ReadDBC<SpellTargetRestrictionsEntry>(null);
-            DBC.SpellAuraRestrictions       = DBCReader.ReadDBC<SpellAuraRestrictionsEntry>(null);
-            DBC.SpellCooldowns              = DBCReader.ReadDBC<SpellCooldownsEntry>(null);
-            DBC.SpellCategories             = DBCReader.ReadDBC<SpellCategoriesEntry>(null);
-            DBC.SpellShapeshift             = DBCReader.ReadDBC<SpellShapeshiftEntry>(null);
-            DBC.SpellAuraOptions            = DBCReader.ReadDBC<SpellAuraOptionsEntry>(null);
-            DBC.SpellLevels                 = DBCReader.ReadDBC<SpellLevelsEntry>(null);
-            DBC.SpellClassOptions           = DBCReader.ReadDBC<SpellClassOptionsEntry>(null);
-            DBC.SpellCastingRequirements    = DBCReader.ReadDBC<SpellCastingRequirementsEntry>(null);
-            DBC.SpellPower                  = DBCReader.ReadDBC<SpellPowerEntry>(null);
-            DBC.SpellInterrupts             = DBCReader.ReadDBC<SpellInterruptsEntry>(null);
-            DBC.SpellEquippedItems          = DBCReader.ReadDBC<SpellEquippedItemsEntry>(null);
-            DBC.SpellDuration               = DBCReader.ReadDBC<SpellDurationEntry>(null);
-            DBC.SkillLineAbility            = DBCReader.ReadDBC<SkillLineAbilityEntry>(null);
-            DBC.SpellRadius                 = DBCReader.ReadDBC<SpellRadiusEntry>(null);
-            DBC.SpellCastTimes              = DBCReader.ReadDBC<SpellCastTimesEntry>(null);
-            DBC.SpellDifficulty             = DBCReader.ReadDBC<SpellDifficultyEntry>(null);
-
-            DBC.CurrencyTypes               = DBCReader.ReadDBC<CurrencyTypesEntry>(DBC.CurrencyTypesStrings);
-            DBC.OverrideSpellData           = DBCReader.ReadDBC<OverrideSpellDataEntry>(null);
-            DBC.SkillLine                   = DBCReader.ReadDBC<SkillLineEntry>(DBC.SkillLineStrings);
-            DBC.SpellRange                  = DBCReader.ReadDBC<SpellRangeEntry>(DBC.SpellRangeStrings);
-            DBC.SpellReagents               = DBCReader.ReadDBC<SpellReagentsEntry>(null);
-            DBC.ScreenEffect                = DBCReader.ReadDBC<ScreenEffectEntry>(DBC.ScreenEffectStrings);
-
-            DBC.Locale = DetectLocale();
+            DBC.Locale = DetectLocale;
         }
 
-        private LocalesDBC DetectLocale()
+        private LocalesDBC DetectLocale
         {
-            byte locale = 0;
-            while (DBC.Spell[DBC.SPELL_ENTRY_FOR_DETECT_LOCALE].GetName(locale) == string.Empty)
+            get
             {
-                ++locale;
+                /*byte locale = 0;
+                while (DBC.Spell[DBC.SPELL_ENTRY_FOR_DETECT_LOCALE].SpellName == string.Empty)
+                {
+                    ++locale;
 
-                if (locale >= DBC.MAX_DBC_LOCALE)
-                    throw new Exception("Detected unknown locale index " + locale);
+                    if (locale >= DBC.MAX_DBC_LOCALE)
+                        throw new Exception("Detected unknown locale index " + locale);
+                }
+                return (LocalesDBC)locale;*/
+                return LocalesDBC.ruRU;
             }
-            return (LocalesDBC)locale;
         }
     }
 }

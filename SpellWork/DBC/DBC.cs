@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DBFilesClient.NET;
 
 namespace SpellWork
 {
@@ -11,39 +12,33 @@ namespace SpellWork
         public const int MAX_EFFECT_INDEX               = 3;
         public const int SPELL_ENTRY_FOR_DETECT_LOCALE  = 1;
 
-        public static Dictionary<uint, CurrencyTypesEntry>          CurrencyTypes;
-        public static Dictionary<uint, SpellEntry>                  Spell;
-        public static Dictionary<uint, SpellEffectEntry>            SpellEffect;
-        public static Dictionary<uint, SpellTargetRestrictionsEntry> SpellTargetRestrictions;
-        public static Dictionary<uint, SpellAuraRestrictionsEntry>  SpellAuraRestrictions;
-        public static Dictionary<uint, SpellCooldownsEntry>         SpellCooldowns;
-        public static Dictionary<uint, SpellCategoriesEntry>        SpellCategories;
-        public static Dictionary<uint, SpellShapeshiftEntry>        SpellShapeshift;
-        public static Dictionary<uint, SpellAuraOptionsEntry>       SpellAuraOptions;
-        public static Dictionary<uint, SpellLevelsEntry>            SpellLevels;
-        public static Dictionary<uint, SpellClassOptionsEntry>      SpellClassOptions;
-        public static Dictionary<uint, SpellCastingRequirementsEntry> SpellCastingRequirements;
-        public static Dictionary<uint, SpellPowerEntry>             SpellPower;
-        public static Dictionary<uint, SpellInterruptsEntry>        SpellInterrupts;
-        public static Dictionary<uint, SpellEquippedItemsEntry>     SpellEquippedItems;
-        public static Dictionary<uint, SpellRadiusEntry>            SpellRadius;
-        public static Dictionary<uint, SpellCastTimesEntry>         SpellCastTimes;
-        public static Dictionary<uint, SpellDifficultyEntry>        SpellDifficulty;
-        public static Dictionary<uint, SpellRangeEntry>             SpellRange;
-        public static Dictionary<uint, SpellReagentsEntry>          SpellReagents;
-        public static Dictionary<uint, SpellDurationEntry>          SpellDuration;
-        public static Dictionary<uint, SkillLineAbilityEntry>       SkillLineAbility;
-        public static Dictionary<uint, SkillLineEntry>              SkillLine;
-        public static Dictionary<uint, ScreenEffectEntry>           ScreenEffect;
-        public static Dictionary<uint, OverrideSpellDataEntry>      OverrideSpellData;
+        public static DBCStorage<CurrencyTypesEntry>          CurrencyTypes;
+        public static DBCStorage<SpellEntry> Spell;
+        public static DBCStorage<SpellEffectEntry> SpellEffect;
+        public static DBCStorage<SpellTargetRestrictionsEntry> SpellTargetRestrictions;
+        public static DBCStorage<SpellAuraRestrictionsEntry> SpellAuraRestrictions;
+        public static DBCStorage<SpellCooldownsEntry> SpellCooldowns;
+        public static DBCStorage<SpellCategoriesEntry> SpellCategories;
+        public static DBCStorage<SpellShapeshiftEntry> SpellShapeshift;
+        public static DBCStorage<SpellAuraOptionsEntry> SpellAuraOptions;
+        public static DBCStorage<SpellLevelsEntry> SpellLevels;
+        public static DBCStorage<SpellClassOptionsEntry> SpellClassOptions;
+        public static DBCStorage<SpellCastingRequirementsEntry> SpellCastingRequirements;
+        public static DBCStorage<SpellPowerEntry> SpellPower;
+        public static DBCStorage<SpellInterruptsEntry> SpellInterrupts;
+        public static DBCStorage<SpellEquippedItemsEntry> SpellEquippedItems;
+        public static DBCStorage<SpellRadiusEntry> SpellRadius;
+        public static DBCStorage<SpellCastTimesEntry> SpellCastTimes;
+        public static DBCStorage<SpellDifficultyEntry> SpellDifficulty;
+        public static DBCStorage<SpellRangeEntry> SpellRange;
+        public static DBCStorage<SpellReagentsEntry> SpellReagents;
+        public static DBCStorage<SpellDurationEntry> SpellDuration;
+        public static DBCStorage<SkillLineAbilityEntry> SkillLineAbility;
+        public static DBCStorage<SkillLineEntry> SkillLine;
+        public static DBCStorage<ScreenEffectEntry> ScreenEffect;
+        public static DBCStorage<OverrideSpellDataEntry> OverrideSpellData;
 
-        public static Dictionary<uint, string> CurrencyTypesStrings    = new Dictionary<uint, string>();
-        public static Dictionary<uint, string> SpellStrings            = new Dictionary<uint, string>();
-        public static Dictionary<uint, string> SkillLineStrings        = new Dictionary<uint, string>();
-        public static Dictionary<uint, string> SpellRangeStrings       = new Dictionary<uint, string>();
-        public static Dictionary<uint, string> ScreenEffectStrings     = new Dictionary<uint, string>();
-
-        public static Dictionary<uint, Dictionary<int, SpellEffectEntry>> SpellEffects = new Dictionary<uint, Dictionary<int, SpellEffectEntry>>();
+        public static Dictionary<uint, Dictionary<uint, SpellEffectEntry>> SpellEffects = new Dictionary<uint, Dictionary<uint, SpellEffectEntry>>();
 
         // DB 
         public static List<Item> ItemTemplate = new List<Item>();
