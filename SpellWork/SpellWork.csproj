@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SpellWork</RootNamespace>
     <AssemblyName>SpellWork</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ApplicationIcon>New Icon.ico</ApplicationIcon>
     <SignAssembly>false</SignAssembly>
@@ -33,6 +33,7 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -58,6 +59,9 @@
     </CodeAnalysisRules>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DBFilesClient.NET">
+      <HintPath>.\DBFilesClient.NET.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data, Version=6.2.2.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>libs\MySql.Data.dll</HintPath>
@@ -79,6 +83,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Database\MySQLConnect.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Database\Structures.cs" />
+    <Compile Include="DBC\Structures\AreaGroupEntry.cs" />
+    <Compile Include="DBC\Structures\AreaTableEntry.cs" />
+    <Compile Include="DBC\Structures\OverrideSpellDataEntry.cs" />
+    <Compile Include="DBC\Structures\ScreenEffectEntry.cs" />
+    <Compile Include="DBC\Structures\SkillLineAbilityEntry.cs" />
+    <Compile Include="DBC\Structures\SkillLineEntry.cs" />
+    <Compile Include="DBC\Structures\SpellAuraOptionsEntry.cs" />
+    <Compile Include="DBC\Structures\SpellAuraRestrictionsEntry.cs" />
+    <Compile Include="DBC\Structures\SpellCastingRequirementsEntry.cs" />
+    <Compile Include="DBC\Structures\SpellCastTimesEntry.cs" />
+    <Compile Include="DBC\Structures\SpellCategoriesEntry.cs" />
+    <Compile Include="DBC\Structures\SpellClassOptionsEntry.cs" />
+    <Compile Include="DBC\Structures\SpellCooldownsEntry.cs" />
+    <Compile Include="DBC\Structures\SpellDifficultyEntry.cs" />
+    <Compile Include="DBC\Structures\SpellDurationEntry.cs" />
+    <Compile Include="DBC\Structures\SpellEffectEntry.cs" />
+    <Compile Include="DBC\Structures\SpellEntry.cs" />
+    <Compile Include="DBC\Structures\SpellEquippedItemsEntry.cs" />
+    <Compile Include="DBC\Structures\SpellInterruptsEntry.cs" />
+    <Compile Include="DBC\Structures\SpellLevelsEntry.cs" />
+    <Compile Include="DBC\Structures\SpellMissileEntry.cs" />
+    <Compile Include="DBC\Structures\SpellMissileMotionEntry.cs" />
+    <Compile Include="DBC\Structures\SpellPowerEntry.cs" />
+    <Compile Include="DBC\Structures\SpellRadiusEntry.cs" />
+    <Compile Include="DBC\Structures\SpellRangeEntry.cs" />
+    <Compile Include="DBC\Structures\SpellReagentsEntry.cs" />
+    <Compile Include="DBC\Structures\SpellRuneCostEntry.cs" />
+    <Compile Include="DBC\Structures\SpellScalingEntry.cs" />
+    <Compile Include="DBC\Structures\SpellShapeshiftEntry.cs" />
+    <Compile Include="DBC\Structures\SpellTargetRestrictionsEntry.cs" />
+    <Compile Include="DBC\Structures\SpellTotemsEntry.cs" />
+    <Compile Include="DBC\Structures\SpellVisualEntry.cs" />
     <Compile Include="Extensions\LinqExtensions.cs" />
     <Compile Include="Extensions\TreeViewExtensions.cs" />
     <Compile Include="Forms\FormAboutBox.cs">
@@ -88,7 +128,6 @@
       <DependentUpon>FormAboutBox.cs</DependentUpon>
     </Compile>
     <Compile Include="DBC\DBC.cs" />
-    <Compile Include="DBC\DBCReader.cs" />
     <Compile Include="Forms\FormCalculateFlags.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,20 +140,17 @@
     <Compile Include="Forms\FormSearch.Designer.cs">
       <DependentUpon>FormSearch.cs</DependentUpon>
     </Compile>
-    <Compile Include="Loader.cs" />
+    <Compile Include="Forms\FormSettings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FormSettings.designer.cs">
+      <DependentUpon>FormSettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Spell\ProcInfo.cs">
     </Compile>
     <Compile Include="Extensions\RichTextBoxExtensions.cs" />
     <Compile Include="Extensions\Extensions.cs" />
-    <Compile Include="Database\MySQLConnect.cs" />
-    <Compile Include="Forms\FormSettings.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormSettings.Designer.cs">
-      <DependentUpon>FormSettings.cs</DependentUpon>
-    </Compile>
     <Compile Include="Spell\SpellCompare.cs" />
-    <Compile Include="DBC\Structure.cs" />
     <Compile Include="Spell\SpellInfo.cs" />
     <Compile Include="Spell\SpellEnums.cs" />
     <Compile Include="Forms\FormMain.cs">
@@ -125,6 +161,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Spell\SpellInfoHelper.cs" />
     <EmbeddedResource Include="Forms\FormAboutBox.resx">
       <DependentUpon>FormAboutBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -138,13 +175,13 @@
       <DependentUpon>FormMain.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FormSettings.resx">
+      <DependentUpon>FormSettings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormSettings.resx">
-      <DependentUpon>FormSettings.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -199,6 +236,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -7,7 +7,6 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using SpellWork.Database;
-using SpellWork.DBC;
 using SpellWork.Extensions;
 using SpellWork.Spell;
 
@@ -43,10 +42,8 @@ namespace SpellWork.Forms
 
             _cbSqlSpellFamily.SetEnumValues<SpellFamilyNames>("SpellFamilyName");
 
-            _status.Text = String.Format("DBC Locale: {0}", DBC.DBC.Locale);
-
-            _cbAdvancedFilter1.SetStructFields<SpellEntry>();
-            _cbAdvancedFilter2.SetStructFields<SpellEntry>();
+            _cbAdvancedFilter1.SetStructFields<SpellInfoHelper>();
+            _cbAdvancedFilter2.SetStructFields<SpellInfoHelper>();
 
             _cbAdvancedFilter1CompareType.SetEnumValuesDirect<CompareType>(true);
             _cbAdvancedFilter2CompareType.SetEnumValuesDirect<CompareType>(true);
@@ -170,7 +167,7 @@ namespace SpellWork.Forms
             var ic = _tbSearchIcon.Text.ToUInt32();
             var at = _tbSearchAttributes.Text.ToUInt32();
 
-            _spellList = (from spell in DBC.DBC.Spell.Values
+            _spellList = (from spell in DBC.DBC.SpellInfoStore.Values
                           where
                               ((id == 0 || spell.ID == id) && (ic == 0 || spell.SpellIconID == ic) &&
                                (at == 0 || (spell.Attributes & at) != 0 || (spell.AttributesEx & at) != 0 ||
@@ -215,13 +212,13 @@ namespace SpellWork.Forms
             var field1Ct = (CompareType)_cbAdvancedFilter1CompareType.SelectedIndex;
             var field2Ct = (CompareType)_cbAdvancedFilter2CompareType.SelectedIndex;
 
-            _spellList = (from spell in DBC.DBC.Spell.Values
+            _spellList = (from spell in DBC.DBC.SpellInfoStore.Values
                           where
                               (!bFamilyNames || spell.SpellFamilyName == fFamilyNames) &&
-                              (!bSpellEffect || spell.Effect.ContainsElement((uint)fSpellEffect)) &&
-                              (!bSpellAura || spell.EffectApplyAuraName.ContainsElement((uint)fSpellAura)) &&
-                              (!bTarget1 || spell.EffectImplicitTargetA.ContainsElement((uint)fTarget1)) &&
-                              (!bTarget2 || spell.EffectImplicitTargetB.ContainsElement((uint)fTarget2)) &&
+                              (!bSpellEffect || spell.HasEffect((SpellEffects)fSpellEffect)) &&
+                              (!bSpellAura || spell.HasAura((AuraType)fSpellAura)) &&
+                              (!bTarget1 || spell.HasTargetA((Targets)fTarget1)) &&
+                              (!bTarget2 || spell.HasTargetB((Targets)fTarget2)) &&
                               (!use1Val || spell.CreateFilter(field1, advVal1, field1Ct)) &&
                               (!use2Val || spell.CreateFilter(field2, advVal2, field2Ct))
                           select spell).ToList();
@@ -249,7 +246,7 @@ namespace SpellWork.Forms
         private void TvFamilyTreeAfterSelect(object sender, TreeViewEventArgs e)
         {
             if (e.Node.Level > 0)
-                SetProcAtribute(DBC.DBC.Spell[e.Node.Name.ToUInt32()]);
+                SetProcAtribute(DBC.DBC.SpellInfoStore[e.Node.Name.ToUInt32()]);
         }
 
         private void LvProcSpellListSelectedIndexChanged(object sender, EventArgs e)
@@ -264,7 +261,7 @@ namespace SpellWork.Forms
         private void LvProcAdditionalInfoSelectedIndexChanged(object sender, EventArgs e)
         {
             if (_lvProcAdditionalInfo.SelectedIndices.Count > 0)
-                SetProcAtribute(DBC.DBC.Spell[_lvProcAdditionalInfo.SelectedItems[0].SubItems[0].Text.ToUInt32()]);
+                SetProcAtribute(DBC.DBC.SpellInfoStore[_lvProcAdditionalInfo.SelectedItems[0].SubItems[0].Text.ToUInt32()]);
         }
 
         private void ClbSchoolsSelectedIndexChanged(object sender, EventArgs e)
@@ -304,7 +301,7 @@ namespace SpellWork.Forms
             new ProcInfo(_tvFamilyTree, spellfamily);
         }
 
-        private void SetProcAtribute(SpellEntry spell)
+        private void SetProcAtribute(SpellInfoHelper spell)
         {
             new SpellInfo(_rtbProcSpellInfo, spell);
 
@@ -317,7 +314,7 @@ namespace SpellWork.Forms
             _tbCooldown.Text = (spell.RecoveryTime / 1000f).ToString();
         }
 
-        private void GetProcAttribute(SpellEntry spell)
+        private void GetProcAttribute(SpellInfoHelper spell)
         {
             var spellFamilyFlags = _tvFamilyTree.GetMask();
             var statusproc =
@@ -334,7 +331,7 @@ namespace SpellWork.Forms
         {
             var id = _tbProcSeach.Text.ToUInt32();
 
-            _spellProcList = (from spell in DBC.DBC.Spell.Values
+            _spellProcList = (from spell in DBC.DBC.SpellInfoStore.Values
                               where
                                   (id == 0 || spell.ID == id) &&
                                   (id != 0 || spell.SpellName.ContainsText(_tbProcSeach.Text))
@@ -362,13 +359,13 @@ namespace SpellWork.Forms
             var bTarget2 = _cbProcTarget2.SelectedIndex != 0;
             var fTarget2 = _cbProcTarget2.SelectedValue.ToInt32();
 
-            _spellProcList = (from spell in DBC.DBC.Spell.Values
+            _spellProcList = (from spell in DBC.DBC.SpellInfoStore.Values
                               where
                                   (!bFamilyNames || spell.SpellFamilyName == fFamilyNames) &&
-                                  (!bSpellEffect || spell.Effect.ContainsElement((uint)fSpellEffect)) &&
-                                  (!bSpellAura || spell.EffectApplyAuraName.Contains((uint)fSpellAura)) &&
-                                  (!bTarget1 || spell.EffectImplicitTargetA.ContainsElement((uint)fTarget1)) &&
-                                  (!bTarget2 || spell.EffectImplicitTargetB.ContainsElement((uint)fTarget2))
+                                  (!bSpellEffect || spell.HasEffect((SpellEffects)fSpellEffect)) &&
+                                  (!bSpellAura || spell.HasAura((AuraType)fSpellAura)) &&
+                                  (!bTarget1 || spell.HasTargetA((Targets)fTarget1)) &&
+                                  (!bTarget2 || spell.HasTargetB((Targets)fTarget2))
                               select spell).ToList();
 
             _lvProcSpellList.VirtualListSize = _spellProcList.Count();
@@ -386,21 +383,21 @@ namespace SpellWork.Forms
 
             var mask = ((TreeView)sender).GetMask();
 
-            var query = from spell in DBC.DBC.Spell.Values
+            var query = from spell in DBC.DBC.SpellInfoStore.Values
                         where
                             spell.SpellFamilyName == ProcInfo.SpellProc.SpellFamilyName &&
                             spell.SpellFamilyFlags.ContainsElement(mask)
-                        join sk in DBC.DBC.SkillLineAbility on spell.ID equals sk.Value.SpellId into temp1
+                        join sk in DBC.DBC.SkillLineAbility.Values on spell.ID equals sk.SpellId into temp1
                         from skill in temp1.DefaultIfEmpty()
                         //join skl in DBC.SkillLine on Skill.Value.SkillId equals skl.Value.ID into temp2
                         //from SkillLine in temp2.DefaultIfEmpty()
-                        orderby skill.Key descending
+                        orderby skill.Id descending
                         select
                             new
                             {
                                 SpellID = spell.ID,
                                 SpellName = spell.SpellNameRank + " " + spell.Description,
-                                skill.Value.SkillId
+                                skill.SkillId
                             };
 
             foreach (var lvi in
@@ -420,7 +417,7 @@ namespace SpellWork.Forms
             var spell2 = _tbCompareFilterSpell2.Text.ToUInt32();
 
             if (DBC.DBC.Spell.ContainsKey(spell1) && DBC.DBC.Spell.ContainsKey(spell2))
-                new SpellCompare(_rtbCompareSpell1, _rtbCompareSpell2, DBC.DBC.Spell[spell1], DBC.DBC.Spell[spell2]);
+                new SpellCompare(_rtbCompareSpell1, _rtbCompareSpell2, DBC.DBC.SpellInfoStore[spell1], DBC.DBC.SpellInfoStore[spell2]);
         }
 
         private void CompareSearch1Click(object sender, EventArgs e)
@@ -569,7 +566,7 @@ namespace SpellWork.Forms
         private void ProcParse(object sender)
         {
             var proc = MySqlConnection.SpellProcEvent[((ListView)sender).SelectedIndices[0]];
-            var spell = DBC.DBC.Spell[proc.Id];
+            var spell = DBC.DBC.SpellInfoStore[proc.Id];
             ProcInfo.SpellProc = spell;
 
             new SpellInfo(_rtbProcSpellInfo, spell);
@@ -594,9 +591,9 @@ namespace SpellWork.Forms
 
         #region VIRTUAL MODE
 
-        private List<SpellEntry> _spellList = new List<SpellEntry>();
+        private List<SpellInfoHelper> _spellList = new List<SpellInfoHelper>();
 
-        private List<SpellEntry> _spellProcList = new List<SpellEntry>();
+        private List<SpellInfoHelper> _spellProcList = new List<SpellInfoHelper>();
 
         private void LvSpellListRetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
         {

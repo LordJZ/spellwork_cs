@@ -1,33 +1,32 @@
 ﻿using System;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Drawing;
-using SpellWork.DBC;
 using SpellWork.Extensions;
 
 namespace SpellWork.Spell
 {
     public class ProcInfo
     {
-        public static SpellEntry SpellProc { get; set; }
+        public static SpellInfoHelper SpellProc { get; set; }
         public static bool Update = true;
 
         public ProcInfo(TreeView familyTree, SpellFamilyNames spellfamily)
         {
             familyTree.Nodes.Clear();
 
-            var spells = from spell in DBC.DBC.Spell
-                         where spell.Value.SpellFamilyName == (uint)spellfamily
-                         join sk in DBC.DBC.SkillLineAbility on spell.Key equals sk.Value.SpellId into temp1
+            var spells = from spell in DBC.DBC.SpellInfoStore.Values
+                         where spell.SpellFamilyName == (uint)spellfamily
+                         join sk in DBC.DBC.SkillLineAbility.Values on spell.ID equals sk.SpellId into temp1
                          from skill in temp1.DefaultIfEmpty()
-                         join skl in DBC.DBC.SkillLine on skill.Value.SkillId equals skl.Key into temp2
+                         join skl in DBC.DBC.SkillLine.Values on skill.SkillId equals skl.Id into temp2
                          from skillLine in temp2.DefaultIfEmpty()
                          select new
                          {
                              spell,
-                             skill.Value.SkillId,
-                             skillLine.Value
+                             skill.SkillId,
+                             skillLine
                          };
 
             for (var i = 0; i < 96; ++i)
@@ -51,7 +50,7 @@ namespace SpellWork.Spell
 
             foreach (var elem in spells)
             {
-                var spell = elem.spell.Value;
+                var spell = elem.spell;
                 var isSkill = elem.SkillId != 0;
 
                 var name    = new StringBuilder();
@@ -65,11 +64,11 @@ namespace SpellWork.Spell
 
                 if (isSkill)
                 {
-                    name.AppendFormat("(Skill: ({0}) {1}) ", elem.SkillId, elem.Value.Name);
+                    name.AppendFormat("(Skill: ({0}) {1}) ", elem.SkillId, elem.skillLine.Name);
 
                     toolTip.AppendLine();
-                    toolTip.AppendFormatLine("Skill Name: {0}",  elem.Value.Name);
-                    toolTip.AppendFormatLine("Description: {0}", elem.Value.Description);
+                    toolTip.AppendFormatLine("Skill Name: {0}", elem.skillLine.Name);
+                    toolTip.AppendFormatLine("Description: {0}", elem.skillLine.Description);
                 }
 
                 name.AppendFormat("({0})", spell.School.ToString().NormalizeString("MASK_"));

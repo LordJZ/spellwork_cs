@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
-using SpellWork.DBC;
 using SpellWork.Extensions;
 using SpellWork.Properties;
 
@@ -33,7 +32,7 @@ namespace SpellWork.Database
         private static String GetSpellName(uint id)
         {
             if (DBC.DBC.Spell.ContainsKey(id))
-                return DBC.DBC.Spell[id].SpellNameRank;
+                return DBC.DBC.SpellInfoStore[id].SpellNameRank;
 
             Dropped.Add(String.Format("DELETE FROM `spell_proc_event` WHERE `entry` IN ({0});\r\n", id.ToUInt32()));
             return String.Empty;
@@ -92,8 +91,6 @@ namespace SpellWork.Database
                 @"SELECT    t.entry,
                             t.name,
                             t.description,
-                            l.name_loc{0},
-                            l.description_loc{0},
                             t.spellid_1,
                             t.spellid_2,
                             t.spellid_3,
@@ -101,17 +98,12 @@ namespace SpellWork.Database
                             t.spellid_5
                 FROM
                     `item_template` t
-                LEFT JOIN
-                    `locales_item` l
-                ON
-                    t.entry = l.entry
                 WHERE
                     t.spellid_1 <> 0 ||
                     t.spellid_2 <> 0 ||
                     t.spellid_3 <> 0 ||
                     t.spellid_4 <> 0 ||
-                    t.spellid_5 <> 0;",
-                (int)DBC.DBC.Locale == 0 ? 1 : (int)DBC.DBC.Locale /* it's hack TODO: replace code*/);
+                    t.spellid_5 <> 0;");
 
             using (_conn = new MySql.Data.MySqlClient.MySqlConnection(ConnectionString))
             {

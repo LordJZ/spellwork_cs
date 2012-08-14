@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using SpellWork.DBC;
 using SpellWork.Extensions;
 using SpellWork.Spell;
 
@@ -10,7 +9,7 @@ namespace SpellWork.Forms
 {
     public partial class FormSearch : Form
     {
-        private List<SpellEntry> _spellList = new List<SpellEntry>();
+        private List<SpellInfoHelper> _spellList = new List<SpellInfoHelper>();
 
         public FormSearch()
         {
@@ -23,7 +22,7 @@ namespace SpellWork.Forms
             _cbTarget2.SetEnumValues<Targets>("Target B");
         }
 
-        public SpellEntry Spell { get; private set; }
+        public SpellInfoHelper Spell { get; private set; }
 
         private void IdNameKeyDown(object sender, KeyEventArgs e)
         {
@@ -35,13 +34,13 @@ namespace SpellWork.Forms
             var ic = _tbIcon.Text.ToUInt32();
             var at = _tbAttribute.Text.ToUInt32();
 
-            _spellList = (from spell in DBC.DBC.Spell.Values
+            _spellList = (from spell in DBC.DBC.SpellInfoStore.Values
                           where
                               ((id == 0 || spell.ID == id) && (ic == 0 || spell.SpellIconID == ic) &&
                                (at == 0 || (spell.Attributes & at) != 0 || (spell.AttributesEx & at) != 0 ||
                                 (spell.AttributesEx2 & at) != 0 || (spell.AttributesEx3 & at) != 0 ||
                                 (spell.AttributesEx4 & at) != 0 || (spell.AttributesEx5 & at) != 0 ||
-                                (spell.AttributesEx6 & at) != 0 || (spell.AttributesEx7 & at) != 0)) &&
+                                (spell.AttributesEx6 & at) != 0 || (spell.AttributesEx7 & at) != 0 || (spell.AttributesEx8 & at) != 0)) &&
                               (id != 0 || ic != 0 && at != 0) || spell.SpellName.ContainsText(name)
                           select spell).ToList();
 
@@ -72,13 +71,13 @@ namespace SpellWork.Forms
             var bTarget2 = _cbTarget2.SelectedIndex != 0;
             var fTarget2 = _cbTarget2.SelectedValue.ToInt32();
 
-            _spellList = (from spell in DBC.DBC.Spell.Values
+            _spellList = (from spell in DBC.DBC.SpellInfoStore.Values
                           where
                               (!bFamilyNames || spell.SpellFamilyName == fFamilyNames) &&
-                              (!bSpellEffect || spell.Effect.ContainsElement((uint)fSpellEffect)) &&
-                              (!bSpellAura || spell.EffectApplyAuraName.ContainsElement((uint)fSpellAura)) &&
-                              (!bTarget1 || spell.EffectImplicitTargetA.ContainsElement((uint)fTarget1)) &&
-                              (!bTarget2 || spell.EffectImplicitTargetB.ContainsElement((uint)fTarget2))
+                              (!bSpellEffect || spell.HasEffect((SpellEffects)fSpellEffect)) &&
+                              (!bSpellAura || spell.HasAura((AuraType)fSpellAura)) &&
+                              (!bTarget1 || spell.HasTargetA((Targets)fTarget1)) &&
+                              (!bTarget2 || spell.HasTargetB((Targets)fTarget2))
                           select spell).ToList();
 
             _lvSpellList.VirtualListSize = _spellList.Count();

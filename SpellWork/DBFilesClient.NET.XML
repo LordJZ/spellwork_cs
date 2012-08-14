@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DBFilesClient.NET</name>
+    </assembly>
+    <members>
+        <member name="T:DBFilesClient.NET.StoragePresenceAttribute">
+            <summary>
+            Controls how the field is treated by the DBC storage loader.
+            </summary>
+        </member>
+        <member name="M:DBFilesClient.NET.StoragePresenceAttribute.#ctor(DBFilesClient.NET.StoragePresenceOption)">
+            <summary>
+            Initializes a new instance of <see cref="T:DBFilesClient.NET.StoragePresenceAttribute"/>
+            with the specified <see cref="T:DBFilesClient.NET.StoragePresenceOption"/>.
+            </summary>
+            <param name="option">
+            Specifies how the underlying class field should be treated when loading from a DBC storage.
+            </param>
+        </member>
+        <member name="P:DBFilesClient.NET.StoragePresenceAttribute.Option">
+            <summary>
+            Gets the value that specifies how the underlying class field should be treated when loading from a DBC storage.
+            </summary>
+        </member>
+        <member name="P:DBFilesClient.NET.StoragePresenceAttribute.PropertyName">
+            <summary>
+            Gets or sets the name of of the property that should be used instead of the underlying class field.
+            Use it with <see cref="F:DBFilesClient.NET.StoragePresenceOption.UseProperty"/> value.
+            </summary>
+        </member>
+        <member name="P:DBFilesClient.NET.StoragePresenceAttribute.ArraySize">
+            <summary>
+            Gets or sets the number of elements in the underlying array.
+            </summary>
+        </member>
+        <member name="M:DBFilesClient.NET.Storage`1.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:DBFilesClient.NET.Storage`1"/> class.
+            </summary>
+        </member>
+        <member name="M:DBFilesClient.NET.Storage`1.Clear">
+            <summary>
+            Removes all records from the current storage.
+            </summary>
+        </member>
+        <member name="M:DBFilesClient.NET.Storage`1.Load(System.IO.Stream)">
+            <summary>
+            Loads the storage from a <see cref="T:System.IO.Stream"/>.
+            </summary>
+            <param name="stream">
+            The <see cref="T:System.IO.Stream"/> from which the storage should be loaded.
+            </param>
+        </member>
+        <member name="P:DBFilesClient.NET.Storage`1.Count">
+            <summary>
+            Gets the number of records currently contained in the storage.
+            </summary>
+        </member>
+        <member name="P:DBFilesClient.NET.Storage`1.MinId">
+            <summary>
+            Gets the minimum record id in the storage.
+            Existance of a record with this id is not guaranteed.
+            </summary>
+        </member>
+        <member name="P:DBFilesClient.NET.Storage`1.MaxId">
+            <summary>
+            Gets the maximum record id in the storage.
+            Existance of a record with this id is not guaranteed.
+            </summary>
+        </member>
+        <member name="M:DBFilesClient.NET.DBCStorage`1.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:DBFilesClient.NET.DBCStorage`1"/> class.
+            </summary>
+        </member>
+        <member name="M:DBFilesClient.NET.DBCStorage`1.Load(System.IO.Stream)">
+            <summary>
+            Loads the storage from a <see cref="T:System.IO.Stream"/>.
+            </summary>
+            <param name="stream">
+            The <see cref="T:System.IO.Stream"/> from which the storage should be loaded.
+            </param>
+        </member>
+        <member name="M:DBFilesClient.NET.DBCStorage`1.Load(System.IO.Stream,DBFilesClient.NET.LoadFlags)">
+            <summary>
+            Loads the storage from a <see cref="T:System.IO.Stream"/>.
+            </summary>
+            <param name="stream">
+            The <see cref="T:System.IO.Stream"/> from which the storage should be loaded.
+            </param>
+            <param name="flags">
+            The <see cref="T:DBFilesClient.NET.LoadFlags"/> to be used when loading.
+            </param>
+        </member>
+        <member name="T:DBFilesClient.NET.LazyCString">
+            <summary>
+            Lazy C string computes the <see cref="T:System.String"/> from the underlying signed byte stream by demand.
+            This functionality is disabled by default. Use <see cref="F:DBFilesClient.NET.LoadFlags.LazyCStrings"/> to enable.
+            </summary>
+        </member>
+        <member name="T:DBFilesClient.NET.StoragePresenceOption">
+            <summary>
+            Specifies how a class field should be treated when loading from a DBC storage.
+            </summary>
+        </member>
+        <member name="F:DBFilesClient.NET.StoragePresenceOption.Include">
+            <summary>
+            Specifies that the field should be included into the storage entry structure.
+            This is the default behavior.
+            </summary>
+        </member>
+        <member name="F:DBFilesClient.NET.StoragePresenceOption.Exclude">
+            <summary>
+            Specifies that the field should be completely ignored by the DBC stoarge loader.
+            </summary>
+        </member>
+        <member name="F:DBFilesClient.NET.StoragePresenceOption.UseProperty">
+            <summary>
+            Specifies that the DBC storage loader should use property instead.
+            You should specify the <see cref="P:DBFilesClient.NET.StoragePresenceAttribute.PropertyName"/> property.
+            The property should be of the same type as the field, and its setter should be public.
+            </summary>
+        </member>
+        <member name="F:DBFilesClient.NET.LoadFlags.LazyCStrings">
+            <summary>
+            Enables laziness of <see cref="T:DBFilesClient.NET.LazyCString"/>.
+            </summary>
+        </member>
+    </members>
+</doc>

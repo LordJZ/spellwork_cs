@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 using SpellWork.Forms;
 
@@ -17,14 +18,22 @@ namespace SpellWork
 
             try
             {
-                new Loader();
+                DBC.DBC.Load();
                 Application.Run(new FormMain());
             }
-            catch (Exception ex)
+            catch (DirectoryNotFoundException dnfe)
             {
-                MessageBox.Show(ex.Message, @"SpellWork Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(dnfe.Message, @"Missing required DBC file!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            catch (ArgumentException ae)
+            {
+                MessageBox.Show(ae.Message, @"DBC file has wrong structure!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, @"SpellWork Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    MessageBox.Show(ex.ToString());
+            //}
         }
     }
 }

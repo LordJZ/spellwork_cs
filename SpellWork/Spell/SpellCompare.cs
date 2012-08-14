@@ -1,6 +1,5 @@
-﻿using System.Windows.Forms;
-using System.Drawing;
-using SpellWork.DBC;
+﻿using System.Drawing;
+using System.Windows.Forms;
 using SpellWork.Extensions;
 
 namespace SpellWork.Spell
@@ -13,7 +12,7 @@ namespace SpellWork.Spell
         /// <summary>
         /// Search terms
         /// </summary>
-        readonly string[] _words = new[] { "=====" };// todo: more wodrs
+        readonly string[] _words = new[] { "=====" };
 
         /// <summary>
         /// Compares two spells
@@ -22,7 +21,7 @@ namespace SpellWork.Spell
         /// <param name="rtb2">RichTextBox 2 in right</param>
         /// <param name="spell1">Compare Spell 1</param>
         /// <param name="spell2">Compare Spell 2</param>
-        public SpellCompare(RichTextBox rtb1, RichTextBox rtb2, SpellEntry spell1, SpellEntry spell2)
+        public SpellCompare(RichTextBox rtb1, RichTextBox rtb2, SpellInfoHelper spell1, SpellInfoHelper spell2)
         {
             new SpellInfo(rtb1, spell1);
             new SpellInfo(rtb2, spell2);

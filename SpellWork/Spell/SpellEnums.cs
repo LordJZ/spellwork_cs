@@ -3,19 +3,6 @@
 namespace SpellWork.Spell
 {
     // ReSharper disable InconsistentNaming
-    public enum LocalesDBC
-    {
-        enUS,
-        koKR,
-        frFR,
-        deDE,
-        zhCN,
-        zhTW,
-        esES,
-        esMX,
-        ruRU
-    };
-
     /// <summary>
     ///
     /// </summary>
@@ -242,7 +229,25 @@ namespace SpellWork.Spell
         SPELL_EFFECT_TALENT_SPEC_SELECT               = 162,
         SPELL_EFFECT_163                              = 163,
         SPELL_EFFECT_REMOVE_AURA                      = 164,
-        TOTAL_SPELL_EFFECTS                           = 165
+        SPELL_EFFECT_165                              = 165,
+        SPELL_EFFECT_166                              = 166,
+        SPELL_EFFECT_167                              = 167,
+        SPELL_EFFECT_168                              = 168,
+        SPELL_EFFECT_169                              = 169,
+        SPELL_EFFECT_170                              = 170,
+        SPELL_EFFECT_171                              = 171,  // Summons gamebject
+        SPELL_EFFECT_172                              = 172,  // Aoe ressurection
+        SPELL_EFFECT_UNLOCK_GUILD_VAULT_TAB           = 173,  // Guild tab unlocked (guild perk)
+        SPELL_EFFECT_174                              = 174,  //
+        SPELL_EFFECT_175                              = 175,  // Unused (4.2.2)
+        SPELL_EFFECT_176                              = 176,  // Some kind of sanctuary effect (Vanish)
+        SPELL_EFFECT_177                              = 177,
+        SPELL_EFFECT_178                              = 178,
+        SPELL_EFFECT_179                              = 179,
+        SPELL_EFFECT_180                              = 180,
+        SPELL_EFFECT_181                              = 181,
+        SPELL_EFFECT_182                              = 182,
+        TOTAL_SPELL_EFFECTS                           = 183
     };
 
     /// <summary>
@@ -567,7 +572,61 @@ namespace SpellWork.Spell
         SPELL_AURA_PREVENT_RESSURECTION                     = 314,
         SPELL_AURA_UNDERWATER_WALKING                       = 315,
         SPELL_AURA_PERIODIC_HASTE                           = 316,
-        TOTAL_AURAS                                         = 317
+        SPELL_AURA_MOD_SPELL_POWER_PCT                      = 317,
+        SPELL_AURA_MASTERY                                  = 318,
+        SPELL_AURA_319                                      = 319,  // (melee?) attack speed
+        SPELL_AURA_MOD_RANGED_ATTACK_SPEED                  = 320,  // NYI
+        SPELL_AURA_321                                      = 321,
+        SPELL_AURA_INTERFERE_TARGETTING                     = 322,  // NYI
+        SPELL_AURA_323                                      = 323,
+        SPELL_AURA_324                                      = 324,  // spell critical chance (probably by school mask)
+        SPELL_AURA_325                                      = 325,
+        SPELL_AURA_326                                      = 326,  // phase related
+        SPELL_AURA_327                                      = 327,
+        SPELL_AURA_328                                      = 328,
+        SPELL_AURA_MOD_RUNE_REGEN_SPEED                     = 329,  // NYI
+        SPELL_AURA_CAST_WHILE_WALKING                       = 330,  // NYI
+        SPELL_AURA_331                                      = 331,
+        SPELL_AURA_OVERRIDE_ACTIONBAR_SPELLS                = 332,  // NYI
+        SPELL_AURA_OVERRIDE_ACTIONBAR_SPELLS_2              = 333,  // NYI
+        SPELL_AURA_334                                      = 334,
+        SPELL_AURA_335                                      = 335,
+        SPELL_AURA_MOD_FLYING_RESTRICTIONS                  = 336,  // NYI
+        SPELL_AURA_MOD_VENDOR_ITEMS_PRICES                  = 337,  // NYI
+        SPELL_AURA_MOD_DURABILITY_LOSS                      = 338,
+        SPELL_AURA_INCREASE_SKILL_GAIN_CHANCE               = 339,  // NYI
+        SPELL_AURA_340                                      = 340,
+        SPELL_AURA_341                                      = 341,  // cooldown decrease
+        SPELL_AURA_MOD_TIME_BETWEEN_ATTACKS                 = 342,  // (attack speed) NYI
+        SPELL_AURA_343                                      = 343,
+        SPELL_AURA_MOD_AUTOATTACK_DAMAGE                    = 344,
+        SPELL_AURA_BYPASS_ARMOR_FOR_CASTER                  = 345,
+        SPELL_AURA_PROGRESS_BAR                             = 346,  // NYI
+        SPELL_AURA_MOD_SPELL_COOLDOWN_BY_HASTE              = 347,  // NYI
+        SPELL_AURA_DEPOSIT_BONUS_MONEY_IN_GUILD_BANK_ON_LOOT = 348,  // NYI
+        SPELL_AURA_MOD_CURRENCY_GAIN                        = 349,  // NYI
+        SPELL_AURA_MOD_GATHERING_ITEMS_GAINED_PERCENT       = 350,  // NYI
+        SPELL_AURA_351                                      = 351,
+        SPELL_AURA_352                                      = 352,
+        SPELL_AURA_MOD_CAMOUFLAGE                           = 353,  // NYI
+        SPELL_AURA_354                                      = 354,
+        SPELL_AURA_355                                      = 355,
+        SPELL_AURA_356                                      = 356,
+        SPELL_AURA_357                                      = 357,
+        SPELL_AURA_358                                      = 358,
+        SPELL_AURA_359                                      = 359,
+        SPELL_AURA_360                                      = 360,
+        SPELL_AURA_361                                      = 361,
+        SPELL_AURA_362                                      = 362,
+        SPELL_AURA_363                                      = 363,
+        SPELL_AURA_364                                      = 364,
+        SPELL_AURA_365                                      = 365,
+        SPELL_AURA_366                                      = 366,
+        SPELL_AURA_367                                      = 367,
+        SPELL_AURA_368                                      = 368,
+        SPELL_AURA_369                                      = 369,
+        SPELL_AURA_370                                      = 370,
+        TOTAL_AURAS                                         = 371
     }
 
     /// <summary>
@@ -686,6 +745,23 @@ namespace SpellWork.Spell
         TARGET_GAMEOBJECT_CONE                  = 108,
         TARGET_109                              = 109,
         TARGET_DEST_UNK_110                     = 110, // 1 spell
+        TARGET_UNK_111                          = 111,
+        TARGET_UNK_112                          = 112,
+        TARGET_UNK_113                          = 113,
+        TARGET_UNK_114                          = 114,
+        TARGET_UNK_115                          = 115,
+        TARGET_UNK_116                          = 116,
+        TARGET_UNK_117                          = 117,
+        TARGET_UNK_118                          = 118,
+        TARGET_UNK_119                          = 119,
+        TARGET_UNK_120                          = 120,
+        TARGET_UNK_121                          = 121,
+        TARGET_UNK_122                          = 122,
+        TARGET_UNK_123                          = 123,
+        TARGET_UNK_124                          = 124,
+        TARGET_UNK_125                          = 125,
+        TARGET_UNK_126                          = 126,
+        TARGET_UNK_127                          = 127,
         TOTAL_SPELL_TARGETS,
     };
 
@@ -991,14 +1067,18 @@ namespace SpellWork.Spell
 
     public enum Powers : uint
     {
-        POWER_MANA          = 0,
-        POWER_RAGE          = 1,
-        POWER_FOCUS         = 2,
-        POWER_ENERGY        = 3,
-        POWER_HAPPINESS     = 4,
-        POWER_RUNE          = 5,
-        POWER_RUNIC_POWER   = 6,
-        POWER_HEALTH        = 0xFFFFFFFE,    // (-2 as signed value)
+        POWER_MANA            = 0,
+        POWER_RAGE            = 1,
+        POWER_FOCUS           = 2,
+        POWER_ENERGY          = 3,
+        POWER_HAPPINESS       = 4,
+        POWER_RUNE            = 5,
+        POWER_RUNIC_POWER     = 6,
+        POWER_SOUL_SHARDS     = 7,
+        POWER_ECLIPSE         = 8,
+        POWER_HOLY_POWER      = 9,
+        POWER_ALTERNATE_POWER = 10,           // Used in some quests
+        POWER_HEALTH          = 0xFFFFFFFE,    // (-2 as signed value)
     };
 
     public enum AuraState
@@ -1478,6 +1558,43 @@ namespace SpellWork.Spell
     };
 
     [Flags]
+    public enum SpellAtributeEx8 : uint
+    {
+        SPELL_ATTR8_UNK0                             = 0x00000001, // 0
+        SPELL_ATTR8_UNK1                             = 0x00000002, // 1
+        SPELL_ATTR8_UNK2                             = 0x00000004, // 2
+        SPELL_ATTR8_UNK3                             = 0x00000008, // 3
+        SPELL_ATTR8_UNK4                             = 0x00000010, // 4
+        SPELL_ATTR8_UNK5                             = 0x00000020, // 5
+        SPELL_ATTR8_UNK6                             = 0x00000040, // 6
+        SPELL_ATTR8_UNK7                             = 0x00000080, // 7
+        SPELL_ATTR8_UNK8                             = 0x00000100, // 8
+        SPELL_ATTR8_UNK9                             = 0x00000200, // 9
+        SPELL_ATTR8_UNK10                            = 0x00000400, // 10
+        SPELL_ATTR8_UNK11                            = 0x00000800, // 11
+        SPELL_ATTR8_AURA_SEND_AMOUNT                 = 0x00001000, // 12 Aura must have flag AFLAG_ANY_EFFECT_AMOUNT_SENT to send amount
+        SPELL_ATTR8_UNK13                            = 0x00002000, // 13
+        SPELL_ATTR8_UNK14                            = 0x00004000, // 14
+        SPELL_ATTR8_UNK15                            = 0x00008000, // 15
+        SPELL_ATTR8_UNK16                            = 0x00010000, // 16
+        SPELL_ATTR8_UNK17                            = 0x00020000, // 17
+        SPELL_ATTR8_UNK18                            = 0x00040000, // 18
+        SPELL_ATTR8_UNK19                            = 0x00080000, // 19
+        SPELL_ATTR8_ARMOR_SPECIALIZATION             = 0x00100000, // 20
+        SPELL_ATTR8_UNK21                            = 0x00200000, // 21
+        SPELL_ATTR8_UNK22                            = 0x00400000, // 22
+        SPELL_ATTR8_UNK23                            = 0x00800000, // 23
+        SPELL_ATTR8_UNK24                            = 0x01000000, // 24
+        SPELL_ATTR8_UNK25                            = 0x02000000, // 25
+        SPELL_ATTR8_RAID_MARKER                      = 0x04000000, // 26 probably spell no need learn to cast
+        SPELL_ATTR8_UNK27                            = 0x08000000, // 27
+        SPELL_ATTR8_GUILD_PERKS                      = 0x10000000, // 28
+        SPELL_ATTR8_MASTERY                          = 0x20000000, // 29
+        SPELL_ATTR8_UNK30                            = 0x40000000, // 30
+        SPELL_ATTR8_UNK31                            = 0x80000000  // 31
+    };
+
+    [Flags]
     public enum CombatRating
     {
         CR_WEAPON_SKILL             =      0x00,
@@ -1505,6 +1622,7 @@ namespace SpellWork.Spell
         CR_WEAPON_SKILL_RANGED      = 1 << 0x15,
         CR_EXPERTISE                = 1 << 0x16,
         CR_ARMOR_PENETRATION        = 1 << 0x17,
+        CR_MASTERY                  = 1 << 0x18,
     };
 
     public enum UnitMods
@@ -1522,26 +1640,30 @@ namespace SpellWork.Spell
         UNIT_MOD_HAPPINESS              = 10,
         UNIT_MOD_RUNE                   = 11,
         UNIT_MOD_RUNIC_POWER            = 12,
-        UNIT_MOD_ARMOR                  = 13,                 // UNIT_MOD_ARMOR..UNIT_MOD_RESISTANCE_ARCANE must be in existed order, it's accessed by index values of SpellSchools enum.
-        UNIT_MOD_RESISTANCE_HOLY        = 14,
-        UNIT_MOD_RESISTANCE_FIRE        = 15,
-        UNIT_MOD_RESISTANCE_NATURE      = 16,
-        UNIT_MOD_RESISTANCE_FROST       = 17,
-        UNIT_MOD_RESISTANCE_SHADOW      = 18,
-        UNIT_MOD_RESISTANCE_ARCANE      = 19,
-        UNIT_MOD_ATTACK_POWER           = 20,
-        UNIT_MOD_ATTACK_POWER_RANGED    = 21,
-        UNIT_MOD_DAMAGE_MAINHAND        = 22,
-        UNIT_MOD_DAMAGE_OFFHAND         = 23,
-        UNIT_MOD_DAMAGE_RANGED          = 24,
-        UNIT_MOD_END                    = 25,
+        UNIT_MOD_SOUL_SHARDS            = 13,
+        UNIT_MOD_ECLIPSE                = 14,
+        UNIT_MOD_HOLY_POWER             = 15,
+        UNIT_MOD_ALTERNATIVE            = 16,
+        UNIT_MOD_ARMOR                  = 17,                 // UNIT_MOD_ARMOR..UNIT_MOD_RESISTANCE_ARCANE must be in existed order, it's accessed by index values of SpellSchools enum.
+        UNIT_MOD_RESISTANCE_HOLY        = 18,
+        UNIT_MOD_RESISTANCE_FIRE        = 19,
+        UNIT_MOD_RESISTANCE_NATURE      = 20,
+        UNIT_MOD_RESISTANCE_FROST       = 21,
+        UNIT_MOD_RESISTANCE_SHADOW      = 22,
+        UNIT_MOD_RESISTANCE_ARCANE      = 23,
+        UNIT_MOD_ATTACK_POWER           = 24,
+        UNIT_MOD_ATTACK_POWER_RANGED    = 25,
+        UNIT_MOD_DAMAGE_MAINHAND        = 26,
+        UNIT_MOD_DAMAGE_OFFHAND         = 27,
+        UNIT_MOD_DAMAGE_RANGED          = 28,
+        UNIT_MOD_END                    = 29,
         // synonyms
         UNIT_MOD_STAT_START             = UNIT_MOD_STAT_STRENGTH,
         UNIT_MOD_STAT_END               = UNIT_MOD_STAT_SPIRIT       + 1,
         UNIT_MOD_RESISTANCE_START       = UNIT_MOD_ARMOR,
         UNIT_MOD_RESISTANCE_END         = UNIT_MOD_RESISTANCE_ARCANE + 1,
         UNIT_MOD_POWER_START            = UNIT_MOD_MANA,
-        UNIT_MOD_POWER_END              = UNIT_MOD_RUNIC_POWER       + 1,
+        UNIT_MOD_POWER_END              = UNIT_MOD_ALTERNATIVE       + 1,
     };
 
 // ReSharper restore InconsistentNaming
