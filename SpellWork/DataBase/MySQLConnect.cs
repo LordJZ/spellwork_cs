@@ -31,7 +31,7 @@ namespace SpellWork.Database
 
         private static String GetSpellName(uint id)
         {
-            if (DBC.DBC.Spell.ContainsKey(id))
+            if (DBC.DBC.SpellInfoStore.ContainsKey(id))
                 return DBC.DBC.SpellInfoStore[id].SpellNameRank;
 
             Dropped.Add(String.Format("DELETE FROM `spell_proc_event` WHERE `entry` IN ({0});\r\n", id.ToUInt32()));

@@ -64,6 +64,7 @@ namespace SpellWork.Spell
         public uint EquippedItemClass;                             // 68       m_equippedItemClass (value)
         public uint EquippedItemSubClassMask;                      // 69       m_equippedItemSubclass (mask)
         public uint EquippedItemInventoryTypeMask;                 // 70       m_equippedItemInvTypes (mask)
+        public SpellEffectEntry[] Effects;
         public uint[] SpellVisual;                                // 131-132  m_spellVisualID
         public uint SpellIconID;                                  // 133      m_spellIconID
         public uint ActiveIconID;                                 // 134      m_activeIconID
@@ -110,11 +111,6 @@ namespace SpellWork.Spell
         public string Duration
         {
             get { return DBC.DBC.SpellDuration.ContainsKey(DurationIndex) ? DBC.DBC.SpellDuration[DurationIndex].ToString() : String.Empty; }
-        }
-
-        public SpellEffectEntry[] Effects
-        {
-            get { return DBC.DBC.SpellEffect.Records.Where(e => e.SpellId == ID).OrderBy(eff => eff.Index).ToArray(); }
         }
 
         public string ProcInfo
@@ -342,26 +338,28 @@ namespace SpellWork.Spell
                 EquippedItemSubClassMask = equippedItems.EquippedItemSubClassMask;
                 EquippedItemInventoryTypeMask = equippedItems.EquippedItemInventoryTypeMask;
             }
+
+            Effects = new SpellEffectEntry[DBC.DBC.MaxEffectIndex];
         }
 
         public bool HasEffect(SpellEffects effect)
         {
-            return Effects.Where(eff => eff.Type == (uint)effect).Count() > 0;
+            return Effects.Where(eff => eff != null && eff.Type == (uint)effect).Count() > 0;
         }
 
         public bool HasAura(AuraType aura)
         {
-            return Effects.Where(eff => eff.ApplyAuraName == (uint)aura).Count() > 0;
+            return Effects.Where(eff => eff != null && eff.ApplyAuraName == (uint)aura).Count() > 0;
         }
 
         public bool HasTargetA(Targets target)
         {
-            return Effects.Where(eff => eff.ImplicitTargetA == (uint)target).Count() > 0;
+            return Effects.Where(eff => eff != null && eff.ImplicitTargetA == (uint)target).Count() > 0;
         }
 
         public bool HasTargetB(Targets target)
         {
-            return Effects.Where(eff => eff.ImplicitTargetB == (uint)target).Count() > 0;
+            return Effects.Where(eff => eff != null && eff.ImplicitTargetB == (uint)target).Count() > 0;
         }
     }
 }

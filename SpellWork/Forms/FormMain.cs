@@ -417,7 +417,7 @@ namespace SpellWork.Forms
             var spell1 = _tbCompareFilterSpell1.Text.ToUInt32();
             var spell2 = _tbCompareFilterSpell2.Text.ToUInt32();
 
-            if (DBC.DBC.Spell.ContainsKey(spell1) && DBC.DBC.Spell.ContainsKey(spell2))
+            if (DBC.DBC.SpellInfoStore.ContainsKey(spell1) && DBC.DBC.SpellInfoStore.ContainsKey(spell2))
                 new SpellCompare(_rtbCompareSpell1, _rtbCompareSpell2, DBC.DBC.SpellInfoStore[spell1], DBC.DBC.SpellInfoStore[spell2]);
         }
 

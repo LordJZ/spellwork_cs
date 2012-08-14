@@ -296,6 +296,9 @@ namespace SpellWork.Spell
 
             foreach (var effect in _spell.Effects)
             {
+                if (effect == null)
+                    continue;
+
                 _rtb.SetBold();
                 _rtb.AppendFormatLine("Effect {0}: Id {1} ({2})", effect.Index, effect.Type, (SpellEffects)effect.Type);
                 _rtb.SetDefaultStyle();
@@ -402,24 +405,24 @@ namespace SpellWork.Spell
         {
             if (_spell.CasterAuraSpell != 0)
             {
-                if (DBC.DBC.Spell.ContainsKey(_spell.CasterAuraSpell))
-                    _rtb.AppendFormatLine("  Caster Aura Spell ({0}) {1}", _spell.CasterAuraSpell, DBC.DBC.Spell[_spell.CasterAuraSpell].SpellName);
+                if (DBC.DBC.SpellInfoStore.ContainsKey(_spell.CasterAuraSpell))
+                    _rtb.AppendFormatLine("  Caster Aura Spell ({0}) {1}", _spell.CasterAuraSpell, DBC.DBC.SpellInfoStore[_spell.CasterAuraSpell].SpellName);
                 else
                     _rtb.AppendFormatLine("  Caster Aura Spell ({0}) ?????", _spell.CasterAuraSpell);
             }
 
             if (_spell.TargetAuraSpell != 0)
             {
-                if (DBC.DBC.Spell.ContainsKey(_spell.TargetAuraSpell))
-                    _rtb.AppendFormatLine("  Target Aura Spell ({0}) {1}", _spell.TargetAuraSpell, DBC.DBC.Spell[_spell.TargetAuraSpell].SpellName);
+                if (DBC.DBC.SpellInfoStore.ContainsKey(_spell.TargetAuraSpell))
+                    _rtb.AppendFormatLine("  Target Aura Spell ({0}) {1}", _spell.TargetAuraSpell, DBC.DBC.SpellInfoStore[_spell.TargetAuraSpell].SpellName);
                 else
                     _rtb.AppendFormatLine("  Target Aura Spell ({0}) ?????", _spell.TargetAuraSpell);
             }
 
             if (_spell.ExcludeCasterAuraSpell != 0)
             {
-                if (DBC.DBC.Spell.ContainsKey(_spell.ExcludeCasterAuraSpell))
-                    _rtb.AppendFormatLine("  Ex Caster Aura Spell ({0}) {1}", _spell.ExcludeCasterAuraSpell, DBC.DBC.Spell[_spell.ExcludeCasterAuraSpell].SpellName);
+                if (DBC.DBC.SpellInfoStore.ContainsKey(_spell.ExcludeCasterAuraSpell))
+                    _rtb.AppendFormatLine("  Ex Caster Aura Spell ({0}) {1}", _spell.ExcludeCasterAuraSpell, DBC.DBC.SpellInfoStore[_spell.ExcludeCasterAuraSpell].SpellName);
                 else
                     _rtb.AppendFormatLine("  Ex Caster Aura Spell ({0}) ?????", _spell.ExcludeCasterAuraSpell);
             }
@@ -427,8 +430,8 @@ namespace SpellWork.Spell
             // ReSharper disable InvertIf
             if (_spell.ExcludeTargetAuraSpell != 0)
             {
-                if (DBC.DBC.Spell.ContainsKey(_spell.ExcludeTargetAuraSpell))
-                    _rtb.AppendFormatLine("  Ex Target Aura Spell ({0}) {1}", _spell.ExcludeTargetAuraSpell, DBC.DBC.Spell[_spell.ExcludeTargetAuraSpell].SpellName);
+                if (DBC.DBC.SpellInfoStore.ContainsKey(_spell.ExcludeTargetAuraSpell))
+                    _rtb.AppendFormatLine("  Ex Target Aura Spell ({0}) {1}", _spell.ExcludeTargetAuraSpell, DBC.DBC.SpellInfoStore[_spell.ExcludeTargetAuraSpell].SpellName);
                 else
                     _rtb.AppendFormatLine("  Ex Target Aura Spell ({0}) ?????", _spell.ExcludeTargetAuraSpell);
             }
@@ -487,7 +490,7 @@ namespace SpellWork.Spell
                         _rtb.AppendLine();
                         _rtb.SetStyle(Color.DarkRed, FontStyle.Bold);
                         var @override = DBC.DBC.OverrideSpellData[(uint)misc];
-                        _rtb.AppendFormatLine("Overriding Spells{0}:", !String.IsNullOrEmpty(@override.Name) ? String.Format(" ({0}", @override.Name) : String.Empty);
+                        _rtb.AppendFormatLine("Overriding Spells{0}:", !String.IsNullOrEmpty(@override.Name) ? String.Format(" ({0})", @override.Name) : String.Empty);
                         for (var i = 0; i < 10; ++i)
                         {
                             if (@override.Spells[i] == 0)
@@ -495,7 +498,7 @@ namespace SpellWork.Spell
 
                             _rtb.SetStyle(Color.DarkBlue, FontStyle.Regular);
                             _rtb.AppendFormatLine("\t - #{0} ({1}) {2}", i + 1, @override.Spells[i],
-                                DBC.DBC.Spell.ContainsKey(@override.Spells[i]) ? DBC.DBC.Spell[@override.Spells[i]].SpellName : "?????");
+                                DBC.DBC.SpellInfoStore.ContainsKey(@override.Spells[i]) ? DBC.DBC.SpellInfoStore[@override.Spells[i]].SpellName : "?????");
                         }
                         _rtb.AppendLine();
                     }

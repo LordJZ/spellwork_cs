@@ -84,6 +84,14 @@ namespace SpellWork.DBC
 
             foreach (var dbcInfo in Spell.Records)
                 SpellInfoStore.Add(dbcInfo.Id, new SpellInfoHelper(dbcInfo));
+
+            foreach (var effect in SpellEffect.Records)
+            {
+                if (!SpellInfoStore.ContainsKey(effect.SpellId))
+                    continue;
+
+                SpellInfoStore[effect.SpellId].Effects[effect.Index] = effect;
+            }
         }
 
         // DB
