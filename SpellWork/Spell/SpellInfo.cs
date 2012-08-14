@@ -337,11 +337,12 @@ namespace SpellWork.Spell
                     var query = from spell in DBC.DBC.SpellInfoStore.Values
                                 where spell.SpellFamilyName == _spell.SpellFamilyName && spell.SpellFamilyFlags.ContainsElement(classMask)
                                 join sk in DBC.DBC.SkillLineAbility.Values on spell.ID equals sk.SpellId into temp
-                                from skill in temp.DefaultIfEmpty()
+                                from skill in temp.DefaultIfEmpty(new SkillLineAbilityEntry())
                                 select new
                                 {
-                                    SpellID   = spell.ID,
-                                    SpellName = spell.SpellNameRank, skill.SkillId
+                                    SpellID = spell.ID,
+                                    SpellName = spell.SpellNameRank,
+                                    SkillId = skill.SkillId
                                 };
 
                     foreach (var row in query)

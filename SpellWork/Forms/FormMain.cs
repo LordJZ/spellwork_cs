@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using SpellWork.Database;
+using SpellWork.DBC.Structures;
 using SpellWork.Extensions;
 using SpellWork.Spell;
 
@@ -388,7 +389,7 @@ namespace SpellWork.Forms
                             spell.SpellFamilyName == ProcInfo.SpellProc.SpellFamilyName &&
                             spell.SpellFamilyFlags.ContainsElement(mask)
                         join sk in DBC.DBC.SkillLineAbility.Values on spell.ID equals sk.SpellId into temp1
-                        from skill in temp1.DefaultIfEmpty()
+                        from skill in temp1.DefaultIfEmpty(new SkillLineAbilityEntry())
                         //join skl in DBC.SkillLine on Skill.Value.SkillId equals skl.Value.ID into temp2
                         //from SkillLine in temp2.DefaultIfEmpty()
                         orderby skill.Id descending

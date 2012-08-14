@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using SpellWork.DBC.Structures;
 using SpellWork.Extensions;
 
 namespace SpellWork.Spell
@@ -19,9 +20,9 @@ namespace SpellWork.Spell
             var spells = from spell in DBC.DBC.SpellInfoStore.Values
                          where spell.SpellFamilyName == (uint)spellfamily
                          join sk in DBC.DBC.SkillLineAbility.Values on spell.ID equals sk.SpellId into temp1
-                         from skill in temp1.DefaultIfEmpty()
+                         from skill in temp1.DefaultIfEmpty(new SkillLineAbilityEntry())
                          join skl in DBC.DBC.SkillLine.Values on skill.SkillId equals skl.Id into temp2
-                         from skillLine in temp2.DefaultIfEmpty()
+                         from skillLine in temp2.DefaultIfEmpty(new SkillLineEntry())
                          select new
                          {
                              spell,
