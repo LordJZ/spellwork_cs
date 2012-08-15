@@ -5,9 +5,9 @@ namespace SpellWork.DBC.Structures
     public sealed class SpellDurationEntry
     {
         public uint Id;
-        public uint Duration;
-        public uint Unknown2;
-        public uint MaxDuration;
+        public int Duration;
+        public int Unknown2;
+        public int MaxDuration;
 
         public override string ToString()
         {
