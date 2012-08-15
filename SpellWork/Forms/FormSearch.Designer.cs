@@ -41,14 +41,15 @@
             this._tbIcon = new System.Windows.Forms.TextBox();
             this._tbIdName = new System.Windows.Forms.TextBox();
             this._lvSpellList = new System.Windows.Forms.ListView();
-            this._chID = new System.Windows.Forms.ColumnHeader();
-            this._chName = new System.Windows.Forms.ColumnHeader();
+            this._chID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this._chName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this._cbTarget2 = new System.Windows.Forms.ComboBox();
             this._cbTarget1 = new System.Windows.Forms.ComboBox();
             this._cbSpellEffect = new System.Windows.Forms.ComboBox();
             this._cbSpellAura = new System.Windows.Forms.ComboBox();
             this._cbSpellFamily = new System.Windows.Forms.ComboBox();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -103,15 +104,15 @@
             this._bCencel.Name = "_bCencel";
             this._bCencel.Size = new System.Drawing.Size(75, 23);
             this._bCencel.TabIndex = 10;
-            this._bCencel.Text = "Cencel";
+            this._bCencel.Text = "Cancel";
             this._bCencel.UseVisualStyleBackColor = true;
             this._bCencel.Click += new System.EventHandler(this.CencelClick);
             //
             // groupBox1
             //
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this._lIDName);
@@ -157,7 +158,7 @@
             // _tbAttribute
             //
             this._tbAttribute.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
             this._tbAttribute.Location = new System.Drawing.Point(74, 66);
             this._tbAttribute.Name = "_tbAttribute";
             this._tbAttribute.Size = new System.Drawing.Size(198, 20);
@@ -167,7 +168,7 @@
             // _tbIcon
             //
             this._tbIcon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
             this._tbIcon.Location = new System.Drawing.Point(74, 40);
             this._tbIcon.Name = "_tbIcon";
             this._tbIcon.Size = new System.Drawing.Size(198, 20);
@@ -177,7 +178,7 @@
             // _tbIdName
             //
             this._tbIdName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
             this._tbIdName.Location = new System.Drawing.Point(74, 14);
             this._tbIdName.Name = "_tbIdName";
             this._tbIdName.Size = new System.Drawing.Size(198, 20);
@@ -187,8 +188,8 @@
             // _lvSpellList
             //
             this._lvSpellList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
             this._lvSpellList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this._chID,
             this._chName});
@@ -202,9 +203,9 @@
             this._lvSpellList.UseCompatibleStateImageBehavior = false;
             this._lvSpellList.View = System.Windows.Forms.View.Details;
             this._lvSpellList.VirtualMode = true;
+            this._lvSpellList.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.SpellListRetrieveVirtualItem);
             this._lvSpellList.SelectedIndexChanged += new System.EventHandler(this.SpellListSelectedIndexChanged);
             this._lvSpellList.DoubleClick += new System.EventHandler(this.OkClick);
-            this._lvSpellList.RetrieveVirtualItem += new System.Windows.Forms.RetrieveVirtualItemEventHandler(this.SpellListRetrieveVirtualItem);
             //
             // _chID
             //
@@ -218,7 +219,7 @@
             // groupBox2
             //
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this._cbTarget2);
             this.groupBox2.Controls.Add(this._cbTarget1);
             this.groupBox2.Controls.Add(this._cbSpellEffect);
@@ -309,6 +310,7 @@
             this.Text = "Spell Search";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

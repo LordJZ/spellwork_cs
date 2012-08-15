@@ -33,6 +33,13 @@ namespace SpellWork.DBC.Structures
         public uint Index;
         public uint Unk0;
 
+        [StoragePresence(StoragePresenceOption.Exclude)]
+        public float ScalingMultiplier;
+        [StoragePresence(StoragePresenceOption.Exclude)]
+        public float RandomPointsScalingMultiplier;
+        [StoragePresence(StoragePresenceOption.Exclude)]
+        public float ComboPointsScalingMultiplier;
+
         public string MaxRadius
         {
             get

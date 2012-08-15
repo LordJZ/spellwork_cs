@@ -110,6 +110,11 @@ namespace SpellWork.DBC.Structures
             get { return SpellReagentsId != 0 && DBC.SpellReagents.ContainsKey(SpellReagentsId) ? DBC.SpellReagents[SpellReagentsId] : null; }
         }
 
+        public SpellScalingEntry Scaling
+        {
+            get { return SpellScalingId != 0 && DBC.SpellScaling.ContainsKey(SpellScalingId) ? DBC.SpellScaling[SpellScalingId] : null; }
+        }
+
         public SpellShapeshiftEntry Shapeshift
         {
             get { return SpellShapeshiftId != 0 && DBC.SpellShapeshift.ContainsKey(SpellShapeshiftId) ? DBC.SpellShapeshift[SpellShapeshiftId] : null; }

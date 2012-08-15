@@ -93,6 +93,7 @@ namespace SpellWork.Spell
         public uint PowerDisplayId;                               // 228      PowerDisplay.dbc, new in 3.1
         public uint SpellDescriptionVariableID;                   // 232      3.2.0
         public uint SpellDifficultyId;                            // 233      3.3.0                           // 239      3.3.0
+        public SpellScalingEntry Scaling;
 
         public string CastTime
         {
@@ -158,6 +159,8 @@ namespace SpellWork.Spell
         {
             get { return String.IsNullOrEmpty(Rank) ? SpellName : String.Format("{0} ({1})", SpellName, Rank); }
         }
+
+        public string ScalingText { get { return Scaling != null ? String.Format(" (Level {0})", DBC.DBC.SelectedLevel) : String.Empty; } }
 
         public SpellInfoHelper(SpellEntry dbcData)
         {
@@ -339,6 +342,7 @@ namespace SpellWork.Spell
                 EquippedItemInventoryTypeMask = equippedItems.EquippedItemInventoryTypeMask;
             }
 
+            Scaling = dbcData.Scaling;
             Effects = new SpellEffectEntry[DBC.DBC.MaxEffectIndex];
         }
 

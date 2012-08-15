@@ -13,6 +13,7 @@ namespace SpellWork.DBC
     {
         public const string Version = "SpellWork 4.3.4 (15595)";
         public const string DbcPath = @"dbc";
+        public const uint MaxLevel  = 85;
 
         public const int MaxDbcLocale                 = 16;
         public const int MaxReagentCount              = 8;
@@ -21,6 +22,7 @@ namespace SpellWork.DBC
 
         public static DBCStorage<AreaGroupEntry> AreaGroup = new DBCStorage<AreaGroupEntry>();
         public static DBCStorage<AreaTableEntry> AreaTable = new DBCStorage<AreaTableEntry>();
+        public static DBCStorage<gtSpellScalingEntry> gtSpellScaling = new DBCStorage<gtSpellScalingEntry>();
         public static DBCStorage<OverrideSpellDataEntry> OverrideSpellData = new DBCStorage<OverrideSpellDataEntry>();
         public static DBCStorage<ScreenEffectEntry> ScreenEffect = new DBCStorage<ScreenEffectEntry>();
         public static DBCStorage<SkillLineAbilityEntry> SkillLineAbility = new DBCStorage<SkillLineAbilityEntry>();
@@ -91,10 +93,19 @@ namespace SpellWork.DBC
                     continue;
 
                 SpellInfoStore[effect.SpellId].Effects[effect.Index] = effect;
+                var scaling = SpellInfoStore[effect.SpellId].Scaling;
+                if (scaling != null)
+                {
+                    effect.ScalingMultiplier = scaling.Multiplier[effect.Index];
+                    effect.RandomPointsScalingMultiplier = scaling.RandomPointsMultiplier[effect.Index];
+                    effect.ComboPointsScalingMultiplier = scaling.OtherMultiplier[effect.Index];
+                }
             }
         }
 
         // DB
         public static List<Item> ItemTemplate = new List<Item>();
+
+        public static uint SelectedLevel = MaxLevel;
     }
 }

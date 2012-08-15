@@ -29,7 +29,7 @@ namespace SpellWork.Spell
         {
             _rtb.Clear();
             _rtb.SetBold();
-            _rtb.AppendFormatLine("ID - {0} {1}", _spell.ID, _spell.SpellNameRank);
+            _rtb.AppendFormatLine("ID - {0} {1}{2}", _spell.ID, _spell.SpellNameRank, _spell.ScalingText);
             _rtb.SetDefaultStyle();
 
             _rtb.AppendFormatLine(_line);
@@ -302,25 +302,48 @@ namespace SpellWork.Spell
                 _rtb.SetBold();
                 _rtb.AppendFormatLine("Effect {0}: Id {1} ({2})", effect.Index, effect.Type, (SpellEffects)effect.Type);
                 _rtb.SetDefaultStyle();
-                _rtb.AppendFormat("BasePoints = {0}", effect.BasePoints);
 
-                if (effect.RealPointsPerLevel != 0)
-                    _rtb.AppendFormat(" + Level * {0:F}", effect.RealPointsPerLevel);
-
-                // WTF ? 1 = spell.EffectBaseDice[i]
-                if (1 < effect.DieSides)
+                if (_spell.Scaling != null && _spell.Scaling.PlayerClass != 0)
                 {
-                    if (effect.RealPointsPerLevel != 0)
-                        _rtb.AppendFormat(" to {0} + lvl * {1:F}",
-                            effect.BasePoints + effect.DieSides, effect.RealPointsPerLevel);
+                    var gtEntry = (uint)((_spell.Scaling.PlayerClass != -1 ? _spell.Scaling.PlayerClass - 1 : 12) * 100) + DBC.DBC.SelectedLevel - 1;
+                    var gtMultiplier = DBC.DBC.gtSpellScaling[gtEntry].Multiplier;
+
+                    if (effect.RandomPointsScalingMultiplier != 0.0f)
+                    {
+                        var avg = effect.ScalingMultiplier * gtMultiplier;
+                        var delta = effect.RandomPointsScalingMultiplier * effect.ScalingMultiplier * gtMultiplier * 0.5;
+                        _rtb.AppendFormat("BasePoints = {0:F} to {1:F}", avg - delta, avg + delta);
+                    }
                     else
-                        _rtb.AppendFormat(" to {0}", effect.BasePoints + effect.DieSides);
+                        _rtb.AppendFormat("AveragePoints = {0:F}", effect.ScalingMultiplier * gtMultiplier);
+
+                    _rtb.AppendFormatIfNotNull(" + combo * {0:F}", effect.ComboPointsScalingMultiplier * gtMultiplier);
+
+                    if (effect.DamageMultiplier != 1.0f)
+                        _rtb.AppendFormat(" x {0:F}", effect.DamageMultiplier);
+                }
+                else
+                {
+                    _rtb.AppendFormat("BasePoints = {0}", effect.BasePoints + ((effect.DieSides == 0) ? 0 : 1));
+
+                    if (effect.RealPointsPerLevel != 0)
+                        _rtb.AppendFormat(" + Level * {0:F}", effect.RealPointsPerLevel);
+
+                    if (effect.DieSides > 1)
+                    {
+                        if (effect.RealPointsPerLevel != 0)
+                            _rtb.AppendFormat(" to {0} + lvl * {1:F}",
+                                effect.BasePoints + effect.DieSides, effect.RealPointsPerLevel);
+                        else
+                            _rtb.AppendFormat(" to {0}", effect.BasePoints + effect.DieSides);
+                    }
+
+                    _rtb.AppendFormatIfNotNull(" + combo * {0:F}", effect.PointsPerComboPoint);
+
+                    if (effect.DamageMultiplier != 1.0f)
+                        _rtb.AppendFormat(" x {0:F}", effect.DamageMultiplier);
                 }
 
-                _rtb.AppendFormatIfNotNull(" + combo * {0:F}", effect.PointsPerComboPoint);
-
-                if (effect.DamageMultiplier != 1.0f)
-                    _rtb.AppendFormat(" x {0:F}", effect.DamageMultiplier);
 
                 _rtb.AppendFormatIfNotNull("  Multiple = {0:F}", effect.ValueMultiplier);
                 _rtb.AppendLine();

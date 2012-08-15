@@ -128,6 +128,30 @@ namespace SpellWork.Forms
                 e.Handled = true;
         }
 
+        private void LevelScalingClick(object sender, EventArgs e)
+        {
+            var scalingForm = new FormSpellScaling();
+            var ret = scalingForm.ShowDialog(this);
+            if (ret == DialogResult.OK)
+            {
+                DBC.DBC.SelectedLevel = scalingForm.SelectedLevel;
+                switch (tabControl1.SelectedIndex)
+                {
+                    case 0:
+                        LvSpellListSelectedIndexChanged(null, null);
+                        break;
+                    case 1:
+                        LvProcSpellListSelectedIndexChanged(null, null);
+                        break;
+                    case 2:
+                        CompareFilterSpellTextChanged(null, null);
+                        break;
+                    case 3:
+                        break;
+                }
+            }
+        }
+
         #endregion
 
         #region SPELL INFO PAGE
