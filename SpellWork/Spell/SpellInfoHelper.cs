@@ -99,12 +99,25 @@ namespace SpellWork.Spell
         {
             get
             {
+                if (Scaling != null)
+                {
+                    if (Scaling.MaxCastTime > 0)
+                    {
+                        if (Scaling.MaxCastTimeLevel > DBC.DBC.SelectedLevel)
+                            return String.Format("Cast time = {0:F}", (Scaling.MinCastTime + (DBC.DBC.SelectedLevel - 1) * (Scaling.MaxCastTime - Scaling.MinCastTime) / (Scaling.MaxCastTimeLevel - 1)) / 1000.0f);
+
+                        return String.Format("Cast time = {0:F}", Scaling.MaxCastTime / 1000.0f);
+                    }
+
+                    return String.Empty;
+                }
+
                 if (CastingTimeIndex == 0)
                     return String.Empty;
 
                 return !DBC.DBC.SpellCastTimes.ContainsKey(CastingTimeIndex)
-                           ? String.Format("CastingTime (Id {0}) = ????", CastingTimeIndex)
-                           : String.Format("CastingTime (Id {0}) = {1:F}", CastingTimeIndex,
+                           ? String.Format("Cast time (Id {0}) = ????", CastingTimeIndex)
+                           : String.Format("Cast time (Id {0}) = {1:F}", CastingTimeIndex,
                                            DBC.DBC.SpellCastTimes[CastingTimeIndex].CastTime / 1000.0f);
             }
         }
