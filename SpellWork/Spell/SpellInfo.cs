@@ -303,10 +303,14 @@ namespace SpellWork.Spell
                 _rtb.AppendFormatLine("Effect {0}: Id {1} ({2})", effect.Index, effect.Type, (SpellEffects)effect.Type);
                 _rtb.SetDefaultStyle();
 
-                if (_spell.Scaling != null && _spell.Scaling.PlayerClass != 0)
+                if (effect.ScalingMultiplier != 0.0f && _spell.Scaling != null && _spell.Scaling.PlayerClass != 0)
                 {
-                    var gtEntry = (uint)((_spell.Scaling.PlayerClass != -1 ? _spell.Scaling.PlayerClass - 1 : 12) * 100) + DBC.DBC.SelectedLevel - 1;
+                    var gtEntry = (uint)((_spell.Scaling.PlayerClass != -1 ? _spell.Scaling.PlayerClass - 1 : 11) * 100) + DBC.DBC.SelectedLevel - 1;
                     var gtMultiplier = DBC.DBC.gtSpellScaling[gtEntry].Multiplier;
+                    if (_spell.Scaling.MaxCastTime > 0 && _spell.Scaling.MaxCastTimeLevel > DBC.DBC.SelectedLevel)
+                        gtMultiplier *= (float)(_spell.Scaling.MinCastTime + (DBC.DBC.SelectedLevel - 1) * (_spell.Scaling.MaxCastTime - _spell.Scaling.MinCastTime) / (_spell.Scaling.MaxCastTimeLevel - 1)) / (float)_spell.Scaling.MaxCastTime;
+                    if (_spell.Scaling.CoefLevelBase > DBC.DBC.SelectedLevel)
+                        gtMultiplier *= (1.0f - _spell.Scaling.CoefBase) * (float)(DBC.DBC.SelectedLevel - 1) / (float)(_spell.Scaling.CoefLevelBase - 1) + _spell.Scaling.CoefBase;
 
                     if (effect.RandomPointsScalingMultiplier != 0.0f)
                     {
@@ -317,10 +321,10 @@ namespace SpellWork.Spell
                     else
                         _rtb.AppendFormat("AveragePoints = {0:F}", effect.ScalingMultiplier * gtMultiplier);
 
-                    _rtb.AppendFormatIfNotNull(" + combo * {0:F}", effect.ComboPointsScalingMultiplier * gtMultiplier);
-
-                    if (effect.DamageMultiplier != 1.0f)
-                        _rtb.AppendFormat(" x {0:F}", effect.DamageMultiplier);
+                    if (effect.ComboPointsScalingMultiplier != 0.0f)
+                        _rtb.AppendFormatIfNotNull(" + combo * {0:F}", effect.ComboPointsScalingMultiplier * gtMultiplier);
+                    else
+                        _rtb.AppendFormatIfNotNull(" + combo * {0:F}", effect.PointsPerComboPoint);
                 }
                 else
                 {
@@ -339,11 +343,10 @@ namespace SpellWork.Spell
                     }
 
                     _rtb.AppendFormatIfNotNull(" + combo * {0:F}", effect.PointsPerComboPoint);
-
-                    if (effect.DamageMultiplier != 1.0f)
-                        _rtb.AppendFormat(" x {0:F}", effect.DamageMultiplier);
                 }
 
+                if (effect.DamageMultiplier != 1.0f)
+                    _rtb.AppendFormat(" x {0:F}", effect.DamageMultiplier);
 
                 _rtb.AppendFormatIfNotNull("  Multiple = {0:F}", effect.ValueMultiplier);
                 _rtb.AppendLine();
