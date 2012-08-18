@@ -187,6 +187,8 @@ namespace SpellWork.Spell
             AttributesEx6 = dbcData.AttributesEx6;
             AttributesEx7 = dbcData.AttributesEx7;
             AttributesEx8 = dbcData.AttributesEx8;
+            AttributesEx9 = dbcData.AttributesEx9;
+            AttributesEx10 = dbcData.AttributesEx10;
             CastingTimeIndex = dbcData.CastingTimeIndex;
             DurationIndex = dbcData.DurationIndex;
             PowerType = dbcData.PowerType;
@@ -202,6 +204,8 @@ namespace SpellWork.Spell
             SchoolMask = dbcData.SchoolMask;
             RuneCostID = dbcData.RuneCostID;
             SpellMissileID = dbcData.SpellMissileID;
+            SpellDescriptionVariableID = dbcData.SpellDescriptionVariableID;
+            SpellDifficultyId = dbcData.SpellDifficultyId;
 
             // SpellCategories.dbc
             var cat = dbcData.Category;

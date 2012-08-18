@@ -16,8 +16,8 @@ namespace SpellWork.DBC.Structures
         public uint AttributesEx6;
         public uint AttributesEx7;
         public uint AttributesEx8;
-        public uint Unknown1;
-        public uint Unknown2;
+        public uint AttributesEx9;
+        public uint AttributesEx10;
         public uint CastingTimeIndex;
         public uint DurationIndex;
         public uint PowerType;
