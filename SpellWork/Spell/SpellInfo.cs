@@ -72,7 +72,7 @@ namespace SpellWork.Spell
             if (_spell.AttributesEx7 != 0)
                 _rtb.AppendFormatLine("AttributesEx7: 0x{0:X8} ({1})", _spell.AttributesEx7, (SpellAtributeEx7)_spell.AttributesEx7);
             if (_spell.AttributesEx8 != 0)
-                _rtb.AppendFormatLine("AttributesEx7: 0x{0:X8} ({1})", _spell.AttributesEx8, (SpellAtributeEx8)_spell.AttributesEx8);
+                _rtb.AppendFormatLine("AttributesEx8: 0x{0:X8} ({1})", _spell.AttributesEx8, (SpellAtributeEx8)_spell.AttributesEx8);
 
             _rtb.AppendLine(_line);
 
