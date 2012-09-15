@@ -41,7 +41,7 @@ namespace SpellWork.Spell
             _rtb.AppendFormatLine("Category = {0}, SpellIconID = {1}, activeIconID = {2}, SpellVisual = ({3},{4})",
                 _spell.Category, _spell.SpellIconID, _spell.ActiveIconID, _spell.SpellVisual[0], _spell.SpellVisual[1]);
 
-            _rtb.AppendFormatLine("Family {0}, flag 0x{1:X8} {2:X8} {3:X8}",
+            _rtb.AppendFormatLine("Family {0}, flag [0] 0x{1:X8} [1] 0x{2:X8} [2] 0x{3:X8}",
                 (SpellFamilyNames)_spell.SpellFamilyName, _spell.SpellFamilyFlags[0], _spell.SpellFamilyFlags[1], _spell.SpellFamilyFlags[2]);
 
             _rtb.AppendLine();
