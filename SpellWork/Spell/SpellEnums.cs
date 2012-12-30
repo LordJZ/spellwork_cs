@@ -567,7 +567,7 @@ namespace SpellWork.Spell
         SPELL_AURA_309                                      = 309,
         SPELL_AURA_MOD_CREATURE_AOE_DAMAGE_AVOIDANCE        = 310,
         SPELL_AURA_311                                      = 311,
-        SPELL_AURA_312                                      = 312,
+        SPELL_AURA_ANIM_REPLACEMENT_SET                     = 312,
         SPELL_AURA_313                                      = 313,
         SPELL_AURA_PREVENT_RESSURECTION                     = 314,
         SPELL_AURA_UNDERWATER_WALKING                       = 315,
