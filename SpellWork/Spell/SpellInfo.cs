@@ -34,6 +34,7 @@ namespace SpellWork.Spell
 
             _rtb.AppendFormatLine(_line);
             _rtb.AppendFormatLineIfNotNull("Description: {0}", _spell.Description);
+            _rtb.AppendFormatLine("Description variable ID: {0}", _spell.SpellDescriptionVariableID);
             _rtb.AppendFormatLineIfNotNull("ToolTip: {0}", _spell.ToolTip);
             _rtb.AppendFormatLineIfNotNull("Modal Next Spell: {0}", _spell.ModalNextSpell);
             if (_spell.Description != string.Empty && _spell.ToolTip != string.Empty && _spell.ModalNextSpell != 0)
