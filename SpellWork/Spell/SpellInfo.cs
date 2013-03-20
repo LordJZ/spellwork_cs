@@ -33,8 +33,26 @@ namespace SpellWork.Spell
             _rtb.SetDefaultStyle();
 
             _rtb.AppendFormatLine(_line);
-            _rtb.AppendFormatLineIfNotNull("Description: {0}", _spell.Description);
-            _rtb.AppendFormatLine("Description variable ID: {0}", _spell.SpellDescriptionVariableID);
+
+            if (_spell.SpellDescriptionVariableID != 0)
+            {
+                var variableQuery = from spellDescriptionVariable in DBC.DBC.SpellDescriptionVariables.Records
+                            where spellDescriptionVariable.Id == _spell.SpellDescriptionVariableID
+                            select new
+                            {
+                                Description = spellDescriptionVariable.Variables
+                            };
+
+                if (variableQuery.Count() != 0)
+                {
+                    _rtb.AppendFormatLineIfNotNull("Description: {0}", _spell.Description);
+                    _rtb.AppendFormatLine("Description variable ID: {0}", _spell.SpellDescriptionVariableID);
+                    _rtb.AppendFormatLine("Description variable: {0}", variableQuery.First().Description);
+                    _rtb.AppendFormatLine(_line);
+                }
+            } else
+                _rtb.AppendFormatLineIfNotNull("Description: {0}", _spell.Description);
+
             _rtb.AppendFormatLineIfNotNull("ToolTip: {0}", _spell.ToolTip);
             _rtb.AppendFormatLineIfNotNull("Modal Next Spell: {0}", _spell.ModalNextSpell);
             if (_spell.Description != string.Empty && _spell.ToolTip != string.Empty && _spell.ModalNextSpell != 0)

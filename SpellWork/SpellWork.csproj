@@ -102,6 +102,7 @@
     <Compile Include="DBC\Structures\SpellCategoriesEntry.cs" />
     <Compile Include="DBC\Structures\SpellClassOptionsEntry.cs" />
     <Compile Include="DBC\Structures\SpellCooldownsEntry.cs" />
+    <Compile Include="DBC\Structures\SpellDescriptionVariablesEntry.cs" />
     <Compile Include="DBC\Structures\SpellDifficultyEntry.cs" />
     <Compile Include="DBC\Structures\SpellDurationEntry.cs" />
     <Compile Include="DBC\Structures\SpellEffectEntry.cs" />
