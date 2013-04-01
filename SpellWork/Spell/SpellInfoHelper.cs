@@ -70,7 +70,7 @@ namespace SpellWork.Spell
         public uint ActiveIconID;                                 // 134      m_activeIconID
         public string SpellName;                                // 136-151  m_name_lang
         public string Rank;                                     // 153-168  m_nameSubtext_lang
-        public string Description;                              // 170-185  m_description_lang not used
+        public string _Description;                              // 170-185  m_description_lang not used
         public string ToolTip;                                  // 187-202  m_auraDescription_lang not used
         public uint ManaCostPercentage;                           // 204      m_manaCostPct
         public uint StartRecoveryCategory;                        // 205      m_startRecoveryCategory
@@ -175,6 +175,24 @@ namespace SpellWork.Spell
 
         public string ScalingText { get { return Scaling != null ? String.Format(" (Level {0})", DBC.DBC.SelectedLevel) : String.Empty; } }
 
+        public string Description
+        {
+            get
+            {
+                var sb = new StringBuilder();
+                if (!String.IsNullOrEmpty(_Description))
+                    sb.AppendFormatLine("Description: {0}", _Description);
+
+                if (SpellDescriptionVariableID == 0 || !DBC.DBC.SpellDescriptionVariables.ContainsKey(SpellDescriptionVariableID))
+                    return sb.ToString();
+
+                var sdesc = DBC.DBC.SpellDescriptionVariables[SpellDescriptionVariableID];
+                sb.AppendFormatLine("Description variable Id: {0}", sdesc.Id);
+                sb.AppendFormatLine("Description variable: {0}", sdesc.Variables);
+                return sb.ToString();
+            }
+        }
+
         public SpellInfoHelper(SpellEntry dbcData)
         {
             ID = dbcData.Id;
@@ -199,7 +217,7 @@ namespace SpellWork.Spell
             ActiveIconID = dbcData.ActiveIconID;
             SpellName = dbcData.SpellName;
             Rank = dbcData.Rank;
-            Description = dbcData.Description;
+            _Description = dbcData.Description;
             ToolTip = dbcData.ToolTip;
             SchoolMask = dbcData.SchoolMask;
             RuneCostID = dbcData.RuneCostID;
@@ -317,7 +335,7 @@ namespace SpellWork.Spell
             if (classOptions != null)
             {
                 ModalNextSpell = classOptions.ModalNextSpell;
-                Description = String.IsNullOrEmpty(Description) ? classOptions.Description : Description;
+                _Description = String.IsNullOrEmpty(Description) ? classOptions.Description : _Description;
                 SpellFamilyName = classOptions.SpellFamilyName;
                 SpellFamilyFlags = (uint[])classOptions.SpellFamilyFlags.Clone();
             }

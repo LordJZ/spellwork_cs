@@ -72,7 +72,7 @@ namespace SpellWork.DBC
                     using (var strm = new FileStream(String.Format("{0}\\{1}.dbc", DbcPath, dbc.Name), FileMode.Open))
                         dbc.FieldType.GetMethod("Load", new Type[] { typeof(FileStream) }).Invoke(dbc.GetValue(null), new object[] { strm });
                 }
-                catch (DirectoryNotFoundException dnfe)
+                catch (DirectoryNotFoundException)
                 {
                     throw new DirectoryNotFoundException(String.Format("Could not open {0}.dbc!", dbc.Name));
                 }
