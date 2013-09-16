@@ -79,9 +79,11 @@
             // 
             // _rtbSpellInfo
             // 
+            this._rtbSpellInfo.BackColor = System.Drawing.Color.Gainsboro;
             this._rtbSpellInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this._rtbSpellInfo.Location = new System.Drawing.Point(0, 0);
             this._rtbSpellInfo.Name = "_rtbSpellInfo";
+            this._rtbSpellInfo.ReadOnly = true;
             this._rtbSpellInfo.Size = new System.Drawing.Size(381, 455);
             this._rtbSpellInfo.TabIndex = 11;
             this._rtbSpellInfo.Text = "";
