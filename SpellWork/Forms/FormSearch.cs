@@ -104,7 +104,7 @@ namespace SpellWork.Forms
             Close();
         }
 
-        private void CencelClick(object sender, EventArgs e)
+        private void CancelClick(object sender, EventArgs e)
         {
             Close();
         }

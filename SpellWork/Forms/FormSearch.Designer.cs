@@ -32,7 +32,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this._rtbSpellInfo = new System.Windows.Forms.RichTextBox();
             this._bOk = new System.Windows.Forms.Button();
-            this._bCencel = new System.Windows.Forms.Button();
+            this._bCancel = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -70,7 +70,7 @@
             // splitContainer1.Panel2
             //
             this.splitContainer1.Panel2.Controls.Add(this._bOk);
-            this.splitContainer1.Panel2.Controls.Add(this._bCencel);
+            this.splitContainer1.Panel2.Controls.Add(this._bCancel);
             this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
             this.splitContainer1.Size = new System.Drawing.Size(672, 455);
             this.splitContainer1.SplitterDistance = 381;
@@ -96,16 +96,16 @@
             this._bOk.UseVisualStyleBackColor = true;
             this._bOk.Click += new System.EventHandler(this.OkClick);
             //
-            // _bCencel
+            // _bCancel
             //
-            this._bCencel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this._bCencel.Location = new System.Drawing.Point(128, 425);
-            this._bCencel.Name = "_bCencel";
-            this._bCencel.Size = new System.Drawing.Size(75, 23);
-            this._bCencel.TabIndex = 10;
-            this._bCencel.Text = "Cencel";
-            this._bCencel.UseVisualStyleBackColor = true;
-            this._bCencel.Click += new System.EventHandler(this.CencelClick);
+            this._bCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this._bCancel.Location = new System.Drawing.Point(128, 425);
+            this._bCancel.Name = "_bCancel";
+            this._bCancel.Size = new System.Drawing.Size(75, 23);
+            this._bCancel.TabIndex = 10;
+            this._bCancel.Text = "Cancel";
+            this._bCancel.UseVisualStyleBackColor = true;
+            this._bCancel.Click += new System.EventHandler(this.CancelClick);
             //
             // groupBox1
             //
@@ -322,7 +322,7 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.RichTextBox _rtbSpellInfo;
         private System.Windows.Forms.Button _bOk;
-        private System.Windows.Forms.Button _bCencel;
+        private System.Windows.Forms.Button _bCancel;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ListView _lvSpellList;
         private System.Windows.Forms.GroupBox groupBox2;
