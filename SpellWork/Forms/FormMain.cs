@@ -54,12 +54,12 @@ namespace SpellWork.Forms
 
         #region FORM
 
-        private static void ExitClick(object sender, EventArgs e)
+        private void ExitClick(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private static void AboutClick(object sender, EventArgs e)
+        private void AboutClick(object sender, EventArgs e)
         {
             var ab = new FormAboutBox();
             ab.ShowDialog();
@@ -121,7 +121,7 @@ namespace SpellWork.Forms
             ConnStatus();
         }
 
-        private static void TextBoxKeyPress(object sender, KeyPressEventArgs e)
+        private void TextBoxKeyPress(object sender, KeyPressEventArgs e)
         {
             if (!((Char.IsDigit(e.KeyChar) || e.KeyChar == (char)Keys.Back)))
                 e.Handled = true;
@@ -538,7 +538,7 @@ namespace SpellWork.Forms
                 return;
             }
 
-            var sb = new StringBuilder("WHERE  ");
+            var sb = new StringBuilder("WHERE");
             var compare = _cbBinaryCompare.Checked ? "&" : "=";
 
             if (_cbSqlSpellFamily.SelectedValue.ToInt32() != -1)
@@ -546,13 +546,22 @@ namespace SpellWork.Forms
 
             sb.AppendFormatIfNotNull(" SchoolMask {1} {0} &&", _tbSqlSchool.Text.ToInt32(), compare);
             sb.AppendFormatIfNotNull(" procFlags {1} {0} &&", _tbSqlProc.Text.ToInt32(), compare);
-            sb.AppendFormatIfNotNull(" procEx {1} {0} &&", _tbSqlProcEx.Text.ToInt32(), compare);
+            sb.AppendFormatIfNotNull(" procEx {1} {0}", _tbSqlProcEx.Text.ToInt32(), compare);
 
-            var subquery = sb.ToString().Remove(sb.Length - 2, 2);
-            subquery = subquery == "WHERE" ? string.Empty : subquery;
+            var subquery = sb.ToString() == "WHERE" ? string.Empty : sb.ToString();
+            
+            if (subquery == string.Empty && _tbSqlManual.Text != string.Empty)
+                subquery = "WHERE " + _tbSqlManual.Text;
 
             var query = String.Format("SELECT * FROM `spell_proc_event` {0} ORDER BY entry", subquery);
-            MySqlConnection.SelectProc(query);
+            try
+            {
+                MySqlConnection.SelectProc(query);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
 
             _lvDataList.VirtualListSize = MySqlConnection.SpellProcEvent.Count;
             if (_lvDataList.SelectedIndices.Count > 0)
@@ -632,7 +641,7 @@ namespace SpellWork.Forms
                                  {_spellProcList[e.ItemIndex].ID.ToString(), _spellProcList[e.ItemIndex].SpellNameRank});
         }
 
-        private static void LvSqlDataRetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
+        private void LvSqlDataRetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
         {
             e.Item = new ListViewItem(MySqlConnection.SpellProcEvent[e.ItemIndex].ToArray());
         }
