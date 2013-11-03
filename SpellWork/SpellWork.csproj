@@ -88,9 +88,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Database\Structures.cs" />
+    <Compile Include="DBC\DataStoreFileNameAttribute.cs" />
     <Compile Include="DBC\Structures\AreaGroupEntry.cs" />
     <Compile Include="DBC\Structures\AreaTableEntry.cs" />
     <Compile Include="DBC\Structures\gtSpellScalingEntry.cs" />
+    <Compile Include="DBC\Structures\ItemEntry.cs" />
+    <Compile Include="DBC\Structures\ItemSparseEntry.cs" />
     <Compile Include="DBC\Structures\OverrideSpellDataEntry.cs" />
     <Compile Include="DBC\Structures\ScreenEffectEntry.cs" />
     <Compile Include="DBC\Structures\SkillLineAbilityEntry.cs" />

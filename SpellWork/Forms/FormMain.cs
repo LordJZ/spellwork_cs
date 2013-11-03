@@ -99,8 +99,7 @@ namespace SpellWork.Forms
             {
                 _dbConnect.Text = @"Connection successful.";
                 _dbConnect.ForeColor = Color.Green;
-                // read db data
-                DBC.DBC.ItemTemplate = MySqlConnection.SelectItems();
+                Database.MySqlConnection.AddDBItems();
             }
             else
             {

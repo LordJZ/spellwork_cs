@@ -618,9 +618,6 @@ namespace SpellWork.Spell
 
         private void AppendItemInfo()
         {
-            if (!MySqlConnection.Connected)
-                return;
-
             var items = from item in DBC.DBC.ItemTemplate
                         where  item.SpellId.ContainsElement((int)_spell.ID)
                         select item;

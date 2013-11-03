@@ -55,6 +55,11 @@ namespace SpellWork.DBC
         public static DBCStorage<SpellTotemsEntry> SpellTotems = new DBCStorage<SpellTotemsEntry>();
         public static DBCStorage<SpellVisualEntry> SpellVisual = new DBCStorage<SpellVisualEntry>();
 
+        public static DB2Storage<ItemEntry> Item = new DB2Storage<ItemEntry>();
+
+        [DataStoreFileName("Item-sparse")]
+        public static DB2Storage<ItemSparseEntry> ItemSparse = new DB2Storage<ItemSparseEntry>();
+
         public static Dictionary<uint, SpellInfoHelper> SpellInfoStore = new Dictionary<uint, SpellInfoHelper>();
 
         public static void Load()
@@ -64,12 +69,23 @@ namespace SpellWork.DBC
                 if (!dbc.FieldType.IsGenericType)
                     continue;
 
-                if (dbc.FieldType.GetGenericTypeDefinition() != typeof(DBCStorage<>))
+                string extension;
+                if (dbc.FieldType.GetGenericTypeDefinition() == typeof(DBCStorage<>))
+                    extension = "dbc";
+                else if (dbc.FieldType.GetGenericTypeDefinition() == typeof(DB2Storage<>))
+                    extension = "db2";
+                else
                     continue;
+
+                string name = dbc.Name;
+                
+                DataStoreFileNameAttribute[] attributes = dbc.GetCustomAttributes(typeof(DataStoreFileNameAttribute), false) as DataStoreFileNameAttribute[];
+                if (attributes.Length == 1)
+                    name = attributes[0].FileName;
 
                 try
                 {
-                    using (var strm = new FileStream(String.Format("{0}\\{1}.dbc", DbcPath, dbc.Name), FileMode.Open))
+                    using (var strm = new FileStream(String.Format("{0}\\{1}.{2}", DbcPath, name, extension), FileMode.Open))
                         dbc.FieldType.GetMethod("Load", new Type[] { typeof(FileStream) }).Invoke(dbc.GetValue(null), new object[] { strm });
                 }
                 catch (DirectoryNotFoundException)
@@ -101,6 +117,24 @@ namespace SpellWork.DBC
                     effect.RandomPointsScalingMultiplier = scaling.RandomPointsMultiplier[effect.Index];
                     effect.ComboPointsScalingMultiplier = scaling.OtherMultiplier[effect.Index];
                 }
+            }
+
+            foreach (var item in ItemSparse)
+            {
+                ItemTemplate.Add(new Item
+                {
+                    Entry = item.Id,
+                    Name = item.Name,
+                    Description = item.Description,
+                    SpellId = new[] 
+                    {
+                        item.SpellId[0],
+                        item.SpellId[1],
+                        item.SpellId[2],
+                        item.SpellId[3],
+                        item.SpellId[4]
+                    }
+                });
             }
         }
 

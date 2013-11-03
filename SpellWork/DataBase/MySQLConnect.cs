@@ -83,9 +83,8 @@ namespace SpellWork.Database
             _command.Connection.Close();
         }
 
-        public static List<Item> SelectItems()
+        public static void AddDBItems()
         {
-            var items = DBC.DBC.ItemTemplate;
             // In order to reduce the search time, we make the first selection of all items that have spellid
             var query = String.Format(
                 @"SELECT    t.entry,
@@ -114,26 +113,23 @@ namespace SpellWork.Database
                 {
                     while (reader.Read())
                     {
-                        items.Add(new Item
+                        DBC.DBC.ItemTemplate.Add(new Item
                         {
                             Entry               = reader.GetUInt32(0),
                             Name                = reader.GetString(1),
                             Description         = reader.GetString(2),
-                            LocalesName         = reader.IsDBNull(3) ? string.Empty : reader.GetString(3),
-                            LocalesDescription  = reader.IsDBNull(4) ? string.Empty : reader.GetString(4),
                             SpellId             = new[]
                             {
+                                reader.GetInt32(3),
+                                reader.GetInt32(4),
                                 reader.GetInt32(5),
                                 reader.GetInt32(6),
-                                reader.GetInt32(7),
-                                reader.GetInt32(8),
-                                reader.GetInt32(9)
+                                reader.GetInt32(7)
                             }
                         });
                     }
                 }
              }
-            return items;
         }
 
         public static void TestConnect()
