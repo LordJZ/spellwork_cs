@@ -106,7 +106,7 @@
     </Compile>
     <Compile Include="Extensions\RichTextBoxExtensions.cs" />
     <Compile Include="Extensions\Extensions.cs" />
-    <Compile Include="Database\MySQLConnect.cs" />
+    <Compile Include="DataBase\MySQLConnect.cs" />
     <Compile Include="Forms\FormSettings.cs">
       <SubType>Form</SubType>
     </Compile>
