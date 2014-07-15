@@ -1276,7 +1276,7 @@ namespace SpellWork.Spell
         SPELL_ATTR2_UNK25                            = 0x02000000, // 25
         SPELL_ATTR2_UNK26                            = 0x04000000, // 26 unaffected by school immunity
         SPELL_ATTR2_UNK27                            = 0x08000000, // 27
-        SPELL_ATTR2_UNK28                            = 0x10000000, // 28 
+        SPELL_ATTR2_UNK28                            = 0x10000000, // 28
         SPELL_ATTR2_CANT_CRIT                        = 0x20000000, // 29 Spell can't crit
         SPELL_ATTR2_TRIGGERED_CAN_TRIGGER_PROC       = 0x40000000, // 30 spell can trigger even if triggered
         SPELL_ATTR2_FOOD_BUFF                        = 0x80000000  // 31 Food or Drink Buff (like Well Fed)
@@ -1300,7 +1300,7 @@ namespace SpellWork.Spell
         SPELL_ATTR3_MAIN_HAND                        = 0x00000400, // 10 Main hand weapon required
         SPELL_ATTR3_BATTLEGROUND                     = 0x00000800, // 11 Can casted only on battleground
         SPELL_ATTR3_ONLY_TARGET_GHOSTS               = 0x00001000, // 12
-        SPELL_ATTR3_UNK13                            = 0x00002000, // 13
+        SPELL_ATTR3_DONT_DISPLAY_CHANNEL_BAR         = 0x00002000, // 13 Clientside attribute - will not display channeling bar
         SPELL_ATTR3_IS_HONORLESS_TARGET              = 0x00004000, // 14 "Honorless Target" only this spells have this flag
         SPELL_ATTR3_UNK15                            = 0x00008000, // 15 Auto Shoot, Shoot, Throw,  - this is autoshot flag
         SPELL_ATTR3_CANT_TRIGGER_PROC                = 0x00010000, // 16 confirmed with many patchnotes
@@ -1449,7 +1449,7 @@ namespace SpellWork.Spell
         SPELL_ATTR7_IS_CHEAT_SPELL                   = 0x00000008, //  3 Cannot cast if caster doesn't have UnitFlag2 & UNIT_FLAG2_ALLOW_CHEAT_SPELLS
         SPELL_ATTR7_UNK4                             = 0x00000010, //  4 Only 47883 (Soulstone Resurrection) and test spell.
         SPELL_ATTR7_SUMMON_PLAYER_TOTEM              = 0x00000020, //  5 Only Shaman player totems.
-        SPELL_ATTR7_UNK6                             = 0x00000040, //  6 Dark Surge, Surge of Light, Burning Breath triggers (boss spells).
+        SPELL_ATTR7_NO_PUSHBACK_ON_DAMAGE            = 0x00000040, //  6 Does not cause spell pushback on damage
         SPELL_ATTR7_UNK7                             = 0x00000080, //  7 66218 (Launch) spell.
         SPELL_ATTR7_HORDE_ONLY                       = 0x00000100, //  8 Teleports, mounts and other spells.
         SPELL_ATTR7_ALLIANCE_ONLY                    = 0x00000200, //  9 Teleports, mounts and other spells.
@@ -1459,7 +1459,7 @@ namespace SpellWork.Spell
         SPELL_ATTR7_UNK13                            = 0x00002000, // 13 Not set in 3.2.2a.
         SPELL_ATTR7_UNK14                            = 0x00004000, // 14 Only 52150 (Raise Dead - Pet) spell.
         SPELL_ATTR7_UNK15                            = 0x00008000, // 15 Exorcism. Usable on players? 100% crit chance on undead and demons?
-        SPELL_ATTR7_UNK16                            = 0x00010000, // 16 Druid spells (29166, 54833, 64372, 68285).
+        SPELL_ATTR7_CAN_RESTORE_SECONDARY_POWER      = 0x00010000, // 16 These spells can replenish a powertype, which is not the current powertype
         SPELL_ATTR7_UNK17                            = 0x00020000, // 17 Only 27965 (Suicide) spell.
         SPELL_ATTR7_HAS_CHARGE_EFFECT                = 0x00040000, // 18 Only spells that have Charge among effects.
         SPELL_ATTR7_ZONE_TELEPORT                    = 0x00080000, // 19 Teleports to specific zones.

@@ -161,7 +161,8 @@ namespace SpellWork.Spell
 
             _rtb.AppendLine(_spell.Duration);
 
-            if (_spell.ManaCost != 0 || _spell.ManaCostPercentage != 0)
+            if (_spell.ManaCost != 0 || _spell.ManaCostPercentage != 0 || _spell.PowerType != 0 ||
+                _spell.ManaCostPerlevel != 0 || _spell.ManaPerSecond != 0 || _spell.ManaPerSecondPerLevel != 0)
             {
                 _rtb.AppendFormat("Power {0}, Cost {1}",
                     (Powers)_spell.PowerType, _spell.ManaCost == 0 ? _spell.ManaCostPercentage + " %" : _spell.ManaCost.ToString());
