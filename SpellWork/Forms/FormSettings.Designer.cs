@@ -181,12 +181,13 @@
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(234, 230);
+            this.ClientSize = new System.Drawing.Size(234, 229);
             this.Controls.Add(this._bSaveSettings);
             this.Controls.Add(this._bTestConnect);
             this.Controls.Add(this._cbUseDBConnect);
             this.Controls.Add(this._gbDbSetting);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(250, 268);
             this.MinimizeBox = false;
@@ -196,6 +197,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "SpellWork Settings";
             this.Load += new System.EventHandler(this.SettingsFormLoad);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormSettings_KeyDown);
             this._gbDbSetting.ResumeLayout(false);
             this._gbDbSetting.PerformLayout();
             this.ResumeLayout(false);

@@ -86,16 +86,15 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this._bNo;
-            this.ClientSize = new System.Drawing.Size(292, 297);
+            this.ClientSize = new System.Drawing.Size(284, 299);
             this.Controls.Add(this._lFlagValue);
             this.Controls.Add(this._clbCalcFlags);
             this.Controls.Add(this._bOk);
             this.Controls.Add(this._bNo);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(300, 331);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(300, 331);
             this.Name = "FormCalculateFlags";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

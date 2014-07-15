@@ -32,7 +32,7 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this._rtbSpellInfo = new System.Windows.Forms.RichTextBox();
             this._bOk = new System.Windows.Forms.Button();
-            this._bCencel = new System.Windows.Forms.Button();
+            this._bCancel = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -49,6 +49,7 @@
             this._cbSpellEffect = new System.Windows.Forms.ComboBox();
             this._cbSpellAura = new System.Windows.Forms.ComboBox();
             this._cbSpellFamily = new System.Windows.Forms.ComboBox();
+            this.buttonSearch = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -71,7 +72,7 @@
             // splitContainer1.Panel2
             //
             this.splitContainer1.Panel2.Controls.Add(this._bOk);
-            this.splitContainer1.Panel2.Controls.Add(this._bCencel);
+            this.splitContainer1.Panel2.Controls.Add(this._bCancel);
             this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
             this.splitContainer1.Size = new System.Drawing.Size(672, 455);
             this.splitContainer1.SplitterDistance = 381;
@@ -79,9 +80,11 @@
             //
             // _rtbSpellInfo
             //
+            this._rtbSpellInfo.BackColor = System.Drawing.Color.Gainsboro;
             this._rtbSpellInfo.Dock = System.Windows.Forms.DockStyle.Fill;
             this._rtbSpellInfo.Location = new System.Drawing.Point(0, 0);
             this._rtbSpellInfo.Name = "_rtbSpellInfo";
+            this._rtbSpellInfo.ReadOnly = true;
             this._rtbSpellInfo.Size = new System.Drawing.Size(381, 455);
             this._rtbSpellInfo.TabIndex = 11;
             this._rtbSpellInfo.Text = "";
@@ -97,22 +100,23 @@
             this._bOk.UseVisualStyleBackColor = true;
             this._bOk.Click += new System.EventHandler(this.OkClick);
             //
-            // _bCencel
+            // _bCancel
             //
-            this._bCencel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this._bCencel.Location = new System.Drawing.Point(128, 425);
-            this._bCencel.Name = "_bCencel";
-            this._bCencel.Size = new System.Drawing.Size(75, 23);
-            this._bCencel.TabIndex = 10;
-            this._bCencel.Text = "Cancel";
-            this._bCencel.UseVisualStyleBackColor = true;
-            this._bCencel.Click += new System.EventHandler(this.CencelClick);
-            //
+            this._bCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this._bCancel.Location = new System.Drawing.Point(128, 425);
+            this._bCancel.Name = "_bCancel";
+            this._bCancel.Size = new System.Drawing.Size(75, 23);
+            this._bCancel.TabIndex = 10;
+            this._bCancel.Text = "Cancel";
+            this._bCancel.UseVisualStyleBackColor = true;
+            this._bCancel.Click += new System.EventHandler(this.CancelClick);
+            // 
             // groupBox1
             //
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.buttonSearch);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this._lIDName);
@@ -181,7 +185,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this._tbIdName.Location = new System.Drawing.Point(74, 14);
             this._tbIdName.Name = "_tbIdName";
-            this._tbIdName.Size = new System.Drawing.Size(198, 20);
+            this._tbIdName.Size = new System.Drawing.Size(145, 20);
             this._tbIdName.TabIndex = 0;
             this._tbIdName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.IdNameKeyDown);
             //
@@ -296,9 +300,19 @@
             this._cbSpellFamily.Size = new System.Drawing.Size(263, 21);
             this._cbSpellFamily.TabIndex = 3;
             this._cbSpellFamily.SelectedIndexChanged += new System.EventHandler(this.SpellFamilySelectedIndexChanged);
-            //
+            // 
+            // buttonSearch
+            // 
+            this.buttonSearch.Location = new System.Drawing.Point(219, 13);
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.Size = new System.Drawing.Size(53, 22);
+            this.buttonSearch.TabIndex = 9;
+            this.buttonSearch.Text = "Search";
+            this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
+            // 
             // FormSearch
-            //
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(672, 455);
@@ -324,7 +338,7 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.RichTextBox _rtbSpellInfo;
         private System.Windows.Forms.Button _bOk;
-        private System.Windows.Forms.Button _bCencel;
+        private System.Windows.Forms.Button _bCancel;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ListView _lvSpellList;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -341,5 +355,6 @@
         private System.Windows.Forms.ComboBox _cbSpellEffect;
         private System.Windows.Forms.ComboBox _cbSpellAura;
         private System.Windows.Forms.ComboBox _cbSpellFamily;
+        private System.Windows.Forms.Button buttonSearch;
     }
 }
