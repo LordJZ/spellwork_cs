@@ -94,5 +94,17 @@ namespace SpellWork.Properties {
                 this["UseDbConnect"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("dbc")]
+        public string DbcPath {
+            get {
+                return ((string)(this["DbcPath"]));
+            }
+            set {
+                this["DbcPath"] = value;
+            }
+        }
     }
 }

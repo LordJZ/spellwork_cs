@@ -42,7 +42,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this._cbUseDBConnect = new System.Windows.Forms.CheckBox();
             this._bTestConnect = new System.Windows.Forms.Button();
+            this._tbPath = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this._bSaveSettings = new System.Windows.Forms.Button();
+            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this._gbDbSetting.SuspendLayout();
             this.SuspendLayout();
             //
@@ -60,7 +64,7 @@
             this._gbDbSetting.Controls.Add(this.label1);
             this._gbDbSetting.Location = new System.Drawing.Point(12, 12);
             this._gbDbSetting.Name = "_gbDbSetting";
-            this._gbDbSetting.Size = new System.Drawing.Size(217, 158);
+            this._gbDbSetting.Size = new System.Drawing.Size(217, 149);
             this._gbDbSetting.TabIndex = 0;
             this._gbDbSetting.TabStop = false;
             this._gbDbSetting.Text = "Date Base Connect Settings";
@@ -145,11 +149,29 @@
             this.label1.Size = new System.Drawing.Size(29, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Host";
+            // 
+            // _tbPath
+            // 
+            this._tbPath.Location = new System.Drawing.Point(66, 196);
+            this._tbPath.Name = "_tbPath";
+            this._tbPath.Size = new System.Drawing.Size(152, 20);
+            this._tbPath.TabIndex = 6;
+            this._tbPath.Click += new System.EventHandler(this._tbPathClick);
+            this._tbPath.MouseHover += new System.EventHandler(this._tbPathMouseHover);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(9, 199);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(54, 13);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "DBC Path";
             //
             // _cbUseDBConnect
             //
             this._cbUseDBConnect.AutoSize = true;
-            this._cbUseDBConnect.Location = new System.Drawing.Point(21, 176);
+            this._cbUseDBConnect.Location = new System.Drawing.Point(11, 171);
             this._cbUseDBConnect.Name = "_cbUseDBConnect";
             this._cbUseDBConnect.Size = new System.Drawing.Size(106, 17);
             this._cbUseDBConnect.TabIndex = 5;
@@ -159,7 +181,7 @@
             //
             // _bTestConnect
             //
-            this._bTestConnect.Location = new System.Drawing.Point(12, 199);
+            this._bTestConnect.Location = new System.Drawing.Point(123, 167);
             this._bTestConnect.Name = "_bTestConnect";
             this._bTestConnect.Size = new System.Drawing.Size(95, 23);
             this._bTestConnect.TabIndex = 6;
@@ -169,7 +191,7 @@
             //
             // _bSaveSettings
             //
-            this._bSaveSettings.Location = new System.Drawing.Point(134, 199);
+            this._bSaveSettings.Location = new System.Drawing.Point(66, 222);
             this._bSaveSettings.Name = "_bSaveSettings";
             this._bSaveSettings.Size = new System.Drawing.Size(95, 23);
             this._bSaveSettings.TabIndex = 7;
@@ -177,21 +199,35 @@
             this._bSaveSettings.UseVisualStyleBackColor = true;
             this._bSaveSettings.Click += new System.EventHandler(this.BSaveSettingsClick);
             //
+            // folderBrowserDialog1
+            // 
+            this.folderBrowserDialog1.RootFolder = System.Environment.SpecialFolder.DesktopDirectory;
+            this.folderBrowserDialog1.SelectedPath = ".";
+            this.folderBrowserDialog1.ShowNewFolderButton = false;
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.AutoPopDelay = 5000;
+            this.toolTip1.InitialDelay = 0;
+            this.toolTip1.ReshowDelay = 0;
+            // 
             // FormSettings
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(234, 229);
+            this.ClientSize = new System.Drawing.Size(234, 250);
             this.Controls.Add(this._bSaveSettings);
             this.Controls.Add(this._bTestConnect);
             this.Controls.Add(this._cbUseDBConnect);
+            this.Controls.Add(this._tbPath);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this._gbDbSetting);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(250, 268);
+            this.MaximumSize = new System.Drawing.Size(250, 288);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(250, 268);
+            this.MinimumSize = new System.Drawing.Size(250, 288);
             this.Name = "FormSettings";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -221,5 +257,9 @@
         private System.Windows.Forms.CheckBox _cbUseDBConnect;
         private System.Windows.Forms.Button _bTestConnect;
         private System.Windows.Forms.Button _bSaveSettings;
+        private System.Windows.Forms.TextBox _tbPath;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

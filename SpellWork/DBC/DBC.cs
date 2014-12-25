@@ -6,13 +6,13 @@ using DBFilesClient.NET;
 using SpellWork.Database;
 using SpellWork.DBC.Structures;
 using SpellWork.Spell;
+using SpellWork.Properties;
 
 namespace SpellWork.DBC
 {
     public static class DBC
     {
         public const string Version = "SpellWork 4.3.4 (15595)";
-        public const string DbcPath = @"dbc";
         public const uint MaxLevel  = 85;
 
         public const int MaxDbcLocale                 = 16;
@@ -64,6 +64,16 @@ namespace SpellWork.DBC
 
         public static void Load()
         {
+            if (!Directory.Exists(Settings.Default.DbcPath))
+            {
+                System.Windows.Forms.FolderBrowserDialog browserDialog = new System.Windows.Forms.FolderBrowserDialog();
+                if (browserDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    Settings.Default.DbcPath = browserDialog.SelectedPath;
+                    Settings.Default.Save();
+                }
+            }
+
             foreach (var dbc in typeof(DBC).GetFields(BindingFlags.Static | BindingFlags.Public))
             {
                 if (!dbc.FieldType.IsGenericType)
@@ -85,7 +95,7 @@ namespace SpellWork.DBC
 
                 try
                 {
-                    using (var strm = new FileStream(String.Format("{0}\\{1}.{2}", DbcPath, name, extension), FileMode.Open))
+                    using (var strm = new FileStream(String.Format("{0}\\{1}.{2}", Settings.Default.DbcPath, name, extension), FileMode.Open))
                         dbc.FieldType.GetMethod("Load", new Type[] { typeof(FileStream) }).Invoke(dbc.GetValue(null), new object[] { strm });
                 }
                 catch (DirectoryNotFoundException)
